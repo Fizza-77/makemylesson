@@ -1,18 +1,18 @@
 # Screen Mapping (Flutter → Next.js)
 
-Next.js routes mirror Flutter **logical** paths on **`https://makemylesson.app`** at the **site root** (no `/app` prefix). Legacy `/app/*` URLs should redirect to the equivalent path (see `firebase-structure.md`).
+Next.js uses **web-friendly** routes. Flutter mobile keeps `/auth/...`. On `makemylesson.app`, legacy paths **301 redirect** to the web routes (see `next.config.ts`). **Firebase is not changed.**
 
-| Flutter screen | Route | Next.js `app/` route | Auth | Notes |
-|----------------|-------|----------------------|------|-------|
-| `SplashScreen` | `/splash` | Optional redirect to `/` on web | — | Mobile-only entry |
-| `OnboardingScreen` | `/onboarding` | `onboarding/page.tsx` → redirect `/` | — | Web redirect in router |
-| `LandingScreen` | `/` | `page.tsx` (home) | Optional | Wrapped in main nav shell |
-| `SignUpScreen` | `/auth/sign-up` | `auth/sign-up/page.tsx` | Public | OTP continuation |
-| `SignInScreen` | `/auth/sign-in` | `auth/sign-in/page.tsx` | Public | `?reason=` banner |
-| `ForgotPasswordScreen` | `/auth/forgot-password` | `auth/forgot-password/page.tsx` | Public | |
-| `OtpVerificationScreen` | `/auth/verify-otp` | `auth/verify-otp/page.tsx` | Public | State: email, flow, draft |
-| `ResetPasswordScreen` | `/auth/reset-password` | `auth/reset-password/page.tsx` | Public | `?oobCode=` |
-| `CompleteProfileScreen` | `/auth/complete-profile` | `auth/complete-profile/page.tsx` | Protected | Gate after auth |
+| Flutter screen | Flutter route (mobile / legacy) | Next.js route | Auth | Notes |
+|----------------|----------------------------------|---------------|------|-------|
+| `SplashScreen` | `/splash` | Optional redirect to `/` | — | Mobile-only entry |
+| `OnboardingScreen` | `/onboarding` | redirect → `/` | — | Web redirect |
+| `LandingScreen` | `/` | `(app)/page.tsx` | Optional | Main nav shell |
+| `SignUpScreen` | `/auth/sign-up` | `/signup` | Public | OTP continuation |
+| `SignInScreen` | `/auth/sign-in` | `/login` | Public | `?reason=` banner |
+| `ForgotPasswordScreen` | `/auth/forgot-password` | `/forgot-password` | Public | |
+| `OtpVerificationScreen` | `/auth/verify-otp` | `/verify-email` | Public | Draft in session |
+| `ResetPasswordScreen` | `/auth/reset-password` | `/reset-password` | Public | `?oobCode=` |
+| `CompleteProfileScreen` | `/auth/complete-profile` | `/complete-profile` | Protected | Gate after auth |
 | `Stage1PlanScreen` | `/stage1` | `stage1/page.tsx` | Soft/hard gate | Lesson plan wizard |
 | `Stage2PresentScreen` | `/stage2` | `stage2/page.tsx` | Soft/hard gate | Slide editor |
 | `Stage3AssessmentScreen` | `/stage3` | `stage3/page.tsx` | Soft/hard gate | Formative |

@@ -1,0 +1,325 @@
+/**
+ * Large desktop scale (1280px → 4K) — landing page + shared patterns.
+ * Imported at end of globals.css so these rules override base landing styles.
+ */
+
+/* ── Fluid shell (sync with Container.jsx) ── */
+@media (min-width: 1280px) {
+  .landing-page .W,
+  .landing-page .W.hero-shell {
+    width: min(94vw, 1920px);
+    max-width: 1920px;
+  }
+}
+
+@media (min-width: 2200px) {
+  .landing-page .W,
+  .landing-page .W.hero-shell {
+    width: min(92vw, 2100px);
+    max-width: 2100px;
+  }
+}
+
+/* ── Base landing scale ── */
+@media (min-width: 1280px) {
+  .landing-page {
+    --section-py-lg: 7rem;
+  }
+
+  .landing-page .sub {
+    max-width: min(100%, 46rem);
+  }
+
+  .landing-page .lp-label {
+    gap: 10px;
+  }
+
+  .landing-page .lp-label::before {
+    width: 20px;
+  }
+
+  .landing-page .section-head {
+    max-width: min(100%, 64rem);
+  }
+
+  .landing-page .btn {
+    font-size: clamp(0.9375rem, 0.2vw + 0.8rem, 1.0625rem);
+    padding: clamp(0.75rem, 0.4vw + 0.5rem, 1rem) clamp(1.25rem, 0.8vw + 1rem, 2rem);
+    border-radius: 10px;
+  }
+
+  .landing-page .btn-lg {
+    font-size: clamp(1rem, 0.25vw + 0.85rem, 1.1875rem);
+    padding: clamp(0.875rem, 0.5vw + 0.6rem, 1.25rem) clamp(1.5rem, 1vw + 1.2rem, 2.5rem);
+  }
+
+  .hero-inner {
+    gap: clamp(2rem, 4vw, 4.5rem);
+  }
+
+  .hero-title {
+    font-size: clamp(2.125rem, 3.2vw + 0.5rem, 4.25rem);
+  }
+
+  .hero-sub-lead,
+  .hero-sub {
+    font-size: var(--lp-body-fs);
+    line-height: var(--lp-body-lh);
+  }
+
+  .hero-left {
+    text-align: left;
+  }
+
+  .hero-title {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: min(100%, 56rem);
+  }
+
+  .hero-left .hero-sub,
+  .hero-left .hero-sub-lead,
+  .hero-left .hero-sub-fine {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: min(100%, 50rem);
+  }
+
+  .landing-page .hero-left .lp-label.lp-label-center {
+    justify-content: flex-start;
+    width: auto;
+  }
+
+  .hero-inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  .hero-visual {
+    max-width: min(100%, 440px);
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .hero-right-visual {
+    align-items: flex-start;
+  }
+
+  .hero-preview-trust {
+    padding: 14px 18px;
+  }
+
+  .hero-preview-trust-item {
+    font-size: var(--lp-ui-fs);
+    line-height: var(--lp-ui-lh);
+  }
+
+  .problem-cols {
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .feat-block {
+    gap: clamp(2rem, 5vw, 5rem);
+    padding: var(--section-py) 0;
+  }
+
+  .feat-ai-grid {
+    gap: clamp(1rem, 1.5vw, 1.75rem);
+  }
+
+  .feat-ai-card {
+    padding: clamp(1.25rem, 1.5vw, 1.75rem) clamp(1.125rem, 1.2vw, 1.625rem);
+  }
+
+  .feat-ai-card-title {
+    font-size: clamp(1.0625rem, 0.4vw + 0.9rem, 1.25rem);
+  }
+
+  .feat-ai-card-desc {
+    font-size: var(--lp-body-fs);
+    line-height: var(--lp-body-lh);
+  }
+
+  .complete-pack {
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .pricing-grid {
+    gap: clamp(1.125rem, 1.2vw, 1.5rem);
+  }
+
+  .price-card {
+    padding: clamp(1.5rem, 1.5vw, 2rem) clamp(1.25rem, 1.2vw, 1.75rem);
+  }
+
+  .rev-card {
+    width: clamp(290px, 18vw, 360px);
+    padding: clamp(1.125rem, 1vw, 1.5rem);
+  }
+}
+
+/* Section headings — shared bump */
+@media (min-width: 1280px) {
+  .landing-page .problem-side h2,
+  .landing-page .feat-h,
+  .landing-page .hiw-title-main,
+  .landing-page .methods-headline,
+  .landing-page .replaces-headline,
+  .landing-page .library-headline,
+  .landing-page .feat-ai-h2,
+  .landing-page .cur-head-title,
+  .landing-page .ayla-head-title,
+  .landing-page .trust-headline,
+  .landing-page .reviews-head-title,
+  .landing-page .pricing-head-title,
+  .landing-page .complete-pack h3 {
+    font-size: clamp(1.75rem, 2.2vw + 0.75rem, 3.25rem);
+  }
+
+  .landing-page .section-intro,
+  .landing-page .hiw .section-intro,
+  .landing-page .methods-section .section-intro.methods-intro,
+  .landing-page .replaces-section .replaces-intro-text,
+  .landing-page .library-intro-body,
+  .landing-page .cur .section-intro.cur-head-sub {
+    font-size: var(--lp-body-fs);
+    line-height: var(--lp-body-lh);
+  }
+
+  .stat-num {
+    font-size: clamp(1.75rem, 2.5vw + 1rem, 3rem);
+  }
+
+  .stat-label,
+  .stat-source {
+    font-size: var(--lp-ui-fs);
+    line-height: var(--lp-ui-lh);
+  }
+
+  .final-cta h2 {
+    font-size: clamp(2rem, 4vw + 0.5rem, 3.75rem);
+  }
+
+  .final-cta-lead {
+    font-size: var(--lp-body-fs);
+    line-height: var(--lp-body-lh);
+  }
+}
+
+@media (min-width: 1536px) {
+  .landing-page {
+    --section-py-lg: 7.5rem;
+  }
+
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 4vw, 5rem);
+  }
+
+  .hero-visual {
+    max-width: min(100%, 460px);
+  }
+
+  .hero-title {
+    font-size: clamp(2.375rem, 3.5vw + 0.5rem, 4.75rem);
+  }
+
+  .landing-page .problem-side h2,
+  .landing-page .feat-h,
+  .landing-page .hiw-title-main,
+  .landing-page .methods-headline,
+  .landing-page .replaces-headline,
+  .landing-page .library-headline,
+  .landing-page .feat-ai-h2,
+  .landing-page .cur-head-title,
+  .landing-page .ayla-head-title,
+  .landing-page .trust-headline,
+  .landing-page .reviews-head-title,
+  .landing-page .pricing-head-title,
+  .landing-page .complete-pack h3 {
+    font-size: clamp(2rem, 2.4vw + 0.85rem, 3.5rem);
+  }
+
+  .stage-card {
+    grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  }
+
+  .stage-num {
+    font-size: clamp(2.5rem, 3.5vw, 3.5rem);
+  }
+
+  .hiw-compact-card {
+    min-height: clamp(12rem, 14vw, 16rem);
+  }
+
+  .hiw-stage-title {
+    font-size: clamp(1.0625rem, 0.45vw + 0.9rem, 1.5rem);
+  }
+
+  .hiw-compact-preview {
+    font-size: clamp(0.9375rem, 0.25vw + 0.82rem, 1.125rem);
+  }
+}
+
+@media (min-width: 1800px) {
+  .landing-page {
+    --section-py-lg: 8rem;
+  }
+
+  .hero-visual {
+    max-width: min(100%, 460px);
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 3.8vw + 0.5rem, 5.25rem);
+  }
+
+  .landing-page .btn-lg {
+    font-size: 1.25rem;
+    padding: 1.125rem 2.75rem;
+  }
+
+  .curriculum-grid {
+    gap: clamp(1rem, 1.2vw, 1.5rem);
+  }
+
+  .curr-card {
+    padding: clamp(1.375rem, 1.2vw, 1.75rem);
+  }
+
+  .curr-card h3 {
+    font-size: clamp(1.0625rem, 0.35vw + 0.9rem, 1.25rem);
+  }
+}
+
+@media (min-width: 2200px) {
+  .hero-visual {
+    max-width: min(100%, 480px);
+  }
+
+  .hero-title {
+    font-size: clamp(2.75rem, 4vw + 0.5rem, 5.75rem);
+  }
+}
+
+/* Prose columns — readable line length; body uses --lp-body-fs / --lp-body-lh */
+@media (min-width: 1280px) {
+  .landing-page .problem-side p,
+  .landing-page .complete-pack h3 + p,
+  .landing-page .complete-pack > div > p,
+  .landing-page .feat-p,
+  .landing-page .feat-checks .feat-check,
+  .landing-page .final-cta-lead {
+    font-size: var(--lp-body-fs);
+    line-height: var(--lp-body-lh);
+    max-width: min(100%, 48rem);
+  }
+
+  .landing-page .ayla-feat-checks .feat-check,
+  .landing-page .ayla-copy .ayla-head-sub {
+    font-size: var(--lp-body-fs);
+    line-height: var(--lp-body-lh);
+    max-width: none;
+  }
+}

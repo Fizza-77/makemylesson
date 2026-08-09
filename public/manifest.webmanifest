@@ -1,0 +1,37 @@
+{
+  "name": "Make My Lesson",
+  "short_name": "MML",
+  "description": "AI lesson plans, presentations, activities, and assessments",
+  "start_url": "/stage1",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#1A1E3A",
+  "theme_color": "#1A1E3A",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.skyensolutions.makemylesson.make_my_lesson",
+      "id": "com.skyensolutions.makemylesson.make_my_lesson"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/id6762620632"
+    }
+  ],
+  "prefer_related_applications": false
+}

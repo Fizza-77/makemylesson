@@ -1,0 +1,171 @@
+Frequently Asked Questions
+Make My Lesson · Master FAQ Document · v2.0 · SEO-Optimized · 2026
+
+Keywords:
+AI lesson planner, AI lesson plan generator, curriculum-aligned teaching packs, lesson planning app for teachers, complete teaching pack, save time lesson planning, GCSE lesson plan, HSC lesson plan, IB lesson planner, mark scheme generator, Bloom's Taxonomy assessment, Ayla AI teaching assistant.
+
+Pricing (USD):
+- Monthly: $14.99 (30 credits/month)
+- Annual: $99.99/year (30 credits/month)
+- One-Time Top-Up: $29.99 for 50 credits (no expiry)
+- Department Plan: $349/year (up to 5 seats)
+- School Plan: $599/year (up to 10 seats)
+- Free trial: 5 free credits, no card required
+
+Q1. What is Make My Lesson?
+Make My Lesson is an AI-powered lesson planning platform for classroom teachers. It generates a complete curriculum-aligned teaching pack from one curriculum selection and one topic: lesson plan, classroom presentation, student activity plus teacher key, and summative assessment plus mark scheme.
+
+Q2. What does Make My Lesson generate?
+It generates 4 stages:
+1) Lesson Plan
+2) Classroom Presentation
+3) Classroom Activity (student sheet + teacher key)
+4) Summative Assessment (student paper + teacher mark scheme)
+Stages can be used together or independently.
+
+Q3. Who is Make My Lesson for?
+Primary, secondary, senior, IB, new and experienced teachers, and department/curriculum leads.
+
+Q4. Is Make My Lesson just a lesson plan generator?
+No. It is a complete planning platform covering lesson planning, presentation building, activity creation, assessment design, exports, and library management.
+
+Q5. How does Make My Lesson save time?
+Manual creation of a complete pack often takes 2.5 to 5 hours. Make My Lesson can generate it in under 10 minutes.
+
+Q6. Do I have to generate all four stages?
+No. Each stage is independent. Context carries across when used in sequence.
+
+Q7. What is different from generic AI tools?
+Generic tools create broad text. Make My Lesson creates curriculum-route-specific, classroom-ready resources, including separate student and teacher documents.
+
+Q8. Is Make My Lesson available globally?
+Yes. It is globally accessible. Checkout shows local currency equivalents while pricing basis remains USD.
+
+Q9. What does Stage 1 generate?
+A curriculum-aligned lesson plan with prior knowledge, measurable objectives, hook, main activity, differentiation, formative check, and homework/next step.
+
+Q10. What does Stage 2 generate?
+A classroom presentation with duration-based fixed slide counts, speaker notes, and educational images where relevant.
+
+Q11. What does Stage 3 generate?
+Always two documents:
+- Student Activity Sheet
+- Teacher Answer Key
+Supports multiple activity formats, 17 question types, and difficulty tracks.
+
+Q12. What are Stage 3 question types?
+17 types across recall, application, interpretation, and higher-order responses.
+
+Q13. What does Stage 4 generate?
+A summative assessment and mark scheme, aligned to route, with selectable durations and mark ranges.
+
+Q14. How does Bloom's Taxonomy balancing work?
+It is automatically applied in Stage 4 based on duration and route. Short assessments can exclude Evaluate-level tasks.
+
+Q15. How are teaching methods embedded?
+16 methods are supported and shape structure and pedagogy in outputs, not just labels.
+
+Q16. What is a complete teaching pack?
+All four stages together, producing seven classroom-ready documents, coherent and curriculum-aligned.
+
+Q17. Are outputs generic or curriculum-specific?
+Outputs are route-specific by curriculum family, board/authority conventions, year level, and subject framing.
+
+Q18. Which curricula are supported?
+71 routes across Australia, UK, Canada, IB (PYP/MYP/DP), and US pathways including AP.
+
+Q19. Is it designed for Australian teachers?
+Yes. It supports all states/territories and senior certificates with authority-specific framing.
+
+Q20. Does it support UK GCSE/A Level?
+Yes, including board conventions and command words.
+
+Q21. Does it support IB?
+Yes. PYP, MYP, and DP are handled with program-specific pedagogy and constraints.
+
+Q22. Does it support Canadian teachers?
+Yes. Provincial terminology/framework alignment is applied.
+
+Q23. Does it support US/AP?
+Yes. Elementary, middle, high school, and AP pathways are supported.
+
+Q24. Does it work for primary teachers?
+Yes. Primary outputs are age-appropriate and avoid senior/exam-only framing.
+
+Q25. Who is Ayla?
+Ayla is the in-app AI teaching assistant for refinement and adaptation of generated content.
+
+Q26. What can Ayla help with?
+Simplification, difficulty adjustments, rewrites by method, homework changes, slide prompt additions, mark scheme refinements, board-language reframing, and context localization.
+
+Q27. Does Ayla use credits?
+No. Ayla refinements are free. Full stage regeneration consumes credits.
+
+Q28. How do I access Ayla?
+From generated documents in the library through the Ayla entry point.
+
+Q29. What is a credit?
+1 credit = 1 stage generation.
+
+Q30. How many free credits do new users receive?
+5 credits on signup.
+
+Q31. How many credits does a complete teaching pack use?
+4 credits total.
+
+Q32. When are credits deducted?
+Only after successful generation and save. Failed generations do not consume credit.
+
+Q33. What happens when credits run low?
+Low-balance reminders appear. At 0 credits, generation is blocked and paywall shown; library remains accessible.
+
+Q34. What does monthly plan include?
+All stages, all routes, exports, Ayla, manual edits, and 30 monthly credits.
+
+Q35. Annual pricing and savings?
+$99.99/year (about $8.33/month equivalent), around 45% lower than paying monthly all year.
+
+Q36. One-time top-up details?
+50 credits for $29.99, one-time, no expiry.
+
+Q37. Do one-time credits expire?
+No.
+
+Q38. What is included in all paid plans?
+All four stages, full route coverage, teaching methods, Bloom's balancing, exports, library features, free edits, Ayla access, and referrals.
+
+Q39. Is there school/department pricing?
+Yes, seat-based annual plans with separate teacher accounts and admin seat management.
+
+Q40. How do school plans work?
+Admin shares invite link, teachers create individual accounts, each receives own library and credits.
+
+Q41. Can I buy extra credits before reset?
+Yes, top-up can be purchased any time.
+
+Q42. Is there a referral program?
+Yes. Every 5 successful referrals gives 1 free month. It is stackable.
+
+Q43. What is saved in My Library?
+Generated packs and stages with tabs, search, and filters.
+
+Q44. Can I edit generated content manually?
+Yes. Manual editing is always free.
+
+Q45. What formats can I export?
+PDF/DOCX for documents, PPTX for presentations, ZIP for complete pack.
+
+Q46. Can I post to Google Classroom and Teams?
+Yes, with student/teacher routing behavior by document type.
+
+Q47. Is Make My Lesson available on mobile?
+Yes. Web, iOS, and Android with synced library/content.
+
+Q48. Does it guarantee official papers or grade outcomes?
+No. It does not reproduce official papers and does not guarantee outcomes; teacher verification is required.
+
+Q49. Do teachers still need to review AI outputs?
+Yes. Professional review and adaptation are required before classroom use.
+
+Q50. Simplest description?
+Select your curriculum. Type your topic. Receive a complete classroom-ready teaching pack in minutes.

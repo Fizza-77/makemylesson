@@ -1,0 +1,59 @@
+"use client";
+
+import { TipsResourcesCard } from "@/components/common/TipsResourcesCard";
+import { Stage4FinalChecklist } from "@/components/common/Stage4FinalChecklist";
+import { AylaChatPanel } from "@/features/ayla/AylaChatPanel";
+import type { StageSidebarContext } from "@/data/stage-tips";
+import { cn } from "@/lib/utils";
+
+/**
+ * Stage body: main content left; tips (or Stage 4 checklist) + Ayla on the right.
+ */
+export function StageWorkspace({
+  context,
+  children,
+  className,
+}: {
+  context: StageSidebarContext;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const isStage4 = context === "stage4";
+
+  return (
+    <div
+      className={cn(
+        "flex w-full min-w-0 flex-col gap-6 lg:flex-row lg:items-stretch lg:gap-8",
+        className,
+      )}
+    >
+      <div className="min-w-0 flex-1">{children}</div>
+
+      <aside className="relative w-full shrink-0 lg:w-72 xl:w-80">
+        <div className="flex flex-col gap-4 lg:sticky lg:top-[5.25rem]">
+          {isStage4 ? (
+            <Stage4FinalChecklist />
+          ) : (
+            <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+              {context !== "stage3" ? (
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-[5px] bg-teal-400"
+                  aria-hidden
+                />
+              ) : null}
+              <TipsResourcesCard
+                context={context}
+                className={context !== "stage3" ? "pt-1" : undefined}
+              />
+            </div>
+          )}
+
+          <AylaChatPanel
+            context={context}
+            className="rounded-2xl border border-slate-200 shadow-sm"
+          />
+        </div>
+      </aside>
+    </div>
+  );
+}

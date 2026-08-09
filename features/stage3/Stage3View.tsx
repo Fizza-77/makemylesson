@@ -1,0 +1,490 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { Spinner } from "@/components/ui/Spinner";
+import { StageProgressNav } from "@/components/common/StageProgressNav";
+import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
+import { Stage3Hero } from "@/components/common/Stage3Hero";
+import { StageWorkspace } from "@/components/common/StageWorkspace";
+import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { Stage3AssessmentBuilder } from "@/features/stage3/Stage3AssessmentBuilder";
+import { Stage3WorksheetPreview } from "@/features/stage3/Stage3WorksheetPreview";
+import { mapFunctionsError } from "@/lib/auth-errors";
+import { sortActionsByExportPreference } from "@/lib/export-format-prefs";
+import { ROUTES } from "@/lib/urls";
+import { pickAndParseStageSource } from "@/services/stage-source-parser.service";
+import {
+  recordLibrarySaved,
+  recordStageGenerated,
+} from "@/services/notification-lifecycle.service";
+import {
+  runStage3DownloadAction,
+  shareStage3WorksheetZip,
+  STAGE3_DOWNLOAD_ACTIONS,
+  type Stage3DownloadActionId,
+  type Stage3ExportInput,
+} from "@/services/stage3-export.service";
+import {
+  refreshAccountFromServer,
+  syncAccountSubscription,
+  useAccountStore,
+} from "@/store/account-store";
+import { useAuthStore } from "@/store/auth-store";
+import {
+  syncLibraryCatalogSubscription,
+  useLibraryCatalogStore,
+} from "@/store/library-catalog-store";
+import { useStage2DraftStore } from "@/store/stage2-draft-store";
+import { useStage3DraftStore } from "@/store/stage3-draft-store";
+import { toast } from "@/store/toast-store";
+import { slidesToReviewBody } from "@/types/stage2";
+import {
+  formativeQuestionBounds,
+  STAGE3_MIN_SOURCE_CHARS,
+} from "@/types/stage3";
+
+export function Stage3View() {
+  const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const authReady = useAuthStore((s) => s.authReady);
+  const account = useAccountStore((s) => s.account);
+  const { blockIfNoCredits, dialog: upgradeDialog, credits } = useUpgradeGate();
+
+  const libraryItems = useLibraryCatalogStore((s) => s.items);
+  const presentations = useMemo(
+    () => libraryItems.filter((i) => i.kind === "presentation"),
+    [libraryItems],
+  );
+
+  const stage2 = useStage2DraftStore();
+  const draft = useStage3DraftStore();
+
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [showAnswerKey, setShowAnswerKey] = useState(false);
+  const [editStudentOpen, setEditStudentOpen] = useState(false);
+  const [editTeacherOpen, setEditTeacherOpen] = useState(false);
+  const [editDraft, setEditDraft] = useState("");
+  const [exportMenuOpen, setExportMenuOpen] = useState(false);
+  const [successFlash, setSuccessFlash] = useState(0);
+  const [exporting, setExporting] = useState(false);
+  const [previewLocked, setPreviewLocked] = useState(false);
+  const [libraryDirty, setLibraryDirty] = useState(false);
+  const resultBaselineRef = useRef("");
+
+  const sourceLen = draft.sourcePresentationText.trim().length;
+  const hasResult = !!draft.result;
+  const resultFingerprint = useMemo(
+    () =>
+      JSON.stringify({
+        student: draft.result?.studentActivityText ?? "",
+        teacher: draft.result?.teacherAnswerKeyText ?? "",
+      }),
+    [draft.result?.studentActivityText, draft.result?.teacherAnswerKeyText],
+  );
+  const linkedActivityId = draft.linkedActivityLibraryItemId;
+  const prevLinkedActivityId = useRef(linkedActivityId);
+
+  useEffect(() => {
+    if (prevLinkedActivityId.current !== linkedActivityId) {
+      prevLinkedActivityId.current = linkedActivityId;
+      resultBaselineRef.current = resultFingerprint;
+      setLibraryDirty(false);
+      return;
+    }
+    if (!linkedActivityId) {
+      setLibraryDirty(false);
+      return;
+    }
+    if (!resultBaselineRef.current) {
+      resultBaselineRef.current = resultFingerprint;
+      setLibraryDirty(false);
+      return;
+    }
+    setLibraryDirty(resultFingerprint !== resultBaselineRef.current);
+  }, [resultFingerprint, linkedActivityId]);
+  const [qMin, qMax] = formativeQuestionBounds(draft.formativeKind);
+  const mixSelectedCount = [
+    draft.multipleChoice,
+    draft.trueFalse,
+    draft.fillBlanks,
+    draft.shortAnswer,
+  ].filter(Boolean).length;
+
+  useEffect(() => {
+    if (credits !== null && credits > 0) setPreviewLocked(false);
+  }, [credits]);
+
+  useEffect(() => {
+    if (!authReady) return;
+    syncAccountSubscription(user?.uid ?? null);
+    if (user?.uid) syncLibraryCatalogSubscription(user.uid);
+  }, [authReady, user?.uid]);
+
+  useEffect(() => {
+    const text =
+      stage2.slides.length > 0
+        ? slidesToReviewBody(stage2.slides)
+        : stage2.presentationTitle.trim();
+    if (!text.trim()) return;
+    draft.seedFromStage2Session({
+      libraryItemId: stage2.linkedPresentationLibraryItemId,
+      presentationText: text,
+      topic: stage2.topic,
+      curriculumRoute:
+        stage2.mappedCurriculumName ?? stage2.curriculumLabel,
+      grade: stage2.grade,
+      subject: stage2.subject,
+      planBundleId: stage2.planBundleId,
+      topLevelId: stage2.topLevelId,
+      pathwayId: stage2.pathwayId,
+      pathwayDisplayName: stage2.pathwayDisplayName,
+      method: stage2.method,
+      duration: stage2.duration,
+      mappedCurriculumId: stage2.mappedCurriculumId,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    stage2.slides,
+    stage2.linkedPresentationLibraryItemId,
+    stage2.planBundleId,
+    stage2.presentationTitle,
+  ]);
+
+  async function onGenerate() {
+    if (!authReady) return;
+    if (!user) {
+      toast.info("Sign in to generate an activity.");
+      router.push(
+        `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to generate activities.")}&next=${encodeURIComponent(ROUTES.stage3)}`,
+      );
+      return;
+    }
+    if (!draft.canGenerate()) {
+      toast.info(
+        `Add a presentation source (≥${STAGE3_MIN_SOURCE_CHARS} chars) and at least one question type.`,
+      );
+      return;
+    }
+
+    // Out of credits: show locked blue worksheet + upgrade dialog (no API generate).
+    if (credits !== null && credits <= 0) {
+      setPreviewLocked(true);
+      blockIfNoCredits();
+      return;
+    }
+
+    setPreviewLocked(false);
+
+    try {
+      const result = await draft.generate();
+      if (user?.uid) {
+        await refreshAccountFromServer(user.uid).catch(() => null);
+      }
+      setSuccessFlash((n) => n + 1);
+      void recordStageGenerated(3).catch(() => null);
+      if (result.savedToLibrary) {
+        void recordLibrarySaved().catch(() => null);
+        toast.success("Activity generated and saved to library.");
+      } else if (result.saveError) {
+        toast.info(result.saveError);
+      } else if (draft.result) {
+        toast.success("Activity ready.");
+      }
+    } catch (e) {
+      toast.error(mapFunctionsError(e));
+    }
+  }
+
+  async function onSaveLibrary() {
+    try {
+      await draft.saveCurrentToLibrary();
+      resultBaselineRef.current = JSON.stringify({
+        student: useStage3DraftStore.getState().result?.studentActivityText ?? "",
+        teacher:
+          useStage3DraftStore.getState().result?.teacherAnswerKeyText ?? "",
+      });
+      setLibraryDirty(false);
+      toast.success("Activity saved to library.");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Save failed.");
+    }
+  }
+
+  function exportInput(): Stage3ExportInput {
+    return {
+      topic: draft.topic,
+      curriculumRoute:
+        draft.mappedCurriculumName ?? draft.curriculumLabel,
+      grade: draft.grade,
+      subject: draft.subject,
+      activityTitle: draft.result?.activityTitle ?? draft.topic,
+      studentActivityText: draft.result?.studentActivityText ?? "",
+      teacherAnswerKeyText: draft.result?.teacherAnswerKeyText ?? "",
+      schoolName:
+        account?.useSchoolNameInAi && account.schoolName?.trim()
+          ? account.schoolName.trim()
+          : null,
+    };
+  }
+
+  async function onExport(action: Stage3DownloadActionId) {
+    if (!draft.result) {
+      toast.info("Generate worksheet first.");
+      return;
+    }
+    setExportMenuOpen(false);
+    setExporting(true);
+    try {
+      await runStage3DownloadAction(action, exportInput());
+      toast.success(
+        `${STAGE3_DOWNLOAD_ACTIONS.find((a) => a.id === action)?.label ?? "Export"} ready.`,
+      );
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Could not export.");
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  async function onShare() {
+    if (!draft.result) {
+      toast.info("Generate worksheet first.");
+      return;
+    }
+    setExporting(true);
+    try {
+      const result = await shareStage3WorksheetZip(exportInput());
+      if (result.success) toast.success(result.message);
+      else toast.info(result.message);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Could not share.");
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  async function onUploadFile() {
+    try {
+      const parsed = await pickAndParseStageSource("presentation");
+      if (!parsed) return;
+      draft.setUploadedSource({
+        fileName: parsed.fileName,
+        presentationText: parsed.text,
+      });
+      toast.success(`Loaded “${parsed.fileName}”`);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Could not read file.");
+    }
+  }
+
+  return (
+    <div className="flex w-full min-w-0 flex-col gap-6">
+      <Stage3Hero />
+      <StageProgressNav currentStage={3} />
+
+      <StageWorkspace context="stage3">
+        <div className="flex w-full min-w-0 flex-col gap-4 pb-8">
+      <Stage3AssessmentBuilder
+        sourceMode={draft.sourceMode}
+        sourceLen={sourceLen}
+        topic={draft.topic}
+        formativeKind={draft.formativeKind}
+        questionCount={draft.questionCount}
+        qMin={qMin}
+        qMax={qMax}
+        multipleChoice={draft.multipleChoice}
+        trueFalse={draft.trueFalse}
+        fillBlanks={draft.fillBlanks}
+        shortAnswer={draft.shortAnswer}
+        presentations={presentations}
+        pickerOpen={pickerOpen}
+        isGenerating={draft.isGenerating}
+        canGenerate={draft.canGenerate()}
+        onTogglePicker={() => {
+          draft.setSourceMode("stage2Library");
+          setPickerOpen((v) => !v);
+        }}
+        onSelectUpload={() => {
+          setPickerOpen(false);
+          draft.setSourceMode("upload");
+        }}
+        onSelectStage2={() => {
+          setPickerOpen(false);
+          draft.setSourceMode("stage2Library");
+          const text =
+            stage2.slides.length > 0
+              ? slidesToReviewBody(stage2.slides)
+              : "";
+          if (text.trim()) {
+            draft.setLibrarySource({
+              libraryItemId: stage2.linkedPresentationLibraryItemId ?? "",
+              presentationText: text,
+              topic: stage2.topic,
+              curriculumRoute:
+                stage2.mappedCurriculumName ?? stage2.curriculumLabel,
+              grade: stage2.grade,
+              subject: stage2.subject,
+              planBundleId: stage2.planBundleId,
+              topLevelId: stage2.topLevelId,
+              pathwayId: stage2.pathwayId,
+              pathwayDisplayName: stage2.pathwayDisplayName,
+              method: stage2.method,
+              duration: stage2.duration,
+              mappedCurriculumId: stage2.mappedCurriculumId,
+            });
+          } else {
+            setPickerOpen(true);
+            toast.info(
+              "No Stage 2 deck in this session — pick one from your library.",
+            );
+          }
+        }}
+        onPickLibraryItem={(item) => {
+          draft.setLibrarySource({
+            libraryItemId: item.id,
+            presentationText: item.reviewBody,
+            topic: item.topic,
+            curriculumRoute: item.curriculumRoute,
+            grade: item.grade,
+            subject: item.subject,
+            planBundleId: item.planBundleId,
+          });
+          setPickerOpen(false);
+          toast.info(`Using “${item.topic || "Presentation"}”`);
+        }}
+        onUploadFile={() => void onUploadFile()}
+        onPasteText={(text) =>
+          draft.setUploadedSource({
+            fileName: "pasted.txt",
+            presentationText: text,
+          })
+        }
+        sourceText={draft.sourcePresentationText}
+        onFormativeKind={(kind) => draft.setFormativeKind(kind)}
+        onQuestionCount={(n) => draft.setQuestionCount(n)}
+        onQuestionType={(key, value) => draft.setQuestionType(key, value)}
+        onGenerate={() => void onGenerate()}
+      />
+
+      {draft.isGenerating || draft.status ? (
+        <Card className="flex flex-col gap-2">
+          <div className="flex items-center justify-between gap-2 text-sm">
+            <span className="font-medium text-[#1A1C30]">
+              {draft.isGenerating ? "Generating…" : "Status"}
+            </span>
+            <span className="text-[#666666]">
+              {draft.status || "—"} · {Math.min(draft.progress, 100)}%
+            </span>
+          </div>
+          <div className="h-2 overflow-hidden rounded-full bg-[#E8F8F7]">
+            <div
+              className="h-full rounded-full bg-[#28C2C0] transition-all"
+              style={{ width: `${Math.min(draft.progress, 100)}%` }}
+            />
+          </div>
+          {draft.error ? (
+            <p className="text-sm text-red-600">{draft.error}</p>
+          ) : null}
+          {draft.isGenerating ? (
+            <div className="flex items-center gap-2 text-xs text-[#666666]">
+              <Spinner className="size-4" />
+              Building your formative activity…
+            </div>
+          ) : null}
+        </Card>
+      ) : null}
+
+      <GenerationSuccessOverlay trigger={successFlash}>
+        <Stage3WorksheetPreview
+          hasResult={hasResult && !previewLocked}
+          isGenerating={draft.isGenerating}
+          previewLocked={previewLocked}
+          formativeKind={draft.formativeKind}
+          questionCount={draft.questionCount}
+          mixSelectedCount={mixSelectedCount}
+          result={previewLocked ? null : draft.result}
+          showAnswerKey={showAnswerKey}
+          exportMenuOpen={exportMenuOpen}
+          exporting={exporting}
+          exportActions={sortActionsByExportPreference(
+            STAGE3_DOWNLOAD_ACTIONS,
+          )}
+          onToggleView={(answerKey) => setShowAnswerKey(answerKey)}
+          onEdit={() => {
+            if (!draft.result || previewLocked) return;
+            setEditDraft(
+              showAnswerKey
+                ? draft.result.teacherAnswerKeyText
+                : draft.result.studentActivityText,
+            );
+            if (showAnswerKey) setEditTeacherOpen(true);
+            else setEditStudentOpen(true);
+          }}
+          showSave={Boolean(draft.linkedActivityLibraryItemId) && libraryDirty}
+          onSave={() => void onSaveLibrary()}
+          isSavingLibrary={draft.isSavingLibrary}
+          onToggleExport={() => setExportMenuOpen((o) => !o)}
+          onExport={(id) => void onExport(id as Stage3DownloadActionId)}
+          onShare={() => void onShare()}
+        />
+      </GenerationSuccessOverlay>
+
+      {(editStudentOpen || editTeacherOpen) && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center">
+          <div className="max-h-[90vh] w-full max-w-lg overflow-auto rounded-2xl bg-white p-5 shadow-xl">
+            <h2 className="text-lg font-semibold text-[#1A1C30]">
+              {editTeacherOpen ? "Edit answer key" : "Edit student activity"}
+            </h2>
+            <textarea
+              className="mt-3 min-h-[200px] w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:border-[#28C2C0]"
+              value={editDraft}
+              onChange={(e) => setEditDraft(e.target.value)}
+            />
+            <div className="mt-4 flex justify-end gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setEditStudentOpen(false);
+                  setEditTeacherOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                onClick={() => {
+                  if (editTeacherOpen) {
+                    draft.setTeacherAnswerKeyText(editDraft);
+                  } else {
+                    draft.setStudentActivityText(editDraft);
+                  }
+                  setEditStudentOpen(false);
+                  setEditTeacherOpen(false);
+                  if (draft.linkedActivityLibraryItemId) {
+                    setLibraryDirty(true);
+                  } else {
+                    void draft
+                      .saveCurrentToLibrary()
+                      .then(() => toast.success("Saved."))
+                      .catch(() => toast.info("Updated locally."));
+                  }
+                }}
+              >
+                Save
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+      {upgradeDialog}
+        </div>
+      </StageWorkspace>
+    </div>
+  );
+}

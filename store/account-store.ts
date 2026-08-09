@@ -1,0 +1,111 @@
+"use client";
+
+import { create } from "zustand";
+import { getDoc, getDocFromServer } from "firebase/firestore";
+
+import { userDocRef } from "@/firebase/firestore";
+import { getFirebaseAuth } from "@/firebase/config";
+import {
+  ensureFreeGenerationCreditsForUser,
+  mapUserDoc,
+  subscribeUserAccount,
+  type UserAccountView,
+} from "@/services/user-account.service";
+
+type AccountStore = {
+  account: UserAccountView | null;
+  loading: boolean;
+  error: string | null;
+  subscribedUid: string | null;
+  setAccount: (account: UserAccountView | null) => void;
+  clear: () => void;
+};
+
+let unsubscribe: (() => void) | null = null;
+
+export const useAccountStore = create<AccountStore>((set) => ({
+  account: null,
+  loading: false,
+  error: null,
+  subscribedUid: null,
+  setAccount: (account) =>
+    set({ account, loading: false, error: null }),
+  clear: () =>
+    set({
+      account: null,
+      loading: false,
+      error: null,
+      subscribedUid: null,
+    }),
+}));
+
+/** One live `users/{uid}` listener for credits/profile across the app. */
+export function syncAccountSubscription(uid: string | null) {
+  const state = useAccountStore.getState();
+  if (state.subscribedUid === uid && unsubscribe) return;
+
+  if (unsubscribe) {
+    unsubscribe();
+    unsubscribe = null;
+  }
+
+  if (!uid) {
+    useAccountStore.getState().clear();
+    return;
+  }
+
+  useAccountStore.setState({
+    subscribedUid: uid,
+    loading: true,
+    error: null,
+  });
+
+  // Backfill free starter credits if signup left the balance fields empty.
+  void ensureFreeGenerationCreditsForUser(uid).catch((error) => {
+    console.warn("[Account] free credits init failed", error);
+  });
+
+  unsubscribe = subscribeUserAccount(
+    uid,
+    (view) => useAccountStore.getState().setAccount(view),
+    (error) => {
+      console.error("[Account] snapshot failed", error);
+      useAccountStore.setState({
+        loading: false,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Could not load account.",
+      });
+    },
+  );
+}
+
+/**
+ * Force a server read of `users/{uid}` after credit-changing actions.
+ * Uses getDocFromServer so we don't show a stale IndexedDB cache balance.
+ */
+export async function refreshAccountFromServer(
+  uid: string,
+): Promise<UserAccountView | null> {
+  const auth = getFirebaseAuth().currentUser;
+  const ref = userDocRef(uid);
+  let snap;
+  try {
+    snap = await getDocFromServer(ref);
+  } catch {
+    snap = await getDoc(ref);
+  }
+  if (!snap.exists()) {
+    useAccountStore.getState().setAccount(null);
+    return null;
+  }
+  const view = mapUserDoc(
+    uid,
+    snap.data() as Record<string, unknown>,
+    auth?.email,
+    auth?.displayName,
+  );
+  useAccountStore.getState().setAccount(view);
+  return view;
+}

@@ -1,0 +1,717 @@
+"use client";
+
+import Image from "next/image";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
+
+import { cn } from "@/lib/utils";
+
+/**
+ * Positions as % of selection-stage1.svg viewBox (866×717).
+ * Blank notebook — all labels and fields are overlays.
+ */
+const FIELD = {
+  leftEyebrow: { left: "9.5%", top: "10.2%", width: "36%" },
+  leftTitle: { left: "9.5%", top: "12.4%", width: "36%" },
+  curriculum: {
+    left: "9.5%",
+    top: "17.0%",
+    width: "36%",
+    height: "7.6%",
+  },
+  programLabel: { left: "9.5%", top: "26.0%", width: "36%" },
+  program: { left: "9.5%", top: "28.6%", width: "36%", height: "5.6%" },
+  gradeLabel: { left: "9.5%", top: "36.0%", width: "17%" },
+  grade: { left: "9.5%", top: "38.6%", width: "17%", height: "5.6%" },
+  subjectLabel: { left: "28.5%", top: "36.0%", width: "17%" },
+  subject: { left: "28.5%", top: "38.6%", width: "17%", height: "5.6%" },
+  topicLabel: { left: "9.5%", top: "46.0%", width: "36%" },
+  topic: { left: "9.5%", top: "48.6%", width: "36%", height: "5.6%" },
+  tipLeft: { left: "7.5%", top: "60%", width: "42%" },
+
+  rightEyebrow: { left: "53.5%", top: "10.2%", width: "35%" },
+  rightTitle: { left: "53.5%", top: "12.4%", width: "35%" },
+  methodLabel: { left: "53.5%", top: "17.8%", width: "35%" },
+  method: { left: "53.5%", top: "20.4%", width: "35%", height: "5.6%" },
+  includeHeading: { left: "53.5%", top: "28.0%", width: "22%" },
+  includeAi: { left: "75%", top: "28.4%", width: "13%" },
+  include1: { left: "53.5%", top: "31.8%", width: "35%", height: "6.2%" },
+  include2: { left: "53.5%", top: "39.0%", width: "35%", height: "6.2%" },
+  durationLabel: { left: "53.5%", top: "47.2%", width: "35%" },
+  duration: { left: "53.5%", top: "49.8%", width: "35%", height: "5.6%" },
+  tipRight: { left: "51.5%", top: "60%", width: "42%" },
+
+  tabPlan: { left: "90.4%", top: "19.1%", width: "5.8%", height: "4.3%" },
+  tabTeach: { left: "90.4%", top: "24.5%", width: "5.8%", height: "4.3%" },
+  tabAssess: { left: "90.4%", top: "30.0%", width: "5.8%", height: "4.3%" },
+
+  page01: { left: "10%", top: "81%", width: "10%" },
+  page02: { left: "78%", top: "81%", width: "10%" },
+} as const;
+
+type SelectOption = { value: string; label: string };
+
+function slotStyle(
+  slot: { left: string; top: string; width: string; height?: string },
+): CSSProperties {
+  return {
+    left: slot.left,
+    top: slot.top,
+    width: slot.width,
+    ...(slot.height ? { height: slot.height } : null),
+  };
+}
+
+function FieldLabel({
+  style,
+  children,
+}: {
+  style: CSSProperties;
+  children: string;
+}) {
+  return (
+    <p
+      style={style}
+      className="pointer-events-none absolute z-10 text-[8px] font-bold tracking-[0.12em] text-[#128C89] uppercase sm:text-[10px]"
+    >
+      {children}
+    </p>
+  );
+}
+
+function ChevronIcon({ open }: { open?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      className={cn(
+        "size-3.5 shrink-0 text-[#28C2C0] transition-transform",
+        open && "rotate-180",
+      )}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M4 6l4 4 4-4" />
+    </svg>
+  );
+}
+
+function PlanIncludeCard({
+  title,
+  style,
+}: {
+  title: string;
+  style: CSSProperties;
+}) {
+  return (
+    <div
+      style={style}
+      className="absolute z-10 flex items-center gap-2.5 overflow-hidden rounded-[12px] border border-[#E5E7EB] bg-white px-2.5 shadow-sm sm:px-3"
+    >
+      <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#20AAA7] text-white sm:size-8">
+        <svg viewBox="0 0 12 12" className="size-3 fill-current" aria-hidden>
+          <path d="M4.8 8.6 2.4 6.2l.9-.9 1.5 1.5 3.6-3.6.9.9-4.5 4.5Z" />
+        </svg>
+      </span>
+      <p className="min-w-0 truncate text-[10px] font-bold text-[#151B35] sm:text-xs">
+        {title}
+      </p>
+    </div>
+  );
+}
+
+function TipBox({
+  style,
+  eyebrow,
+  title,
+  body,
+}: {
+  style: CSSProperties;
+  eyebrow: string;
+  title: string;
+  body: string;
+}) {
+  return (
+    <div style={style} className="absolute z-[6]">
+      <div className="relative w-full">
+        <Image
+          src="/selectiontipbox.svg"
+          alt=""
+          width={420}
+          height={204}
+          className="pointer-events-none h-auto w-full select-none"
+          unoptimized
+        />
+        {/* Text sits inside the teal tip shape (not the folded corner) */}
+        <div
+          className="absolute z-[1] flex flex-col overflow-hidden"
+          style={{
+            left: "16%",
+            right: "12%",
+            top: "22%",
+            bottom: "22%",
+          }}
+        >
+          <p className="text-[9px] font-bold tracking-wide text-[#1A6B69] uppercase sm:text-[10px]">
+            {eyebrow}
+          </p>
+          <p className="mt-0.5 text-xs font-bold leading-tight text-[#151B35] sm:text-[13px]">
+            {title}
+          </p>
+          <p className="mt-1 line-clamp-3 text-[10px] leading-snug text-[#30416F]/85 sm:text-[11px]">
+            {body}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Themed custom dropdown — rounded, teal accents, Stage 1 fonts. */
+function NotebookSelect({
+  value,
+  onChange,
+  disabled,
+  options,
+  style,
+  ariaLabel,
+  placeholder = "Select…",
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  disabled?: boolean;
+  options: SelectOption[];
+  style: CSSProperties;
+  ariaLabel: string;
+  placeholder?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
+  const selected = options.find((o) => o.value === value);
+  const label = selected?.label || placeholder;
+
+  useEffect(() => {
+    if (!open) return;
+    function onDoc(e: MouseEvent) {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div
+      ref={rootRef}
+      style={style}
+      className={cn("absolute z-10", open && "z-40")}
+    >
+      <button
+        type="button"
+        aria-label={ariaLabel}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        disabled={disabled}
+        onClick={() => !disabled && setOpen((o) => !o)}
+        className={cn(
+          "flex h-full w-full items-center gap-1.5 rounded-[10px] border bg-white px-2.5 text-left shadow-sm transition sm:px-3",
+          "border-[#E5E7EB] hover:border-[#28C2C0]/60 hover:shadow-md",
+          open && "border-[#28C2C0] shadow-md ring-2 ring-[#28C2C0]/25",
+          disabled &&
+            "cursor-not-allowed opacity-50 hover:border-[#E5E7EB] hover:shadow-sm",
+        )}
+      >
+        <span
+          className={cn(
+            "min-w-0 flex-1 truncate text-[10px] font-semibold sm:text-xs",
+            selected ? "text-[#151B35]" : "font-medium text-slate-400",
+          )}
+        >
+          {label}
+        </span>
+        <ChevronIcon open={open} />
+      </button>
+
+      {open ? (
+        <ul
+          id={listId}
+          role="listbox"
+          aria-label={ariaLabel}
+          className="absolute top-[calc(100%+4px)] right-0 left-0 z-50 max-h-40 overflow-y-auto rounded-xl border border-[#E5E7EB] bg-white py-1 shadow-lg ring-1 ring-[#28C2C0]/10"
+        >
+          {options.map((opt) => {
+            const isActive = opt.value === value;
+            return (
+              <li
+                key={opt.value || "__empty"}
+                role="option"
+                aria-selected={isActive}
+              >
+                <button
+                  type="button"
+                  className={cn(
+                    "flex w-full px-3 py-2 text-left text-[10px] font-semibold transition sm:text-xs",
+                    isActive
+                      ? "bg-[#E8F8F7] text-[#151B35]"
+                      : "text-[#151B35] hover:bg-[#F0FBFA]",
+                  )}
+                  onClick={() => {
+                    onChange(opt.value);
+                    setOpen(false);
+                  }}
+                >
+                  {opt.label}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
+function DurationField({
+  style,
+  value,
+  options,
+  onChange,
+}: {
+  style: CSSProperties;
+  value: string;
+  options: readonly string[];
+  onChange: (v: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
+
+  useEffect(() => {
+    if (!open) return;
+    function onDoc(e: MouseEvent) {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div
+      ref={rootRef}
+      style={style}
+      className={cn("absolute z-10", open && "z-40")}
+    >
+      <button
+        type="button"
+        aria-label="Duration"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        onClick={() => setOpen((o) => !o)}
+        className={cn(
+          "flex h-full w-full items-center gap-1.5 rounded-[10px] border bg-white px-2.5 text-left shadow-sm transition sm:px-3",
+          "border-[#E5E7EB] hover:border-[#28C2C0]/60 hover:shadow-md",
+          open && "border-[#28C2C0] shadow-md ring-2 ring-[#28C2C0]/25",
+        )}
+      >
+        <span className="min-w-0 flex-1 truncate text-[10px] font-semibold text-[#151B35] sm:text-xs">
+          {value}
+        </span>
+        <ChevronIcon open={open} />
+      </button>
+
+      {open ? (
+        <ul
+          id={listId}
+          role="listbox"
+          aria-label="Duration"
+          className="absolute top-[calc(100%+4px)] right-0 left-0 z-50 max-h-40 overflow-y-auto rounded-xl border border-[#E5E7EB] bg-white py-1 shadow-lg ring-1 ring-[#28C2C0]/10"
+        >
+          {options.map((d) => {
+            const isActive = d === value;
+            return (
+              <li key={d} role="option" aria-selected={isActive}>
+                <button
+                  type="button"
+                  className={cn(
+                    "flex w-full px-3 py-2 text-left text-[10px] font-semibold transition sm:text-xs",
+                    isActive
+                      ? "bg-[#E8F8F7] text-[#151B35]"
+                      : "text-[#151B35] hover:bg-[#F0FBFA]",
+                  )}
+                  onClick={() => {
+                    onChange(d);
+                    setOpen(false);
+                  }}
+                >
+                  {d}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
+/** Matches selection-stage1 curriculum bar gradient (#35BEBC → #A7E7E4). */
+function CurriculumChangeField({
+  style,
+  value,
+  options,
+  onChange,
+}: {
+  style: CSSProperties;
+  value: string;
+  options: { id: string; name: string }[];
+  onChange: (v: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
+  const selected = options.find((o) => o.id === value);
+
+  useEffect(() => {
+    if (!open) return;
+    function onDoc(e: MouseEvent) {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div
+      ref={rootRef}
+      style={{
+        ...style,
+        backgroundImage: "linear-gradient(90deg, #35BEBC 0%, #A7E7E4 100%)",
+      }}
+      className={cn(
+        "absolute z-10 flex items-center gap-2 rounded-[12px] px-2.5 shadow-sm sm:gap-2.5 sm:px-3",
+        open && "z-40 ring-2 ring-[#28C2C0]/30",
+      )}
+    >
+      <span
+        className="flex size-7 shrink-0 items-center justify-center rounded-md bg-[#151B35] text-white sm:size-8"
+        aria-hidden
+      >
+        <svg viewBox="0 0 16 16" className="size-3.5 fill-current sm:size-4">
+          <path d="M6.5 11.5 3 8l1.2-1.2 2.3 2.3 5.3-5.3L13 5.2l-6.5 6.3Z" />
+        </svg>
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-[8px] font-bold tracking-[0.12em] text-[#0D6B69] uppercase sm:text-[10px]">
+          Curriculum
+        </p>
+        <p className="truncate text-[10px] font-bold text-[#151B35] sm:text-xs">
+          {selected?.name ?? "Select…"}
+        </p>
+      </div>
+      <button
+        type="button"
+        aria-label="Change curriculum"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        className="shrink-0 rounded-lg bg-white/70 px-2 py-1 text-[10px] font-semibold text-[#151B35] transition hover:bg-white sm:text-xs"
+        onClick={() => setOpen((o) => !o)}
+      >
+        Change
+      </button>
+
+      {open ? (
+        <ul
+          id={listId}
+          role="listbox"
+          aria-label="Curriculum"
+          className="absolute top-[calc(100%+6px)] right-0 left-0 z-50 max-h-48 overflow-y-auto rounded-xl border border-[#E5E7EB] bg-white py-1 shadow-lg ring-1 ring-[#28C2C0]/10"
+        >
+          {options.map((t) => {
+            const isActive = t.id === value;
+            return (
+              <li key={t.id} role="option" aria-selected={isActive}>
+                <button
+                  type="button"
+                  className={cn(
+                    "flex w-full px-3 py-2.5 text-left text-[10px] font-semibold transition sm:text-xs",
+                    isActive
+                      ? "bg-[#E8F8F7] text-[#151B35]"
+                      : "text-[#151B35] hover:bg-[#F0FBFA]",
+                  )}
+                  onClick={() => {
+                    onChange(t.id);
+                    setOpen(false);
+                  }}
+                >
+                  {t.name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
+export type Stage1NotebookFormProps = {
+  topLevelId: string;
+  pathwayId: string;
+  gradeInternalId: string;
+  subject: string;
+  topic: string;
+  method: string;
+  duration: string;
+  topLevels: { id: string; name: string }[];
+  pathways: { id: string; name: string }[];
+  grades: { gradeId: string; displayName: string }[];
+  subjects: { displayName: string }[];
+  methods: readonly string[];
+  durations: readonly string[];
+  pathwayDisabled?: boolean;
+  gradeDisabled?: boolean;
+  subjectDisabled?: boolean;
+  unsupported?: boolean;
+  onTopLevel: (v: string) => void;
+  onPathway: (v: string) => void;
+  onGrade: (v: string) => void;
+  onSubject: (v: string) => void;
+  onTopic: (v: string) => void;
+  onMethod: (v: string) => void;
+  onDuration: (v: string) => void;
+};
+
+/** Blank notebook SVG with labels + live fields overlaid. */
+export function Stage1NotebookForm(props: Stage1NotebookFormProps) {
+  return (
+    <div className="relative mx-auto w-full max-w-[866px]">
+      <Image
+        src="/selection-stage1.svg?v=3"
+        alt=""
+        width={866}
+        height={717}
+        className="pointer-events-none h-auto w-full select-none"
+        priority
+        unoptimized
+        key="selection-stage1-v3"
+      />
+
+      {/* —— Left page —— */}
+      <p
+        style={slotStyle(FIELD.leftEyebrow)}
+        className="pointer-events-none absolute z-10 text-[8px] font-bold tracking-[0.14em] text-[#128C89] uppercase sm:text-[10px]"
+      >
+        Teacher Planner
+      </p>
+      <p
+        style={slotStyle(FIELD.leftTitle)}
+        className="pointer-events-none absolute z-10 text-sm font-bold text-[#151B35] sm:text-lg"
+      >
+        Lesson Setup
+      </p>
+
+      <CurriculumChangeField
+        style={slotStyle(FIELD.curriculum)}
+        value={props.topLevelId}
+        options={props.topLevels}
+        onChange={props.onTopLevel}
+      />
+
+      <FieldLabel style={slotStyle(FIELD.programLabel)}>Program</FieldLabel>
+      <NotebookSelect
+        ariaLabel="Program"
+        style={slotStyle(FIELD.program)}
+        value={props.pathwayId}
+        onChange={props.onPathway}
+        disabled={props.pathwayDisabled}
+        options={[
+          { value: "", label: "Select…" },
+          ...props.pathways.map((p) => ({ value: p.id, label: p.name })),
+        ]}
+      />
+
+      <FieldLabel style={slotStyle(FIELD.gradeLabel)}>Grade</FieldLabel>
+      <NotebookSelect
+        ariaLabel="Grade"
+        style={slotStyle(FIELD.grade)}
+        value={props.gradeInternalId}
+        onChange={props.onGrade}
+        disabled={props.gradeDisabled}
+        options={[
+          { value: "", label: "Select…" },
+          ...props.grades.map((g) => ({
+            value: g.gradeId,
+            label: g.displayName,
+          })),
+        ]}
+      />
+
+      <FieldLabel style={slotStyle(FIELD.subjectLabel)}>Subject</FieldLabel>
+      <NotebookSelect
+        ariaLabel="Subject"
+        style={slotStyle(FIELD.subject)}
+        value={props.subject}
+        onChange={props.onSubject}
+        disabled={props.subjectDisabled}
+        options={[
+          { value: "", label: "Select…" },
+          ...props.subjects.map((s) => ({
+            value: s.displayName,
+            label: s.displayName,
+          })),
+        ]}
+      />
+
+      <FieldLabel style={slotStyle(FIELD.topicLabel)}>Topic</FieldLabel>
+      <label
+        style={slotStyle(FIELD.topic)}
+        className="absolute z-10 flex items-center overflow-hidden rounded-[10px] border border-[#E5E7EB] bg-white px-2.5 shadow-sm transition focus-within:border-[#28C2C0] focus-within:ring-2 focus-within:ring-[#28C2C0]/25 sm:px-3"
+      >
+        <input
+          aria-label="Topic"
+          className="h-full w-full bg-transparent text-[10px] font-semibold text-[#151B35] outline-none placeholder:font-medium placeholder:text-slate-400 sm:text-xs"
+          value={props.topic}
+          onChange={(e) => props.onTopic(e.target.value)}
+          placeholder="e.g. Photosynthesis"
+        />
+      </label>
+
+      <TipBox
+        style={slotStyle(FIELD.tipLeft)}
+        eyebrow="Teacher reminder"
+        title="Choose a focused topic"
+        body="Specific topics help Ayla create stronger learning objectives and activities."
+      />
+
+      {/* —— Right page —— */}
+      <p
+        style={slotStyle(FIELD.rightEyebrow)}
+        className="pointer-events-none absolute z-10 text-[8px] font-bold tracking-[0.14em] text-[#128C89] uppercase sm:text-[10px]"
+      >
+        Teaching Approach
+      </p>
+      <p
+        style={slotStyle(FIELD.rightTitle)}
+        className="pointer-events-none absolute z-10 text-sm font-bold text-[#151B35] sm:text-lg"
+      >
+        Lesson Structure
+      </p>
+
+      <FieldLabel style={slotStyle(FIELD.methodLabel)}>Method</FieldLabel>
+      <NotebookSelect
+        ariaLabel="Method"
+        style={slotStyle(FIELD.method)}
+        value={props.method}
+        onChange={props.onMethod}
+        options={props.methods.map((m) => ({ value: m, label: m }))}
+      />
+
+      <p
+        style={slotStyle(FIELD.includeHeading)}
+        className="pointer-events-none absolute z-10 text-sm font-bold text-[#151B35] sm:text-base"
+      >
+        Your Plan Will Include
+      </p>
+      <p
+        style={slotStyle(FIELD.includeAi)}
+        className="pointer-events-none absolute z-10 text-right text-[9px] font-semibold text-[#128C89] sm:text-[10px]"
+      >
+        AI generated
+      </p>
+
+      <PlanIncludeCard
+        title="Learning objectives"
+        style={slotStyle(FIELD.include1)}
+      />
+      <PlanIncludeCard
+        title="Timed teaching steps"
+        style={slotStyle(FIELD.include2)}
+      />
+
+      <FieldLabel style={slotStyle(FIELD.durationLabel)}>Duration</FieldLabel>
+      <DurationField
+        style={slotStyle(FIELD.duration)}
+        value={props.duration}
+        options={props.durations}
+        onChange={props.onDuration}
+      />
+
+      <TipBox
+        style={slotStyle(FIELD.tipRight)}
+        eyebrow="Tip"
+        title="Review before generating"
+        body="Check the grade, subject and method so the lesson matches your classroom."
+      />
+
+      <span
+        style={slotStyle(FIELD.tabPlan)}
+        className="pointer-events-none absolute z-10 flex items-center justify-center text-[8px] font-bold tracking-wide text-[#0D1430] uppercase sm:text-[9px]"
+      >
+        plan
+      </span>
+      <span
+        style={slotStyle(FIELD.tabTeach)}
+        className="pointer-events-none absolute z-10 flex items-center justify-center text-[8px] font-bold tracking-wide text-[#0D1430] uppercase sm:text-[9px]"
+      >
+        teach
+      </span>
+      <span
+        style={slotStyle(FIELD.tabAssess)}
+        className="pointer-events-none absolute z-10 flex items-center justify-center text-[8px] font-bold tracking-wide text-white uppercase sm:text-[9px]"
+      >
+        access
+      </span>
+
+      <span
+        style={slotStyle(FIELD.page01)}
+        className="pointer-events-none absolute z-10 text-sm font-bold tracking-wide text-black sm:text-base"
+      >
+        01
+      </span>
+      <span
+        style={slotStyle(FIELD.page02)}
+        className="pointer-events-none absolute z-10 text-right text-sm font-bold tracking-wide text-black sm:text-base"
+      >
+        02
+      </span>
+
+      {props.unsupported ? (
+        <p className="absolute bottom-[8%] left-[10%] z-10 max-w-[35%] rounded-lg bg-red-50 px-2 py-1 text-[10px] font-medium text-red-700 sm:text-xs">
+          This grade is not supported for the selected pathway.
+        </p>
+      ) : null}
+    </div>
+  );
+}

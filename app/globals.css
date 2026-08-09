@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f6fa;
+  --foreground: #1a1c30;
+  --teal-primary: #28c2c0;
+  /* Marketing site palette (Make My Lesson landing) */
+  --nav-height: 3.25rem;
+  --ds-navy: #14284b;
+  --ds-teal: #3abfb1;
+  --ds-gold: #f4c542;
+  --ds-gold-dark: #d4a82e;
+  --ds-sky: #b8d8e0;
+  --ds-muted: #5c6373;
+  --ds-surface: #ffffff;
+  --ds-light: #f8fafc;
+  --mm-primary: var(--ds-teal);
+  --mm-primary-dark: #2a9d91;
+  --mm-accent: var(--ds-gold);
+  --mm-accent-dark: var(--ds-gold-dark);
+  --mm-navy: var(--ds-navy);
+  --mm-sky: var(--ds-sky);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-nunito-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --color-mm-primary: var(--ds-teal);
+  --color-mm-primary-dark: #2a9d91;
+  --color-mm-accent: var(--ds-gold);
+  --color-mm-accent-dark: var(--ds-gold-dark);
+  --color-mm-navy: var(--ds-navy);
+  --color-mm-muted: var(--ds-muted);
+  --color-mm-light: var(--ds-light);
+  --color-mm-surface: var(--ds-surface);
+  --color-mm-sky: var(--ds-sky);
+  /* original-mml marketing palette (bg-mml-navy, text-mml-teal, …) */
+  --color-mml-navy: #1a1e3a;
+  --color-mml-navy-mid: #242845;
+  --color-mml-navy-light: #2e3355;
+  --color-mml-navy-card: #222640;
+  --color-mml-teal: #7dd3e8;
+  --color-mml-teal-dark: #4ba8c4;
+  --color-mml-teal-light: #b5e8f4;
+  --color-mml-text: #f0f6ff;
+  --color-mml-text-secondary: #94a3b8;
+  --color-mml-muted: #64748b;
+  --color-mml-sky: #38bdf8;
+  --color-mml-green: #4ade80;
+  --color-mml-purple: #a78bfa;
+  --color-mml-red: #f87171;
+  --radius-mml: 16px;
+  --radius-mml-sm: 10px;
+  --radius-mml-xs: 6px;
+  --shadow-mml: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --shadow-teal: 0 0 30px rgba(56, 189, 248, 0.22);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Stage 2 theme library: hide scrollbar inside the card */
+.theme-scroll-inner {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.theme-scroll-inner::-webkit-scrollbar {
+  display: none;
+}
+
+/* Theme cyan scrollbar (horizontal or vertical) — thumb only, no track fill */
+.theme-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #128c89 transparent;
+}
+.theme-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.theme-scroll::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.theme-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.theme-scroll::-webkit-scrollbar-thumb {
+  background: #128c89;
+  border-radius: 999px;
+}
+.theme-scroll::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Same cyan scrollbar, visible only while the scroll area (or parent .group) is hovered */
+.theme-scroll-hover {
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+}
+.theme-scroll-hover:hover,
+.group:hover .theme-scroll-hover {
+  scrollbar-width: thin;
+  scrollbar-color: #128c89 transparent;
+}
+.theme-scroll-hover::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+.theme-scroll-hover:hover::-webkit-scrollbar,
+.group:hover .theme-scroll-hover::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.theme-scroll-hover::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.theme-scroll-hover::-webkit-scrollbar-track {
+  background: transparent;
+}
+.theme-scroll-hover::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+.theme-scroll-hover:hover::-webkit-scrollbar-thumb,
+.group:hover .theme-scroll-hover::-webkit-scrollbar-thumb {
+  background: #128c89;
+}
+.theme-scroll-hover::-webkit-scrollbar-corner {
+  background: transparent;
 }

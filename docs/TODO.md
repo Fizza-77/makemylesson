@@ -4,124 +4,141 @@ Ordered implementation backlog. Update status in repo-root `docs/progress.md` as
 
 ## Phase 0 — Project scaffold
 
-- [ ] Initialize Next.js (App Router, TypeScript, Tailwind, ESLint, Prettier)
+- [x] Initialize Next.js (App Router, TypeScript, Tailwind, ESLint, Prettier)
 - [x] Hosting domain: **`makemylesson.app`** at root (no `basePath`); marketing on **`makemylesson.ai`**
-- [x] Hosting provider: **Hostinger VPS** (nginx + PM2 + Next standalone)
-- [ ] `next.config`: `output: 'standalone'`, canonical URL, legacy `/app/*` redirects
-- [ ] Add `ecosystem.config.cjs` + deploy notes (`nextjs/docs/deploy-hostinger-vps.md` when scaffold exists)
-- [ ] Add `next-pwa`, manifest, icons, offline shell
-- [ ] Firebase web app + `firebase/*` client modules
-- [ ] Zustand + TanStack Query providers in root layout
-- [ ] Copy fonts/assets from Flutter `assets/`
-- [ ] Strict TS paths (`@/components`, `@/features`, …)
+- [x] Hosting provider: **Hostinger VPS** (nginx + PM2 + Next standalone) — deploy later
+- [x] `next.config`: `output: 'standalone'`, canonical URL, legacy `/app/*` redirects, next-pwa
+- [x] Add `ecosystem.config.cjs` + deploy notes (`docs/deploy-hostinger.md`)
+- [x] Add `next-pwa`, manifest, icons (logo placeholder)
+- [x] Firebase `firebase/*` client modules
+- [x] Zustand + TanStack Query providers in root layout
+- [x] Fonts/assets: Poppins via `next/font`; logo + key images under `public/` / `public/images/`
+- [x] Strict TS paths (`@/*`)
 
 ## Phase 1 — Auth & profile
 
-- [ ] Auth layout (`AuthGlassShell`)
-- [ ] Sign up + OTP + `completeEmailSignup` custom token flow
-- [ ] Sign in (email/password)
-- [ ] Google + Apple popup sign-in
-- [ ] Forgot password + reset password (`oobCode`)
-- [ ] Complete profile gate + uploads (school logo)
-- [ ] Middleware: banned + `profileComplete`
-- [ ] Post-auth deferred setup (user doc, org ensure)
-- [ ] Account security: email change, delete account, password changed email
+- [x] Auth layout (`AuthGlassShell`)
+- [x] Sign up + OTP + `completeEmailSignup` custom token flow
+- [x] Sign in (email/password + Google + Apple popups)
+- [x] Forgot password + reset password (`oobCode`)
+- [x] Complete profile gate + uploads (school logo)
+- [x] Profile route guard (banned + `profileComplete` redirect)
+- [x] Post-auth deferred setup (user doc, org ensure, welcome email)
+- [x] Account security: email change, delete account, password changed email
+- [x] Auth success/failure console logging (`[Auth]` prefix)
 
 ## Phase 2 — Shell & home
 
-- [ ] `MainAppNavShell` (desktop tabs + mobile bottom nav)
-- [ ] Landing page (`/`)
-- [ ] Marketing home link from web Home tab
-- [ ] Route chrome / back behavior
-- [ ] SEO metadata + sitemap + robots
+- [x] `MainAppNavShell` (desktop tabs + mobile bottom nav)
+- [x] Landing page (`/`) — initial hero + stage CTAs
+- [x] Home tab opens app homepage (`/`), not marketing site
+- [x] Route chrome / back behavior (`AppBackButton` + logical parents)
+- [x] SEO metadata + sitemap + robots
 
 ## Phase 3 — Profile & settings
 
-- [ ] Profile screen (guest + authenticated)
-- [ ] Avatar / school personalization toggles for AI
-- [ ] Export format preference
-- [ ] Subscription summary + credits display (Firestore hydrate)
-- [ ] Sign out
+- [x] Profile screen (guest + authenticated)
+- [x] Avatar / school personalization toggles for AI
+- [x] Export format preference (`profile_default_export`; sorts download menus)
+- [x] Subscription summary + credits display (Firestore hydrate, read-only)
+- [x] Default Settings (saved curriculum via localStorage prefs; clear + Stage 1 link)
+- [x] Security list (name/password/email/school/logo/delete) + Support & Legal + Sign out
+- [x] Sign out
 
 ## Phase 4 — Subscription & billing (web)
 
-- [ ] Subscription / pricing pages
-- [ ] PayPal create + finalize + return URL handling
-- [ ] `getMmlWebPricingQuote`
-- [ ] Org plan purchase → dashboard redirect
-- [ ] Upgrade dialogs parity (`upgrade_plan_dialog`)
+- [x] Subscription / pricing pages
+- [x] PayPal create + finalize + return URL handling
+- [x] `getMmlWebPricingQuote`
+- [x] Org plan purchase → dashboard redirect
+- [x] Upgrade dialogs parity (`upgrade_plan_dialog`) on Stages 1–4
 
 ## Phase 5 — Organization dashboard
 
-- [ ] List owned organizations
-- [ ] Dashboard with seat table
-- [ ] Add/remove teacher seats (callables)
-- [ ] Billing renewal on load (owner)
+- [x] List owned organizations
+- [x] Dashboard with seat table
+- [x] Add/remove teacher seats (callables)
+- [x] Billing renewal on load (owner)
 
 ## Phase 6 — Library
 
-- [ ] Firestore listener for `libraryItems`
-- [ ] Tabs, search, favourites
-- [ ] Library item review + complete pack view
-- [ ] Delete, favourite, export entry points
-- [ ] Navigate to stage editors from review
+- [x] Firestore listener for `libraryItems`
+- [x] Tabs, search, favourites
+- [x] Library item review + complete pack view
+- [x] Delete, favourite, export entry points (Stage 1–4 + complete pack ZIP; Share)
+- [x] Navigate to stage editors from review (Stage 1–4)
+- [x] Review UX: presentation slide canvas, Stage 3/4 student↔key toggle + edit
 
 ## Phase 7 — Stage 1 (lesson plan)
 
-- [ ] Curriculum catalog port (`CurriculumService`)
-- [ ] Lesson plan form + validation
-- [ ] `generateStage1LessonPlan` + polling
-- [ ] Edit dialog + markdown preview
-- [ ] Save to library + `planBundleId`
-- [ ] PDF export parity
-- [ ] Credit / sign-in gates
+- [x] Curriculum catalog port (`CurriculumService` → JSON extract + mapping)
+- [x] Lesson plan form + validation
+- [x] `generateStage1LessonPlan` + polling
+- [x] Edit dialog + markdown preview
+- [x] Save to library + `planBundleId` (+ complete-pack sync)
+- [x] PDF export / print (jsPDF; light markdown strip)
+- [x] Share PDF (Web Share / download fallback)
+- [x] Continue → Stage 2 (carries plan bundle + library item in draft store)
+- [x] Credit / sign-in gates
+- [x] Tips sidebar + embedded Ayla + upgrade card + success overlay
 
 ## Phase 8 — Stage 2 (presentation)
 
-- [ ] Source modes (library vs upload)
-- [ ] Generate + poll + image jobs + retry
-- [ ] Slide canvas + theme gallery + edit dialog
-- [ ] Storage URL hydration for library review
-- [ ] PPTX/PDF export
+- [x] Source modes (library vs upload / paste + file upload)
+- [x] Generate + poll + image jobs + retry
+- [x] Slide canvas + theme gallery + edit dialog
+- [x] Save to library + open from library review
+- [x] Storage URL hydration for library review (signed download URLs)
+- [x] PPTX / PDF / ZIP / print export (client-side; mirrors Flutter download menu)
+- [x] Share ZIP (Web Share / download fallback)
+- [x] Tips sidebar + embedded Ayla + upgrade card + success overlay
 
 ## Phase 9 — Stage 3 (formative)
 
-- [ ] Source modes + formative kind selection
-- [ ] Generate + poll
-- [ ] Worksheet content view + edit
-- [ ] Export
+- [x] Source modes + formative kind selection
+- [x] Generate + poll
+- [x] Worksheet content view + edit
+- [x] Save to library + open from library review + Stage 4 handoff
+- [x] Export (PDF student/key, ZIP, print) + Share + upload-from-device source
+- [x] Tips sidebar + embedded Ayla + upgrade card + success overlay
 
 ## Phase 10 — Stage 4 (summative)
 
-- [ ] Duration/marks bounds (mirror `LessonDraft.stage4MarksBoundsForMinutes`)
-- [ ] Generate + poll
-- [ ] Assessment content view + edit
-- [ ] Export
+- [x] Duration/marks bounds (mirror `LessonDraft.stage4MarksBoundsForMinutes`)
+- [x] Generate + poll
+- [x] Assessment content view + edit
+- [x] Save to library + open from library review
+- [x] Export (PDF paper/scheme, ZIP, print) + Share + upload-from-device source
+- [x] Tips sidebar + embedded Ayla + upgrade card + success overlay
 
 ## Phase 11 — Ayla
 
-- [ ] FAQ data bundle
-- [ ] Chat UI (`/ayla` + embedded assistant)
-- [ ] `callAylaSupport` integration
+- [x] FAQ data bundle
+- [x] Chat UI (`/ayla` + reusable panel)
+- [x] `callAylaSupport` integration (+ FAQ fallback)
+- [x] Embedded assistant on stage screens (desktop tips sidebar)
 
 ## Phase 12 — Notifications
 
-- [ ] Inbox list + realtime updates
-- [ ] Mark read / delete / clear all callables
-- [ ] Unread badge on nav
-- [ ] Deep link routing
-- [ ] Optional: FCM web + device doc registration
-- [ ] Client lifecycle signals (`sendUserNotification` events)
+- [x] Inbox list + realtime updates
+- [x] Mark read / delete / clear all callables
+- [x] Unread badge on nav
+- [x] Deep link routing
+- [x] Optional: FCM web + device doc registration (`fcm-web.service` + `/firebase-messaging-sw.js`)
+- [x] Client lifecycle signals (`sendUserNotification` events)
 
 ## Phase 13 — Engagement & polish
 
-- [ ] Engagement prompts coordinator (rate us, milestones)
-- [ ] Generation success overlays
-- [ ] Accessibility audit (WCAG)
-- [ ] Performance pass (lazy routes, memoization)
-- [ ] E2E smoke tests (critical paths)
+- [x] Engagement prompts coordinator (upgrade gate on stages; Rate Us skipped on web)
+- [x] Generation success overlays
+- [x] Stage upgrade card + personalization banner
+- [x] Accessibility basics (skip link, back aria-label, nav `aria-current`)
+- [x] Performance basics (lazy stage routes via `next/dynamic`)
+- [ ] E2E smoke tests (critical paths) — deferred
 
 ## Phase 14 — Hosting cutover (Hostinger VPS)
+
+Requires server/DNS access (see `docs/deploy-hostinger.md`):
 
 - [ ] Provision VPS; point `makemylesson.app` DNS to VPS IP
 - [ ] nginx + Certbot TLS; proxy to `127.0.0.1:3000`
