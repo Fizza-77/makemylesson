@@ -13,8 +13,13 @@ export function isAuthRoute(pathname: string): boolean {
   );
 }
 
+/** Workspace root — Stage 1 (no separate in-app home). */
 export function isHomeRoute(pathname: string): boolean {
-  return pathname === ROUTES.home || pathname === "";
+  return (
+    pathname === ROUTES.stage1 ||
+    pathname.startsWith(`${ROUTES.stage1}/`) ||
+    pathname === ""
+  );
 }
 
 /** Top-left back control (Flutter `showBackButton`). */
@@ -41,7 +46,7 @@ export function logicalBackPath(pathname: string): string {
     pathname.startsWith(ROUTES.subscription) ||
     pathname.startsWith(ROUTES.notifications)
   ) {
-    return ROUTES.home;
+    return ROUTES.stage1;
   }
-  return ROUTES.home;
+  return ROUTES.stage1;
 }

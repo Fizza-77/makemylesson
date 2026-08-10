@@ -13,7 +13,8 @@ type Variant = "marketing" | "app";
 
 /**
  * Download / install control for marketing + teacher PWA chrome.
- * Offers native install prompt when available, plus App Store & Google Play.
+ * Uses early-captured `beforeinstallprompt` when available; always shows a
+ * fallback panel so the control never silently does nothing.
  */
 export function InstallAppButton({
   variant = "app",
@@ -22,12 +23,13 @@ export function InstallAppButton({
 }: {
   variant?: Variant;
   className?: string;
-  /** Icon-only on very small widths */
   compact?: boolean;
 }) {
   const { installed, platform, canPromptInstall, promptInstall } =
     usePwaInstall();
   const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const panelId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -47,12 +49,32 @@ export function InstallAppButton({
     };
   }, [open]);
 
-  if (installed) {
-    return null;
-  }
+  // Already running as installed PWA — hide install / "App installed" CTA.
+  if (installed) return null;
 
   const marketing = variant === "marketing";
   const label = canPromptInstall ? "Install app" : "Download app";
+
+  async function handleInstallClick() {
+    setBusy(true);
+    setStatus(null);
+    try {
+      if (canPromptInstall) {
+        const accepted = await promptInstall();
+        if (accepted) {
+          setStatus("Installed — you can open Make My Lesson from your apps.");
+          setOpen(true);
+          return;
+        }
+        setStatus("Install was dismissed. You can try again or use a store link.");
+        setOpen(true);
+        return;
+      }
+      setOpen((v) => !v);
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <div ref={rootRef} className={cn("relative inline-flex", className)}>
@@ -61,12 +83,13 @@ export function InstallAppButton({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={panelId}
-        onClick={() => setOpen((v) => !v)}
+        disabled={busy}
+        onClick={() => void handleInstallClick()}
         className={cn(
-          "inline-flex items-center justify-center gap-1.5 font-semibold transition",
+          "inline-flex items-center justify-center gap-1.5 transition disabled:opacity-60",
           marketing
-            ? "rounded-full border border-white/25 bg-white/10 px-3.5 py-2 text-[13px] text-white hover:bg-white/15"
-            : "rounded-full border border-[#E5E7EB] bg-white px-3 py-2 text-[12px] text-[#0F172A] hover:bg-[#F8FAFC]",
+            ? "rounded-none border-0 bg-transparent px-0 py-2 text-[length:var(--site-nav-font-size,13px)] font-bold text-white hover:opacity-85"
+            : "rounded-full border-[1.5px] border-[#1A1E3A] bg-white px-3.5 py-2 text-[length:var(--site-nav-font-size,13px)] font-bold text-[#1A1E3A] hover:bg-[#1A1E3A] hover:text-white",
           compact && "size-10 px-0",
           !compact && !marketing && "max-sm:size-10 max-sm:px-0",
         )}
@@ -85,7 +108,7 @@ export function InstallAppButton({
           role="dialog"
           aria-label="Download Make My Lesson"
           className={cn(
-            "absolute right-0 z-50 mt-2 w-[min(100vw-2rem,20rem)] rounded-2xl border p-4 shadow-xl",
+            "absolute right-0 z-50 mt-2 w-[min(100vw-2rem,22rem)] rounded-2xl border p-4 shadow-xl",
             marketing
               ? "border-white/10 bg-[#1A1E3A] text-white"
               : "border-[#E5E7EB] bg-white text-[#0F172A]",
@@ -105,25 +128,38 @@ export function InstallAppButton({
               marketing ? "text-white/60" : "text-[#64748B]",
             )}
           >
-            Two options: install this website as an app on your device, or
-            download the native app from a store.
+            Install this site as an app, or download from the App Store / Google
+            Play.
           </p>
+
+          {status ? (
+            <p
+              className={cn(
+                "mt-2 rounded-xl px-3 py-2 text-[12px] leading-relaxed",
+                marketing
+                  ? "bg-white/5 text-[#35BEBC]"
+                  : "bg-[#E7F7F6] text-[#0F172A]",
+              )}
+              role="status"
+            >
+              {status}
+            </p>
+          ) : null}
 
           <div className="mt-3 flex flex-col gap-2">
             {canPromptInstall ? (
               <button
                 type="button"
+                disabled={busy}
                 className={cn(
-                  "inline-flex w-full items-center justify-center rounded-xl px-3 py-2.5 text-[13px] font-bold",
+                  "inline-flex w-full items-center justify-center rounded-xl px-3 py-2.5 text-[13px] font-bold disabled:opacity-60",
                   marketing
                     ? "bg-[#35BEBC] text-[#1A1E3A]"
                     : "bg-[#0F172A] text-white",
                 )}
-                onClick={() => {
-                  void promptInstall().then(() => setOpen(false));
-                }}
+                onClick={() => void handleInstallClick()}
               >
-                Install web app now
+                {busy ? "Opening install…" : "Install web app now"}
               </button>
             ) : null}
 
@@ -138,17 +174,22 @@ export function InstallAppButton({
               >
                 {platform === "ios" ? (
                   <>
-                    <li>Open this site in <strong>Safari</strong> (not Chrome).</li>
                     <li>
-                      Tap the <strong>Share</strong> button (square with an arrow).
+                      Open this site in <strong>Safari</strong> (required on
+                      iPhone/iPad).
                     </li>
                     <li>
-                      Scroll and tap <strong>Add to Home Screen</strong>, then Add.
+                      Tap <strong>Share</strong> (square with an arrow).
+                    </li>
+                    <li>
+                      Tap <strong>Add to Home Screen</strong>, then Add.
                     </li>
                   </>
                 ) : platform === "android" ? (
                   <>
-                    <li>Open this site in <strong>Chrome</strong>.</li>
+                    <li>
+                      Open this site in <strong>Chrome</strong>.
+                    </li>
                     <li>
                       Tap the <strong>⋮</strong> menu (top right).
                     </li>
@@ -156,26 +197,27 @@ export function InstallAppButton({
                       Tap <strong>Install app</strong> or{" "}
                       <strong>Add to Home screen</strong>.
                     </li>
+                    <li>
+                      If Install is missing, use a production HTTPS build (or{" "}
+                      <code className="text-[11px]">next start</code> locally)
+                      — the service worker is required.
+                    </li>
                   </>
                 ) : (
                   <>
                     <li>
-                      Use <strong>Chrome</strong> or <strong>Edge</strong> (not
-                      Firefox/Safari on desktop for one-click install).
+                      Use <strong>Chrome</strong> or <strong>Edge</strong>.
                     </li>
                     <li>
-                      Look in the address bar for a <strong>monitor + arrow</strong>{" "}
-                      (install) icon and click it.
+                      Look for the <strong>install</strong> icon in the address
+                      bar, or menu → <strong>Install Make My Lesson</strong>.
                     </li>
                     <li>
-                      Or open the browser menu <strong>⋮</strong> →{" "}
-                      <strong>Cast, save, and share</strong> /{" "}
-                      <strong>Apps</strong> →{" "}
-                      <strong>Install Make My Lesson</strong>.
-                    </li>
-                    <li>
-                      Confirm <strong>Install</strong>. The app opens in its own
-                      window.
+                      On localhost, run{" "}
+                      <code className="text-[11px]">npm run build</code> then{" "}
+                      <code className="text-[11px]">npm run start</code> (or set{" "}
+                      <code className="text-[11px]">PWA_DEV=1</code>). The
+                      install prompt needs a service worker.
                     </li>
                   </>
                 )}
@@ -188,7 +230,7 @@ export function InstallAppButton({
                 marketing ? "text-white/45" : "text-[#94A3B8]",
               )}
             >
-              Or get the mobile app
+              Native mobile apps
             </p>
             <a
               href={APP_STORE_URL}

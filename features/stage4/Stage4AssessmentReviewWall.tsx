@@ -80,14 +80,11 @@ export function Stage4AssessmentReviewWall({
   exportMenuOpen,
   exportActions,
   linkedLibraryItemId,
-  previewLocked = false,
-  lockReason = null,
   onPreview,
   onToggleExport,
   onExport,
   onShare,
   onSaveLibrary,
-  onUnlock,
   className,
 }: {
   quizKind: SummativeKind | null;
@@ -101,18 +98,14 @@ export function Stage4AssessmentReviewWall({
   exportMenuOpen?: boolean;
   exportActions: { id: string; label: string }[];
   linkedLibraryItemId?: string | null;
-  /** Hide generated text and show lock popup (guest or 0 credits). */
-  previewLocked?: boolean;
-  lockReason?: "auth" | "credits" | null;
   onPreview: () => void;
   onToggleExport: () => void;
   onExport: (id: string) => void;
   onShare: () => void;
   onSaveLibrary: () => void;
-  onUnlock?: () => void;
   className?: string;
 }) {
-  const hasResult = !!result && !previewLocked;
+  const hasResult = !!result;
   const paperTitle =
     result?.paperTitle?.trim() ||
     result?.assessmentTitle?.trim() ||
@@ -126,35 +119,6 @@ export function Stage4AssessmentReviewWall({
     : 0;
   const hasStudentContent =
     Boolean(studentBody) || structuredQuestionCount > 0;
-
-  const lockTitle =
-    lockReason === "auth"
-      ? "Sign in to generate assessments"
-      : "Generate assessment to preview content.";
-  const lockBody =
-    lockReason === "auth"
-      ? "Create a free account to use your starter credits and unlock the student paper and mark scheme."
-      : lockReason === "credits"
-        ? "You’re out of generation credits. Upgrade your plan to create and preview assessments."
-        : "The student paper and mark scheme will appear here after creation.";
-
-  function LockedPopup() {
-    return (
-      <div className="relative z-10 max-w-[18rem] rounded-2xl border border-slate-100 bg-white px-5 py-5 text-center shadow-lg sm:px-6 sm:py-6">
-        <p className="text-sm font-bold text-[#151B35]">{lockTitle}</p>
-        <p className="mt-2 text-xs leading-relaxed text-slate-500">{lockBody}</p>
-        {onUnlock ? (
-          <button
-            type="button"
-            onClick={onUnlock}
-            className="mt-4 w-full rounded-full bg-[#28C2C0] px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-95"
-          >
-            {lockReason === "auth" ? "Sign in" : "Upgrade plan"}
-          </button>
-        ) : null}
-      </div>
-    );
-  }
 
   return (
     <section
@@ -269,12 +233,6 @@ export function Stage4AssessmentReviewWall({
               </div>
             </PackSlot>
           </div>
-
-          {previewLocked ? (
-            <div className="absolute inset-0 z-30 flex items-center justify-center rounded-3xl bg-[#0D1430]/45 px-4 backdrop-blur-[2px]">
-              <LockedPopup />
-            </div>
-          ) : null}
         </div>
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 sm:px-5">
@@ -289,11 +247,11 @@ export function Stage4AssessmentReviewWall({
             <div className="relative">
               <button
                 type="button"
-                disabled={!hasResult || exporting || previewLocked}
+                disabled={!hasResult || exporting}
                 onClick={onToggleExport}
                 className={cn(
                   "rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#151B35] transition hover:bg-slate-50",
-                  (!hasResult || exporting || previewLocked) && "opacity-50",
+                  (!hasResult || exporting) && "opacity-50",
                 )}
               >
                 Download / Print
@@ -316,11 +274,11 @@ export function Stage4AssessmentReviewWall({
 
             <button
               type="button"
-              disabled={!hasResult || exporting || previewLocked}
+              disabled={!hasResult || exporting}
               onClick={onShare}
               className={cn(
                 "rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#151B35] transition hover:bg-slate-50",
-                (!hasResult || exporting || previewLocked) && "opacity-50",
+                (!hasResult || exporting) && "opacity-50",
               )}
             >
               Share
@@ -328,20 +286,11 @@ export function Stage4AssessmentReviewWall({
 
             <button
               type="button"
-              disabled={
-                !hasResult ||
-                isGenerating ||
-                isSavingLibrary ||
-                previewLocked
-              }
+              disabled={!hasResult || isGenerating || isSavingLibrary}
               onClick={onSaveLibrary}
               className={cn(
                 "rounded-xl bg-[#28C2C0] px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-95",
-                (!hasResult ||
-                  isGenerating ||
-                  isSavingLibrary ||
-                  previewLocked) &&
-                  "opacity-50",
+                (!hasResult || isGenerating || isSavingLibrary) && "opacity-50",
               )}
             >
               {isSavingLibrary

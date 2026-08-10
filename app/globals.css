@@ -36,7 +36,7 @@
   --color-mm-light: var(--ds-light);
   --color-mm-surface: var(--ds-surface);
   --color-mm-sky: var(--ds-sky);
-  /* original-mml marketing palette (bg-mml-navy, text-mml-teal, …) */
+  /* original-mml marketing palette (bg-mml-navy, text-mml-teal, ...) */
   --color-mml-navy: #1a1e3a;
   --color-mml-navy-mid: #242845;
   --color-mml-navy-light: #2e3355;
@@ -73,7 +73,7 @@ body {
   display: none;
 }
 
-/* Theme cyan scrollbar (horizontal or vertical) — thumb only, no track fill */
+/* Theme cyan scrollbar (horizontal or vertical) - thumb only, no track fill */
 .theme-scroll {
   scrollbar-width: thin;
   scrollbar-color: #128c89 transparent;

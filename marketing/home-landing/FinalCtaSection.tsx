@@ -5,16 +5,17 @@ function LessonUnderline() {
   return (
     <svg
       className="mml-cta-underline"
-      viewBox="0 0 220 14"
+      viewBox="0 0 220 16"
       fill="none"
       aria-hidden
       preserveAspectRatio="none"
     >
       <path
-        d="M4 9c32 3.5 72 4 112 1.5 38-2.5 74-6.5 100-2"
+        d="M4 10 C 28 2, 44 18, 68 10 S 108 2, 132 10 S 172 18, 196 10 S 212 4, 216 8"
         stroke="#35bebc"
-        strokeWidth="6"
+        strokeWidth="5"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

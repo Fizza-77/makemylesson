@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -10,6 +9,7 @@ import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { Stage1Hero } from "@/components/common/Stage1Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
+import { useSignInGate } from "@/features/auth/useSignInGate";
 import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
 import {
   CreateLessonPlanButton,
@@ -48,6 +48,7 @@ export function Stage1View() {
   const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
   const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
+  const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage1);
 
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
   const [successFlash, setSuccessFlash] = useState(0);
@@ -58,6 +59,8 @@ export function Stage1View() {
   const pathway = getPathway(draft.topLevelId, draft.pathwayId);
   const subjects = getSubjectsForGrade(pathway, draft.gradeInternalId);
   const hasPlan = draft.generatedSummary.trim().length > 0;
+  const displayContent = draft.generatedSummary;
+  const isGenerating = draft.isGenerating;
 
   useEffect(() => {
     draft.hydrateFromPrefs();
@@ -71,16 +74,6 @@ export function Stage1View() {
 
   async function onGenerate() {
     if (!authReady) return;
-    if (!user) {
-      toast.info("Sign in to generate a lesson plan.");
-      router.push(
-        `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to generate lesson plans.")}&next=${encodeURIComponent(ROUTES.stage1)}`,
-      );
-      return;
-    }
-    if (blockIfNoCredits()) {
-      return;
-    }
     if (draft.hasUnsupportedMapping()) {
       toast.error("This combination is not supported");
       return;
@@ -89,10 +82,12 @@ export function Stage1View() {
       toast.error("Choose curriculum, program, grade, subject, and topic.");
       return;
     }
+
+    if (requireSignIn()) return;
+    if (blockIfNoCredits()) return;
     try {
       const result = await draft.generate();
       if (user?.uid) {
-        // Pull latest credits from Firestore after Cloud Functions deducts.
         await refreshAccountFromServer(user.uid).catch(() => null);
       }
       setSuccessFlash((n) => n + 1);
@@ -108,11 +103,11 @@ export function Stage1View() {
         );
       }
     } catch (e) {
-      const msg =
+      toast.error(
         mapFunctionsError(e) ||
-        mapFirebaseAuthError(e) ||
-        (e instanceof Error ? e.message : "Could not generate lesson plan.");
-      toast.error(msg);
+          mapFirebaseAuthError(e) ||
+          "Could not generate lesson plan.",
+      );
     }
   }
 
@@ -122,10 +117,7 @@ export function Stage1View() {
       await draft.saveCurrentPlanToLibrary();
       toast.success("Lesson plan saved to library.");
     } catch (e) {
-      const msg =
-        mapFunctionsError(e) ||
-        (e instanceof Error ? e.message : "Could not save to library.");
-      toast.error(msg);
+      toast.error(mapFunctionsError(e) || "Could not save to library.");
       throw e;
     }
   }
@@ -210,7 +202,7 @@ export function Stage1View() {
           <LessonDetailsShell
             footer={
               <div className="flex flex-col gap-2">
-                {draft.isGenerating ? (
+                {isGenerating ? (
                   <div className="mb-1 rounded-xl border border-[#E8F8F7] bg-[#F5FBFB] px-4 py-3">
                     <div className="mb-2 flex items-center justify-between text-sm">
                       <span className="font-medium text-[#1A1C30]">
@@ -218,33 +210,25 @@ export function Stage1View() {
                           ? "Saving to library…"
                           : `Generating… ${draft.phase || "working"}`}
                       </span>
-                      <span className="text-[#666666]">{draft.progress}%</span>
+                      <span className="text-[#666666]">
+                        {draft.progress}%
+                      </span>
                     </div>
                     <div className="h-2 overflow-hidden rounded-full bg-white">
                       <div
                         className="h-full rounded-full bg-[#28C2C0] transition-[width]"
-                        style={{ width: `${Math.max(4, draft.progress)}%` }}
+                        style={{
+                          width: `${Math.max(4, draft.progress)}%`,
+                        }}
                       />
                     </div>
                   </div>
                 ) : null}
                 <CreateLessonPlanButton
                   onClick={() => void onGenerate()}
-                  disabled={draft.isGenerating}
-                  isLoading={draft.isGenerating}
+                  disabled={isGenerating}
+                  isLoading={isGenerating}
                 />
-                {!user ? (
-                  <p className="text-center text-xs text-[#666666]">
-                    You&apos;ll need to{" "}
-                    <Link
-                      href={ROUTES.signIn}
-                      className="font-semibold text-[#28C2C0]"
-                    >
-                      sign in
-                    </Link>{" "}
-                    before generating.
-                  </p>
-                ) : null}
               </div>
             }
           >
@@ -279,8 +263,8 @@ export function Stage1View() {
           <GenerationSuccessOverlay trigger={successFlash}>
             <LessonPlanResultPanel
               hasPlan={hasPlan}
-              isGenerating={draft.isGenerating}
-              content={draft.generatedSummary}
+              isGenerating={isGenerating}
+              content={displayContent}
               linkedLibraryItemId={draft.linkedLibraryItemId}
               isSavingLibrary={draft.isSavingLibrary}
               exportMenuOpen={exportMenuOpen}
@@ -293,7 +277,9 @@ export function Stage1View() {
               onSaveLibrary={() => {
                 void draft
                   .saveCurrentPlanToLibrary()
-                  .then(() => toast.success("Lesson plan saved to library."))
+                  .then(() =>
+                    toast.success("Lesson plan saved to library."),
+                  )
                   .catch((e) =>
                     toast.error(
                       e instanceof Error
@@ -309,12 +295,13 @@ export function Stage1View() {
             <Button
               className="w-full"
               onClick={onContinueToStage2}
-              disabled={draft.isGenerating}
+              disabled={isGenerating}
             >
               {hasPlan ? "Go to Stage 2" : "Skip to Stage 2"}
             </Button>
           </div>
 
+          {signInDialog}
           {upgradeDialog}
         </div>
       </StageWorkspace>

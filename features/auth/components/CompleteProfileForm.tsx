@@ -158,9 +158,7 @@ export function CompleteProfileForm() {
             className="text-sm text-[#4A4A4A] file:mr-3 file:rounded-lg file:border-0 file:bg-[#E8F8F7] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-[#1A1C30]"
             onChange={(e) => setLogoFile(e.target.files?.[0] ?? null)}
           />
-          {logoFile ? (
-            <p className="text-xs text-[#666666]">{logoFile.name}</p>
-          ) : existingLogoUrl ? (
+          {existingLogoUrl && !logoFile ? (
             <p className="text-xs text-[#666666]">Current logo on file</p>
           ) : null}
         </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
+import { PricingLink } from "@/components/common/PricingLink";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -89,10 +90,7 @@ export function OrganizationDashboardView() {
         }
       } catch (e) {
         setDashboard(null);
-        setError(
-          mapFunctionsError(e) ||
-            (e instanceof Error ? e.message : "Could not open dashboard."),
-        );
+        setError(mapFunctionsError(e) || "Could not open dashboard.");
       } finally {
         setLoading(false);
       }
@@ -181,12 +179,12 @@ export function OrganizationDashboardView() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 pb-10">
       <div>
-        <Link
+        <PricingLink
           href={ROUTES.subscription}
           className="text-xs font-semibold text-[#28C2C0] hover:underline"
         >
           ← Plans
-        </Link>
+        </PricingLink>
         <h1 className="mt-2 text-2xl font-bold text-[#1A1C30]">
           School dashboard
         </h1>
@@ -248,9 +246,9 @@ export function OrganizationDashboardView() {
           <p className="text-sm text-[#1A1C30]">
             No admin dashboard found for this account yet.
           </p>
-          <Link href={ROUTES.subscription} className="mt-3 inline-block">
+          <PricingLink href={ROUTES.subscription} className="mt-3 inline-block">
             <Button type="button">View plans</Button>
-          </Link>
+          </PricingLink>
         </Card>
       ) : null}
 

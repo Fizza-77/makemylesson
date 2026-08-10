@@ -85,7 +85,7 @@ export default function ActivityMethodShape() {
           className="text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
         >
           Same topic.{' '}
-          <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+          <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
             Different classroom.
           </span>
         </h2>

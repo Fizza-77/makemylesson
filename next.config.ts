@@ -3,7 +3,10 @@ import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
   dest: "public",
-  disable: process.env.NODE_ENV === "development",
+  // Default: off in `next dev` (HMR cache issues). Set PWA_DEV=1 to test SW locally.
+  // Installability always works with `npm run build && npm run start` on localhost.
+  disable:
+    process.env.NODE_ENV === "development" && process.env.PWA_DEV !== "1",
   reloadOnOnline: true,
   workboxOptions: {
     disableDevLogs: true,
@@ -55,9 +58,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       { source: "/subscription", destination: "/pricing", permanent: false },
-      { source: "/ayla", destination: "/home", permanent: false },
-      { source: "/ayla-chat", destination: "/home", permanent: false },
-      { source: "/onboarding", destination: "/home", permanent: false },
+      { source: "/home", destination: "/stage1", permanent: false },
+      { source: "/ayla", destination: "/stage1", permanent: false },
+      { source: "/ayla-chat", destination: "/stage1", permanent: false },
+      { source: "/onboarding", destination: "/stage1", permanent: false },
+      { source: "/marketing", destination: "/", permanent: true },
       // Keep /pricing as marketing + PayPal checkout surface
     ];
   },

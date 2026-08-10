@@ -1,9 +1,10 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { ToastHost } from "@/components/ui/ToastHost";
+import { wirePwaInstallListeners } from "@/lib/pwa-install";
 
 import { AuthProvider } from "./AuthProvider";
 
@@ -19,6 +20,10 @@ export function AppProviders({ children }: { children: ReactNode }) {
         },
       }),
   );
+
+  useEffect(() => {
+    wirePwaInstallListeners();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

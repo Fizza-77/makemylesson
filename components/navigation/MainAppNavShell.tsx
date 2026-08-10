@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 import { NotificationsPanel } from "@/features/notifications/NotificationsPanel";
 import { InstallAppButton } from "@/components/common/InstallAppButton";
+import { PricingLink } from "@/components/common/PricingLink";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/lib/urls";
 import { upsertCurrentDeviceToken } from "@/services/fcm-web.service";
@@ -22,7 +23,12 @@ import {
 type Tab = "home" | "library" | "profile" | "notifications";
 
 const primaryTabs = [
-  { id: "home" as const, label: "Home", href: ROUTES.home, icon: "home" as const },
+  {
+    id: "home" as const,
+    label: "Home",
+    href: ROUTES.home,
+    icon: "home" as const,
+  },
   {
     id: "library" as const,
     label: "Library",
@@ -41,9 +47,7 @@ function activeTab(pathname: string): Tab {
   if (pathname.startsWith(ROUTES.library)) return "library";
   if (pathname.startsWith(ROUTES.profile)) return "profile";
   if (pathname.startsWith(ROUTES.notifications)) return "notifications";
-  if (pathname === ROUTES.home || pathname.startsWith(`${ROUTES.home}/`)) {
-    return "home";
-  }
+  // Home opens Stage 1; keep it active across the stage flow.
   return "home";
 }
 
@@ -170,11 +174,14 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
             isProfilePage ? "max-w-[1600px]" : "max-w-7xl",
           )}
         >
-          {/* Left brand */}
+          {/* Left brand → app home (Stage 1) */}
           <div className="flex min-w-0 flex-1 items-center">
-            <Link href={ROUTES.home} className="flex min-w-0 items-center gap-3">
+            <Link
+              href={ROUTES.home}
+              className="flex min-w-0 items-center gap-3"
+            >
               <Image
-                src="/logo.jpeg"
+                src="/logo.png"
                 alt="Make My Lesson"
                 width={42}
                 height={42}
@@ -197,83 +204,107 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
             className="hidden shrink-0 items-center gap-1 lg:flex"
             aria-label="Main"
           >
-            {primaryTabs.map((tab) => {
-              const isActive = tab.id === current;
-              return (
-                <Link
-                  key={tab.id}
-                  href={tab.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={cn(
-                    "inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors",
-                    isActive
-                      ? "bg-[#E7F7F6] text-[#0F172A]"
-                      : "text-[#334155] hover:bg-[#F5F6FA] hover:text-[#0F172A]",
-                  )}
-                >
-                  <NavIcon name={tab.icon} />
-                  {tab.label}
-                </Link>
-              );
-            })}
+            {primaryTabs
+              .filter((tab) => user || tab.id !== "profile")
+              .map((tab) => {
+                const isActive = tab.id === current;
+                return (
+                  <Link
+                    key={tab.id}
+                    href={tab.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors",
+                      isActive
+                        ? "bg-[#E7F7F6] text-[#0F172A]"
+                        : "text-[#334155] hover:bg-[#F5F6FA] hover:text-[#0F172A]",
+                    )}
+                  >
+                    <NavIcon name={tab.icon} />
+                    {tab.label}
+                  </Link>
+                );
+              })}
           </nav>
 
-          {/* Right: download + alerts + credits + profile */}
+          {/* Right: download + auth CTAs (guest) or alerts / credits / profile */}
           <div className="flex min-w-0 flex-1 items-center justify-end gap-2 sm:gap-3">
             <InstallAppButton variant="app" className="shrink-0" />
-            <button
-              id="nav-alerts-bell"
-              type="button"
-              onClick={togglePanel}
-              className={cn(
-                "relative inline-flex size-10 items-center justify-center rounded-full text-[#334155] hover:bg-[#F5F6FA]",
-                (panelOpen || current === "notifications") &&
-                  "bg-[#E7F7F6] text-[#0F172A]",
-              )}
-              aria-label={
-                unreadCount > 0
-                  ? `Alerts, ${unreadCount} unread`
-                  : "Alerts"
-              }
-              aria-expanded={panelOpen}
-              aria-haspopup="dialog"
-            >
-              <NavIcon name="alerts" />
-              {unreadCount > 0 ? (
-                <span className="absolute top-1.5 right-1.5 flex min-w-[1rem] items-center justify-center rounded-full bg-[#EF4444] px-1 text-[9px] font-bold leading-4 text-white">
-                  {unreadCount > 99 ? "99+" : unreadCount}
-                </span>
-              ) : null}
-            </button>
 
-            {credits !== null ? (
-              <Link
-                href={ROUTES.subscription}
-                className="hidden max-w-[12rem] items-center truncate rounded-lg bg-[#0F172A] px-3 py-2 text-[11px] font-semibold whitespace-nowrap text-white sm:inline-flex"
-              >
-                <span className="text-[#2DD4BF]">{credits}</span>
-                <span className="ml-1 truncate font-medium">
-                  {isFree ? "free credits left" : "credits left"}
-                </span>
-              </Link>
+            {authReady && !user ? (
+              <>
+                <Link
+                  href={`${ROUTES.signIn}?next=${encodeURIComponent(pathname || ROUTES.home)}`}
+                  className="inline-flex items-center justify-center rounded-full px-3.5 py-2 text-sm font-semibold text-[#334155] transition hover:bg-[#F5F6FA] hover:text-[#0F172A] sm:px-4"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  href={`${ROUTES.signUp}?next=${encodeURIComponent(pathname || ROUTES.home)}`}
+                  className="inline-flex items-center justify-center rounded-full bg-[#0F172A] px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-[#1E293B] sm:px-4"
+                >
+                  Sign up
+                </Link>
+              </>
             ) : null}
 
-            <Link
-              href={ROUTES.profile}
-              className="flex max-w-[10.5rem] items-center gap-2 rounded-lg border border-[#E5E7EB] bg-white py-1.5 pr-2.5 pl-1.5 hover:bg-[#F8FAFC]"
-            >
-              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#2DD4BF] text-[11px] font-bold text-[#0F172A]">
-                {initialsFromName(displayName)}
-              </span>
-              <span className="hidden min-w-0 sm:block">
-                <span className="block truncate text-xs font-bold leading-tight whitespace-nowrap text-[#0F172A]">
-                  {displayName}
-                </span>
-                <span className="mt-0.5 block truncate text-[10px] font-medium leading-none whitespace-nowrap text-[#94A3B8]">
-                  Teacher account
-                </span>
-              </span>
-            </Link>
+            {user ? (
+              <>
+                <button
+                  id="nav-alerts-bell"
+                  type="button"
+                  onClick={togglePanel}
+                  className={cn(
+                    "relative inline-flex size-10 items-center justify-center rounded-full text-[#334155] hover:bg-[#F5F6FA]",
+                    (panelOpen || current === "notifications") &&
+                      "bg-[#E7F7F6] text-[#0F172A]",
+                  )}
+                  aria-label={
+                    unreadCount > 0
+                      ? `Alerts, ${unreadCount} unread`
+                      : "Alerts"
+                  }
+                  aria-expanded={panelOpen}
+                  aria-haspopup="dialog"
+                >
+                  <NavIcon name="alerts" />
+                  {unreadCount > 0 ? (
+                    <span className="absolute top-1.5 right-1.5 flex min-w-[1rem] items-center justify-center rounded-full bg-[#EF4444] px-1 text-[9px] font-bold leading-4 text-white">
+                      {unreadCount > 99 ? "99+" : unreadCount}
+                    </span>
+                  ) : null}
+                </button>
+
+                {credits !== null ? (
+                  <PricingLink
+                    href={ROUTES.subscription}
+                    className="hidden max-w-[12rem] items-center truncate rounded-lg bg-[#0F172A] px-3 py-2 text-[11px] font-semibold whitespace-nowrap text-white sm:inline-flex"
+                  >
+                    <span className="text-[#2DD4BF]">{credits}</span>
+                    <span className="ml-1 truncate font-medium">
+                      {isFree ? "free credits left" : "credits left"}
+                    </span>
+                  </PricingLink>
+                ) : null}
+
+                <Link
+                  href={ROUTES.profile}
+                  className="flex max-w-[10.5rem] items-center gap-2 rounded-lg border border-[#E5E7EB] bg-white py-1.5 pr-2.5 pl-1.5 hover:bg-[#F8FAFC]"
+                >
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#2DD4BF] text-[11px] font-bold text-[#0F172A]">
+                    {initialsFromName(displayName)}
+                  </span>
+                  <span className="hidden min-w-0 sm:block">
+                    <span className="block truncate text-xs font-bold leading-tight whitespace-nowrap text-[#0F172A]">
+                      {displayName}
+                    </span>
+                    <span className="mt-0.5 block truncate text-[10px] font-medium leading-none whitespace-nowrap text-[#94A3B8]">
+                      Teacher account
+                    </span>
+                  </span>
+                </Link>
+              </>
+            ) : null}
           </div>
         </div>
       </header>
@@ -298,53 +329,82 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
         aria-label="Mobile"
       >
         <ul className="mx-auto flex max-w-lg justify-between px-1 py-1.5">
-          {primaryTabs.map((tab) => {
-            const isActive = tab.id === current;
-            return (
-              <li key={tab.id} className="flex-1">
-                <Link
-                  href={tab.href}
-                  className={cn(
-                    "flex flex-col items-center gap-1 rounded-xl px-1 py-2 text-[10px] font-semibold",
-                    isActive ? "text-[#0F172A]" : "text-[#64748B]",
-                  )}
-                >
-                  <span
+          {primaryTabs
+            .filter((tab) => user || tab.id !== "profile")
+            .map((tab) => {
+              const isActive = tab.id === current;
+              return (
+                <li key={tab.id} className="flex-1">
+                  <Link
+                    href={tab.href}
                     className={cn(
-                      "relative inline-flex rounded-full p-1.5",
-                      isActive && "bg-[#E7F7F6]",
+                      "flex flex-col items-center gap-1 rounded-xl px-1 py-2 text-[10px] font-semibold",
+                      isActive ? "text-[#0F172A]" : "text-[#64748B]",
                     )}
                   >
-                    <NavIcon name={tab.icon} />
+                    <span
+                      className={cn(
+                        "relative inline-flex rounded-full p-1.5",
+                        isActive && "bg-[#E7F7F6]",
+                      )}
+                    >
+                      <NavIcon name={tab.icon} />
+                    </span>
+                    {tab.label}
+                  </Link>
+                </li>
+              );
+            })}
+          {authReady && !user ? (
+            <>
+              <li className="flex-1">
+                <Link
+                  href={`${ROUTES.signIn}?next=${encodeURIComponent(pathname || ROUTES.home)}`}
+                  className="flex flex-col items-center gap-1 rounded-xl px-1 py-2 text-[10px] font-semibold text-[#64748B]"
+                >
+                  <span className="relative inline-flex rounded-full p-1.5">
+                    <NavIcon name="profile" />
                   </span>
-                  {tab.label}
+                  Sign in
                 </Link>
               </li>
-            );
-          })}
-          <li className="flex-1">
-            <button
-              type="button"
-              onClick={openPanel}
-              className={cn(
-                "flex w-full flex-col items-center gap-1 rounded-xl px-1 py-2 text-[10px] font-semibold",
-                panelOpen ? "text-[#0F172A]" : "text-[#64748B]",
-              )}
-            >
-              <span
+              <li className="flex-1">
+                <Link
+                  href={`${ROUTES.signUp}?next=${encodeURIComponent(pathname || ROUTES.home)}`}
+                  className="flex flex-col items-center gap-1 rounded-xl px-1 py-2 text-[10px] font-semibold text-[#0F172A]"
+                >
+                  <span className="relative inline-flex rounded-full bg-[#E7F7F6] p-1.5">
+                    <NavIcon name="profile" />
+                  </span>
+                  Sign up
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li className="flex-1">
+              <button
+                type="button"
+                onClick={openPanel}
                 className={cn(
-                  "relative inline-flex rounded-full p-1.5",
-                  panelOpen && "bg-[#E7F7F6]",
+                  "flex w-full flex-col items-center gap-1 rounded-xl px-1 py-2 text-[10px] font-semibold",
+                  panelOpen ? "text-[#0F172A]" : "text-[#64748B]",
                 )}
               >
-                <NavIcon name="alerts" />
-                {unreadCount > 0 ? (
-                  <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-[#EF4444]" />
-                ) : null}
-              </span>
-              Alerts
-            </button>
-          </li>
+                <span
+                  className={cn(
+                    "relative inline-flex rounded-full p-1.5",
+                    panelOpen && "bg-[#E7F7F6]",
+                  )}
+                >
+                  <NavIcon name="alerts" />
+                  {unreadCount > 0 ? (
+                    <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-[#EF4444]" />
+                  ) : null}
+                </span>
+                Alerts
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-
+import { PricingLink } from "@/components/common/PricingLink";
 import { ProfileCardShell } from "@/features/profile/ProfileMenuPrimitives";
 import { ROUTES } from "@/lib/urls";
 import { cn } from "@/lib/utils";
@@ -111,12 +110,12 @@ export function ProfileSubscriptionCard({
           </span>
         </div>
 
-        <Link
+        <PricingLink
           href={ROUTES.subscription}
           className="mt-5 flex w-full items-center justify-center rounded-xl bg-[#20AAA7] px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_18px_-8px_rgba(32,170,167,0.7)] transition hover:bg-[#1a9592]"
         >
           {paid ? "Manage Subscription" : "Upgrade Plan"}
-        </Link>
+        </PricingLink>
       </div>
     </ProfileCardShell>
   );

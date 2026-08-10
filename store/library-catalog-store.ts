@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 
+import { toUserMessage } from "@/lib/user-facing-error";
 import {
   removeLibraryItem,
   resolvePlanBundleMembers,
@@ -166,7 +167,7 @@ export function syncLibraryCatalogSubscription(
     (error) => {
       console.error("[Library] snapshot failed", error);
       useLibraryCatalogStore.getState().setError(
-        error.message || "Could not load library.",
+        toUserMessage(error, "Could not load library."),
       );
     },
   );

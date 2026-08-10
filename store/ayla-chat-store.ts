@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 
+import { toUserMessage } from "@/lib/user-facing-error";
 import {
   sendAylaMessage,
   type AylaChatMessage,
@@ -50,7 +51,7 @@ export const useAylaChatStore = create<AylaStore>((set, get) => ({
     } catch (e) {
       set({
         isSending: false,
-        error: e instanceof Error ? e.message : "Ayla could not reply.",
+        error: toUserMessage(e, "Ayla could not reply."),
       });
     }
   },

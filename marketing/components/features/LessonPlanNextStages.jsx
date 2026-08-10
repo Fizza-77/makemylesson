@@ -41,7 +41,7 @@ export default function LessonPlanNextStages() {
           className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
         >
           Your plan feeds{' '}
-          <span className="pricing-hero-underline relative inline-block">three more stages.</span>
+          <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block">three more stages.</span>
         </h2>
         <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#1A1E3A]/55 sm:text-base">
           Generate them together and every document stays coherent — same objectives, same language,

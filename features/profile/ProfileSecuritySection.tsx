@@ -485,9 +485,6 @@ export function ProfileSecuritySection({
             onChange={(e) => setNameDraft(e.target.value)}
             autoComplete="name"
           />
-          <p className="mt-1 text-xs text-[#666666]">
-            Shown in the app; not your sign-in email.
-          </p>
           <div className="mt-4 flex justify-end gap-2">
             <Button variant="ghost" onClick={() => setDialog(null)}>
               Cancel
@@ -609,11 +606,7 @@ export function ProfileSecuritySection({
           title="Delete account"
           onClose={() => setDialog(null)}
         >
-          <p className="text-sm text-[#666666]">
-            Permanently remove your account and lesson data. This uses the
-            existing delete account Cloud Function — same as the mobile app.
-          </p>
-          <div className="mt-3">
+          <div>
             <Input
               label="Confirm with password"
               type="password"

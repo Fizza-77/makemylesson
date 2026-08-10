@@ -7,6 +7,7 @@ import {
   saveLessonPlanCurriculumPrefs,
 } from "@/lib/lesson-plan-curriculum-prefs";
 import { newPlanBundleId } from "@/lib/plan-bundle-id";
+import { toUserMessage } from "@/lib/user-facing-error";
 import {
   getTopLevelById,
   getPathway,
@@ -201,7 +202,7 @@ async function finalizeStage1Plan(
     }
   } catch (e) {
     saveError =
-      e instanceof Error ? e.message : "Could not save lesson plan to library.";
+      toUserMessage(e, "Could not save lesson plan to library.");
     console.warn("[Stage1] library save failed", e);
   }
 
@@ -645,8 +646,7 @@ export const useStage1DraftStore = create<Stage1Store>((set, get) => ({
     } catch (e) {
       stopPolling();
       if (activeJobId !== jobId || finalized) return finalizeResult;
-      const message =
-        e instanceof Error ? e.message : "Could not generate lesson plan.";
+      const message = toUserMessage(e, "Could not generate lesson plan.");
       set({
         isGenerating: false,
         status: "failed",

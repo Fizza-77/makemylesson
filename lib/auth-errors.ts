@@ -1,5 +1,7 @@
 import { FirebaseError } from "firebase/app";
 
+import { sanitizeUserMessage, toUserMessage } from "@/lib/user-facing-error";
+
 export function isAuthSignInCancelled(error: unknown): boolean {
   if (!(error instanceof FirebaseError)) return false;
   return (
@@ -41,15 +43,15 @@ export function mapFirebaseAuthError(error: unknown): string {
       case "auth/popup-blocked":
         return "Your browser blocked the sign-in popup. Allow popups and try again.";
       case "auth/unauthorized-domain":
-        return "This website address is not authorized for sign-in. Add it under Firebase Authentication → Settings → Authorized domains.";
+        return "Sign-in isn’t available from this website address. Please contact support.";
       default:
-        return "Something went wrong on our end. Please try again in a moment.";
+        return "Something went wrong. Please try again in a moment.";
     }
   }
-  if (error instanceof Error && error.message) {
-    return error.message;
-  }
-  return "Something went wrong on our end. Please try again in a moment.";
+  return toUserMessage(
+    error,
+    "Something went wrong. Please try again in a moment.",
+  );
 }
 
 /** Maps Cloud Functions HTTPS callable errors (FunctionsError / FirebaseError). */
@@ -64,7 +66,12 @@ export function mapFunctionsError(error: unknown): string {
         if (message.includes("verification code")) {
           return "Invalid, expired, or used verification code.";
         }
-        return error.message || "Please check your details and try again.";
+        return (
+          sanitizeUserMessage(
+            error.message,
+            "Please check your details and try again.",
+          ) || "Please check your details and try again."
+        );
       case "resource-exhausted":
         if (message.includes("60")) {
           return "Email resent. Please wait 60 seconds before trying again.";
@@ -76,16 +83,25 @@ export function mapFunctionsError(error: unknown): string {
         return "Make My Lesson is currently undergoing maintenance. We'll be back shortly.";
       case "unauthenticated":
         return "Please sign in again to continue.";
+      case "permission-denied":
+        return "You don’t have permission to do that.";
+      case "not-found":
+        return "We couldn’t find what you were looking for.";
       case "internal":
-        return "Something went wrong on our end. If you just deleted your account, sign out and confirm you can no longer sign in. Otherwise try again in a moment.";
+        return "Something went wrong. Please try again in a moment.";
       default:
-        return error.message || "Something went wrong on our end. Please try again in a moment.";
+        return (
+          sanitizeUserMessage(
+            error.message,
+            "Something went wrong. Please try again in a moment.",
+          ) || "Something went wrong. Please try again in a moment."
+        );
     }
   }
-  if (error instanceof Error && error.message) {
-    return error.message;
-  }
-  return "Something went wrong on our end. Please try again in a moment.";
+  return toUserMessage(
+    error,
+    "Something went wrong. Please try again in a moment.",
+  );
 }
 
 export function mapSocialAuthError(error: unknown, provider: "google" | "apple"): string {
@@ -94,12 +110,12 @@ export function mapSocialAuthError(error: unknown, provider: "google" | "apple")
       return "Sign-in was cancelled.";
     }
     if (error.code === "auth/unauthorized-domain") {
-      return "This website address is not authorized for sign-in. Add it under Firebase Authentication → Settings → Authorized domains (include localhost for local dev).";
+      return "Sign-in isn’t available from this website address. Please contact support.";
     }
     if (error.code === "auth/operation-not-allowed") {
       return provider === "google"
-        ? "Google sign-in is not enabled in Firebase Authentication → Sign-in method."
-        : "Apple sign-in is not enabled in Firebase Authentication → Sign-in method.";
+        ? "Google sign-in isn’t available right now. Please try email sign-in, or contact support."
+        : "Apple sign-in isn’t available right now. Please try email sign-in, or contact support.";
     }
   }
   const mapped = mapFirebaseAuthError(error);

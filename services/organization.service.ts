@@ -203,9 +203,10 @@ export function mapOrgInviteBlockedMessage(error: unknown): string | null {
   if (!raw.startsWith("ORG_INVITE_BLOCKED:")) return null;
   const detail = raw.includes(":")
     ? raw.slice(raw.indexOf(":") + 1).trim()
-    : raw;
-  return (
-    detail ||
-    "This teacher email already has a paid subscription or an active school plan seat. Use a different email."
-  );
+    : "";
+  // Never show the ORG_INVITE_BLOCKED code itself — only a plain sentence.
+  if (detail && !/^ORG_/i.test(detail) && detail.length < 220) {
+    return detail;
+  }
+  return "This teacher email already has a paid subscription or an active school plan seat. Use a different email.";
 }

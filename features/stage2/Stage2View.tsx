@@ -9,6 +9,7 @@ import { Stage2Hero } from "@/components/common/Stage2Hero";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
+import { useSignInGate } from "@/features/auth/useSignInGate";
 import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
 import { Stage2PresentationSetup } from "@/features/stage2/Stage2PresentationSetup";
 import { PresentationResultPanel } from "@/features/stage2/PresentationResultPanel";
@@ -49,6 +50,7 @@ export function Stage2View() {
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
   const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
+  const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage2);
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
   const lessonPlans = useMemo(
@@ -69,6 +71,8 @@ export function Stage2View() {
 
   const activeSlide = draft.slides[draft.activeSlideIndex] ?? null;
   const hasDeck = draft.slides.length > 0;
+  const displaySlides = draft.slides;
+  const isGenerating = draft.isGenerating;
   const sourceLen = draft.sourceLessonText.trim().length;
 
   const slidesFingerprint = useMemo(
@@ -132,22 +136,15 @@ export function Stage2View() {
 
   async function onGenerate() {
     if (!authReady) return;
-    if (!user) {
-      toast.info("Sign in to generate a presentation.");
-      router.push(
-        `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to generate presentations.")}&next=${encodeURIComponent(ROUTES.stage2)}`,
-      );
-      return;
-    }
-    if (blockIfNoCredits()) {
-      return;
-    }
     if (!draft.canGenerate()) {
       toast.info(
         `Add a lesson source with at least ${STAGE2_MIN_SOURCE_CHARS} characters.`,
       );
       return;
     }
+
+    if (requireSignIn()) return;
+    if (blockIfNoCredits()) return;
 
     try {
       const result = await draft.generate();
@@ -336,26 +333,28 @@ export function Stage2View() {
             canGenerate={draft.canGenerate()}
           />
 
-          {draft.isGenerating || draft.status ? (
+          {isGenerating || draft.status ? (
             <Card className="flex flex-col gap-2">
               <div className="flex items-center justify-between gap-2 text-sm">
                 <span className="font-medium text-[#1A1C30]">
-                  {draft.isGenerating ? "Generating…" : "Status"}
+                  {isGenerating ? "Generating…" : "Status"}
                 </span>
                 <span className="text-[#666666]">
-                  {draft.status || "—"} · {Math.min(draft.progress, 100)}%
+                  {`${draft.status || "—"} · ${Math.min(draft.progress, 100)}%`}
                 </span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-[#E8F8F7]">
                 <div
                   className="h-full rounded-full bg-[#28C2C0] transition-all"
-                  style={{ width: `${Math.min(draft.progress, 100)}%` }}
+                  style={{
+                    width: `${Math.min(draft.progress, 100)}%`,
+                  }}
                 />
               </div>
               {draft.error ? (
                 <p className="text-sm text-red-600">{draft.error}</p>
               ) : null}
-              {draft.isGenerating ? (
+              {isGenerating ? (
                 <div className="flex items-center gap-2 text-xs text-[#666666]">
                   <Spinner className="size-4" />
                   Text slides and images may finish at different times.
@@ -367,13 +366,13 @@ export function Stage2View() {
           <GenerationSuccessOverlay trigger={successFlash}>
             <PresentationResultPanel
               hasDeck={hasDeck}
-              isGenerating={draft.isGenerating}
+              isGenerating={isGenerating}
               title={
                 draft.presentationTitle ||
                 draft.topic ||
                 "Exploring Ecosystems"
               }
-              slides={draft.slides}
+              slides={displaySlides}
               activeSlideIndex={draft.activeSlideIndex}
               themeId={draft.themeId}
               linkedLibraryItemId={draft.linkedPresentationLibraryItemId}
@@ -425,6 +424,7 @@ export function Stage2View() {
               }
             }}
           />
+          {signInDialog}
           {upgradeDialog}
         </div>
       </StageWorkspace>

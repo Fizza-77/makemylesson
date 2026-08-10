@@ -58,7 +58,7 @@ export default function SlideDeckDuration() {
               <p className="text-[18px] font-bold text-[#35BEBC]">{minutes} min</p>
             </div>
 
-            <label className="mt-5 block">
+            <label className="mt-5 block w-full">
               <span className="sr-only">Lesson duration in minutes</span>
               <input
                 type="range"
@@ -72,7 +72,7 @@ export default function SlideDeckDuration() {
               />
             </label>
 
-            <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(0,1fr))] gap-2">
+            <div className="mt-5 grid w-full grid-cols-[repeat(auto-fit,minmax(0,1fr))] gap-2">
               {Array.from({ length: slideCount }, (_, i) => (
                 <span
                   key={i}

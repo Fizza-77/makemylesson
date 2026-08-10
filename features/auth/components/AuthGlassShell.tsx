@@ -25,9 +25,9 @@ export function AuthGlassShell({
         )}
       >
         <div className="mb-6 flex flex-col items-center text-center">
-          <Link href={ROUTES.home} className="mb-4">
+          <Link href={ROUTES.stage1} className="mb-4">
             <Image
-              src="/logo.jpeg"
+              src="/logo.png"
               alt="Make My Lesson"
               width={48}
               height={48}

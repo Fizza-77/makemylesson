@@ -8,6 +8,7 @@ import {
 } from "@/data/stage2-route-map";
 import { stage2ThemeById } from "@/data/stage2-themes";
 import { newPlanBundleId } from "@/lib/plan-bundle-id";
+import { toUserMessage } from "@/lib/user-facing-error";
 import {
   findCurriculumIdFromName,
 } from "@/services/curriculum.service";
@@ -308,7 +309,7 @@ async function persistDeckToLibrary(
   } catch (e) {
     return {
       saved: false,
-      saveError: e instanceof Error ? e.message : "Failed to save presentation.",
+      saveError: toUserMessage(e, "Failed to save presentation."),
     };
   } finally {
     set({ isSavingLibrary: false });
@@ -712,7 +713,7 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
         isGenerating: false,
         status: "failed",
         progress: 0,
-        error: e instanceof Error ? e.message : "Generation failed.",
+        error: toUserMessage(e, "Generation failed."),
       });
       throw e;
     }

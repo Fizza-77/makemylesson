@@ -41,7 +41,6 @@ export function NotificationsPanel() {
   const items = useNotificationsStore((s) => s.items);
   const loading = useNotificationsStore((s) => s.loading);
   const unreadCount = useNotificationsStore((s) => s.unreadCount);
-  const markRead = useNotificationsStore((s) => s.markRead);
   const markAllRead = useNotificationsStore((s) => s.markAllRead);
   const remove = useNotificationsStore((s) => s.remove);
   const clearAll = useNotificationsStore((s) => s.clearAll);
@@ -73,12 +72,13 @@ export function NotificationsPanel() {
     return () => document.removeEventListener("mousedown", onPointer);
   }, [open, closePanel]);
 
-  async function onOpen(n: AppNotification) {
-    try {
-      if (!isNotificationRead(n)) await markRead(n.id);
-    } catch {
-      /* still navigate */
-    }
+  // Opening the bell marks everything as seen.
+  useEffect(() => {
+    if (!open || !user) return;
+    void markAllRead().catch(() => null);
+  }, [open, user, markAllRead]);
+
+  function onOpen(n: AppNotification) {
     closePanel();
     const href = normalizeDeepLink(n.deepLink);
     if (href === ROUTES.notifications || href.startsWith("/notifications")) {
@@ -125,27 +125,11 @@ export function NotificationsPanel() {
           </button>
         </div>
 
-        {user ? (
+        {user && items.length > 0 ? (
           <div className="flex flex-wrap gap-2 border-b border-slate-100 px-4 py-2">
             <button
               type="button"
-              disabled={busy || unreadCount === 0}
-              className="rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40"
-              onClick={() => {
-                setBusy(true);
-                void markAllRead()
-                  .then(() => toast.success("All marked as read."))
-                  .catch((e) =>
-                    toast.error(mapFunctionsError(e) || "Could not update."),
-                  )
-                  .finally(() => setBusy(false));
-              }}
-            >
-              Mark all read
-            </button>
-            <button
-              type="button"
-              disabled={busy || items.length === 0}
+              disabled={busy}
               className="rounded-lg px-2.5 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-40"
               onClick={() => setConfirmClear(true)}
             >
@@ -196,7 +180,7 @@ export function NotificationsPanel() {
                     <button
                       type="button"
                       className="w-full text-left"
-                      onClick={() => void onOpen(n)}
+                      onClick={() => onOpen(n)}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <p className="text-sm font-semibold text-slate-900">
@@ -216,21 +200,6 @@ export function NotificationsPanel() {
                       ) : null}
                     </button>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {!read ? (
-                        <button
-                          type="button"
-                          className="text-xs font-semibold text-slate-700 hover:underline"
-                          onClick={() =>
-                            void markRead(n.id).catch((e) =>
-                              toast.error(
-                                mapFunctionsError(e) || "Could not mark read.",
-                              ),
-                            )
-                          }
-                        >
-                          Mark read
-                        </button>
-                      ) : null}
                       <button
                         type="button"
                         className="text-xs font-semibold text-red-700 hover:underline"

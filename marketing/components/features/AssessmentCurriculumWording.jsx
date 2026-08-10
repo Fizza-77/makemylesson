@@ -62,7 +62,7 @@ export default function AssessmentCurriculumWording() {
               className="max-w-[14ch] text-[clamp(1.35rem,2.6vw,1.85rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
             >
               <span className="block">Same topic.</span>
-              <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+              <span className="pricing-hero-underline pricing-hero-underline--soft relative inline-block whitespace-nowrap">
                 Different exam language.
               </span>
             </h2>

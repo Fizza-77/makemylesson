@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+import { sanitizeUserMessage } from "@/lib/user-facing-error";
+
 export type ToastVariant = "info" | "success" | "error";
 
 export type ToastItem = {
@@ -18,13 +20,29 @@ type ToastStore = {
 
 let toastSeq = 0;
 
+function toastMessage(message: string, variant: ToastVariant): string {
+  const trimmed = typeof message === "string" ? message.trim() : "";
+  if (!trimmed) return "";
+  // Success copy is authored by us.
+  if (variant === "success") return trimmed;
+  // Info may intentionally show a plain URL (e.g. copied link).
+  if (variant === "info" && /^https?:\/\/\S+$/i.test(trimmed)) return trimmed;
+  return sanitizeUserMessage(
+    trimmed,
+    variant === "error"
+      ? "Something went wrong. Please try again in a moment."
+      : "Please try again in a moment.",
+  );
+}
+
 export const useToastStore = create<ToastStore>((set) => ({
   toasts: [],
   show: (message, variant = "info") => {
     const id = `toast-${Date.now()}-${++toastSeq}`;
+    const safe = toastMessage(message, variant);
     const item: ToastItem = {
       id,
-      message: message.trim(),
+      message: safe,
       variant,
       createdAt: Date.now(),
     };

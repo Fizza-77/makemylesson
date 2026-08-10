@@ -77,7 +77,23 @@ export default function AssessmentHowItWorks() {
             />
 
             <div className="relative z-[1] mx-auto w-full max-w-[400px] sm:max-w-[440px]">
-              <div className="relative rounded-[24px] bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.28)] sm:rounded-[28px] sm:p-5 lg:p-6">
+              {/* Cyan mark scheme — taller, tucked under paper; only top-left corner peeks */}
+              <div
+                className="absolute bottom-8 left-6 z-0 flex h-[15.5rem] w-[13rem] -translate-x-[18%] translate-y-[12%] flex-col justify-start rounded-[20px] bg-[#35BEBC] px-3.5 py-3.5 shadow-[0_12px_28px_rgba(53,190,188,0.35)] sm:bottom-10 sm:left-8 sm:h-[17.5rem] sm:w-[14.5rem] sm:-translate-x-[14%] sm:translate-y-[10%] sm:rounded-[22px] sm:px-4 sm:py-4"
+                aria-hidden
+              >
+                <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/90">
+                  Generated with
+                </p>
+                <p className="mt-1 text-[15px] font-bold leading-none text-white sm:text-[17px]">
+                  Mark Scheme
+                </p>
+                <p className="mt-1.5 text-[10px] leading-snug text-white/85">
+                  model answers · levels · accept/reject
+                </p>
+              </div>
+
+              <div className="relative z-[1] rounded-[24px] bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.28)] sm:rounded-[28px] sm:p-5 lg:p-6">
                 <div className="flex items-center justify-between gap-3 px-1 pb-1 sm:px-1.5">
                   <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#1A1E3A] sm:text-[11px]">
                     Assessment paper
@@ -129,18 +145,6 @@ export default function AssessmentHowItWorks() {
                   </div>
                 </div>
               </div>
-
-              <div className="absolute -bottom-8 right-0 z-[2] w-[min(100%,210px)] rounded-[18px] bg-[#35BEBC] px-3.5 py-3 text-left shadow-[0_12px_28px_rgba(53,190,188,0.4)] sm:-bottom-9 sm:right-1 sm:rounded-[20px] sm:px-4 sm:py-3.5">
-                <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/90">
-                  Generated with
-                </p>
-                <p className="mt-1 text-[15px] font-bold leading-none text-white sm:text-[17px]">
-                  Mark Scheme
-                </p>
-                <p className="mt-1.5 text-[10px] leading-snug text-white/85">
-                  model answers · levels · accept/reject
-                </p>
-              </div>
             </div>
           </div>
 
@@ -157,13 +161,7 @@ export default function AssessmentHowItWorks() {
                   }
                 >
                   {step.badge ? (
-                    <span
-                      className={
-                        teal
-                          ? 'absolute right-4 top-4 rounded-full bg-white/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1A1E3A]'
-                          : 'absolute right-4 top-4 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white'
-                      }
-                    >
+                    <span className="absolute right-4 top-4 rounded-full border border-[#1A1E3A] bg-transparent px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1A1E3A]">
                       {step.badge}
                     </span>
                   ) : null}

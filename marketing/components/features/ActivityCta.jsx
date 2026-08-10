@@ -8,7 +8,7 @@ export default function ActivityCta() {
         <div className="relative z-[1]">
           <h2
             id="activity-cta-heading"
-            className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+            className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
             Sheet on the desks. Key in your hand.
           </h2>

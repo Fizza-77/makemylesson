@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { ROUTES } from "@/lib/urls";
+import { openPricingPage } from "@/lib/open-pricing";
 
 export type UpgradeDialogReason =
   | "freeExhausted"
@@ -142,7 +142,7 @@ export function UpgradePlanDialog({
             className="mt-1 w-full rounded-full bg-[#28C2C0] px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#22B0AE]"
             onClick={() => {
               onClose();
-              router.push(ROUTES.pricing);
+              openPricingPage((href) => router.push(href));
             }}
           >
             {primaryLabel}

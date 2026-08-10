@@ -7,6 +7,7 @@ import {
   mapStage2RouteId,
 } from "@/data/stage2-route-map";
 import { newPlanBundleId } from "@/lib/plan-bundle-id";
+import { toUserMessage } from "@/lib/user-facing-error";
 import {
   findCurriculumIdFromName,
   resolveStage1SelectionFromLibrary,
@@ -314,7 +315,7 @@ async function persistToLibrary(
     return {
       saved: false,
       saveError:
-        e instanceof Error ? e.message : "Failed to save assessment.",
+        toUserMessage(e, "Failed to save assessment."),
     };
   } finally {
     set({ isSavingLibrary: false });
@@ -782,7 +783,7 @@ export const useStage4DraftStore = create<Stage4Store>((set, get) => ({
         status: "failed",
         progress: 0,
         phase: "failed",
-        error: e instanceof Error ? e.message : "Generation failed.",
+        error: toUserMessage(e, "Generation failed."),
       });
       throw e;
     }

@@ -213,9 +213,8 @@ export function SubscriptionView() {
 
   const requireSignIn = useCallback(() => {
     if (user) return true;
-    toast.info("Sign in to subscribe or buy credits.");
     router.push(
-      `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to manage your subscription.")}&next=${encodeURIComponent(ROUTES.subscription)}`,
+      `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to subscribe or buy credits.")}&next=${encodeURIComponent(ROUTES.subscription)}`,
     );
     return false;
   }, [router, user]);

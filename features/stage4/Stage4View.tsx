@@ -10,6 +10,7 @@ import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { Stage4Hero } from "@/components/common/Stage4Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
+import { useSignInGate } from "@/features/auth/useSignInGate";
 import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
 import { Stage4AssessmentInbox } from "@/features/stage4/Stage4AssessmentInbox";
 import { Stage4AssessmentReviewWall } from "@/features/stage4/Stage4AssessmentReviewWall";
@@ -52,7 +53,8 @@ export function Stage4View() {
   const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
-  const { blockIfNoCredits, dialog: upgradeDialog, credits } = useUpgradeGate();
+  const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
+  const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage4);
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
   const activities = useMemo(
@@ -70,44 +72,16 @@ export function Stage4View() {
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
   const [successFlash, setSuccessFlash] = useState(0);
   const [exporting, setExporting] = useState(false);
-  const [previewLocked, setPreviewLocked] = useState(false);
-  const [lockReason, setLockReason] = useState<"auth" | "credits" | null>(
-    null,
-  );
 
   const sourceLen = draft.sourceAssessmentText.trim().length;
   const durationMin = draft.durationMinutes();
   const marksBounds = stage4MarksBoundsForMinutes(durationMin);
-  const contentBlocked =
-    previewLocked ||
-    !user ||
-    (credits !== null && credits <= 0);
 
   useEffect(() => {
     if (!authReady) return;
     syncAccountSubscription(user?.uid ?? null);
     if (user?.uid) syncLibraryCatalogSubscription(user.uid);
   }, [authReady, user?.uid]);
-
-  useEffect(() => {
-    if (user && credits !== null && credits > 0) {
-      setPreviewLocked(false);
-      setLockReason(null);
-    }
-  }, [user, credits]);
-
-  useEffect(() => {
-    if (!authReady) return;
-    if (!user) {
-      setPreviewLocked(true);
-      setLockReason("auth");
-      return;
-    }
-    if (credits !== null && credits <= 0) {
-      setPreviewLocked(true);
-      setLockReason("credits");
-    }
-  }, [authReady, user, credits]);
 
   useEffect(() => {
     const text =
@@ -139,12 +113,6 @@ export function Stage4View() {
 
   async function onGenerate() {
     if (!authReady) return;
-    if (!user) {
-      setPreviewLocked(true);
-      setLockReason("auth");
-      toast.info("Sign in to generate an assessment.");
-      return;
-    }
     if (!draft.canGenerate()) {
       toast.info(
         `Add a source (≥${STAGE4_MIN_SOURCE_CHARS} chars), choose a paper type, and select at least one question type.`,
@@ -152,16 +120,8 @@ export function Stage4View() {
       return;
     }
 
-    // Out of credits: lock preview + upgrade dialog (no API generate).
-    if (credits !== null && credits <= 0) {
-      setPreviewLocked(true);
-      setLockReason("credits");
-      blockIfNoCredits();
-      return;
-    }
-
-    setPreviewLocked(false);
-    setLockReason(null);
+    if (requireSignIn()) return;
+    if (blockIfNoCredits()) return;
 
     try {
       const result = await draft.generate();
@@ -184,14 +144,8 @@ export function Stage4View() {
   }
 
   async function onSaveLibrary() {
-    if (contentBlocked || !draft.result) {
-      toast.info(
-        contentBlocked
-          ? !user
-            ? "Sign in to save assessments."
-            : "Upgrade to save assessments."
-          : "Generate assessment first.",
-      );
+    if (!draft.result) {
+      toast.info("Generate assessment first.");
       return;
     }
     try {
@@ -223,14 +177,8 @@ export function Stage4View() {
   }
 
   async function onExport(action: Stage4DownloadActionId) {
-    if (contentBlocked || !draft.result) {
-      toast.info(
-        contentBlocked
-          ? !user
-            ? "Sign in to export assessments."
-            : "Upgrade to export assessments."
-          : "Generate assessment first.",
-      );
+    if (!draft.result) {
+      toast.info("Generate assessment first.");
       return;
     }
     setExportMenuOpen(false);
@@ -248,14 +196,8 @@ export function Stage4View() {
   }
 
   async function onShare() {
-    if (contentBlocked || !draft.result) {
-      toast.info(
-        contentBlocked
-          ? !user
-            ? "Sign in to share assessments."
-            : "Upgrade to share assessments."
-          : "Generate assessment first.",
-      );
+    if (!draft.result) {
+      toast.info("Generate assessment first.");
       return;
     }
     setExporting(true);
@@ -376,81 +318,43 @@ export function Stage4View() {
         onBuild={() => void onGenerate()}
       />
 
-      <Stage4AssessmentReviewWall
-        quizKind={draft.quizKind}
-        questionCount={draft.questionCount}
-        durationMinutes={durationMin}
-        totalMarks={draft.totalMarks}
-        result={contentBlocked ? null : draft.result}
-        isGenerating={draft.isGenerating}
-        isSavingLibrary={draft.isSavingLibrary}
-        exporting={exporting}
-        exportMenuOpen={exportMenuOpen}
-        exportActions={sortActionsByExportPreference(STAGE4_DOWNLOAD_ACTIONS)}
-        linkedLibraryItemId={draft.linkedAssessmentLibraryItemId}
-        previewLocked={contentBlocked}
-        lockReason={
-          !user
-            ? "auth"
-            : credits !== null && credits <= 0
-              ? "credits"
-              : lockReason
-        }
-        onUnlock={() => {
-          if (!user) {
-            router.push(
-              `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to generate assessments.")}&next=${encodeURIComponent(ROUTES.stage4)}`,
-            );
-            return;
-          }
-          blockIfNoCredits();
-        }}
-        onPreview={() => {
-          if (contentBlocked) {
-            if (!user) {
-              router.push(
-                `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to generate assessments.")}&next=${encodeURIComponent(ROUTES.stage4)}`,
-              );
+      <GenerationSuccessOverlay trigger={successFlash}>
+        <Stage4AssessmentReviewWall
+          quizKind={draft.quizKind}
+          questionCount={draft.questionCount}
+          durationMinutes={durationMin}
+          totalMarks={draft.totalMarks}
+          result={draft.result}
+          isGenerating={draft.isGenerating}
+          isSavingLibrary={draft.isSavingLibrary}
+          exporting={exporting}
+          exportMenuOpen={exportMenuOpen}
+          exportActions={sortActionsByExportPreference(STAGE4_DOWNLOAD_ACTIONS)}
+          linkedLibraryItemId={draft.linkedAssessmentLibraryItemId}
+          onPreview={() => {
+            if (!draft.result) {
+              toast.info("Generate an assessment to preview.");
               return;
             }
-            blockIfNoCredits();
-            return;
-          }
-          if (!draft.result) {
-            toast.info("Generate an assessment to preview.");
-            return;
-          }
-          setShowMarkScheme((v) => !v);
-          toast.info(
-            showMarkScheme
-              ? "Showing student paper in preview."
-              : "Showing mark scheme in preview.",
-          );
-        }}
-        onToggleExport={() => {
-          if (contentBlocked || !draft.result) {
+            setShowMarkScheme((v) => !v);
             toast.info(
-              contentBlocked
-                ? !user
-                  ? "Sign in to export assessments."
-                  : "Upgrade to export assessments."
-                : "Generate assessment first.",
+              showMarkScheme
+                ? "Showing student paper in preview."
+                : "Showing mark scheme in preview.",
             );
-            if (contentBlocked && !user) {
-              router.push(
-                `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to generate assessments.")}&next=${encodeURIComponent(ROUTES.stage4)}`,
-              );
-            } else if (contentBlocked) {
-              blockIfNoCredits();
+          }}
+          onToggleExport={() => {
+            if (!draft.result) {
+              toast.info("Generate assessment first.");
+              return;
             }
-            return;
-          }
-          setExportMenuOpen((o) => !o);
-        }}
-        onExport={(id) => void onExport(id as Stage4DownloadActionId)}
-        onShare={() => void onShare()}
-        onSaveLibrary={() => void onSaveLibrary()}
-      />
+            setExportMenuOpen((o) => !o);
+          }}
+          onExport={(id) => void onExport(id as Stage4DownloadActionId)}
+          onShare={() => void onShare()}
+          onSaveLibrary={() => void onSaveLibrary()}
+        />
+      </GenerationSuccessOverlay>
 
       {draft.isGenerating || draft.status ? (
         <Card className="flex flex-col gap-2">
@@ -528,6 +432,7 @@ export function Stage4View() {
           </div>
         </div>
       ) : null}
+      {signInDialog}
       {upgradeDialog}
     </div>
       </StageWorkspace>

@@ -27,7 +27,7 @@ export default function AssessmentStageHero() {
             className="max-w-[14ch] text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
             Every question born with its{' '}
-            <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+            <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
               mark scheme.
             </span>
           </h1>

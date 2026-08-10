@@ -420,7 +420,7 @@ export function ProfileView() {
     resetAuth();
     setProfile(null);
     authLog.success("sign_out.ok");
-    router.replace(ROUTES.home);
+    router.replace(ROUTES.stage1);
   }
 
   async function setAiToggle(

@@ -91,7 +91,7 @@ export default function ActivityTeacherCopy() {
                 key={row.id}
                 className="rounded-2xl bg-[#c5ebe8] px-4 py-3.5 text-[14px] leading-relaxed sm:px-5 sm:text-[15px]"
               >
-                <p className="font-medium text-[#4B5068]">{row.text}</p>
+                <p className="font-medium text-black">{row.text}</p>
                 {row.tip ? (
                   <p className="mt-1.5 text-[12px] leading-snug text-[#1A1E3A]/50 sm:text-[13px]">
                     {row.tip}

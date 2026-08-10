@@ -40,7 +40,7 @@ export default function PricingPage() {
   return (
     <Suspense
       fallback={
-        <PageShell variant="content" className="pricing-page-shell">
+        <PageShell variant="content" className="pricing-page-shell !bg-white border-t-transparent">
           <div className="flex min-h-[40vh] items-center justify-center text-[#1A1E3A]">
             Loading pricing…
           </div>
@@ -84,8 +84,8 @@ function PricingPageInner() {
   return (
     <PageShell
       variant="content"
-      className="pricing-page-shell"
-      contentClassName="pricing-page-inner py-0 pb-10 md:pb-14"
+      className="pricing-page-shell !bg-white border-t-transparent"
+      contentClassName="pricing-page-inner !py-0 !pt-2 pb-10 md:pb-14"
     >
       {finalizing ? (
         <div className="mx-auto mb-4 max-w-[1100px] rounded-2xl border border-[#35BEBC]/40 bg-[#EAF5F6] px-4 py-3 text-center text-[14px] font-medium text-[#1A1E3A]">
@@ -93,7 +93,7 @@ function PricingPageInner() {
         </div>
       ) : null}
 
-      <div className="pricing-canvas relative overflow-hidden rounded-[32px] bg-[#ade5df] sm:rounded-[40px]">
+      <div className="pricing-canvas relative overflow-hidden rounded-[32px] bg-[#aae4e3] sm:rounded-[40px]">
         <div
           className="pointer-events-none absolute -right-20 -top-10 h-64 w-64 rounded-full bg-[#35BEBC] sm:-top-14"
           aria-hidden
@@ -370,7 +370,7 @@ function PlanFitCalculator({ startCheckout, loadingPlan, billing }) {
   return (
     <section
       id="plan-fit"
-      className="pricing-plan-fit-section py-14 sm:py-20"
+      className="pricing-plan-fit-section relative left-1/2 mt-10 w-screen max-w-[100vw] -translate-x-1/2 bg-[#aae4e3] py-14 sm:mt-14 sm:py-20"
       aria-labelledby="plan-fit-heading"
     >
       <div className="pricing-plan-fit-inner mx-auto max-w-[1100px] px-4 sm:px-6 md:px-8">
@@ -480,7 +480,7 @@ function PricingSlider({ id, label, min, max, step, value, displayValue, onChang
         <label htmlFor={id} className="text-[15px] font-semibold text-[#1A1E3A]">
           {label}
         </label>
-        <span className="shrink-0 text-[15px] font-semibold text-[#3db8b0]">{displayValue}</span>
+        <span className="shrink-0 text-[15px] font-semibold text-[#35BEBC]">{displayValue}</span>
       </div>
       <input
         id={id}
@@ -713,7 +713,7 @@ function PlanCompare() {
   return (
     <section
       id="plan-compare"
-      className="pricing-compare-section py-14 sm:py-16 lg:py-20"
+      className="pricing-compare-section relative left-1/2 mb-10 w-screen max-w-[100vw] -translate-x-1/2 bg-[#1A1E3A] py-14 sm:mb-14 sm:py-16 lg:py-20"
       aria-labelledby="plan-compare-heading"
     >
       <div className="mx-auto max-w-[1100px] px-4 sm:px-6 md:px-8">
@@ -920,7 +920,7 @@ function PricingFaq() {
   return (
     <section
       id="pricing-faq"
-      className="pricing-faq-section py-14 sm:py-16 lg:py-20"
+      className="pricing-faq-section relative left-1/2 mt-10 mb-10 w-screen max-w-[100vw] -translate-x-1/2 bg-[#1A1E3A] py-14 sm:mt-14 sm:mb-14 sm:py-16 lg:py-20"
       aria-labelledby="pricing-faq-heading"
     >
       <div className="mx-auto grid max-w-[1100px] gap-10 px-4 sm:px-6 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 xl:gap-20">

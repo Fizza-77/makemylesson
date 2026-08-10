@@ -11,6 +11,7 @@ import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { Stage3Hero } from "@/components/common/Stage3Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
+import { useSignInGate } from "@/features/auth/useSignInGate";
 import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
 import { Stage3AssessmentBuilder } from "@/features/stage3/Stage3AssessmentBuilder";
 import { Stage3WorksheetPreview } from "@/features/stage3/Stage3WorksheetPreview";
@@ -53,7 +54,8 @@ export function Stage3View() {
   const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
-  const { blockIfNoCredits, dialog: upgradeDialog, credits } = useUpgradeGate();
+  const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
+  const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage3);
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
   const presentations = useMemo(
@@ -72,12 +74,12 @@ export function Stage3View() {
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
   const [successFlash, setSuccessFlash] = useState(0);
   const [exporting, setExporting] = useState(false);
-  const [previewLocked, setPreviewLocked] = useState(false);
   const [libraryDirty, setLibraryDirty] = useState(false);
   const resultBaselineRef = useRef("");
 
   const sourceLen = draft.sourcePresentationText.trim().length;
   const hasResult = !!draft.result;
+  const displayResult = draft.result;
   const resultFingerprint = useMemo(
     () =>
       JSON.stringify({
@@ -114,10 +116,6 @@ export function Stage3View() {
     draft.fillBlanks,
     draft.shortAnswer,
   ].filter(Boolean).length;
-
-  useEffect(() => {
-    if (credits !== null && credits > 0) setPreviewLocked(false);
-  }, [credits]);
 
   useEffect(() => {
     if (!authReady) return;
@@ -157,13 +155,6 @@ export function Stage3View() {
 
   async function onGenerate() {
     if (!authReady) return;
-    if (!user) {
-      toast.info("Sign in to generate an activity.");
-      router.push(
-        `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to generate activities.")}&next=${encodeURIComponent(ROUTES.stage3)}`,
-      );
-      return;
-    }
     if (!draft.canGenerate()) {
       toast.info(
         `Add a presentation source (≥${STAGE3_MIN_SOURCE_CHARS} chars) and at least one question type.`,
@@ -171,14 +162,8 @@ export function Stage3View() {
       return;
     }
 
-    // Out of credits: show locked blue worksheet + upgrade dialog (no API generate).
-    if (credits !== null && credits <= 0) {
-      setPreviewLocked(true);
-      blockIfNoCredits();
-      return;
-    }
-
-    setPreviewLocked(false);
+    if (requireSignIn()) return;
+    if (blockIfNoCredits()) return;
 
     try {
       const result = await draft.generate();
@@ -401,13 +386,12 @@ export function Stage3View() {
 
       <GenerationSuccessOverlay trigger={successFlash}>
         <Stage3WorksheetPreview
-          hasResult={hasResult && !previewLocked}
+          hasResult={hasResult}
           isGenerating={draft.isGenerating}
-          previewLocked={previewLocked}
           formativeKind={draft.formativeKind}
           questionCount={draft.questionCount}
           mixSelectedCount={mixSelectedCount}
-          result={previewLocked ? null : draft.result}
+          result={displayResult}
           showAnswerKey={showAnswerKey}
           exportMenuOpen={exportMenuOpen}
           exporting={exporting}
@@ -416,16 +400,18 @@ export function Stage3View() {
           )}
           onToggleView={(answerKey) => setShowAnswerKey(answerKey)}
           onEdit={() => {
-            if (!draft.result || previewLocked) return;
+            if (!displayResult) return;
             setEditDraft(
               showAnswerKey
-                ? draft.result.teacherAnswerKeyText
-                : draft.result.studentActivityText,
+                ? displayResult.teacherAnswerKeyText
+                : displayResult.studentActivityText,
             );
             if (showAnswerKey) setEditTeacherOpen(true);
             else setEditStudentOpen(true);
           }}
-          showSave={Boolean(draft.linkedActivityLibraryItemId) && libraryDirty}
+          showSave={
+            Boolean(draft.linkedActivityLibraryItemId) && libraryDirty
+          }
           onSave={() => void onSaveLibrary()}
           isSavingLibrary={draft.isSavingLibrary}
           onToggleExport={() => setExportMenuOpen((o) => !o)}
@@ -482,6 +468,7 @@ export function Stage3View() {
           </div>
         </div>
       )}
+      {signInDialog}
       {upgradeDialog}
         </div>
       </StageWorkspace>

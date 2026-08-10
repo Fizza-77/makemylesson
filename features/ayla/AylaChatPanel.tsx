@@ -148,7 +148,7 @@ const STAGE_AYLA: Record<AylaPanelContext, AylaStageCopy> = {
 function AylaAvatar({ size = 40 }: { size?: number }) {
   return (
     <span
-      className="relative flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm"
+      className="relative inline-block shrink-0 overflow-hidden rounded-full"
       style={{ width: size, height: size }}
       aria-hidden
     >
@@ -157,7 +157,7 @@ function AylaAvatar({ size = 40 }: { size?: number }) {
         alt=""
         width={size}
         height={size}
-        className="h-full w-full object-contain p-[8%]"
+        className="absolute left-1/2 top-[42%] h-[210%] w-[210%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain"
         unoptimized
       />
     </span>
@@ -257,7 +257,7 @@ export function AylaChatPanel({
         }}
       >
         <span className="relative shrink-0">
-          <AylaAvatar size={compact ? 32 : isAylaPage ? 40 : 44} />
+          <AylaAvatar size={compact ? 36 : isAylaPage ? 44 : 48} />
           {copy.showOnlineBadge ? (
             <span
               className="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-[#0D1430] bg-[#28C2C0]"

@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
+import { PricingLink } from "@/components/common/PricingLink";
 import { ROUTES } from "@/lib/urls";
 import {
   isPaidPlan,
@@ -59,7 +59,7 @@ export function Stage3Hero() {
             understanding.
           </p>
 
-          <Link
+          <PricingLink
             href={ROUTES.subscription}
             className="mt-6 inline-flex max-w-full flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-white/10 px-3.5 py-3 transition hover:bg-white/15"
           >
@@ -79,7 +79,7 @@ export function Stage3Hero() {
                 ).replace(/\s*generation\s+/gi, " ")}
               </p>
             </div>
-          </Link>
+          </PricingLink>
         </div>
 
         <div className="relative z-10 w-full max-w-lg flex-1 lg:max-w-xl">

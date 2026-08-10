@@ -43,7 +43,7 @@ export default function LessonPlanTakeAnywhere() {
             className="text-[clamp(1.75rem,3.4vw,2.6rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
             Yours to edit, print, and{' '}
-            <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+            <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
               share.
             </span>
           </h2>

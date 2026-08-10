@@ -12,8 +12,11 @@ export const MARKETING_ORIGIN =
  * Firebase Auth/Functions/Firestore are unchanged — only client URL paths.
  */
 export const ROUTES = {
-  /** In-app workspace home (marketing landing stays at `/` on the marketing host). */
-  home: "/home",
+  /**
+   * App workspace entry — Stage 1 (no separate in-app home).
+   * Marketing landing stays at `/`.
+   */
+  home: "/stage1",
   signIn: "/login",
   signUp: "/signup",
   forgotPassword: "/forgot-password",
@@ -99,7 +102,10 @@ export const PUBLIC_PATH_PREFIXES = [
 ] as const;
 
 export const AUTH_OPTIONAL_PATHS = new Set<string>([
-  ROUTES.home,
+  ROUTES.stage1,
+  ROUTES.stage2,
+  ROUTES.stage3,
+  ROUTES.stage4,
   ROUTES.signIn,
   ROUTES.signUp,
   ROUTES.forgotPassword,

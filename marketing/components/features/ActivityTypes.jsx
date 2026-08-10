@@ -102,7 +102,7 @@ export default function ActivityTypes() {
           className="text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
         >
           The right format for{' '}
-          <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+          <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
             the right topic.
           </span>
         </h2>

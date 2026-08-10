@@ -1,4 +1,4 @@
-import LandingPage from '@marketing/views/LandingPage'
+import HomeLandingPage from '@marketing/home-landing/HomeLandingPage'
 import {
   DEFAULT_OG_IMAGE_ALT,
   DEFAULT_OG_IMAGE_HEIGHT,
@@ -124,7 +124,7 @@ export default function HomePage() {
           __html: JSON.stringify([websiteJsonLd, softwareJsonLd]),
         }}
       />
-      <LandingPage />
+      <HomeLandingPage />
     </>
   )
 }

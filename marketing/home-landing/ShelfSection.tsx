@@ -14,15 +14,15 @@ function ShelfUnderline() {
   return (
     <svg
       className="mml-shelf-underline"
-      viewBox="0 0 280 16"
+      viewBox="0 0 280 18"
       fill="none"
       aria-hidden
       preserveAspectRatio="none"
     >
       <path
-        d="M4 11c36 4 78 5 124 2 42-2.8 84-6.5 128-2.5"
-        stroke="#5ecfbe"
-        strokeWidth="8"
+        d="M6 11c48 5 110 6 168 2 36-2.2 72-5.5 100-2"
+        stroke="currentColor"
+        strokeWidth="10"
         strokeLinecap="round"
       />
     </svg>

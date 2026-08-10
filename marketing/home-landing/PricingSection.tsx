@@ -88,7 +88,7 @@ const PLANS: Plan[] = [
   {
     key: "annual",
     name: "Annual",
-    tone: "teal",
+    tone: "white",
     wasPrice: "$139.99",
     price: "$89.99",
     priceSuffix: " total",

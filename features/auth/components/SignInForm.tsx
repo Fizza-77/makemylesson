@@ -55,7 +55,7 @@ export function SignInForm() {
     const user = getFirebaseAuth().currentUser;
     if (!user) {
       authLog.warn("sign_in.no_user_after_auth", { method });
-      router.replace(ROUTES.home);
+      router.replace(ROUTES.stage1);
       return;
     }
     authLog.success("sign_in.authenticated", {
@@ -259,7 +259,7 @@ export function SignInForm() {
         </Link>
       </p>
       <p className="mt-3 text-center">
-        <Link href={ROUTES.home} className="text-sm text-[#666666] hover:underline">
+        <Link href={ROUTES.stage1} className="text-sm text-[#666666] hover:underline">
           Continue as Guest
         </Link>
       </p>

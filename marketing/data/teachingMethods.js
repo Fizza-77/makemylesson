@@ -166,6 +166,11 @@ export const ALL_TEACHING_METHODS = TEACHING_METHOD_COLUMNS.flatMap((col) =>
   })),
 )
 
+export function getTeachingMethodBySlug(slug) {
+  if (!slug) return null
+  return ALL_TEACHING_METHODS.find((method) => method.slug === slug) ?? null
+}
+
 export function getTeachingMethodHeroImagePath(method) {
   if (!method?.heroImage) return null
   return `/pages-images/${encodeURIComponent(method.heroImage).replace(/%2F/g, '/')}`

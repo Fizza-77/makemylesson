@@ -5,6 +5,7 @@ import { getDoc, getDocFromServer } from "firebase/firestore";
 
 import { userDocRef } from "@/firebase/firestore";
 import { getFirebaseAuth } from "@/firebase/config";
+import { toUserMessage } from "@/lib/user-facing-error";
 import {
   ensureFreeGenerationCreditsForUser,
   mapUserDoc,
@@ -72,10 +73,7 @@ export function syncAccountSubscription(uid: string | null) {
       console.error("[Account] snapshot failed", error);
       useAccountStore.setState({
         loading: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Could not load account.",
+        error: toUserMessage(error, "Could not load account."),
       });
     },
   );

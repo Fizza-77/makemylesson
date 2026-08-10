@@ -82,9 +82,8 @@ export function usePayPalCheckout() {
       const next = planKey
         ? `${ROUTES.pricing}?plan=${encodeURIComponent(planKey)}`
         : ROUTES.pricing;
-      toast.info("Sign in to subscribe or buy credits.");
       router.push(
-        `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to manage your subscription.")}&next=${encodeURIComponent(next)}`,
+        `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to subscribe or buy credits.")}&next=${encodeURIComponent(next)}`,
       );
       return false;
     },

@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-
+import { PricingLink } from "@/components/common/PricingLink";
 import { Card } from "@/components/ui/Card";
 import { ROUTES } from "@/lib/urls";
 import { isPaidPlan, PLAN_LABELS } from "@/services/user-account.service";
@@ -29,12 +28,12 @@ export function StageUpgradeCard() {
             : "Free credits are one-time when you join."}
         </p>
       </div>
-      <Link
+      <PricingLink
         href={ROUTES.subscription}
         className="shrink-0 text-xs font-semibold text-[#28C2C0] hover:underline"
       >
         {paid ? "Manage plan" : "Upgrade"}
-      </Link>
+      </PricingLink>
     </Card>
   );
 }

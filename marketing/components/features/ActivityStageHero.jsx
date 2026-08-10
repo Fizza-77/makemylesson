@@ -38,10 +38,7 @@ export default function ActivityStageHero() {
             id="activity-hero-heading"
             className="max-w-[14ch] text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
-            Every worksheet arrives with its{' '}
-            <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
-              answer key.
-            </span>
+            Every worksheet arrives with its answer key.
           </h1>
 
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/75 sm:text-base">

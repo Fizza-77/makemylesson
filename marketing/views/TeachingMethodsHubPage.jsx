@@ -304,7 +304,7 @@ function FullDeckSection() {
   return (
     <section
       id="all-methods"
-      className="tm-full-deck-section scroll-mt-24 py-14 sm:py-16 lg:py-20"
+      className="tm-full-deck-section scroll-mt-24 bg-[#1A1E3A] py-14 sm:py-16 lg:py-20"
       aria-labelledby="full-deck-heading"
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">

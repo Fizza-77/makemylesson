@@ -47,7 +47,39 @@ const AFTER_DOCS = [
   { title: "Mark Scheme", sub: "Answers + marks" },
 ] as const;
 
-const STAGE_PILLS = ["Plan", "Present", "Practise", "Assess"] as const;
+const STAGE_PILLS = ["Plan", "Present", "Practice", "Assess"] as const;
+
+function DocIcon() {
+  return (
+    <svg
+      className="mml-ba-doc-icon-svg"
+      width="18"
+      height="18"
+      viewBox="0 0 21 21"
+      fill="none"
+      aria-hidden
+    >
+      <path
+        d="M4.375 2.625H14L16.625 5.25V18.375H4.375V2.625"
+        stroke="#35bebc"
+        strokeWidth="1.575"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14 2.625V6.125H17.5"
+        stroke="#35bebc"
+        strokeWidth="1.575"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7 9.625H14M7 13.125H14M7 16.625H11.375"
+        stroke="#35bebc"
+        strokeWidth="1.575"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 function UntilNowUnderline() {
   return (
@@ -58,12 +90,14 @@ function UntilNowUnderline() {
       aria-hidden
       preserveAspectRatio="none"
     >
-      <path
-        d="M4 10c30 3.5 68 4.5 105 1.5 34-2.8 66-5.5 90-1.5"
+      <line
+        x1="4"
+        y1="9"
+        x2="196"
+        y2="9"
         stroke="#ffffff"
         strokeWidth="8"
         strokeLinecap="round"
-        opacity="1"
       />
     </svg>
   );
@@ -75,7 +109,7 @@ export default function BeforeAfterSection() {
       <div className="mml-ba-inner">
         <div className="mml-ba-badge">
           <span className="mml-ba-badge-icon" aria-hidden>
-            <Clock size={16} strokeWidth={2} />
+            <Clock size={14} strokeWidth={2.2} />
           </span>
           <span className="mml-ba-badge-text">SUNDAY EVENING, EVERY WEEK</span>
         </div>
@@ -132,65 +166,58 @@ export default function BeforeAfterSection() {
           </div>
 
           <article className="mml-ba-card mml-ba-card--after">
-            <header className="mml-ba-card-head mml-ba-card-head--after">
-              <span className="mml-ba-card-label mml-ba-card-label--after">
-                <span className="mml-ba-traffic" aria-hidden>
-                  <i />
-                  <i />
-                  <i />
+            <div className="mml-ba-after-inner">
+              <div className="mml-ba-after-top">
+                <span className="mml-ba-card-label mml-ba-card-label--after">
+                  MAKE MY LESSON · TEACHING PACK
                 </span>
-                MAKE MY LESSON · TEACHING PACK
-              </span>
-              <span className="mml-ba-connected">CONNECTED</span>
-            </header>
+                <span className="mml-ba-connected">CONNECTED</span>
+              </div>
 
-            <div className="mml-ba-after-body">
               <div className="mml-ba-after-hero">
-                <div className="mml-ba-after-hero-main">
-                  <span className="mml-ba-after-kicker">ONE CONNECTED WORKFLOW</span>
-                  <div className="mml-ba-after-time-row">
-                    <p className="mml-ba-after-time">
-                      <span className="mml-ba-after-chevron" aria-hidden>
-                        &lt;
-                      </span>
-                      10 min
-                    </p>
-                    <div className="mml-ba-output">
-                      <span>OUTPUT</span>
-                      <strong>6 docs</strong>
-                    </div>
-                  </div>
-                  <p className="mml-ba-after-desc">
-                    One topic in. A coherent six-document pack out — plan, slides,
-                    activity, key, paper, mark scheme.
+                <span className="mml-ba-after-kicker">ONE CONNECTED WORKFLOW</span>
+                <div className="mml-ba-after-time-row">
+                  <p className="mml-ba-after-time">
+                    <span className="mml-ba-after-chevron" aria-hidden>
+                      &lt;
+                    </span>
+                    10 min
                   </p>
+                  <div className="mml-ba-output">
+                    <span>OUTPUT</span>
+                    <strong>6 docs</strong>
+                  </div>
                 </div>
+                <p className="mml-ba-after-desc">
+                  One topic in. A coherent six-document pack out – plan, slides,
+                  activity, key, paper, mark scheme.
+                </p>
               </div>
 
               <div className="mml-ba-doc-grid">
                 {AFTER_DOCS.map(({ title, sub }) => (
                   <div key={title} className="mml-ba-doc">
                     <span className="mml-ba-doc-icon" aria-hidden>
-                      <FileText size={15} strokeWidth={1.85} />
+                      <DocIcon />
                     </span>
                     <strong>{title}</strong>
                     <span>{sub}</span>
                   </div>
                 ))}
               </div>
-            </div>
 
-            <footer className="mml-ba-card-foot mml-ba-card-foot--after">
-              <div className="mml-ba-stage-pills">
-                {STAGE_PILLS.map((label) => (
-                  <span key={label}>{label}</span>
-                ))}
+              <div className="mml-ba-after-foot">
+                <div className="mml-ba-stage-pills">
+                  {STAGE_PILLS.map((label) => (
+                    <span key={label}>{label}</span>
+                  ))}
+                </div>
+                <span className="mml-ba-aligned">
+                  <span className="mml-ba-dot mml-ba-dot--mint" aria-hidden />
+                  Everything stays aligned
+                </span>
               </div>
-              <span className="mml-ba-aligned">
-                <span className="mml-ba-dot mml-ba-dot--mint" aria-hidden />
-                Everything stays aligned
-              </span>
-            </footer>
+            </div>
           </article>
         </div>
       </div>

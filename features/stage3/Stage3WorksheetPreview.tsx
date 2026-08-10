@@ -84,7 +84,6 @@ function kindLabel(kind: FormativeKind): string {
 export function Stage3WorksheetPreview({
   hasResult,
   isGenerating,
-  previewLocked = false,
   formativeKind,
   questionCount,
   mixSelectedCount,
@@ -105,8 +104,6 @@ export function Stage3WorksheetPreview({
 }: {
   hasResult: boolean;
   isGenerating?: boolean;
-  /** Out of credits — blue worksheet + locked popup (no content). */
-  previewLocked?: boolean;
   formativeKind: FormativeKind;
   questionCount: number;
   mixSelectedCount: number;
@@ -126,12 +123,11 @@ export function Stage3WorksheetPreview({
   className?: string;
 }) {
   const assessmentName = kindLabel(formativeKind);
-  const title =
-    !previewLocked && result?.activityTitle?.trim()
-      ? result.activityTitle.trim()
-      : "Worksheet Preview";
+  const title = result?.activityTitle?.trim()
+    ? result.activityTitle.trim()
+    : "Worksheet Preview";
   const subtitle = `${assessmentName} · ${questionCount} question${questionCount === 1 ? "" : "s"}`;
-  const showContent = hasResult && !!result && !previewLocked;
+  const showContent = hasResult && !!result;
 
   const answerKeyMarkdown = (() => {
     if (!result) return "";
@@ -300,11 +296,7 @@ export function Stage3WorksheetPreview({
                   alt=""
                   width={540}
                   height={462}
-                  className={cn(
-                    "relative z-0 h-auto w-full select-none pointer-events-none transition",
-                    previewLocked &&
-                      "[filter:grayscale(0.2)_sepia(0.7)_hue-rotate(175deg)_saturate(2.6)_brightness(0.92)]",
-                  )}
+                  className="relative z-0 h-auto w-full select-none pointer-events-none transition"
                   draggable={false}
                 />
 
@@ -342,30 +334,18 @@ export function Stage3WorksheetPreview({
                     </div>
                   ) : (
                     <div className="flex h-full items-center justify-center px-3">
-                      {previewLocked ? (
-                        <div className="max-w-[18rem] rounded-2xl border border-slate-100 bg-white px-5 py-5 text-center shadow-lg sm:px-6 sm:py-6">
-                          <p className="text-sm font-bold text-[#151B35]">
-                            Generate worksheet to preview content.
-                          </p>
-                          <p className="mt-2 text-xs leading-relaxed text-slate-500">
-                            The student activity and answer key will appear here
-                            after creation.
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="max-w-[18rem] text-center">
-                          <p className="text-sm font-bold text-[#151B35]">
-                            {isGenerating
-                              ? "Generating worksheet…"
-                              : "Generate worksheet to preview content."}
-                          </p>
-                          <p className="mt-2 text-xs leading-relaxed text-slate-500">
-                            {isGenerating
-                              ? "Your student activity and answer key will appear here shortly."
-                              : "The student activity and answer key will appear here after creation."}
-                          </p>
-                        </div>
-                      )}
+                      <div className="max-w-[18rem] text-center">
+                        <p className="text-sm font-bold text-[#151B35]">
+                          {isGenerating
+                            ? "Generating worksheet…"
+                            : "Generate worksheet to preview content."}
+                        </p>
+                        <p className="mt-2 text-xs leading-relaxed text-slate-500">
+                          {isGenerating
+                            ? "Your student activity and answer key will appear here shortly."
+                            : "The student activity and answer key will appear here after creation."}
+                        </p>
+                      </div>
                     </div>
                   )}
                 </div>

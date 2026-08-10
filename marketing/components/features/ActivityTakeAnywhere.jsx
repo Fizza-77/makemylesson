@@ -44,7 +44,7 @@ export default function ActivityTakeAnywhere() {
             className="text-[clamp(1.75rem,3.4vw,2.6rem)] font-bold leading-[1.12] tracking-tight text-white"
           >
             Photocopier-ready in{' '}
-            <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+            <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
               one click.
             </span>
           </h2>

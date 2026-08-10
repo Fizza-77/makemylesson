@@ -74,7 +74,7 @@ export default function LessonPlanWhatsInside() {
           className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-white"
         >
           Anatomy of a{' '}
-          <span className="pricing-hero-underline pricing-hero-underline--light relative inline-block">
+          <span className="pricing-hero-underline pricing-hero-underline--soft relative inline-block">
             generated plan.
           </span>
         </h2>

@@ -4,21 +4,24 @@ const STEPS = [
     title: 'Pick the activity type',
     body: 'Gap-fill, matching, labelling, sorting, or open response — or let the generator choose what fits the topic.',
     tone: 'teal',
-    sample: 'Type: Gap-fill + 1 open question',
+    samplePrefix: 'Type:',
+    sampleRest: ' Gap-fill + 1 open question',
   },
   {
     n: 2,
     title: 'Set difficulty and length',
     body: 'Question count and challenge level tune to your grade — with support, core, and stretch versions available.',
     tone: 'navy',
-    sample: 'Year 7 · 8 questions · core',
+    samplePrefix: 'Year 7',
+    sampleRest: ' · 8 questions · core',
   },
   {
     n: 3,
     title: 'Print both, keep one',
     body: 'The student sheet goes on desks; the key with marking guidance stays with you. Numbering always matches.',
     tone: 'teal',
-    sample: 'Export → PDF pair · DOCX',
+    samplePrefix: 'Export →',
+    sampleRest: ' PDF pair · DOCX',
   },
 ]
 
@@ -38,7 +41,9 @@ export default function ActivityHowItWorks() {
           className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-white"
         >
           One generation.{' '}
-          <span className="pricing-hero-underline relative inline-block">Two documents.</span>
+          <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block">
+            Two documents.
+          </span>
         </h2>
 
         <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-5">
@@ -74,8 +79,9 @@ export default function ActivityHowItWorks() {
                 >
                   {step.body}
                 </p>
-                <div className="mt-auto rounded-2xl bg-white px-3.5 py-2.5 text-[12px] font-semibold leading-snug text-[#4B5068] sm:text-[13px]">
-                  {step.sample}
+                <div className="mt-auto rounded-2xl bg-white px-3.5 py-2.5 text-[12px] leading-snug sm:text-[13px]">
+                  <span className="font-normal text-[#6B7280]">{step.samplePrefix}</span>
+                  <span className="font-medium text-[#35BEBC]">{step.sampleRest}</span>
                 </div>
               </article>
             )

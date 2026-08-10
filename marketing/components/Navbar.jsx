@@ -29,7 +29,6 @@ function useNavLinks() {
       { href: '/pricing', label: 'Pricing' },
       { href: '/faq', label: 'FAQs' },
       { href: '/blog', label: 'Blog' },
-      { href: MML_APP.ayla, label: 'Ayla AI' },
       { href: '/contact', label: 'Contact Us' },
     ],
     [],
@@ -77,11 +76,12 @@ function NavLink({ item, pathname, className, onClick }) {
   )
 }
 
-export default function Navbar() {
+export default function Navbar({ theme = 'home' }) {
   const navLinks = useNavLinks()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
+  const isLight = theme === 'site'
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10)
@@ -97,7 +97,11 @@ export default function Navbar() {
     <nav
       id="site-nav"
       aria-label="Main navigation"
-      className={cn('site-nav fixed left-0 right-0 top-0 z-[1100]', scrolled && 'site-nav--scrolled')}
+      className={cn(
+        'site-nav fixed left-0 right-0 top-0 z-[1100]',
+        isLight ? 'site-nav--light' : 'site-nav--home',
+        scrolled && 'site-nav--scrolled',
+      )}
     >
       <div className={cn(NAV_CONTAINER, NAV_BAR)}>
         <Link
@@ -124,7 +128,7 @@ export default function Navbar() {
 
         <div className="site-nav-actions">
           <InstallAppButton
-            variant="marketing"
+            variant={isLight ? 'app' : 'marketing'}
             className="max-[900px]:hidden"
           />
           <Link href={MML_APP.signIn || '/login'} className="site-nav-signin max-[900px]:hidden">
@@ -162,7 +166,10 @@ export default function Navbar() {
             />
           ))}
           <div className="site-nav-drawer-cta">
-            <InstallAppButton variant="marketing" className="w-full [&_button]:w-full" />
+            <InstallAppButton
+              variant={isLight ? 'app' : 'marketing'}
+              className="w-full [&_button]:w-full"
+            />
             <Link
               href={MML_APP.signIn || '/login'}
               className="site-nav-signin"
