@@ -88,7 +88,7 @@ export function InstallAppButton({
         className={cn(
           "inline-flex items-center justify-center gap-1.5 transition disabled:opacity-60",
           marketing
-            ? "rounded-none border-0 bg-transparent px-0 py-2 text-[length:var(--site-nav-font-size,13px)] font-bold text-white hover:opacity-85"
+            ? "rounded-full border-[1.5px] border-[#35BEBC] bg-transparent px-3.5 py-2 text-[length:var(--site-nav-font-size,13px)] font-bold text-white hover:bg-[#35BEBC]/15"
             : "rounded-full border-[1.5px] border-[#1A1E3A] bg-white px-3.5 py-2 text-[length:var(--site-nav-font-size,13px)] font-bold text-[#1A1E3A] hover:bg-[#1A1E3A] hover:text-white",
           compact && "size-10 px-0",
           !compact && !marketing && "max-sm:size-10 max-sm:px-0",

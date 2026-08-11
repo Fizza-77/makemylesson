@@ -4,12 +4,12 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import Container from '@marketing/components/layout/Container'
-import { isFeaturesPath } from '@marketing/data/features'
+import { getFeaturePath, isFeaturesPath } from '@marketing/data/features'
 import { MML_APP } from '@marketing/lib/appUrls'
 
 const PRODUCT_LINKS = [
   { href: '/#how-it-works', label: 'How It Works' },
-  { href: '/features', label: 'Teaching Pack' },
+  { href: getFeaturePath('lesson-plan-generator'), label: 'Teaching Pack' },
   { href: MML_APP.ayla, label: 'Ayla' },
   { href: '/pricing', label: 'Pricing' },
 ]

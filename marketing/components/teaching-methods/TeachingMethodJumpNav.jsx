@@ -12,7 +12,7 @@ export default function TeachingMethodJumpNav({ sections, pageType = 'teaching-m
           {jumpNavLabel(section.heading, index, pageType)}
         </a>
       ))}
-      <a href="#tm-faq-heading" className="tm-mini-nav-link">
+      <a href="#tm-faq" className="tm-mini-nav-link">
         FAQs
       </a>
     </nav>

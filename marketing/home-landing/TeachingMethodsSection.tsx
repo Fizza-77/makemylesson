@@ -62,7 +62,7 @@ function MethodCard({
         </span>
         <span className="mml-tm-card-icon">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={icon} alt="" width={72} height={72} />
+          <img src={icon} alt="" width={80} height={80} />
         </span>
         <span className="mml-tm-card-title">{title}</span>
         <span className="mml-tm-card-link">See Definition</span>

@@ -10,6 +10,7 @@ import ReviewsSection from "@marketing/home-landing/ReviewsSection";
 import SisterPlatformsSection from "@marketing/home-landing/SisterPlatformsSection";
 import PricingSection from "@marketing/home-landing/PricingSection";
 import FinalCtaSection from "@marketing/home-landing/FinalCtaSection";
+import { MML_APP } from "@marketing/lib/appUrls";
 
 const STAGES = [
   {
@@ -17,24 +18,28 @@ const STAGES = [
     name: "Plan",
     desc: "Curriculum-aligned lesson plan in seconds.",
     iconSrc: "/plan.svg",
+    href: MML_APP.stage1,
   },
   {
     num: "02",
     name: "Present",
     desc: "Slides with speaker notes, ready to project.",
     iconSrc: "/present.svg",
+    href: MML_APP.stage2,
   },
   {
     num: "03",
     name: "Assess",
     desc: "Worksheets, quizzes and exams that match the lesson.",
     iconSrc: "/assess.svg",
+    href: MML_APP.stage3,
   },
   {
     num: "04",
     name: "Teach",
     desc: "Walk in prepared — everything in one pack.",
     iconSrc: "/teach.svg",
+    href: MML_APP.stage4,
   },
 ] as const;
 
@@ -186,14 +191,14 @@ export default function HomeLandingPage() {
               </p>
 
               <div className="mml-mkt-stages">
-                {STAGES.map(({ num, name, desc, iconSrc }, index) => (
+                {STAGES.map(({ num, name, desc, iconSrc, href }, index) => (
                   <div key={num} className="mml-mkt-stage-slot">
                     {index > 0 ? (
                       <span className="mml-mkt-arrow" aria-hidden>
                         <StageArrow />
                       </span>
                     ) : null}
-                    <article className="mml-mkt-stage">
+                    <Link href={href} className="mml-mkt-stage">
                       <span className="mml-mkt-stage-label">STAGE {num}</span>
                       <Image
                         src={iconSrc}
@@ -205,7 +210,7 @@ export default function HomeLandingPage() {
                       />
                       <h2 className="mml-mkt-stage-name">{name}</h2>
                       <p className="mml-mkt-stage-desc">{desc}</p>
-                    </article>
+                    </Link>
                   </div>
                 ))}
               </div>

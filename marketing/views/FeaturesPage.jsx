@@ -1,7 +1,5 @@
 'use client'
 
-import { Suspense, startTransition, useCallback, useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
 import ActivityCta from '@marketing/components/features/ActivityCta'
 import ActivityHowItWorks from '@marketing/components/features/ActivityHowItWorks'
 import ActivityMethodShape from '@marketing/components/features/ActivityMethodShape'
@@ -36,7 +34,6 @@ import SlideDeckStageHero from '@marketing/components/features/SlideDeckStageHer
 import {
   FEATURE_STAGE_ITEMS,
   getFeatureBySlug,
-  getFeaturePath,
 } from '@marketing/data/features'
 
 const DEFAULT_STAGE = FEATURE_STAGE_ITEMS[0].slug
@@ -126,58 +123,15 @@ function StageContent({ slug }) {
   }
 }
 
-function FeaturesPageInner() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const urlStage = resolveStage(searchParams.get('stage'))
-  const [activeSlug, setActiveSlug] = useState(urlStage)
-
-  useEffect(() => {
-    setActiveSlug(urlStage)
-  }, [urlStage])
-
-  const setStage = useCallback(
-    (slug) => {
-      const next = resolveStage(slug)
-      if (next === activeSlug) return
-
-      setActiveSlug(next)
-      startTransition(() => {
-        router.replace(getFeaturePath(next), { scroll: false })
-      })
-
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      })
-    },
-    [activeSlug, router],
-  )
+export default function FeaturesPage({ stageSlug }) {
+  const activeSlug = resolveStage(stageSlug)
 
   return (
     <div className="tm-page-wrap min-h-[calc(100vh-4rem)] bg-white">
-      <FeatureStageSelector activeSlug={activeSlug} onSelect={setStage} />
+      <FeatureStageSelector activeSlug={activeSlug} />
       <div key={activeSlug}>
         <StageContent slug={activeSlug} />
       </div>
     </div>
-  )
-}
-
-function FeaturesPageFallback() {
-  return (
-    <div className="tm-page-wrap min-h-[calc(100vh-4rem)] bg-white">
-      <FeatureStageSelector activeSlug={DEFAULT_STAGE} />
-      <div className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 md:px-8" aria-hidden>
-        <div className="h-40 animate-pulse rounded-[28px] bg-[#ade5df]/60" />
-      </div>
-    </div>
-  )
-}
-
-export default function FeaturesPage() {
-  return (
-    <Suspense fallback={<FeaturesPageFallback />}>
-      <FeaturesPageInner />
-    </Suspense>
   )
 }

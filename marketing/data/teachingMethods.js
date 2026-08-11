@@ -171,6 +171,11 @@ export function getTeachingMethodBySlug(slug) {
   return ALL_TEACHING_METHODS.find((method) => method.slug === slug) ?? null
 }
 
+export function getTeachingMethodPath(slug) {
+  if (!slug) return TEACHING_METHODS_BASE
+  return `${TEACHING_METHODS_BASE}/${slug}`
+}
+
 export function getTeachingMethodHeroImagePath(method) {
   if (!method?.heroImage) return null
   return `/pages-images/${encodeURIComponent(method.heroImage).replace(/%2F/g, '/')}`

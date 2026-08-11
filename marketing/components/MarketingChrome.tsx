@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
+import AylaMarketingChat from "@marketing/components/AylaMarketingChat";
 import CookieConsent from "@marketing/components/CookieConsent";
 import Footer from "@marketing/components/Footer";
 import Navbar from "@marketing/components/Navbar";
@@ -31,6 +32,7 @@ export default function MarketingChrome({
         <div className="pt-16">{children}</div>
         <Footer />
         <CookieConsent />
+        <AylaMarketingChat />
       </div>
     );
   }
@@ -41,6 +43,7 @@ export default function MarketingChrome({
       <main className="main-content flex min-h-0 flex-1 flex-col pt-16">{children}</main>
       <Footer />
       <CookieConsent />
+      <AylaMarketingChat />
     </div>
   );
 }

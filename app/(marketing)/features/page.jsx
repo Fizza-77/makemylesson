@@ -1,31 +1,28 @@
-import FeaturesPage from '@marketing/views/FeaturesPage'
-import { FEATURES_BASE } from '@marketing/data/features'
+import { permanentRedirect } from 'next/navigation'
+import {
+  FEATURE_STAGE_ITEMS,
+  getFeatureBySlug,
+  getFeaturePath,
+} from '@marketing/data/features'
 import { SITE_URL } from '@marketing/lib/siteUrl'
 
-const title = 'Features | Make My Lesson'
-const description =
-  'One teaching pack across four stages: lesson plan, slide deck, classroom activity, and assessment — curriculum-aligned for Australian classrooms.'
+const DEFAULT_STAGE = FEATURE_STAGE_ITEMS[0].slug
 
-export const metadata = {
-  title,
-  description,
-  alternates: { canonical: `${SITE_URL}${FEATURES_BASE}` },
-  openGraph: {
-    type: 'website',
-    title,
-    description,
-    url: `${SITE_URL}${FEATURES_BASE}`,
-    siteName: 'Make My Lesson',
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary',
-    title,
-    description,
-  },
-  robots: { index: true, follow: true },
+export async function generateMetadata() {
+  const canonical = `${SITE_URL}${getFeaturePath(DEFAULT_STAGE)}`
+  return {
+    title: 'Features | Make My Lesson',
+    description:
+      'One teaching pack across four stages: lesson plan, slide deck, classroom activity, and assessment — curriculum-aligned for Australian classrooms.',
+    alternates: { canonical },
+    robots: { index: true, follow: true },
+  }
 }
 
-export default function FeaturesRoutePage() {
-  return <FeaturesPage />
+/** `/features` and legacy `?stage=` → `/features/{slug}` for SEO. */
+export default async function FeaturesRoutePage({ searchParams }) {
+  const params = await searchParams
+  const stageParam = typeof params?.stage === 'string' ? params.stage : null
+  const target = getFeatureBySlug(stageParam) ? stageParam : DEFAULT_STAGE
+  permanentRedirect(getFeaturePath(target))
 }

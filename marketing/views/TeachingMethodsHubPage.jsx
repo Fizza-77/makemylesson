@@ -7,6 +7,7 @@ import { PageShell } from '@marketing/components/layout/Container'
 import {
   ALL_TEACHING_METHODS,
   TEACHING_METHOD_COLUMNS,
+  getTeachingMethodPath,
 } from '@marketing/data/teachingMethods'
 import { MML_APP } from '@marketing/lib/appUrls'
 import { cn } from '@marketing/lib/cn'
@@ -364,10 +365,12 @@ function FullDeckSection() {
             const teal = (row + col) % 2 === 1
             const badge = CATEGORY_BADGE[method.columnId] ?? method.columnHeading
             return (
-              <article
+              <Link
                 key={method.slug}
+                href={getTeachingMethodPath(method.slug)}
                 className={cn(
-                  'relative flex min-h-[300px] flex-col overflow-hidden rounded-[24px] p-5 sm:min-h-[320px] sm:p-6',
+                  'relative flex min-h-[300px] flex-col overflow-hidden rounded-[24px] p-5 no-underline transition duration-200 sm:min-h-[320px] sm:p-6',
+                  'hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35BEBC]',
                   teal ? 'bg-[#35BEBC] text-[#1A1E3A]' : 'bg-[#eaf4f4] text-[#1A1E3A]',
                 )}
               >
@@ -396,7 +399,7 @@ function FullDeckSection() {
                   {PACK_BLURB[method.slug] ??
                     'In your pack: Structure, tasks and checks are aligned to this pedagogy.'}
                 </p>
-              </article>
+              </Link>
             )
           })}
         </div>
@@ -623,12 +626,23 @@ function MethodChooserCard() {
             Try this method
           </p>
           <h3 className="mt-3 text-[clamp(1.75rem,3vw,2.35rem)] font-bold tracking-tight text-[#35BEBC]">
-            {result.label}
+            <Link
+              href={getTeachingMethodPath(result.slug)}
+              className="text-inherit no-underline hover:underline"
+            >
+              {result.label}
+            </Link>
           </h3>
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/80 sm:text-base">
             {result.blurb}
           </p>
           <p className="mt-8 text-[13px] text-white">{result.ideal}</p>
+          <Link
+            href={getTeachingMethodPath(result.slug)}
+            className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-[#35BEBC] px-5 py-2.5 text-[13px] font-bold text-[#1A1E3A] no-underline transition hover:bg-[#4ec9c7]"
+          >
+            Read about {result.label}
+          </Link>
         </div>
       </div>
     </section>
@@ -813,7 +827,7 @@ export default function TeachingMethodsHubPage() {
   return (
     <PageShell
       variant="wide"
-      className="tm-page-shell border-slate-200 bg-white"
+      className="tm-page-shell border-slate-200 bg-white [font-family:var(--font-manrope),Manrope,system-ui,sans-serif]"
       contentClassName="pb-16 pt-6 md:pb-20 md:pt-8"
     >
       <TeachingMethodsHero />

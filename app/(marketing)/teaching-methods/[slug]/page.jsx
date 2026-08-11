@@ -18,7 +18,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const slug = params?.slug
+  const { slug } = await params
   if (!slug) return { title: 'Teaching Method' }
 
   const method = getTeachingMethodBySlug(slug)
@@ -59,8 +59,8 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function TeachingMethodRoutePage({ params }) {
-  const slug = params?.slug
+export default async function TeachingMethodRoutePage({ params }) {
+  const { slug } = await params
   if (!slug) notFound()
 
   const method = getTeachingMethodBySlug(slug)

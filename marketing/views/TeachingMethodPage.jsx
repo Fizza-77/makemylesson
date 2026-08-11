@@ -1,4 +1,4 @@
-import Container from '@marketing/components/layout/Container'
+import { PageShell } from '@marketing/components/layout/Container'
 import TeachingMethodCta from '@marketing/components/teaching-methods/TeachingMethodCta'
 import TeachingMethodFaq from '@marketing/components/teaching-methods/TeachingMethodFaq'
 import TeachingMethodHero from '@marketing/components/teaching-methods/TeachingMethodHero'
@@ -9,7 +9,11 @@ function TeachingMethodArticle({ method, content }) {
   const intro = content.quickAnswer ?? content.metaDescription ?? method.description
 
   return (
-    <div className="tm-page-wrap min-h-[calc(100vh-4rem)] border-t border-slate-200 bg-white">
+    <PageShell
+      variant="wide"
+      className="tm-page-shell tm-method-page border-slate-200 bg-white"
+      contentClassName="pb-16 pt-2 md:pb-20"
+    >
       <TeachingMethodHero
         method={method}
         title={title}
@@ -18,33 +22,35 @@ function TeachingMethodArticle({ method, content }) {
         sections={content.sections}
       />
 
-      <Container variant="policy" className="pb-24 pt-0">
-        <article className="tm-article w-full">
-          <div className="tm-body">
-            {content.sections.map((section, index) => (
-              <TeachingMethodSection
-                key={section.heading}
-                section={section}
-                sectionIndex={index}
-                method={method}
-              />
-            ))}
+      <article className="tm-article w-full">
+        <div className="tm-body">
+          {content.sections.map((section, index) => (
+            <TeachingMethodSection
+              key={section.heading}
+              section={section}
+              sectionIndex={index}
+              method={method}
+            />
+          ))}
 
-            {content.cta && (
-              <TeachingMethodCta heading={content.cta.heading} body={content.cta.body} />
-            )}
+          {content.faq?.length > 0 && <TeachingMethodFaq items={content.faq} />}
 
-            {content.faq?.length > 0 && <TeachingMethodFaq items={content.faq} />}
-          </div>
-        </article>
-      </Container>
-    </div>
+          {content.cta && (
+            <TeachingMethodCta heading={content.cta.heading} body={content.cta.body} />
+          )}
+        </div>
+      </article>
+    </PageShell>
   )
 }
 
 function TeachingMethodPlaceholder({ method }) {
   return (
-    <div className="tm-page-wrap min-h-[calc(100vh-4rem)] border-t border-slate-200 bg-white">
+    <PageShell
+      variant="wide"
+      className="tm-page-shell tm-method-page border-slate-200 bg-white"
+      contentClassName="pb-16 pt-2 md:pb-20"
+    >
       <TeachingMethodHero
         method={method}
         title={method.label}
@@ -53,25 +59,23 @@ function TeachingMethodPlaceholder({ method }) {
         sections={[]}
       />
 
-      <Container variant="policy" className="pb-24 pt-0">
-        <article className="tm-article w-full">
-          <div className="tm-body">
-            <section className="tm-section">
-              <p className="tm-paragraph">
-                Detailed guidance for {method.label.toLowerCase()} is coming soon. Make My Lesson already
-                supports this approach when you generate lesson plans — choose your method in the app and
-                receive structured resources aligned to your curriculum.
-              </p>
-            </section>
+      <article className="tm-article w-full">
+        <div className="tm-body">
+          <section className="tm-section">
+            <p className="tm-paragraph">
+              Detailed guidance for {method.label.toLowerCase()} is coming soon. Make My Lesson already
+              supports this approach when you generate lesson plans — choose your method in the app and
+              receive structured resources aligned to your curriculum.
+            </p>
+          </section>
 
-            <TeachingMethodCta
-              heading="Start planning today"
-              body="Try Make My Lesson and generate your first curriculum-aligned lesson plan in minutes."
-            />
-          </div>
-        </article>
-      </Container>
-    </div>
+          <TeachingMethodCta
+            heading="Start planning today"
+            body="Try Make My Lesson and generate your first curriculum-aligned lesson plan in minutes."
+          />
+        </div>
+      </article>
+    </PageShell>
   )
 }
 

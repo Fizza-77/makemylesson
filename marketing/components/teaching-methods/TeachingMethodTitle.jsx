@@ -14,7 +14,9 @@ export default function TeachingMethodTitle({ title }) {
       {after ? (
         <>
           {' '}
-          <span className="tm-title-accent">{after}</span>
+          <span className="pricing-hero-underline pricing-hero-underline--straight tm-title-accent relative inline-block">
+            {after}
+          </span>
         </>
       ) : null}
     </h1>

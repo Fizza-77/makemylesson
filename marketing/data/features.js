@@ -65,12 +65,10 @@ export function getFeatureBySlug(slug) {
   return FEATURE_ITEMS.find((item) => item.slug === slug) ?? null
 }
 
-/** Deep-link into a stage on the single Features page. */
+/** Path URL for a stage feature page — SEO-friendly, no query params. */
 export function getFeaturePath(slug) {
-  if (!slug || slug === FEATURE_STAGE_ITEMS[0]?.slug) {
-    return FEATURES_BASE
-  }
-  return `${FEATURES_BASE}?stage=${encodeURIComponent(slug)}`
+  const resolved = getFeatureBySlug(slug)?.slug ?? FEATURE_STAGE_ITEMS[0]?.slug
+  return `${FEATURES_BASE}/${resolved}`
 }
 
 export function isFeaturesPath(pathname) {

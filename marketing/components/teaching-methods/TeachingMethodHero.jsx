@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import TeachingMethodJumpNav from '@marketing/components/teaching-methods/TeachingMethodJumpNav'
 import TeachingMethodSectionImage from '@marketing/components/teaching-methods/TeachingMethodSectionImage'
 import TeachingMethodTitle from '@marketing/components/teaching-methods/TeachingMethodTitle'
+import { TEACHING_METHODS_BASE } from '@marketing/data/teachingMethods'
 import { cn } from '@marketing/lib/cn'
 
 export default function TeachingMethodHero({ method, title, intro, eyebrow, sections }) {
@@ -15,9 +17,15 @@ export default function TeachingMethodHero({ method, title, intro, eyebrow, sect
   }, [])
 
   return (
-    <div className="tm-hero-band">
-      <div className="tm-hero-band-grid" aria-hidden />
+    <section className="tm-hero-band">
+      <div className="tm-hero-band-orb tm-hero-band-orb--tr" aria-hidden />
+      <div className="tm-hero-band-orb tm-hero-band-orb--bl" aria-hidden />
+
       <div className={cn('tm-hero-band-content', visible && 'tm-hero-band--visible')}>
+        <Link href={TEACHING_METHODS_BASE} className="tm-hero-back">
+          ← All teaching methods
+        </Link>
+
         <div className="tm-hero">
           <div className="tm-hero-content">
             {eyebrow ? <p className="tm-hero-eyebrow">{eyebrow}</p> : null}
@@ -34,6 +42,6 @@ export default function TeachingMethodHero({ method, title, intro, eyebrow, sect
 
         <TeachingMethodJumpNav sections={sections} />
       </div>
-    </div>
+    </section>
   )
 }

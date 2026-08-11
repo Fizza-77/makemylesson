@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { FEATURE_STAGE_ITEMS, getFeaturePath } from '@marketing/data/features'
 import { cn } from '@marketing/lib/cn'
 
-export default function FeatureStageSelector({ activeSlug, onSelect }) {
+export default function FeatureStageSelector({ activeSlug }) {
   return (
     <nav
       aria-label="Teaching pack stages"
@@ -20,19 +20,6 @@ export default function FeatureStageSelector({ activeSlug, onSelect }) {
               ? 'bg-[#35BEBC] text-[#1A1E3A]'
               : 'border border-white/20 bg-transparent text-white hover:border-white/40 hover:bg-white/5',
           )
-          const label = (
-            <>
-              <span
-                className={cn(
-                  'inline-flex h-6 w-6 items-center justify-center rounded-full text-[12px] font-bold',
-                  active ? 'bg-[#1A1E3A] text-white' : 'bg-[#35BEBC] text-[#1A1E3A]',
-                )}
-              >
-                {step}
-              </span>
-              {stage.stageLabel}
-            </>
-          )
 
           return (
             <div key={stage.slug} className="flex shrink-0 items-center gap-2 sm:gap-3">
@@ -41,24 +28,22 @@ export default function FeatureStageSelector({ activeSlug, onSelect }) {
                   →
                 </span>
               ) : null}
-              {typeof onSelect === 'function' ? (
-                <button
-                  type="button"
-                  onClick={() => onSelect(stage.slug)}
-                  aria-current={active ? 'true' : undefined}
-                  className={className}
+              <Link
+                href={getFeaturePath(stage.slug)}
+                aria-current={active ? 'page' : undefined}
+                className={className}
+                scroll
+              >
+                <span
+                  className={cn(
+                    'inline-flex h-6 w-6 items-center justify-center rounded-full text-[12px] font-bold',
+                    active ? 'bg-[#1A1E3A] text-white' : 'bg-[#35BEBC] text-[#1A1E3A]',
+                  )}
                 >
-                  {label}
-                </button>
-              ) : (
-                <Link
-                  href={getFeaturePath(stage.slug)}
-                  aria-current={active ? 'page' : undefined}
-                  className={className}
-                >
-                  {label}
-                </Link>
-              )}
+                  {step}
+                </span>
+                {stage.stageLabel}
+              </Link>
             </div>
           )
         })}

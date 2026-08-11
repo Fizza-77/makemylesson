@@ -24,7 +24,11 @@ function useNavLinks() {
   return useMemo(
     () => [
       { href: '/', label: 'Home', homeLink: true },
-      { href: '/features', label: 'Features', matchPrefix: '/features' },
+      {
+        href: '/features/lesson-plan-generator',
+        label: 'Features',
+        matchPrefix: '/features',
+      },
       { href: '/teaching-methods', label: 'Teaching Methods' },
       { href: '/pricing', label: 'Pricing' },
       { href: '/faq', label: 'FAQs' },

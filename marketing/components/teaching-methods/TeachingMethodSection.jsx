@@ -153,13 +153,19 @@ export default function TeachingMethodSection({
     sectionIndex,
   })
   const hasMultiple = section.paragraphs.length > 1
-  const isSoft = layout === 'compare' || layout === 'when-use'
+  const isSoft = layout === 'when-use'
+  const isCyan = layout === 'compare'
   const entity = method
 
   return (
     <section
       id={sectionAnchorId(section.heading)}
-      className={cn('tm-section', isSoft && 'tm-section--soft', visible && 'tm-section--visible')}
+      className={cn(
+        'tm-section',
+        isSoft && 'tm-section--soft',
+        isCyan && 'tm-section--cyan',
+        visible && 'tm-section--visible',
+      )}
       ref={ref}
     >
       <SectionHeader heading={section.heading} visible={visible} />

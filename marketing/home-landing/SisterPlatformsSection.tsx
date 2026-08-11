@@ -3,18 +3,18 @@ import { ExternalLink } from "lucide-react";
 
 const PLATFORMS = [
   {
-    key: "mml",
+    key: "studiely",
     tone: "mint" as const,
-    title: "Make My Lesson",
-    subtitle: "— For Teachers",
-    badge: "AI-POWERED LESSON PLANNING",
+    title: "Studiely — For",
+    subtitle: "Students",
+    badge: "Start learning smarter",
     paragraphs: [
-      "Generates complete, curriculum-aligned teaching materials from a single topic — lesson plans, presentations, activities and assessments.",
-      "Make My Lesson is our sister platform built for teachers. Where Studiely supports the student preparing for the exam, Make My Lesson supports the teacher preparing the lesson.",
+      "An AI-powered study platform built for students across the same curriculum systems Make My Lesson serves.",
+      "Where Make My Lesson supports the teacher preparing the lesson, Studiely supports the student on the other side of it.",
     ],
-    cta: "Visit Make My Lesson",
-    href: "https://makemylesson.app",
-    logo: "/logo-makemylesson2.png",
+    cta: "Visit Studiely",
+    href: "https://studiely.com",
+    logo: "/studiely-logo.jpeg",
   },
   {
     key: "linguatude",
