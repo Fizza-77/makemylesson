@@ -4,15 +4,15 @@ import { MML_APP } from '@marketing/lib/appUrls'
 export default function ActivityCta() {
   return (
     <section className="bg-white px-4 pt-2 sm:px-6 md:px-8" aria-labelledby="activity-cta-heading">
-      <div className="relative mx-auto max-w-[1200px] overflow-hidden rounded-t-[32px] bg-[#ade5df] px-5 py-14 text-center sm:rounded-t-[40px] sm:px-8 sm:py-16 lg:py-20">
-        <div className="relative z-[1]">
+      <div className="cta-card-pad relative fp-shell overflow-hidden rounded-t-[32px] bg-[#ade5df] py-14 text-center sm:rounded-t-[40px] sm:py-16 lg:py-20">
+        <div className="relative z-[1] w-full">
           <h2
             id="activity-cta-heading"
-            className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A]"
+            className="cta-card-copy whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
             Sheet on the desks. Key in your hand.
           </h2>
-          <p className="mt-4 text-[14px] leading-relaxed text-[#1A1E3A]/55 sm:text-[15px]">
+          <p className="cta-card-copy mt-4 text-[14px] leading-relaxed text-[#1A1E3A]/55 sm:text-[15px]">
             10 free credits · both documents per generation · no card required
           </p>
           <Link

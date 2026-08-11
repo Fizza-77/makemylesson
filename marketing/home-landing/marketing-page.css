@@ -2792,25 +2792,41 @@
 @media (min-width: 1400px) {
   .mml-pr-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.85rem;
+    gap: 1rem;
   }
 
   .mml-pr-card {
-    padding: 1.35rem 1.05rem 1.15rem;
-    border-radius: 26px;
+    padding: 1.65rem 1.35rem 1.4rem;
+    border-radius: 28px;
+  }
+
+  .mml-pr-name {
+    font-size: 1.15rem;
   }
 
   .mml-pr-price-main {
-    font-size: 1.75rem;
+    font-size: 2.15rem;
+  }
+
+  .mml-pr-price-suffix {
+    font-size: 1.1rem;
   }
 
   .mml-pr-features li {
-    font-size: 0.76rem;
+    font-size: 0.88rem;
   }
 
   .mml-pr-cta {
-    font-size: 0.8rem;
-    padding: 0.8rem 0.75rem;
+    font-size: 0.92rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .mml-pr-title {
+    font-size: clamp(2.25rem, 3.5vw, 3.4rem);
+  }
+
+  .mml-pr-sub {
+    font-size: 1.08rem;
   }
 }
 
@@ -2834,12 +2850,19 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 2rem 1.5rem 1.5rem;
+  padding: 2rem 1in 1.5rem;
   border: 3px solid #35bebc;
   border-bottom: none;
   border-radius: 28px 28px 0 0;
   background: #ffffff;
   box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+  .mml-cta-screen {
+    padding-left: max(1.25rem, 0.5in);
+    padding-right: max(1.25rem, 0.5in);
+  }
 }
 
 .mml-cta-title {
@@ -2875,7 +2898,8 @@
 
 .mml-cta-sub {
   margin: 0.7rem 0 0;
-  max-width: 34rem;
+  width: 100%;
+  max-width: none;
   font-size: 0.92rem;
   line-height: 1.45;
   color: #6b7280;
@@ -2947,7 +2971,7 @@
   }
 
   .mml-cta-screen {
-    padding: 2.35rem 2.5rem 1.75rem;
+    padding: 2.35rem 1in 1.75rem;
   }
 
   .mml-cta-ledge {
@@ -3234,6 +3258,14 @@
 
   .mml-mkt-title {
     max-width: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.3em;
+  }
+
+  .mml-mkt-title-accent {
+    margin-top: 0;
   }
 
   .mml-mkt-sub {
@@ -3242,6 +3274,49 @@
 
   .mml-mkt-stage {
     min-height: 12rem;
+  }
+
+  .mml-ba-title,
+  .mml-tm-title,
+  .mml-ayla-title {
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 0.3em;
+    row-gap: 0;
+  }
+
+  .mml-ba-title,
+  .mml-tm-title {
+    justify-content: center;
+  }
+
+  .mml-ayla-title {
+    justify-content: flex-start;
+  }
+
+  .mml-ba-title-line,
+  .mml-ayla-title-line,
+  .mml-tm-title > span {
+    white-space: nowrap;
+  }
+
+  .mml-shelf-title {
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  .mml-shelf-title-accent,
+  .mml-pr-title-accent,
+  .mml-cc-title-accent,
+  .mml-cta-title-accent {
+    white-space: nowrap;
+  }
+
+  .mml-pr-title,
+  .mml-cc-title,
+  .mml-cta-title,
+  .mml-rv-title {
+    white-space: nowrap;
   }
 }
 

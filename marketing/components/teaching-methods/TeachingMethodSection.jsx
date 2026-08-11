@@ -7,6 +7,7 @@ import { getCardDisplayParts } from '@marketing/lib/teachingMethodCard'
 import BuilderInteractiveLayout from '@marketing/components/teaching-methods/BuilderInteractiveLayout'
 import TeachingMethodSectionImage from '@marketing/components/teaching-methods/TeachingMethodSectionImage'
 import {
+  getCompareBand,
   getSectionLayout,
   sectionAnchorId,
 } from '@marketing/lib/teachingMethodLayout'
@@ -146,6 +147,7 @@ export default function TeachingMethodSection({
   sectionIndex = 0,
   method,
   pageType = 'teaching-method',
+  sections = [],
 }) {
   const [ref, visible] = useInView({ threshold: 0.1 })
   const layout = getSectionLayout(section.heading, section.paragraphs.length, {
@@ -154,7 +156,9 @@ export default function TeachingMethodSection({
   })
   const hasMultiple = section.paragraphs.length > 1
   const isSoft = layout === 'when-use'
-  const isCyan = layout === 'compare'
+  const compareBand = getCompareBand(sections, sectionIndex, pageType)
+  const isCyan = compareBand === 'upper'
+  const isCyanSoft = compareBand === 'lower'
   const entity = method
 
   return (
@@ -164,6 +168,7 @@ export default function TeachingMethodSection({
         'tm-section',
         isSoft && 'tm-section--soft',
         isCyan && 'tm-section--cyan',
+        isCyanSoft && 'tm-section--cyan-soft',
         visible && 'tm-section--visible',
       )}
       ref={ref}

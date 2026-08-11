@@ -36,9 +36,12 @@ export default function ActivityStageHero() {
 
           <h1
             id="activity-hero-heading"
-            className="max-w-[14ch] text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+            className="max-w-[14ch] xl:max-w-none text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
-            Every worksheet arrives with its answer key.
+            Every worksheet arrives with its{' '}
+            <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
+              answer key.
+            </span>
           </h1>
 
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/75 sm:text-base">
@@ -78,8 +81,8 @@ export default function ActivityStageHero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-xl lg:mx-0 lg:max-w-none">
-          <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4">
+        <div className="relative mx-auto w-full max-w-none lg:mx-0">
+          <div className="relative grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-4">
             <article className="relative z-[2] overflow-hidden rounded-[20px] bg-white shadow-[0_18px_40px_rgba(26,30,58,0.16)]">
               <div className="flex items-center gap-2 rounded-t-[20px] bg-[#1A1E3A] px-3.5 py-2.5">
                 <FileText className="h-3.5 w-3.5 shrink-0 text-white" aria-hidden strokeWidth={2} />

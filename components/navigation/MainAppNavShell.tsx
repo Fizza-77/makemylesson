@@ -168,12 +168,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
       </a>
 
       <header className="sticky top-0 z-40 border-b border-[#E8EAED] bg-white">
-        <div
-          className={cn(
-            "mx-auto flex h-[72px] items-center gap-4 px-4 sm:px-6 lg:px-8",
-            isProfilePage ? "max-w-[1600px]" : "max-w-7xl",
-          )}
-        >
+        <div className="app-shell-inner flex h-[72px] items-center gap-4">
           {/* Left brand → app home (Stage 1) */}
           <div className="flex min-w-0 flex-1 items-center">
             <Link
@@ -312,12 +307,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
       <main
         id="main-content"
         tabIndex={-1}
-        className={cn(
-          "mx-auto w-full flex-1 py-5 pb-24 outline-none lg:py-6 lg:pb-8",
-          isProfilePage
-            ? "max-w-[1600px] px-3 sm:px-5 lg:px-6"
-            : "max-w-7xl px-4 lg:px-6",
-        )}
+        className="app-shell-inner w-full flex-1 py-5 pb-24 outline-none lg:py-6 lg:pb-8"
       >
         {children}
       </main>

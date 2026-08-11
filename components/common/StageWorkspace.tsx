@@ -29,7 +29,7 @@ export function StageWorkspace({
     >
       <div className="min-w-0 flex-1">{children}</div>
 
-      <aside className="relative w-full shrink-0 lg:w-72 xl:w-80">
+      <aside className="relative w-full shrink-0 lg:w-80 xl:w-96">
         <div className="flex flex-col gap-4 lg:sticky lg:top-[5.25rem]">
           {isStage4 ? (
             <Stage4FinalChecklist />

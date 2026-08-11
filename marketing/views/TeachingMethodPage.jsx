@@ -12,7 +12,7 @@ function TeachingMethodArticle({ method, content }) {
     <PageShell
       variant="wide"
       className="tm-page-shell tm-method-page border-slate-200 bg-white"
-      contentClassName="pb-16 pt-2 md:pb-20"
+      contentClassName="pt-2 pb-[20px] md:pb-[20px] lg:pb-[20px]"
     >
       <TeachingMethodHero
         method={method}
@@ -30,6 +30,7 @@ function TeachingMethodArticle({ method, content }) {
               section={section}
               sectionIndex={index}
               method={method}
+              sections={content.sections}
             />
           ))}
 
@@ -49,7 +50,7 @@ function TeachingMethodPlaceholder({ method }) {
     <PageShell
       variant="wide"
       className="tm-page-shell tm-method-page border-slate-200 bg-white"
-      contentClassName="pb-16 pt-2 md:pb-20"
+      contentClassName="pt-2 pb-[20px] md:pb-[20px] lg:pb-[20px]"
     >
       <TeachingMethodHero
         method={method}

@@ -28,7 +28,7 @@ export default function SlideDeckNextStages() {
       className="bg-white py-14 sm:py-16 lg:py-20"
       aria-labelledby="slide-next-stages-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell px-4 sm:px-6 md:px-8">
         <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
           <span className="flex items-center gap-1" aria-hidden>
             <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
@@ -44,11 +44,11 @@ export default function SlideDeckNextStages() {
           <span className="pricing-hero-underline relative inline-block">three more stages.</span>
         </h2>
 
-        <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-5">
+        <div className="mt-8 fp-card-grid sm:mt-10">
           {STAGES.map((stage) => (
             <article
               key={stage.slug}
-              className="flex min-h-[240px] flex-col rounded-[28px] bg-[#1A1E3A] p-6 text-white sm:min-h-[260px] sm:p-7"
+              className="flex min-h-[240px] w-full min-w-0 flex-col rounded-[28px] bg-[#1A1E3A] p-6 text-white sm:min-h-[260px] sm:p-7"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/45">
                 {stage.eyebrow}

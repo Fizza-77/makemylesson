@@ -167,7 +167,7 @@ export default function ContactForm({ initialSubject = '' }) {
         id="contact-form"
         onSubmit={handleSubmit}
         noValidate
-        className="relative scroll-mt-28 rounded-[28px] bg-[#EAF5F6] p-5 sm:rounded-[32px] sm:p-7 lg:p-8"
+        className="relative scroll-mt-28 rounded-[28px] bg-[#EAF5F6] p-5 sm:rounded-[32px] sm:p-7 lg:p-8 xl:p-9 2xl:p-10"
         aria-busy={isLoading}
       >
         <div className="flex flex-wrap items-center justify-between gap-3">

@@ -21,7 +21,7 @@ export default function SlideDeckSpeakerNotes() {
       className="bg-white py-14 sm:py-16 lg:py-20"
       aria-labelledby="speaker-notes-heading"
     >
-      <div className="mx-auto grid max-w-[1100px] items-center gap-10 px-4 sm:px-6 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+      <div className="fp-shell-md grid items-center gap-10 px-4 sm:px-6 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
         <div>
           <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
             <span className="flex items-center gap-1" aria-hidden>

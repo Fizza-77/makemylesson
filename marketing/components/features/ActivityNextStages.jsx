@@ -32,7 +32,7 @@ export default function ActivityNextStages() {
       className="bg-white py-14 sm:py-16 lg:py-20"
       aria-labelledby="activity-next-stages-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell px-4 sm:px-6 md:px-8">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
           Keep the topic moving
         </p>
@@ -44,12 +44,12 @@ export default function ActivityNextStages() {
           <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block">three more stages.</span>
         </h2>
 
-        <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-5">
+        <div className="mt-8 fp-card-grid sm:mt-10">
           {STAGES.map((stage) => (
             <article
               key={stage.slug}
               className={cn(
-                'flex min-h-[240px] flex-col rounded-[28px] p-6 sm:min-h-[260px] sm:p-7',
+                'flex min-h-[240px] w-full min-w-0 flex-col rounded-[28px] p-6 sm:min-h-[260px] sm:p-7',
                 stage.tone === 'teal' && 'bg-[#35BEBC] text-[#1A1E3A]',
                 stage.tone === 'navy' && 'bg-[#1A1E3A] text-white',
                 stage.tone === 'pale' && 'bg-[#EAF5F6] text-[#1A1E3A]',

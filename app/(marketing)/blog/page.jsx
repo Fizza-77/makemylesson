@@ -60,8 +60,8 @@ export async function generateMetadata() {
 
 function categoryPillClass(active) {
   return active
-    ? 'border-[#35BEBC] bg-[#35BEBC] text-[#1A1E3A]'
-    : 'border-[#1A1E3A]/15 bg-white text-[#1A1E3A]/70 hover:border-[#35BEBC]/50 hover:text-[#1A1E3A]'
+    ? 'border-[#35BEBC] bg-[#35BEBC] text-[#eaf8f7]'
+    : 'border-[#35BEBC] bg-[#eaf8f7] text-[#35BEBC] hover:bg-[#d8f3ef] hover:text-[#1E9A98]'
 }
 
 export default async function BlogPage({ searchParams }) {
@@ -191,10 +191,14 @@ export default async function BlogPage({ searchParams }) {
                   key={post.id}
                   href={`/blog/${post.slug}`}
                   aria-label={`Read article: ${post.title}`}
-                  className="group flex cursor-pointer flex-col justify-between rounded-[24px] border border-[#E5E7EB] bg-white p-6 shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#aae4e3] hover:shadow-[0_10px_28px_rgba(15,23,42,0.08)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35BEBC]"
+                  className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-white p-6 shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#aae4e3] hover:shadow-[0_10px_28px_rgba(15,23,42,0.08)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35BEBC]"
                 >
+                  <span
+                    className="pointer-events-none absolute bottom-0 right-0 h-36 w-36 translate-x-[40%] translate-y-[45%] rounded-full bg-[#eaf8f7] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                    aria-hidden
+                  />
                   {post.cover_image_url && (
-                    <div className="mb-4 overflow-hidden rounded-xl">
+                    <div className="relative z-[1] mb-4 overflow-hidden rounded-xl">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={post.cover_image_url}
@@ -203,7 +207,7 @@ export default async function BlogPage({ searchParams }) {
                       />
                     </div>
                   )}
-                  <div>
+                  <div className="relative z-[1]">
                     {post.category && (
                       <p className="mb-3 inline-flex items-center rounded-full border border-[#35BEBC]/35 bg-[#EAF5F6] px-2.5 py-1 text-[11px] font-semibold text-[#1A1E3A] transition-colors group-hover:border-[#1A1E3A]/20 group-hover:bg-white/70">
                         {post.category.name}
@@ -216,7 +220,7 @@ export default async function BlogPage({ searchParams }) {
                       {post.description || 'Read the full article to learn more.'}
                     </p>
                   </div>
-                  <span className="inline-flex items-center text-[13px] font-bold text-[#35BEBC] transition-colors group-hover:text-[#1A1E3A]">
+                  <span className="relative z-[1] inline-flex items-center text-[13px] font-bold text-[#35BEBC] transition-colors group-hover:text-[#1A1E3A]">
                     Read More
                     <span className="ml-1 text-[14px]" aria-hidden>
                       →

@@ -4,14 +4,14 @@ import { MML_APP } from '@marketing/lib/appUrls'
 export default function LessonPlanCta() {
   return (
     <section className="bg-white px-4 pt-6 sm:px-6 md:px-8" aria-labelledby="lesson-plan-cta-heading">
-      <div className="mx-auto max-w-[1200px] rounded-t-[32px] bg-[#EAF5F6] px-5 py-14 text-center sm:rounded-t-[40px] sm:px-8 sm:py-16 lg:py-20">
+      <div className="cta-card-pad fp-shell rounded-t-[32px] bg-[#EAF5F6] py-14 text-center sm:rounded-t-[40px] sm:py-16 lg:py-20">
         <h2
           id="lesson-plan-cta-heading"
-          className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+          className="cta-card-copy whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
         >
           Your next plan is one topic away.
         </h2>
-        <p className="mt-4 text-[14px] leading-relaxed text-[#1A1E3A]/45 sm:text-[15px]">
+        <p className="cta-card-copy mt-4 text-[14px] leading-relaxed text-[#1A1E3A]/45 sm:text-[15px]">
           10 free credits · one credit per plan · no card required
         </p>
         <Link

@@ -93,7 +93,7 @@ export default function SlideDeckSequence() {
         aria-hidden
       />
 
-      <div className="relative z-[1] mx-auto max-w-[1100px] px-4 sm:px-6 md:px-8">
+      <div className="relative z-[1] fp-shell-md px-4 sm:px-6 md:px-8">
         <p className="mb-4 flex items-center gap-1" aria-hidden>
           <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
           <span className="h-1.5 w-1.5 rounded-full bg-[#74FFFD]" />

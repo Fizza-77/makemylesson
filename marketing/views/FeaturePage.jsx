@@ -25,6 +25,7 @@ function FeatureArticle({ feature, content }) {
               sectionIndex={index}
               method={feature}
               pageType="feature"
+              sections={content.sections}
             />
           ))}
 

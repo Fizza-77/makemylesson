@@ -59,7 +59,7 @@ export default function LessonPlanStageHero() {
 
           <h1
             id="lesson-plan-hero-heading"
-            className="max-w-[16ch] text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+            className="max-w-[16ch] xl:max-w-none text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
             A full lesson plan, written before your{' '}
             <span className="pricing-hero-underline relative inline-block whitespace-nowrap">

@@ -126,7 +126,7 @@ function TopicCard({ topic, items, openId, setOpenId }) {
     <article
       id={topic.id}
       className={cn(
-        'flex h-full flex-col rounded-[28px] p-5 sm:rounded-[32px] sm:p-6',
+        'flex h-full flex-col rounded-[28px] p-5 sm:rounded-[32px] sm:p-6 xl:p-7',
         teal ? 'bg-[#35BEBC]' : 'bg-[#2A3050]',
       )}
     >
@@ -191,8 +191,8 @@ export default function FaqPage() {
   const topicCount = TOPIC_CARDS.length
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-white">
-      <div className="mx-auto max-w-[1200px] px-4 pt-6 sm:px-6 sm:pt-8 md:px-8">
+    <div className="faq-page min-h-[calc(100vh-4rem)] bg-white">
+      <div className="faq-hero-shell pt-6 sm:pt-8">
         <section
           className="relative overflow-hidden rounded-[32px] bg-[#ade5df] sm:rounded-[40px]"
           aria-labelledby="faq-hero-heading"
@@ -206,15 +206,15 @@ export default function FaqPage() {
             aria-hidden
           />
 
-          <div className="relative z-[1] grid items-center gap-10 px-6 py-10 sm:px-8 sm:py-12 lg:grid-cols-[0.95fr_1.15fr] lg:gap-12 lg:px-12 lg:py-14">
-            <div>
+          <div className="relative z-[1] grid items-center gap-10 px-6 py-10 sm:px-8 sm:py-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12 lg:px-12 lg:py-14">
+            <div className="min-w-0">
               <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
                 <CircleHelp className="h-3.5 w-3.5" aria-hidden strokeWidth={2.25} />
                 FAQs
               </p>
               <h1
                 id="faq-hero-heading"
-                className="max-w-[11ch] text-[clamp(1.85rem,4vw,3.1rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+                className="max-w-[12ch] text-[clamp(1.85rem,4vw,3.1rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] sm:max-w-[16ch] md:max-w-[18ch] lg:max-w-[20ch] xl:max-w-[22ch] 2xl:max-w-[26ch]"
               >
                 Ask us anything. We&apos;ve probably heard it in a{' '}
                 <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
@@ -223,7 +223,7 @@ export default function FaqPage() {
               </h1>
             </div>
 
-            <div className="rounded-[28px] bg-[#1A1E3A] p-5 shadow-[0_20px_50px_rgba(26,30,58,0.2)] sm:rounded-[32px] sm:p-7">
+            <div className="min-w-0 rounded-[28px] bg-[#1A1E3A] p-5 shadow-[0_20px_50px_rgba(26,30,58,0.2)] sm:rounded-[32px] sm:p-7">
               <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">
                 Search the help centre
               </p>
@@ -279,7 +279,7 @@ export default function FaqPage() {
       </div>
 
       <section className="mt-8 bg-[#1A1E3A] py-12 sm:mt-10 sm:py-14 lg:py-16" aria-label="FAQ topics">
-        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">
+        <div className="faq-topics-shell">
           {topicCards.length === 0 ? (
             <p className="rounded-[24px] bg-white/5 px-5 py-10 text-center text-[15px] text-white/60">
               No questions match that search. Try another keyword or reset the topic filter.
@@ -297,12 +297,11 @@ export default function FaqPage() {
               ))}
             </div>
           )}
-
-          </div>
+        </div>
       </section>
 
       <section className="bg-white py-10 sm:py-12 lg:py-14" aria-labelledby="faq-support-heading">
-        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">
+        <div className="faq-topics-shell">
           <div className="flex flex-col items-start justify-between gap-6 rounded-[28px] bg-[#ade5df] px-6 py-7 sm:rounded-[36px] sm:px-8 sm:py-8 lg:flex-row lg:items-center lg:gap-8 lg:px-10">
             <div>
               <h2

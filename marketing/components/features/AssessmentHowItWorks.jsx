@@ -32,7 +32,7 @@ export default function AssessmentHowItWorks() {
       className="scroll-mt-28 bg-white py-14 sm:py-16 lg:py-20"
       aria-labelledby="assessment-hiw-heading"
     >
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell-md px-4 sm:px-6 md:px-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
@@ -76,7 +76,7 @@ export default function AssessmentHowItWorks() {
               aria-hidden
             />
 
-            <div className="relative z-[1] mx-auto w-full max-w-[400px] sm:max-w-[440px]">
+            <div className="relative z-[1] mx-auto w-full max-w-none md:max-w-[480px] lg:max-w-[520px]">
               {/* Cyan mark scheme — taller, tucked under paper; only top-left corner peeks */}
               <div
                 className="absolute bottom-8 left-6 z-0 flex h-[15.5rem] w-[13rem] -translate-x-[18%] translate-y-[12%] flex-col justify-start rounded-[20px] bg-[#35BEBC] px-3.5 py-3.5 shadow-[0_12px_28px_rgba(53,190,188,0.35)] sm:bottom-10 sm:left-8 sm:h-[17.5rem] sm:w-[14.5rem] sm:-translate-x-[14%] sm:translate-y-[10%] sm:rounded-[22px] sm:px-4 sm:py-4"

@@ -34,7 +34,7 @@ export default function ActivityTakeAnywhere() {
       className="bg-[#1A1E3A] py-14 sm:py-16 lg:py-20"
       aria-labelledby="activity-take-anywhere-heading"
     >
-      <div className="mx-auto flex max-w-[1100px] flex-col items-start justify-between gap-10 px-4 sm:px-6 md:px-8 lg:flex-row lg:items-center lg:gap-12">
+      <div className="fp-shell-md flex flex-col items-start justify-between gap-10 px-4 sm:px-6 md:px-8 lg:flex-row lg:items-center lg:gap-12">
         <div className="max-w-md shrink-0">
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
             Take it anywhere

@@ -33,7 +33,7 @@ export default function LessonPlanTakeAnywhere() {
       className="bg-[#ade5df] py-14 sm:py-16 lg:py-20"
       aria-labelledby="take-anywhere-heading"
     >
-      <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-8 px-4 sm:px-6 md:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+      <div className="fp-shell flex flex-col items-start gap-8 px-4 sm:px-6 md:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
         <div className="max-w-sm shrink-0 lg:max-w-xs">
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1E9A98]">
             Take it anywhere

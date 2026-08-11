@@ -45,7 +45,7 @@ function resolveStage(stage) {
 function LessonPlanStage() {
   return (
     <>
-      <div className="mx-auto max-w-[1200px] px-4 pb-2 pt-6 sm:px-6 sm:pt-8 md:px-8">
+      <div className="fp-shell px-4 pb-2 pt-6 sm:px-6 sm:pt-8 md:px-8">
         <LessonPlanStageHero />
         <LessonPlanHowItWorks />
       </div>
@@ -62,7 +62,7 @@ function LessonPlanStage() {
 function SlideDeckStage() {
   return (
     <>
-      <div className="mx-auto max-w-[1200px] px-4 pb-2 pt-6 sm:px-6 sm:pt-8 md:px-8">
+      <div className="fp-shell px-4 pb-2 pt-6 sm:px-6 sm:pt-8 md:px-8">
         <SlideDeckStageHero />
       </div>
       <div className="h-10 bg-white sm:h-14" aria-hidden />
@@ -79,7 +79,7 @@ function SlideDeckStage() {
 function ActivityStage() {
   return (
     <>
-      <div className="mx-auto max-w-[1200px] px-4 pb-2 pt-6 sm:px-6 sm:pt-8 md:px-8">
+      <div className="fp-shell px-4 pb-2 pt-6 sm:px-6 sm:pt-8 md:px-8">
         <ActivityStageHero />
       </div>
       <ActivityHowItWorks />
@@ -96,7 +96,7 @@ function ActivityStage() {
 function AssessmentStage() {
   return (
     <>
-      <div className="mx-auto max-w-[1200px] px-4 pb-2 pt-6 sm:px-6 sm:pt-8 md:px-8">
+      <div className="fp-shell px-4 pb-2 pt-6 sm:px-6 sm:pt-8 md:px-8">
         <AssessmentStageHero />
       </div>
       <AssessmentHowItWorks />

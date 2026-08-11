@@ -32,7 +32,7 @@ export default function ActivityHowItWorks() {
       className="scroll-mt-28 bg-[#1A1E3A] py-14 sm:py-16 lg:py-20"
       aria-labelledby="activity-hiw-heading"
     >
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell-md px-4 sm:px-6 md:px-8">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
           How it works
         </p>
@@ -46,7 +46,7 @@ export default function ActivityHowItWorks() {
           </span>
         </h2>
 
-        <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-5">
+        <div className="mt-8 fp-card-grid sm:mt-10">
           {STEPS.map((step) => {
             const teal = step.tone === 'teal'
             return (
@@ -54,8 +54,8 @@ export default function ActivityHowItWorks() {
                 key={step.n}
                 className={
                   teal
-                    ? 'flex min-h-[280px] flex-col rounded-[28px] bg-[#35BEBC] p-6 text-[#1A1E3A] sm:min-h-[300px] sm:p-7'
-                    : 'flex min-h-[280px] flex-col rounded-[28px] border border-[#35BEBC]/50 bg-[#1A1E3A] p-6 text-white sm:min-h-[300px] sm:p-7'
+                    ? 'flex min-h-[280px] w-full min-w-0 flex-col rounded-[28px] bg-[#35BEBC] p-6 text-[#1A1E3A] sm:min-h-[300px] sm:p-7'
+                    : 'flex min-h-[280px] w-full min-w-0 flex-col rounded-[28px] border border-[#35BEBC]/50 bg-[#1A1E3A] p-6 text-white sm:min-h-[300px] sm:p-7'
                 }
               >
                 <span

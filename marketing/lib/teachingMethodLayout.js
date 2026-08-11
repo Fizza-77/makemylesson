@@ -80,3 +80,26 @@ export function getSectionLayout(heading, paragraphCount = 0, options = {}) {
   if (paragraphCount === 2) return 'compare'
   return 'cards'
 }
+
+/** When two compare sections stack, upper stays cyan and lower becomes light cyan. */
+export function getCompareBand(sections = [], sectionIndex = 0, pageType = 'teaching-method') {
+  const section = sections[sectionIndex]
+  if (!section) return null
+
+  const layout = getSectionLayout(section.heading, section.paragraphs?.length ?? 0, {
+    pageType,
+    sectionIndex,
+  })
+  if (layout !== 'compare') return null
+
+  const prev = sections[sectionIndex - 1]
+  const prevLayout = prev
+    ? getSectionLayout(prev.heading, prev.paragraphs?.length ?? 0, {
+        pageType,
+        sectionIndex: sectionIndex - 1,
+      })
+    : null
+
+  if (prevLayout === 'compare') return 'lower'
+  return 'upper'
+}

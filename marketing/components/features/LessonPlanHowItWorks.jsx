@@ -59,14 +59,14 @@ export default function LessonPlanHowItWorks() {
         </span>
       </h2>
 
-      <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-5">
+      <div className="mt-8 fp-card-grid sm:mt-10">
         {STEPS.map((step) => {
           const teal = step.tone === 'teal'
           return (
             <article
               key={step.n}
               className={cn(
-                'flex min-h-[280px] flex-col rounded-[28px] p-6 sm:min-h-[300px] sm:p-7',
+                'flex min-h-[280px] w-full min-w-0 flex-col rounded-[28px] p-6 sm:min-h-[300px] sm:p-7',
                 teal ? 'bg-[#35BEBC] text-[#1A1E3A]' : 'bg-[#1A1E3A] text-white',
               )}
             >

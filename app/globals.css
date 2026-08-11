@@ -137,3 +137,28 @@ body {
 .theme-scroll-hover::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* App chrome — ~0.5in side gutters on large screens (stages, library, profile) */
+.app-shell-inner {
+  width: 100%;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5in;
+  padding-right: 0.5in;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .app-shell-inner {
+    padding-left: max(1rem, 0.35in);
+    padding-right: max(1rem, 0.35in);
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

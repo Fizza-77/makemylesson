@@ -10,7 +10,7 @@ export default function FeatureStageSelector({ activeSlug }) {
       aria-label="Teaching pack stages"
       className="sticky top-16 z-40 w-full border-b border-white/10 bg-[#1A1E3A]"
     >
-      <div className="mx-auto flex max-w-[1200px] items-center justify-center gap-2 overflow-x-auto px-4 py-3.5 sm:gap-3 sm:px-6 md:px-8">
+      <div className="fp-shell flex items-center justify-center gap-2 overflow-x-auto px-4 py-3.5 sm:gap-3 sm:px-6 md:px-8">
         {FEATURE_STAGE_ITEMS.map((stage, index) => {
           const active = stage.slug === activeSlug
           const step = index + 1

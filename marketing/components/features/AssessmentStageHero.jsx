@@ -24,7 +24,7 @@ export default function AssessmentStageHero() {
 
           <h1
             id="assessment-hero-heading"
-            className="max-w-[14ch] text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+            className="max-w-[14ch] xl:max-w-none text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
             Every question born with its{' '}
             <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
@@ -82,7 +82,7 @@ export default function AssessmentStageHero() {
             </p>
           </div>
 
-          <div className="grid gap-5 p-4 sm:grid-cols-2 sm:gap-5 sm:p-5">
+          <div className="grid w-full grid-cols-1 gap-5 p-4 md:grid-cols-2 md:gap-5 md:p-5">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#35BEBC]">
                 Assessment paper

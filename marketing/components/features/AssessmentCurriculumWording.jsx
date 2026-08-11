@@ -47,7 +47,7 @@ export default function AssessmentCurriculumWording() {
 
   return (
     <section className="bg-white py-14 sm:py-16 lg:py-20" aria-labelledby="curriculum-wording-heading">
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell-md px-4 sm:px-6 md:px-8">
         <div className="overflow-hidden rounded-[28px] sm:rounded-[36px] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
           <div className="bg-[#ade5df] px-6 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
             <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
@@ -59,7 +59,7 @@ export default function AssessmentCurriculumWording() {
             </p>
             <h2
               id="curriculum-wording-heading"
-              className="max-w-[14ch] text-[clamp(1.35rem,2.6vw,1.85rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+              className="max-w-[14ch] xl:max-w-none text-[clamp(1.35rem,2.6vw,1.85rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
             >
               <span className="block">Same topic.</span>
               <span className="pricing-hero-underline pricing-hero-underline--soft relative inline-block whitespace-nowrap">

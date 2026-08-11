@@ -61,7 +61,7 @@ export default function LessonPlanWhatsInside() {
       className="scroll-mt-28 bg-[#1A1E3A] py-14 sm:py-16 lg:py-20"
       aria-labelledby="whats-inside-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell px-4 sm:px-6 md:px-8">
         <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
           <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#35BEBC]">
             <FileText className="h-3.5 w-3.5 text-white" aria-hidden strokeWidth={2.25} />
@@ -84,8 +84,8 @@ export default function LessonPlanWhatsInside() {
           builds into it and why.
         </p>
 
-        <div className="mt-10 grid items-start gap-5 lg:mt-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
-          <article className="rounded-[28px] bg-white p-6 shadow-[0_20px_50px_rgba(0,0,0,0.2)] sm:p-8">
+        <div className="mt-10 grid w-full items-start gap-5 lg:mt-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
+          <article className="min-w-0 w-full rounded-[28px] bg-white p-6 shadow-[0_20px_50px_rgba(0,0,0,0.2)] sm:p-8">
             <div className="mb-1 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] text-[#35BEBC]">
               <Globe className="h-3.5 w-3.5" aria-hidden strokeWidth={2.25} />
               Cambridge IGCSE · Science · Year 7
@@ -130,7 +130,7 @@ export default function LessonPlanWhatsInside() {
             </ul>
           </article>
 
-          <ul className="flex flex-col gap-3">
+          <ul className="flex min-w-0 w-full flex-col gap-3">
             {ITEMS.map((item) => {
               const on = active === item.id
               return (

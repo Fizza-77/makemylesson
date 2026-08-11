@@ -9,8 +9,8 @@ const STAGES = [
 export default function AssessmentExportCircle() {
   return (
     <section className="bg-white py-14 sm:py-16 lg:py-20" aria-label="Export and pack coherence">
-      <div className="mx-auto grid max-w-[1100px] gap-4 px-4 sm:px-6 md:px-8 lg:grid-cols-2 lg:gap-5">
-        <article className="flex min-h-[320px] flex-col rounded-[32px] bg-[#1A1E3A] p-6 text-white sm:min-h-[340px] sm:rounded-[40px] sm:p-8">
+      <div className="fp-shell-md grid gap-4 px-4 sm:px-6 md:px-8 lg:grid-cols-2 lg:gap-5">
+        <article className="flex min-h-[320px] w-full min-w-0 flex-col rounded-[32px] bg-[#1A1E3A] p-6 text-white sm:min-h-[340px] sm:rounded-[40px] sm:p-8">
           <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
             <span className="flex items-center gap-1" aria-hidden>
               <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
@@ -18,7 +18,7 @@ export default function AssessmentExportCircle() {
             </span>
             Take it anywhere
           </p>
-          <h2 className="max-w-[14ch] text-[clamp(1.5rem,2.8vw,2.15rem)] font-bold leading-[1.15] tracking-tight">
+          <h2 className="max-w-[14ch] xl:max-w-none text-[clamp(1.5rem,2.8vw,2.15rem)] font-bold leading-[1.15] tracking-tight">
             Paper, digital, or auto-marked.
           </h2>
           <p className="mt-3 max-w-md text-[14px] leading-relaxed text-white/60 sm:text-[15px]">
@@ -37,7 +37,7 @@ export default function AssessmentExportCircle() {
           </div>
         </article>
 
-        <article className="flex min-h-[320px] flex-col rounded-[32px] bg-[#35BEBC] p-6 text-[#1A1E3A] sm:min-h-[340px] sm:rounded-[40px] sm:p-8">
+        <article className="flex min-h-[320px] w-full min-w-0 flex-col rounded-[32px] bg-[#35BEBC] p-6 text-[#1A1E3A] sm:min-h-[340px] sm:rounded-[40px] sm:p-8">
           <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
             <span className="flex items-center gap-1" aria-hidden>
               <span className="h-1.5 w-1.5 rounded-full bg-[#1A1E3A]" />
@@ -45,7 +45,7 @@ export default function AssessmentExportCircle() {
             </span>
             The full circle
           </p>
-          <h2 className="max-w-[14ch] text-[clamp(1.5rem,2.8vw,2.15rem)] font-bold leading-[1.15] tracking-tight">
+          <h2 className="max-w-[14ch] xl:max-w-none text-[clamp(1.5rem,2.8vw,2.15rem)] font-bold leading-[1.15] tracking-tight">
             The test only asks what the pack taught.
           </h2>
           <p className="mt-3 max-w-md text-[14px] leading-relaxed text-[#1A1E3A]/75 sm:text-[15px]">

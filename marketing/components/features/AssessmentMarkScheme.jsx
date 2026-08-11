@@ -72,7 +72,7 @@ export default function AssessmentMarkScheme() {
       className="bg-[#E8F5F5] py-14 sm:py-16 lg:py-20"
       aria-labelledby="mark-scheme-heading"
     >
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell-md px-4 sm:px-6 md:px-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
@@ -159,14 +159,14 @@ export default function AssessmentMarkScheme() {
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+          <div className="fp-card-grid fp-card-grid--pair gap-3">
             {FEATURES.map((card) => {
               const navy = card.tone === 'navy'
               return (
                 <article
                   key={card.n}
                   className={cn(
-                    'relative flex min-h-[180px] flex-col rounded-[24px] p-5 sm:min-h-[200px] sm:p-6',
+                    'relative flex min-h-[180px] w-full min-w-0 flex-col rounded-[24px] p-5 sm:min-h-[200px] sm:p-6',
                     navy ? 'bg-[#1A1E3A] text-white' : 'bg-[#35BEBC] text-[#1A1E3A]',
                   )}
                 >

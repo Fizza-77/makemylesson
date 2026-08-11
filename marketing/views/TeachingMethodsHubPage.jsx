@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { BookOpen, Folder, Library, Users } from 'lucide-react'
 import { PageShell } from '@marketing/components/layout/Container'
+import PricingPlanFloatCards from '@marketing/components/PricingPlanFloatCards'
 import {
   ALL_TEACHING_METHODS,
   TEACHING_METHOD_COLUMNS,
@@ -305,12 +305,12 @@ function FullDeckSection() {
   return (
     <section
       id="all-methods"
-      className="tm-full-deck-section scroll-mt-24 bg-[#1A1E3A] py-14 sm:py-16 lg:py-20"
+      className="tm-full-deck-section relative left-1/2 mt-10 w-screen max-w-[100vw] -translate-x-1/2 scroll-mt-24 bg-[#1A1E3A] py-14 sm:mt-12 sm:py-16 lg:py-20"
       aria-labelledby="full-deck-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">
-        <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <div className="max-w-xl">
+      <div className="tm-full-deck-inner px-4 sm:px-6 md:px-8">
+        <header className="tm-full-deck-header flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+          <div className="tm-full-deck-heading-wrap min-w-0 w-full max-w-none lg:max-w-[42rem] xl:max-w-none">
             <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
               <span className="flex items-center gap-1" aria-hidden>
                 <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
@@ -320,10 +320,10 @@ function FullDeckSection() {
             </p>
             <h2
               id="full-deck-heading"
-              className="text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-white"
+              className="tm-full-deck-title text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-white"
             >
-              <span className="block">All 16 methods,</span>
-              <span className="block">
+              <span className="tm-full-deck-title-line">All 16 methods,</span>
+              <span className="tm-full-deck-title-line">
                 clearly{' '}
                 <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
                   defined.
@@ -331,13 +331,13 @@ function FullDeckSection() {
               </span>
             </h2>
           </div>
-          <p className="max-w-xs text-[14px] leading-relaxed text-white/55 sm:text-[15px] lg:pb-1">
+          <p className="tm-full-deck-copy min-w-0 w-full max-w-md text-[14px] leading-relaxed text-white/55 sm:text-[15px] lg:max-w-sm lg:pb-1 xl:max-w-md">
             Every method explains what it is and exactly what it changes inside your generated
             teaching pack.
           </p>
         </header>
 
-        <div className="mt-8 flex flex-wrap gap-2.5 sm:mt-10">
+        <div className="tm-full-deck-filters mt-8 flex flex-wrap gap-2.5 sm:mt-10">
           {FILTERS.map((item) => {
             const active = filter === item.id
             return (
@@ -346,7 +346,7 @@ function FullDeckSection() {
                 type="button"
                 onClick={() => setFilter(item.id)}
                 className={cn(
-                  'rounded-full border px-4 py-2 text-[13px] font-semibold transition',
+                  'rounded-full border px-3.5 py-2 text-[12px] font-semibold transition sm:px-4 sm:text-[13px]',
                   active
                     ? 'border-[#35BEBC] bg-[#35BEBC] text-[#1A1E3A]'
                     : 'border-white/20 bg-transparent text-white/80 hover:border-white/40 hover:text-white',
@@ -358,7 +358,7 @@ function FullDeckSection() {
           })}
         </div>
 
-        <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="tm-full-deck-grid mt-8 sm:mt-10">
           {methods.map((method, index) => {
             const col = index % 4
             const row = Math.floor(index / 4)
@@ -369,7 +369,7 @@ function FullDeckSection() {
                 key={method.slug}
                 href={getTeachingMethodPath(method.slug)}
                 className={cn(
-                  'relative flex min-h-[300px] flex-col overflow-hidden rounded-[24px] p-5 no-underline transition duration-200 sm:min-h-[320px] sm:p-6',
+                  'tm-full-deck-card relative flex min-h-[260px] w-full min-w-0 flex-col overflow-hidden rounded-[24px] p-5 no-underline transition duration-200 sm:min-h-[280px] sm:p-6 xl:min-h-[300px]',
                   'hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35BEBC]',
                   teal ? 'bg-[#35BEBC] text-[#1A1E3A]' : 'bg-[#eaf4f4] text-[#1A1E3A]',
                 )}
@@ -653,12 +653,12 @@ function ReadyWhenYouAreCta() {
   return (
     <section
       id="ready-when-you-are"
-      className="mt-10 overflow-hidden rounded-[32px] bg-[#ade5df] px-5 py-12 sm:mt-12 sm:rounded-[40px] sm:px-8 sm:py-16 lg:px-12 lg:py-20"
+      className="cta-card-pad mml-ready-cta mt-10 overflow-hidden rounded-[32px] bg-[#ade5df] py-12 sm:mt-12 sm:rounded-[40px] sm:py-16 lg:py-20"
       aria-labelledby="ready-heading"
     >
-      <div className="mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
-        <div>
-          <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
+      <div className="mml-ready-cta-inner mx-auto grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
+        <div className="min-w-0 w-full">
+          <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A] xl:text-[12px]">
             <span className="flex items-center gap-1" aria-hidden>
               <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
               <span className="h-1.5 w-1.5 rounded-full bg-[#1A1E3A]" />
@@ -667,157 +667,22 @@ function ReadyWhenYouAreCta() {
           </p>
           <h2
             id="ready-heading"
-            className="max-w-[14ch] text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.1] tracking-tight text-[#1A1E3A]"
+            className="cta-card-copy text-[clamp(1.85rem,3.8vw,3.35rem)] font-bold leading-[1.1] tracking-tight text-[#1A1E3A]"
           >
             Pick a method. The pack does the rest.
           </h2>
-          <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-[#1A1E3A]/80 sm:text-base">
+          <p className="cta-card-copy mt-4 text-[15px] leading-relaxed text-[#1A1E3A]/80 sm:text-base xl:text-[1.05rem]">
             10 free credits · all 16 methods available · no credit card required
           </p>
           <Link
             href={MML_APP.signUp}
-            className="mt-8 inline-flex items-center justify-center rounded-full bg-[#1A1E3A] px-6 py-3.5 text-[15px] font-bold text-white no-underline shadow-[0_10px_24px_rgba(26,30,58,0.22)] transition hover:bg-[#242845]"
+            className="mt-8 inline-flex items-center justify-center rounded-full bg-[#1A1E3A] px-6 py-3.5 text-[15px] font-bold text-white no-underline shadow-[0_10px_24px_rgba(26,30,58,0.22)] transition hover:bg-[#242845] xl:px-7 xl:py-4 xl:text-[16px]"
           >
             Build a Teaching Pack — Free
           </Link>
         </div>
 
-        <div className="relative mx-auto h-[360px] w-full max-w-[540px] sm:h-[400px]">
-          <article className="absolute right-0 top-8 z-[1] w-[70%] max-w-[235px] rotate-[8deg] rounded-[26px] bg-white p-4 shadow-[0_18px_40px_rgba(26,30,58,0.14)] sm:right-1 sm:top-10 sm:p-5">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#1A1E3A]/40">
-              School
-            </p>
-            <p className="mt-2 text-[1.65rem] font-bold leading-none text-[#1A1E3A]">Pooled</p>
-            <p className="mt-2 text-[11px] leading-snug text-[#1A1E3A]/55">
-              Shared credits for whole teaching teams.
-            </p>
-            <div className="mt-4 rounded-2xl bg-[#eef2f6] p-3">
-              <p className="flex items-baseline gap-1.5 font-medium text-[#1A1E3A]/55">
-                <span className="text-[1.75rem] font-bold leading-none text-[#1A1E3A]">∞</span>
-                <span className="text-[11px]">flexible allocation</span>
-              </p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#d7e0e8]">
-                <div
-                  className="h-full w-[95%] rounded-full"
-                  style={{
-                    background: 'linear-gradient(90deg, #1e9a98 0%, #35bebc 50%, #74fffd 100%)',
-                  }}
-                />
-              </div>
-            </div>
-            <ul className="mt-3 space-y-2 text-[11px] font-medium text-[#1A1E3A]/70">
-              <li className="flex items-center gap-2">
-                <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] bg-[#35BEBC]/25">
-                  <Users className="h-2.5 w-2.5 text-[#35BEBC]" />
-                </span>
-                Shared team credits
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] bg-[#35BEBC]/25">
-                  <Library className="h-2.5 w-2.5 text-[#35BEBC]" />
-                </span>
-                School admin controls
-              </li>
-            </ul>
-            <div className="mt-4 flex items-center justify-between gap-2">
-              <span className="text-[9px] font-bold uppercase tracking-wide text-[#1A1E3A]/40">
-                For schools
-              </span>
-              <Link
-                href="/contact"
-                className="rounded-full bg-[#1A1E3A] px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white no-underline"
-              >
-                Contact us
-              </Link>
-            </div>
-          </article>
-
-          <article className="absolute left-0 top-12 z-[2] w-[70%] max-w-[235px] -rotate-[9deg] rounded-[26px] bg-[#1A1E3A] p-4 text-white shadow-[0_18px_40px_rgba(26,30,58,0.3)] sm:left-0 sm:top-14 sm:p-5">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">Free</p>
-            <p className="mt-2 text-[1.65rem] font-bold leading-none">10 Credits</p>
-            <p className="mt-2 text-[11px] leading-snug text-white/55">
-              Explore every stage before upgrading.
-            </p>
-            <div className="mt-4 rounded-2xl bg-white/[0.06] p-3">
-              <p className="flex items-baseline gap-1.5 font-medium text-white/50">
-                <span className="text-[1.35rem] font-bold leading-none text-white">10</span>
-                <span className="text-[11px]">credits included</span>
-              </p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-[32%] rounded-full bg-[#35BEBC]" />
-              </div>
-            </div>
-            <ul className="mt-3 space-y-2 text-[11px] font-medium text-white/75">
-              <li className="flex items-center gap-2">
-                <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] bg-[#35BEBC]/25">
-                  <Folder className="h-2.5 w-2.5 text-[#35BEBC]" />
-                </span>
-                Complete teaching packs
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] bg-[#35BEBC]/25">
-                  <BookOpen className="h-2.5 w-2.5 text-[#35BEBC]" />
-                </span>
-                All creation tools
-              </li>
-            </ul>
-            <div className="mt-4 flex items-center justify-between gap-2">
-              <span className="text-[9px] font-bold uppercase tracking-wide text-white/40">
-                No card required
-              </span>
-              <Link
-                href={MML_APP.signUp}
-                className="rounded-full bg-[#35BEBC] px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-[#1A1E3A] no-underline"
-              >
-                Start free
-              </Link>
-            </div>
-          </article>
-
-          <article className="absolute left-[16%] top-0 z-[3] w-[76%] max-w-[255px] rotate-[2deg] rounded-[28px] bg-[#0a0b12] p-5 text-white shadow-[0_24px_50px_rgba(10,11,18,0.45)] sm:left-[20%] sm:p-6">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-              Individual
-            </p>
-            <p className="mt-2 text-[1.75rem] font-bold leading-none">
-              60
-              <span className="ml-1.5 text-[0.95rem] font-semibold text-white/55">/ month</span>
-            </p>
-            <p className="mt-2 text-[12px] leading-snug text-white/55">
-              Built for teachers creating every week.
-            </p>
-            <div className="mt-4 rounded-2xl bg-white/[0.06] p-3.5">
-              <p className="flex items-baseline gap-1.5 font-medium text-white/50">
-                <span className="text-[1.35rem] font-bold leading-none text-white">60</span>
-                <span className="text-[11px]">monthly credits</span>
-              </p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-[75%] rounded-full bg-[#35BEBC]" />
-              </div>
-            </div>
-            <ul className="mt-3.5 space-y-2 text-[12px] font-medium text-white/75">
-              <li className="flex items-center gap-2">
-                <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] bg-[#35BEBC]/25">
-                  <Folder className="h-2.5 w-2.5 text-[#35BEBC]" />
-                </span>
-                Up to 15 complete packs
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] bg-[#35BEBC]/25">
-                  <Library className="h-2.5 w-2.5 text-[#35BEBC]" />
-                </span>
-                Personal resource library
-              </li>
-            </ul>
-            <div className="mt-5 flex items-center justify-between gap-2">
-              <span className="text-[9px] font-bold uppercase tracking-wide text-white/40">
-                For one teacher
-              </span>
-              <span className="rounded-full bg-[#35BEBC] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wide text-[#1A1E3A]">
-                Most popular
-              </span>
-            </div>
-          </article>
-        </div>
+        <PricingPlanFloatCards />
       </div>
     </section>
   )

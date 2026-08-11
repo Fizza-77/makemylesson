@@ -81,7 +81,7 @@ export default function AssessmentPaperStyles() {
       className="bg-[#1A1E3A] py-14 sm:py-16 lg:py-20"
       aria-labelledby="paper-styles-heading"
     >
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell-md px-4 sm:px-6 md:px-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">

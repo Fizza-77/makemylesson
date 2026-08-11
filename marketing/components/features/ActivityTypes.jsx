@@ -93,7 +93,7 @@ export default function ActivityTypes() {
       className="scroll-mt-28 bg-[#ade5df] py-14 sm:py-16 lg:py-20"
       aria-labelledby="activity-types-heading"
     >
-      <div className="mx-auto max-w-[1100px] px-4 text-center sm:px-6 md:px-8">
+      <div className="fp-shell-md px-4 text-center sm:px-6 md:px-8">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1E9A98]">
           Activity types
         </p>

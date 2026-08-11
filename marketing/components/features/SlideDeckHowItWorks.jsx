@@ -28,7 +28,7 @@ export default function SlideDeckHowItWorks() {
       className="bg-[#EAF5F6] px-[0.5in] py-14 sm:py-16 lg:py-20"
       aria-labelledby="slide-deck-hiw-heading"
     >
-      <div className="mx-auto w-full max-w-[1400px]">
+      <div className="fp-shell-wide">
         <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
           <span className="flex items-center gap-1" aria-hidden>
             <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
@@ -44,7 +44,7 @@ export default function SlideDeckHowItWorks() {
           <span className="pricing-hero-underline relative inline-block">one click.</span>
         </h2>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+        <div className="mt-8 fp-card-grid sm:mt-10">
           {STEPS.map((step) => {
             const teal = step.tone === 'teal'
             return (

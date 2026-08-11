@@ -64,7 +64,7 @@ export function Stage1Hero() {
             <span className="block">Lesson</span>
           </h1>
 
-          <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-300">
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-300 xl:max-w-lg 2xl:max-w-xl">
             Create engaging, classroom ready lessons by entering your
             preferences.
           </p>
@@ -92,7 +92,7 @@ export function Stage1Hero() {
           </PricingLink>
         </div>
 
-        <div className="relative z-10 w-full max-w-lg flex-1 lg:max-w-xl">
+        <div className="relative z-10 w-full max-w-lg flex-1 lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
           <Image
             src="/stage1-hero.svg"
             alt="Teacher planner illustration"

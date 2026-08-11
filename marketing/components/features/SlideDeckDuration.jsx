@@ -33,7 +33,7 @@ export default function SlideDeckDuration() {
       className="bg-[#ade5df] py-14 sm:py-16 lg:py-20"
       aria-labelledby="duration-calibrated-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell px-4 sm:px-6 md:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">

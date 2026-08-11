@@ -135,9 +135,6 @@ export default function Navbar({ theme = 'home' }) {
             variant={isLight ? 'app' : 'marketing'}
             className="max-[900px]:hidden"
           />
-          <Link href={MML_APP.signIn || '/login'} className="site-nav-signin max-[900px]:hidden">
-            Sign In
-          </Link>
           <Link href={MML_APP.signUp || MML_APP.stage1} className="site-nav-cta">
             Get Started
           </Link>
@@ -174,13 +171,6 @@ export default function Navbar({ theme = 'home' }) {
               variant={isLight ? 'app' : 'marketing'}
               className="w-full [&_button]:w-full"
             />
-            <Link
-              href={MML_APP.signIn || '/login'}
-              className="site-nav-signin"
-              onClick={() => setMobileOpen(false)}
-            >
-              Sign In
-            </Link>
             <Link
               href={MML_APP.signUp || MML_APP.stage1}
               className="site-nav-cta"

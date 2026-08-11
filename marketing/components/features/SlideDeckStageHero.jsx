@@ -37,7 +37,7 @@ export default function SlideDeckStageHero() {
 
           <h1
             id="slide-deck-hero-heading"
-            className="max-w-[14ch] text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+            className="max-w-[14ch] xl:max-w-none text-[clamp(1.85rem,3.8vw,3rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
           >
             Slides that{' '}
             <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
@@ -103,7 +103,7 @@ export default function SlideDeckStageHero() {
               <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#1A1E3A]/40">
                 Title
               </p>
-              <h2 className="mt-2 max-w-[12ch] text-[1.45rem] font-bold leading-tight tracking-tight text-[#1A1E3A] sm:text-[1.65rem]">
+              <h2 className="mt-2 max-w-[12ch] xl:max-w-none text-[1.45rem] font-bold leading-tight tracking-tight text-[#1A1E3A] sm:text-[1.65rem]">
                 Exploring Ecosystems
               </h2>
               <div className="mt-4 space-y-1.5" aria-hidden>

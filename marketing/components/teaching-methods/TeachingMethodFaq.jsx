@@ -21,38 +21,33 @@ export default function TeachingMethodFaq({
       className="pricing-faq-section relative left-1/2 mt-10 mb-4 w-screen max-w-[100vw] -translate-x-1/2 bg-[#1A1E3A] py-14 sm:mt-14 sm:mb-6 sm:py-16 lg:py-20"
       aria-labelledby="tm-faq-heading"
     >
-      <div className="mx-auto grid max-w-[1100px] gap-10 px-4 sm:px-6 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 xl:gap-20">
-        <header>
+      <div className="pricing-faq-inner">
+        <header className="min-w-0">
           <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" aria-hidden />
             {eyebrow}
           </p>
-          <h2
-            id="tm-faq-heading"
-            className="max-w-[12ch] text-[clamp(1.85rem,3.8vw,2.85rem)] font-bold leading-[1.12] tracking-tight text-white"
-          >
+          <h2 id="tm-faq-heading" className="pricing-faq-heading">
             {headingLead}{' '}
             <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
               {headingAccent}
             </span>
           </h2>
-          <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-white/50 sm:text-base">
-            {description}
-          </p>
+          <p className="pricing-faq-copy">{description}</p>
         </header>
 
-        <div className="border-t border-white/10">
+        <div className="pricing-faq-list">
           {items.map((item, index) => {
             const open = openIndex === index
             return (
-              <div key={item.q} className="border-b border-white/10">
+              <div key={item.q} className="pricing-faq-item">
                 <button
                   type="button"
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left sm:py-6"
+                  className="pricing-faq-trigger"
                   aria-expanded={open}
                   onClick={() => setOpenIndex(open ? -1 : index)}
                 >
-                  <span className="text-[15px] font-semibold text-white sm:text-base">{item.q}</span>
+                  <span className="pricing-faq-question">{item.q}</span>
                   <span
                     className={cn(
                       'relative h-4 w-4 shrink-0 text-[#35BEBC] transition-transform duration-300 ease-out',
@@ -85,7 +80,7 @@ export default function TeachingMethodFaq({
                   <div className="min-h-0 overflow-hidden">
                     <p
                       className={cn(
-                        'pr-8 text-[14px] leading-relaxed text-white/50 transition-opacity duration-300 ease-out sm:text-[15px]',
+                        'pricing-faq-answer transition-opacity duration-300 ease-out',
                         open ? 'pb-5 opacity-100 sm:pb-6' : 'pb-0 opacity-0',
                       )}
                     >

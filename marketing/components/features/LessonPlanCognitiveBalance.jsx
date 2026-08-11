@@ -13,7 +13,7 @@ export default function LessonPlanCognitiveBalance() {
       className="bg-white py-14 sm:py-16 lg:py-20"
       aria-labelledby="cognitive-balance-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-8">
+      <div className="fp-shell px-4 sm:px-6 md:px-8">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
           Cognitive balance
         </p>

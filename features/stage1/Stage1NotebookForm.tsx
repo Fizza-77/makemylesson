@@ -516,7 +516,7 @@ export type Stage1NotebookFormProps = {
 /** Blank notebook SVG with labels + live fields overlaid. */
 export function Stage1NotebookForm(props: Stage1NotebookFormProps) {
   return (
-    <div className="relative mx-auto w-full max-w-[866px]">
+    <div className="relative w-full">
       <Image
         src="/selection-stage1.svg?v=3"
         alt=""
