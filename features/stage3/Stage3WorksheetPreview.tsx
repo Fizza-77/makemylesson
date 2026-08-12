@@ -289,7 +289,58 @@ export function Stage3WorksheetPreview({
                 </button>
               </div>
 
-              <div className="relative -ml-[5%] w-[110%] min-w-0">
+              {/* Mobile web: cyan-border card (no SVG) */}
+              <div className="flex w-full flex-col overflow-hidden rounded-[18px] border-[5px] border-[#35BEBC] bg-[#EAF5F6] md:hidden">
+                <header className="shrink-0 border-b border-[#35BEBC]/25 bg-white px-3.5 py-3 sm:px-4">
+                  <p className="text-[10px] font-bold tracking-[0.12em] text-[#28C2C0] uppercase">
+                    {showAnswerKey
+                      ? "Teacher answer key"
+                      : "Student assessment"}
+                  </p>
+                  <p className="mt-1 truncate text-base font-bold text-[#151B35]">
+                    {title}
+                  </p>
+                  <p className="mt-0.5 text-[11px] font-medium text-slate-500">
+                    {subtitle}
+                  </p>
+                </header>
+
+                <div className="theme-scroll max-h-[min(55vh,24rem)] min-h-[12rem] overflow-y-auto overscroll-contain px-3.5 py-3 sm:px-4">
+                  {showContent ? (
+                    showAnswerKey ? (
+                      <MarkdownContentView
+                        content={answerKeyMarkdown}
+                        emptyPlaceholder="No answer key."
+                        compact
+                      />
+                    ) : (
+                      <MarkdownContentView
+                        content={studentMarkdown}
+                        emptyPlaceholder="No student activity text."
+                        compact
+                      />
+                    )
+                  ) : (
+                    <div className="flex min-h-[8rem] items-center justify-center px-2">
+                      <div className="max-w-[18rem] text-center">
+                        <p className="text-sm font-bold text-[#151B35]">
+                          {isGenerating
+                            ? "Generating worksheet…"
+                            : "Generate worksheet to preview content."}
+                        </p>
+                        <p className="mt-2 text-xs leading-relaxed text-slate-500">
+                          {isGenerating
+                            ? "Your student activity and answer key will appear here shortly."
+                            : "The student activity and answer key will appear here after creation."}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Desktop: worksheet SVG with overlaid content */}
+              <div className="relative -ml-[5%] hidden w-[110%] min-w-0 md:block">
                 {/* eslint-disable-next-line @next/next/no-img-element -- public SVG; avoid Next image cache */}
                 <img
                   src="/worksheet.svg?v=349"

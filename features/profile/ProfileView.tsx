@@ -172,7 +172,7 @@ function ProfileHero({
       }}
     >
       <div className="relative z-10 flex flex-col items-center gap-6 px-6 py-8 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:px-10 lg:py-9">
-        <div className="w-full min-w-0 max-w-xl flex-1">
+        <div className="relative z-10 w-full min-w-0 max-w-xl flex-1">
           <p className="flex items-center gap-2.5 text-xs font-semibold tracking-[0.14em] text-[#9BB0C4] uppercase">
             <span className="inline-block h-0.5 w-7 rounded-full bg-[#35BEBC]" />
             Teacher Identity &amp; Account Studio
@@ -204,14 +204,14 @@ function ProfileHero({
           </div>
         </div>
 
-        <div className="relative h-[200px] w-full max-w-[320px] shrink-0 sm:h-[220px] sm:max-w-[360px] lg:h-[240px] lg:max-w-[400px]">
+        <div className="pointer-events-none relative z-0 hidden h-[200px] w-full max-w-[320px] shrink-0 sm:h-[220px] sm:max-w-[360px] md:block lg:h-[240px] lg:max-w-[400px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/profile-hero.svg"
             alt="Teacher identity card illustration"
             width={451}
             height={447}
-            className="pointer-events-none absolute left-1/2 top-1/2 w-[118%] max-w-none -translate-x-1/2 -translate-y-[46%] select-none"
+            className="absolute left-1/2 top-1/2 w-[118%] max-w-none -translate-x-1/2 -translate-y-[46%] select-none"
           />
         </div>
       </div>

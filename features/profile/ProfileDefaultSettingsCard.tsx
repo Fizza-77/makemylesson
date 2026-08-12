@@ -132,17 +132,17 @@ export function ProfileDefaultSettingsCard() {
           />
         </div>
 
-        <div className="mt-6 flex flex-wrap justify-end gap-3">
+        <div className="mt-6 flex flex-nowrap items-center gap-2 sm:justify-end sm:gap-3">
           <Link
             href={ROUTES.stage1}
-            className="rounded-xl bg-[#20AAA7] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1a9592]"
+            className="inline-flex min-w-0 flex-1 items-center justify-center rounded-xl bg-[#20AAA7] px-3 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#1a9592] sm:flex-none sm:px-4"
           >
             Edit in Stage 1
           </Link>
           <button
             type="button"
             onClick={() => setConfirmOpen(true)}
-            className="rounded-xl border border-[#F0C8C8] bg-[#FFF5F5] px-4 py-2.5 text-sm font-semibold text-[#C84747] transition hover:bg-[#FFE8E8]"
+            className="inline-flex min-w-0 flex-1 items-center justify-center rounded-xl border border-[#F0C8C8] bg-[#FFF5F5] px-3 py-2.5 text-center text-sm font-semibold text-[#C84747] transition hover:bg-[#FFE8E8] sm:flex-none sm:px-4"
           >
             Clear defaults
           </button>

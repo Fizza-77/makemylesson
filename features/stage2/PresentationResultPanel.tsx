@@ -443,8 +443,56 @@ export function PresentationResultPanel({
                 </div>
               </div>
 
-              {/* Fill allotted width; align notebook left under "Speaker Notes" */}
-              <div className="group relative -mt-0.5 -ml-[6%] w-[112%] min-w-0">
+              {/* Mobile web: landscape card (no SVG) */}
+              <div className="mt-2 flex aspect-[16/10] min-h-[14rem] w-full flex-col overflow-hidden rounded-[18px] border-[5px] border-[#35BEBC] bg-[#F7FBFA] md:hidden">
+                <header className="shrink-0 border-b border-slate-200/80 bg-white px-3.5 py-3 sm:px-4">
+                  <div className="flex items-center justify-between gap-2 text-[10px] font-bold tracking-[0.08em] text-[#28C2C0] uppercase">
+                    <span>Speaker notes</span>
+                    <span>Teacher notes</span>
+                  </div>
+                  <p className="mt-1.5 text-base font-bold text-[#151B35]">
+                    {hasDeck
+                      ? `Slide ${activeSlideIndex + 1} Notes`
+                      : "Slide 1 Notes"}
+                  </p>
+                  <div className="mt-2 h-[3px] w-full rounded-full bg-[#202B52]" />
+                </header>
+
+                <div className="theme-scroll-hover min-h-0 flex-1 overflow-y-auto overscroll-contain px-3.5 py-3 sm:px-4">
+                  {hasDeck ? (
+                    <LessonPlanContentView
+                      content={activeSlide?.speakerNotes ?? ""}
+                      emptyPlaceholder="No speaker notes for this slide."
+                      className="prose prose-sm max-w-none text-slate-500 prose-headings:my-1.5 prose-headings:text-sm prose-headings:font-bold prose-headings:text-[#151B35] prose-p:my-1 prose-p:text-xs prose-p:leading-relaxed sm:prose-p:text-sm prose-strong:font-bold prose-strong:text-[#151B35] prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-li:marker:text-[#28C2C0]"
+                    />
+                  ) : (
+                    <>
+                      <p className="whitespace-pre-wrap text-xs leading-relaxed text-slate-500 sm:text-sm">
+                        {isGenerating
+                          ? "Notes will appear here as slides are generated…"
+                          : "Speaker notes will appear after generation as rich teaching guidance."}
+                      </p>
+                      {!isGenerating ? (
+                        <div className="mt-4 space-y-2.5" aria-hidden>
+                          <div className="h-px w-full bg-slate-300/70" />
+                          <div className="h-px w-[85%] bg-slate-300/60" />
+                          <div className="h-px w-[70%] bg-slate-300/50" />
+                        </div>
+                      ) : null}
+                    </>
+                  )}
+                </div>
+
+                {!hasDeck ? (
+                  <footer className="flex shrink-0 items-center justify-between gap-2 border-t border-slate-200/60 bg-white px-3.5 py-2 text-[8px] font-semibold tracking-[0.1em] text-slate-400 uppercase sm:px-4 sm:text-[9px]">
+                    <span>Make my lesson</span>
+                    <span>Presentation notes</span>
+                  </footer>
+                ) : null}
+              </div>
+
+              {/* Desktop: notebook SVG with overlaid notes */}
+              <div className="group relative -mt-0.5 -ml-[6%] hidden w-[112%] min-w-0 md:block">
                 <Image
                   src="/speakernotes.svg"
                   alt=""

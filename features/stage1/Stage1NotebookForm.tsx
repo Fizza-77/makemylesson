@@ -184,14 +184,16 @@ function NotebookSelect({
   style,
   ariaLabel,
   placeholder = "Select…",
+  stacked = false,
 }: {
   value: string;
   onChange: (v: string) => void;
   disabled?: boolean;
   options: SelectOption[];
-  style: CSSProperties;
+  style?: CSSProperties;
   ariaLabel: string;
   placeholder?: string;
+  stacked?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -218,8 +220,11 @@ function NotebookSelect({
   return (
     <div
       ref={rootRef}
-      style={style}
-      className={cn("absolute z-10", open && "z-40")}
+      style={stacked ? undefined : style}
+      className={cn(
+        stacked ? "relative z-10 w-full" : "absolute z-10",
+        open && "z-40",
+      )}
     >
       <button
         type="button"
@@ -230,7 +235,8 @@ function NotebookSelect({
         disabled={disabled}
         onClick={() => !disabled && setOpen((o) => !o)}
         className={cn(
-          "flex h-full w-full items-center gap-1.5 rounded-[10px] border bg-white px-2.5 text-left shadow-sm transition sm:px-3",
+          "flex w-full items-center gap-1.5 rounded-[10px] border bg-white text-left shadow-sm transition",
+          stacked ? "min-h-11 px-3" : "h-full px-2.5 sm:px-3",
           "border-[#E5E7EB] hover:border-[#28C2C0]/60 hover:shadow-md",
           open && "border-[#28C2C0] shadow-md ring-2 ring-[#28C2C0]/25",
           disabled &&
@@ -239,7 +245,8 @@ function NotebookSelect({
       >
         <span
           className={cn(
-            "min-w-0 flex-1 truncate text-[10px] font-semibold sm:text-xs",
+            "min-w-0 flex-1 truncate font-semibold",
+            stacked ? "text-sm" : "text-[10px] sm:text-xs",
             selected ? "text-[#151B35]" : "font-medium text-slate-400",
           )}
         >
@@ -266,7 +273,8 @@ function NotebookSelect({
                 <button
                   type="button"
                   className={cn(
-                    "flex w-full px-3 py-2 text-left text-[10px] font-semibold transition sm:text-xs",
+                    "flex w-full px-3 py-2.5 text-left font-semibold transition",
+                    stacked ? "text-sm" : "text-[10px] sm:text-xs",
                     isActive
                       ? "bg-[#E8F8F7] text-[#151B35]"
                       : "text-[#151B35] hover:bg-[#F0FBFA]",
@@ -292,11 +300,13 @@ function DurationField({
   value,
   options,
   onChange,
+  stacked = false,
 }: {
-  style: CSSProperties;
+  style?: CSSProperties;
   value: string;
   options: readonly string[];
   onChange: (v: string) => void;
+  stacked?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -321,8 +331,11 @@ function DurationField({
   return (
     <div
       ref={rootRef}
-      style={style}
-      className={cn("absolute z-10", open && "z-40")}
+      style={stacked ? undefined : style}
+      className={cn(
+        stacked ? "relative z-10 w-full" : "absolute z-10",
+        open && "z-40",
+      )}
     >
       <button
         type="button"
@@ -332,12 +345,18 @@ function DurationField({
         aria-controls={listId}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "flex h-full w-full items-center gap-1.5 rounded-[10px] border bg-white px-2.5 text-left shadow-sm transition sm:px-3",
+          "flex w-full items-center gap-1.5 rounded-[10px] border bg-white text-left shadow-sm transition",
+          stacked ? "min-h-11 px-3" : "h-full px-2.5 sm:px-3",
           "border-[#E5E7EB] hover:border-[#28C2C0]/60 hover:shadow-md",
           open && "border-[#28C2C0] shadow-md ring-2 ring-[#28C2C0]/25",
         )}
       >
-        <span className="min-w-0 flex-1 truncate text-[10px] font-semibold text-[#151B35] sm:text-xs">
+        <span
+          className={cn(
+            "min-w-0 flex-1 truncate font-semibold text-[#151B35]",
+            stacked ? "text-sm" : "text-[10px] sm:text-xs",
+          )}
+        >
           {value}
         </span>
         <ChevronIcon open={open} />
@@ -357,7 +376,8 @@ function DurationField({
                 <button
                   type="button"
                   className={cn(
-                    "flex w-full px-3 py-2 text-left text-[10px] font-semibold transition sm:text-xs",
+                    "flex w-full px-3 py-2.5 text-left font-semibold transition",
+                    stacked ? "text-sm" : "text-[10px] sm:text-xs",
                     isActive
                       ? "bg-[#E8F8F7] text-[#151B35]"
                       : "text-[#151B35] hover:bg-[#F0FBFA]",
@@ -384,11 +404,13 @@ function CurriculumChangeField({
   value,
   options,
   onChange,
+  stacked = false,
 }: {
-  style: CSSProperties;
+  style?: CSSProperties;
   value: string;
   options: { id: string; name: string }[];
   onChange: (v: string) => void;
+  stacked?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -415,16 +437,20 @@ function CurriculumChangeField({
     <div
       ref={rootRef}
       style={{
-        ...style,
+        ...(stacked ? null : style),
         backgroundImage: "linear-gradient(90deg, #35BEBC 0%, #A7E7E4 100%)",
       }}
       className={cn(
-        "absolute z-10 flex items-center gap-2 rounded-[12px] px-2.5 shadow-sm sm:gap-2.5 sm:px-3",
+        "z-10 flex items-center gap-2 rounded-[12px] px-3 shadow-sm",
+        stacked ? "relative min-h-12 w-full" : "absolute px-2.5 sm:gap-2.5 sm:px-3",
         open && "z-40 ring-2 ring-[#28C2C0]/30",
       )}
     >
       <span
-        className="flex size-7 shrink-0 items-center justify-center rounded-md bg-[#151B35] text-white sm:size-8"
+        className={cn(
+          "flex shrink-0 items-center justify-center rounded-md bg-[#151B35] text-white",
+          stacked ? "size-8" : "size-7 sm:size-8",
+        )}
         aria-hidden
       >
         <svg viewBox="0 0 16 16" className="size-3.5 fill-current sm:size-4">
@@ -432,10 +458,20 @@ function CurriculumChangeField({
         </svg>
       </span>
       <div className="min-w-0 flex-1">
-        <p className="text-[8px] font-bold tracking-[0.12em] text-[#0D6B69] uppercase sm:text-[10px]">
+        <p
+          className={cn(
+            "font-bold tracking-[0.12em] text-[#0D6B69] uppercase",
+            stacked ? "text-[10px]" : "text-[8px] sm:text-[10px]",
+          )}
+        >
           Curriculum
         </p>
-        <p className="truncate text-[10px] font-bold text-[#151B35] sm:text-xs">
+        <p
+          className={cn(
+            "truncate font-bold text-[#151B35]",
+            stacked ? "text-sm" : "text-[10px] sm:text-xs",
+          )}
+        >
           {selected?.name ?? "Select…"}
         </p>
       </div>
@@ -445,7 +481,10 @@ function CurriculumChangeField({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listId}
-        className="shrink-0 rounded-lg bg-white/70 px-2 py-1 text-[10px] font-semibold text-[#151B35] transition hover:bg-white sm:text-xs"
+        className={cn(
+          "shrink-0 rounded-lg bg-white/70 px-2.5 py-1.5 font-semibold text-[#151B35] transition hover:bg-white",
+          stacked ? "text-xs" : "text-[10px] sm:text-xs",
+        )}
         onClick={() => setOpen((o) => !o)}
       >
         Change
@@ -465,7 +504,8 @@ function CurriculumChangeField({
                 <button
                   type="button"
                   className={cn(
-                    "flex w-full px-3 py-2.5 text-left text-[10px] font-semibold transition sm:text-xs",
+                    "flex w-full px-3 py-2.5 text-left font-semibold transition",
+                    stacked ? "text-sm" : "text-[10px] sm:text-xs",
                     isActive
                       ? "bg-[#E8F8F7] text-[#151B35]"
                       : "text-[#151B35] hover:bg-[#F0FBFA]",
@@ -513,10 +553,185 @@ export type Stage1NotebookFormProps = {
   onDuration: (v: string) => void;
 };
 
-/** Blank notebook SVG with labels + live fields overlaid. */
+function StackLabel({ children }: { children: string }) {
+  return (
+    <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-[#128C89] uppercase">
+      {children}
+    </p>
+  );
+}
+
+function MobileLessonFieldsCard(props: Stage1NotebookFormProps) {
+  return (
+    <div className="rounded-[22px] border-[5px] border-[#35BEBC] bg-[#EAF5F6] p-4 md:hidden">
+      <div className="space-y-5">
+        <div>
+          <p className="text-[11px] font-bold tracking-[0.14em] text-[#128C89] uppercase">
+            Teacher Planner
+          </p>
+          <h3 className="mt-1 text-lg font-bold text-[#151B35]">Lesson Setup</h3>
+        </div>
+
+        <CurriculumChangeField
+          stacked
+          value={props.topLevelId}
+          options={props.topLevels}
+          onChange={props.onTopLevel}
+        />
+
+        <div>
+          <StackLabel>Program</StackLabel>
+          <NotebookSelect
+            stacked
+            ariaLabel="Program"
+            value={props.pathwayId}
+            onChange={props.onPathway}
+            disabled={props.pathwayDisabled}
+            options={[
+              { value: "", label: "Select…" },
+              ...props.pathways.map((p) => ({ value: p.id, label: p.name })),
+            ]}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <StackLabel>Grade</StackLabel>
+            <NotebookSelect
+              stacked
+              ariaLabel="Grade"
+              value={props.gradeInternalId}
+              onChange={props.onGrade}
+              disabled={props.gradeDisabled}
+              options={[
+                { value: "", label: "Select…" },
+                ...props.grades.map((g) => ({
+                  value: g.gradeId,
+                  label: g.displayName,
+                })),
+              ]}
+            />
+          </div>
+          <div>
+            <StackLabel>Subject</StackLabel>
+            <NotebookSelect
+              stacked
+              ariaLabel="Subject"
+              value={props.subject}
+              onChange={props.onSubject}
+              disabled={props.subjectDisabled}
+              options={[
+                { value: "", label: "Select…" },
+                ...props.subjects.map((s) => ({
+                  value: s.displayName,
+                  label: s.displayName,
+                })),
+              ]}
+            />
+          </div>
+        </div>
+
+        <div>
+          <StackLabel>Topic</StackLabel>
+          <label className="flex min-h-11 items-center overflow-hidden rounded-[10px] border border-[#E5E7EB] bg-white px-3 shadow-sm transition focus-within:border-[#28C2C0] focus-within:ring-2 focus-within:ring-[#28C2C0]/25">
+            <input
+              aria-label="Topic"
+              className="h-full w-full bg-transparent text-sm font-semibold text-[#151B35] outline-none placeholder:font-medium placeholder:text-slate-400"
+              value={props.topic}
+              onChange={(e) => props.onTopic(e.target.value)}
+              placeholder="e.g. Photosynthesis"
+            />
+          </label>
+        </div>
+
+        <div className="border-t border-[#35BEBC]/35 pt-5">
+          <p className="text-[11px] font-bold tracking-[0.14em] text-[#128C89] uppercase">
+            Teaching Approach
+          </p>
+          <h3 className="mt-1 text-lg font-bold text-[#151B35]">
+            Lesson Structure
+          </h3>
+        </div>
+
+        <div>
+          <StackLabel>Method</StackLabel>
+          <NotebookSelect
+            stacked
+            ariaLabel="Method"
+            value={props.method}
+            onChange={props.onMethod}
+            options={props.methods.map((m) => ({ value: m, label: m }))}
+          />
+        </div>
+
+        <div>
+          <div className="mb-2 flex items-end justify-between gap-2">
+            <p className="text-base font-bold text-[#151B35]">
+              Your Plan Will Include
+            </p>
+            <p className="text-[10px] font-semibold text-[#128C89]">
+              AI generated
+            </p>
+          </div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2.5 rounded-[12px] border border-[#E5E7EB] bg-white px-3 py-2.5 shadow-sm">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#20AAA7] text-white">
+                <svg
+                  viewBox="0 0 12 12"
+                  className="size-3 fill-current"
+                  aria-hidden
+                >
+                  <path d="M4.8 8.6 2.4 6.2l.9-.9 1.5 1.5 3.6-3.6.9.9-4.5 4.5Z" />
+                </svg>
+              </span>
+              <p className="min-w-0 text-sm font-bold text-[#151B35]">
+                Learning objectives
+              </p>
+            </div>
+            <div className="flex items-center gap-2.5 rounded-[12px] border border-[#E5E7EB] bg-white px-3 py-2.5 shadow-sm">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#20AAA7] text-white">
+                <svg
+                  viewBox="0 0 12 12"
+                  className="size-3 fill-current"
+                  aria-hidden
+                >
+                  <path d="M4.8 8.6 2.4 6.2l.9-.9 1.5 1.5 3.6-3.6.9.9-4.5 4.5Z" />
+                </svg>
+              </span>
+              <p className="min-w-0 text-sm font-bold text-[#151B35]">
+                Timed teaching steps
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <StackLabel>Duration</StackLabel>
+          <DurationField
+            stacked
+            value={props.duration}
+            options={props.durations}
+            onChange={props.onDuration}
+          />
+        </div>
+
+        {props.unsupported ? (
+          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-700">
+            This grade is not supported for the selected pathway.
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+/** Blank notebook SVG with labels + live fields overlaid (desktop). Mobile uses a cyan card. */
 export function Stage1NotebookForm(props: Stage1NotebookFormProps) {
   return (
-    <div className="relative w-full">
+    <>
+      <MobileLessonFieldsCard {...props} />
+
+      <div className="relative hidden w-full md:block">
       <Image
         src="/selection-stage1.svg?v=3"
         alt=""
@@ -712,6 +927,7 @@ export function Stage1NotebookForm(props: Stage1NotebookFormProps) {
           This grade is not supported for the selected pathway.
         </p>
       ) : null}
-    </div>
+      </div>
+    </>
   );
 }

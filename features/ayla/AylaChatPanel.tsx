@@ -5,6 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { Spinner } from "@/components/ui/Spinner";
+import {
+  AYLA_PANEL_ID,
+  consumeScrollToAylaRequest,
+  scrollToAylaPanel,
+} from "@/lib/ayla-scroll";
 import type { StageSidebarContext } from "@/data/stage-tips";
 import { cn } from "@/lib/utils";
 import { useAylaChatStore } from "@/store/ayla-chat-store";
@@ -229,6 +234,14 @@ export function AylaChatPanel({
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, isSending]);
 
+  useEffect(() => {
+    if (!consumeScrollToAylaRequest()) return;
+    const id = window.setTimeout(() => {
+      scrollToAylaPanel();
+    }, 80);
+    return () => window.clearTimeout(id);
+  }, [context]);
+
   async function onSend(text?: string) {
     const prompt = (text ?? draft).trim();
     if (!prompt) return;
@@ -238,8 +251,9 @@ export function AylaChatPanel({
 
   return (
     <div
+      id={AYLA_PANEL_ID}
       className={cn(
-        "flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_14px_34px_-18px_rgba(13,20,48,0.18)]",
+        "flex scroll-mt-24 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_14px_34px_-18px_rgba(13,20,48,0.18)]",
         className,
       )}
       aria-label="Chat with Ayla"

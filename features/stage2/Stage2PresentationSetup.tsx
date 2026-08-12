@@ -509,7 +509,7 @@ export function Stage2PresentationSetup({
 
         {/* Number of slides — top edge meets theme scrollbar */}
         <div className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5">
-          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6 sm:gap-y-3">
             <div className="min-w-0">
               <p className="text-sm font-bold text-[#28C2C0]">
                 Number of slides
@@ -518,7 +518,7 @@ export function Stage2PresentationSetup({
                 Choose how many slides to generate for this deck.
               </p>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="grid w-full grid-cols-5 gap-2 max-[340px]:grid-cols-3 max-[340px]:justify-items-center sm:flex sm:w-auto sm:flex-nowrap sm:gap-3">
               {SLIDE_COUNTS.map((n) => {
                 const active = slideCount === n;
                 return (
@@ -528,7 +528,8 @@ export function Stage2PresentationSetup({
                     disabled={isGenerating}
                     onClick={() => onSlideCount(n)}
                     className={cn(
-                      "flex size-11 items-center justify-center rounded-full text-sm font-bold transition",
+                      "flex size-9 items-center justify-center rounded-full text-sm font-bold transition sm:size-11",
+                      "max-[340px]:size-10",
                       active
                         ? "border-[3px] border-[#28C2C0] bg-[#E8F8F8] text-[#28C2C0]"
                         : "border border-slate-200 bg-white text-[#151B35] hover:border-[#28C2C0]/50",

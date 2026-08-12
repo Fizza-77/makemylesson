@@ -225,49 +225,54 @@ export function ProfileSupportLegalSection() {
     >
       <div className="rounded-2xl bg-[#F3F6F8] px-3 pt-8 pb-5 sm:px-5 sm:pt-10 sm:pb-6">
         <div>
-          <div className="grid grid-cols-2 items-end gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
-            <ShelfCard
-              tone="teal"
-              heightClass="h-[148px] sm:h-[156px]"
-              icon={<ShareIcon />}
-              title="Share App"
-              description="Invite another teacher"
-              onClick={() => void shareApp()}
-            />
-            <ShelfCard
-              tone="navy"
-              heightClass="h-[172px] sm:h-[188px]"
-              icon={<HelpCardIcon />}
-              title="Help Centre"
-              description="Guides and answers"
-              href={`mailto:${AppUrls.helpEmail}`}
-            />
-            <ShelfCard
-              tone="tealLight"
-              heightClass="h-[148px] sm:h-[156px]"
-              icon={<ChatIcon />}
-              title="Contact Support"
-              description="Send us a message"
-              href={`mailto:${AppUrls.supportEmail}`}
-            />
-            <ShelfCard
-              tone="navy"
-              heightClass="h-[188px] sm:h-[208px]"
-              icon={<ShieldIcon />}
-              title="Privacy Policy"
-              description="Data handling policy"
-              href={AppUrls.privacyPolicy}
-              external
-            />
-            <ShelfCard
-              tone="tealLight"
-              heightClass="h-[148px] sm:h-[156px]"
-              icon={<DocIcon />}
-              title="Terms of Service"
-              description="App terms and conditions"
-              href={AppUrls.termsOfService}
-              external
-            />
+          <div className="grid grid-cols-2 items-stretch gap-2 sm:gap-3">
+            <div className="flex h-full min-h-0 flex-col gap-2 sm:gap-3">
+              <ShelfCard
+                tone="teal"
+                heightClass="min-h-[7.25rem] flex-1 sm:min-h-[7.75rem]"
+                icon={<ShareIcon />}
+                title="Share App"
+                description="Invite another teacher"
+                onClick={() => void shareApp()}
+              />
+              <ShelfCard
+                tone="tealLight"
+                heightClass="min-h-[7.25rem] flex-1 sm:min-h-[7.75rem]"
+                icon={<ChatIcon />}
+                title="Contact Support"
+                description="Send us a message"
+                href={`mailto:${AppUrls.supportEmail}`}
+              />
+              <ShelfCard
+                tone="tealLight"
+                heightClass="min-h-[7.25rem] flex-1 sm:min-h-[7.75rem]"
+                icon={<DocIcon />}
+                title="Terms of Service"
+                description="App terms and conditions"
+                href={AppUrls.termsOfService}
+                external
+              />
+            </div>
+
+            <div className="flex h-full min-h-0 flex-col gap-2 sm:gap-3">
+              <ShelfCard
+                tone="navy"
+                heightClass="min-h-0 flex-1"
+                icon={<HelpCardIcon />}
+                title="Help Centre"
+                description="Guides and answers"
+                href={`mailto:${AppUrls.helpEmail}`}
+              />
+              <ShelfCard
+                tone="navy"
+                heightClass="min-h-0 flex-1"
+                icon={<ShieldIcon />}
+                title="Privacy Policy"
+                description="Data handling policy"
+                href={AppUrls.privacyPolicy}
+                external
+              />
+            </div>
           </div>
           <div
             className="mx-1 mt-3 h-3 rounded-full bg-[#0D1430] sm:mx-2 sm:mt-4 sm:h-3.5"

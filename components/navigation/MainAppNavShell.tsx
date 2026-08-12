@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 import { NotificationsPanel } from "@/features/notifications/NotificationsPanel";
+import { AylaMobileFab } from "@/components/common/AylaMobileFab";
 import { InstallAppButton } from "@/components/common/InstallAppButton";
+import { OpenInAppDialog } from "@/components/common/OpenInAppDialog";
 import { PricingLink } from "@/components/common/PricingLink";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/lib/urls";
@@ -180,7 +182,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                 alt="Make My Lesson"
                 width={42}
                 height={42}
-                className="size-[42px] shrink-0 rounded-xl object-cover"
+                className="hidden size-[42px] shrink-0 rounded-xl object-cover md:block"
                 priority
               />
               <span className="min-w-0">
@@ -313,6 +315,8 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
       </main>
 
       <NotificationsPanel />
+      <AylaMobileFab />
+      <OpenInAppDialog />
 
       <nav
         className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5E7EB] bg-white md:hidden"
@@ -370,31 +374,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                 </Link>
               </li>
             </>
-          ) : (
-            <li className="flex-1">
-              <button
-                type="button"
-                onClick={openPanel}
-                className={cn(
-                  "flex w-full flex-col items-center gap-1 rounded-xl px-1 py-2 text-[10px] font-semibold",
-                  panelOpen ? "text-[#0F172A]" : "text-[#64748B]",
-                )}
-              >
-                <span
-                  className={cn(
-                    "relative inline-flex rounded-full p-1.5",
-                    panelOpen && "bg-[#E7F7F6]",
-                  )}
-                >
-                  <NavIcon name="alerts" />
-                  {unreadCount > 0 ? (
-                    <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-[#EF4444]" />
-                  ) : null}
-                </span>
-                Alerts
-              </button>
-            </li>
-          )}
+          ) : null}
         </ul>
       </nav>
     </div>

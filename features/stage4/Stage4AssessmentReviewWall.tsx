@@ -160,19 +160,17 @@ export function Stage4AssessmentReviewWall({
             <PackSlot label="Student paper" contentClassName="mt-8 sm:mt-10">
               <div className="overflow-hidden rounded-2xl bg-[#EEF2F5] shadow-sm">
                 <div className="bg-gradient-to-r from-[#20AAA7] to-[#35BEBC] px-4 py-3 text-white">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="text-[9px] font-medium tracking-wide uppercase opacity-90">
-                        Student assessment
-                      </p>
-                      <p className="mt-0.5 truncate text-base font-bold">
-                        {paperTitle}
-                      </p>
-                    </div>
-                    <p className="shrink-0 pt-0.5 text-right text-[11px] text-white/85">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-[9px] font-medium tracking-wide uppercase opacity-90">
+                      Student assessment
+                    </p>
+                    <p className="shrink-0 text-right text-[11px] leading-none text-white/85">
                       {paperMeta}
                     </p>
                   </div>
+                  <p className="mt-1.5 text-base font-bold leading-snug break-words">
+                    {paperTitle}
+                  </p>
                 </div>
                 <div className="relative min-h-[16rem] px-4 py-10 sm:min-h-[18rem]">
                   {hasResult && hasStudentContent ? (
@@ -198,19 +196,17 @@ export function Stage4AssessmentReviewWall({
             <PackSlot label="Mark scheme" contentClassName="mt-8 sm:mt-10">
               <div className="overflow-hidden rounded-2xl bg-[#EEF2F5] shadow-sm">
                 <div className="bg-gradient-to-r from-[#202B52] to-[#30416F] px-4 py-3 text-white">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="text-[10px] font-medium tracking-wide uppercase opacity-90">
-                        Teacher copy
-                      </p>
-                      <p className="mt-0.5 truncate text-base font-bold">
-                        {schemeTitle}
-                      </p>
-                    </div>
-                    <p className="shrink-0 pt-0.5 text-right text-[11px] text-white/85">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-[10px] font-medium tracking-wide uppercase opacity-90">
+                      Teacher copy
+                    </p>
+                    <p className="shrink-0 text-right text-[11px] leading-none text-white/85">
                       Total · {result?.totalMarks ?? totalMarks} marks
                     </p>
                   </div>
+                  <p className="mt-1.5 text-base font-bold leading-snug break-words">
+                    {schemeTitle}
+                  </p>
                 </div>
                 <div className="relative min-h-[16rem] px-4 py-10 sm:min-h-[18rem]">
                   {hasResult && schemeBody ? (
@@ -235,71 +231,69 @@ export function Stage4AssessmentReviewWall({
           </div>
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 sm:px-5">
+        <div className="mt-5 grid grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 p-3.5 sm:gap-3 sm:p-4">
           <Link
             href={ROUTES.stage3}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#151B35] transition hover:bg-slate-50"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-center text-sm font-semibold text-[#151B35] transition hover:bg-slate-50 sm:px-4"
           >
             ← Back
           </Link>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="relative">
-              <button
-                type="button"
-                disabled={!hasResult || exporting}
-                onClick={onToggleExport}
-                className={cn(
-                  "rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#151B35] transition hover:bg-slate-50",
-                  (!hasResult || exporting) && "opacity-50",
-                )}
-              >
-                Download / Print
-              </button>
-              {exportMenuOpen && hasResult ? (
-                <div className="absolute right-0 bottom-full z-20 mb-1 min-w-[16rem] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
-                  {exportActions.map((action) => (
-                    <button
-                      key={action.id}
-                      type="button"
-                      className="block w-full px-3 py-2 text-left text-sm hover:bg-slate-50"
-                      onClick={() => onExport(action.id)}
-                    >
-                      {action.label}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-
+          <div className="relative">
             <button
               type="button"
               disabled={!hasResult || exporting}
-              onClick={onShare}
+              onClick={onToggleExport}
               className={cn(
-                "rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#151B35] transition hover:bg-slate-50",
+                "flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold text-[#151B35] transition hover:bg-slate-50 sm:px-4",
                 (!hasResult || exporting) && "opacity-50",
               )}
             >
-              Share
+              Download / Print
             </button>
-
-            <button
-              type="button"
-              disabled={!hasResult || isGenerating || isSavingLibrary}
-              onClick={onSaveLibrary}
-              className={cn(
-                "rounded-xl bg-[#28C2C0] px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-95",
-                (!hasResult || isGenerating || isSavingLibrary) && "opacity-50",
-              )}
-            >
-              {isSavingLibrary
-                ? "Saving…"
-                : linkedLibraryItemId
-                  ? "Update in Library"
-                  : "Save to Library"}
-            </button>
+            {exportMenuOpen && hasResult ? (
+              <div className="absolute right-0 bottom-full z-20 mb-1 min-w-[16rem] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
+                {exportActions.map((action) => (
+                  <button
+                    key={action.id}
+                    type="button"
+                    className="block w-full px-3 py-2 text-left text-sm hover:bg-slate-50"
+                    onClick={() => onExport(action.id)}
+                  >
+                    {action.label}
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </div>
+
+          <button
+            type="button"
+            disabled={!hasResult || exporting}
+            onClick={onShare}
+            className={cn(
+              "rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold text-[#151B35] transition hover:bg-slate-50 sm:px-4",
+              (!hasResult || exporting) && "opacity-50",
+            )}
+          >
+            Share
+          </button>
+
+          <button
+            type="button"
+            disabled={!hasResult || isGenerating || isSavingLibrary}
+            onClick={onSaveLibrary}
+            className={cn(
+              "rounded-xl bg-[#28C2C0] px-3 py-2.5 text-sm font-bold text-white transition hover:brightness-95 sm:px-4",
+              (!hasResult || isGenerating || isSavingLibrary) && "opacity-50",
+            )}
+          >
+            {isSavingLibrary
+              ? "Saving…"
+              : linkedLibraryItemId
+                ? "Update in Library"
+                : "Save to Library"}
+          </button>
         </div>
       </div>
     </section>
