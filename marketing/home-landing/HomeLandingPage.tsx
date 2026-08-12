@@ -171,24 +171,52 @@ export default function HomeLandingPage() {
         <div className="mml-mkt-hero-inner">
           <div className="mml-mkt-laptop">
             <div className="mml-mkt-screen">
-              <div className="mml-mkt-badge">
-                <span className="mml-mkt-badge-dot" aria-hidden />
-                AI-POWERED CO-TEACHER • GRADES 1–12
+              <div className="mml-mkt-hero-top">
+                <div className="mml-mkt-hero-copy">
+                  <div className="mml-mkt-badge">
+                    <span className="mml-mkt-badge-dot" aria-hidden />
+                    AI-POWERED CO-TEACHER • GRADES 1–12
+                  </div>
+
+                  <h1 className="mml-mkt-title">
+                    <span className="mml-mkt-title-line">Create Complete</span>
+                    <span className="mml-mkt-title-line">Lessons in</span>
+                    <span className="mml-mkt-title-accent">
+                      4 Simple Stages
+                      <StageUnderline />
+                    </span>
+                  </h1>
+
+                  <p className="mml-mkt-sub">
+                    <span className="mml-mkt-sub-line">
+                      Plan, present, assess and teach a full lesson pack in minutes,
+                    </span>
+                    <span className="mml-mkt-sub-line">
+                      aligned to your curriculum. Slides, worksheets, quizzes and
+                    </span>
+                    <span className="mml-mkt-sub-line">
+                      teaching plans, all from one topic.
+                    </span>
+                  </p>
+                </div>
+
+                <div className="mml-mkt-hero-phone" aria-hidden>
+                  <div className="mml-mkt-phone-frame">
+                    <div className="mml-mkt-phone-notch" />
+                    <div className="mml-mkt-phone-screen">
+                      <Image
+                        src="/mockups/mockup.jpeg"
+                        alt=""
+                        width={390}
+                        height={844}
+                        className="mml-mkt-phone-img"
+                        sizes="(max-width: 960px) 200px, 240px"
+                        priority
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <h1 className="mml-mkt-title">
-                <span className="mml-mkt-title-line">Create Complete Lessons in</span>
-                <span className="mml-mkt-title-accent">
-                  4 Simple Stages
-                  <StageUnderline />
-                </span>
-              </h1>
-
-              <p className="mml-mkt-sub">
-                Plan, present, assess and teach a full lesson pack in minutes,
-                aligned to your curriculum. Slides, worksheets, quizzes and
-                teaching plans, all from one topic.
-              </p>
 
               <div className="mml-mkt-stages">
                 {STAGES.map(({ num, name, desc, iconSrc, href }, index) => (

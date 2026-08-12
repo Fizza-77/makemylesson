@@ -147,6 +147,67 @@
   color: var(--mml-ink);
 }
 
+.mml-mkt-hero-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.mml-mkt-hero-copy {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+
+.mml-mkt-hero-phone {
+  display: none;
+  flex-shrink: 0;
+  width: min(168px, 44vw);
+  margin-left: auto;
+  margin-right: 0.65rem;
+  align-self: flex-start;
+}
+
+.mml-mkt-phone-frame {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: 24px;
+  background: linear-gradient(160deg, #243450 0%, #0f1b2d 55%, #0a1422 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 20px 40px rgba(15, 27, 45, 0.2),
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+}
+
+.mml-mkt-phone-notch {
+  width: 34%;
+  height: 4px;
+  margin: 0 auto 5px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.42);
+  flex-shrink: 0;
+}
+
+.mml-mkt-phone-screen {
+  overflow: hidden;
+  border-radius: 18px;
+  background: #fff;
+  line-height: 0;
+  max-height: 13.5rem;
+}
+
+.mml-mkt-phone-img {
+  display: block;
+  width: 100%;
+  height: 13.5rem;
+  object-fit: cover;
+  object-position: top center;
+}
+
 .mml-mkt-badge {
   display: inline-flex;
   align-items: center;
@@ -171,7 +232,7 @@
 
 .mml-mkt-title {
   margin: 1.2rem 0 0;
-  max-width: min(100%, 18ch);
+  max-width: none;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -185,11 +246,13 @@
 
 .mml-mkt-title-line {
   display: block;
+  white-space: nowrap;
 }
 
 .mml-mkt-title-accent {
   position: relative;
   display: inline-block;
+  white-space: nowrap;
   color: var(--mml-cyan);
   margin-top: 0.02em;
   padding-bottom: 0.14em;
@@ -208,11 +271,19 @@
 
 .mml-mkt-sub {
   margin: 1.2rem 0 0;
-  max-width: min(100%, 42rem);
+  max-width: min(100%, 34rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
   font-size: clamp(0.98rem, 1.15vw, 1.2rem);
   line-height: 1.55;
   font-weight: 400;
   color: var(--mml-slate);
+}
+
+.mml-mkt-sub-line {
+  display: block;
 }
 
 .mml-mkt-stages {
@@ -1043,11 +1114,13 @@
   margin: auto 0 0;
   max-width: 16rem;
   padding-top: 1rem;
+  padding-right: 4.6rem;
   font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
   line-height: 1.45;
   opacity: 0.92;
+  box-sizing: border-box;
 }
 
 .mml-mkt-stat-card--dark .mml-mkt-stat-label {
@@ -1076,12 +1149,39 @@
   }
 
   .mml-mkt-stat-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    column-gap: 0.85rem;
+    align-items: start;
     min-height: 0;
     padding: 1.2rem 1.1rem 1.1rem;
   }
 
+  .mml-mkt-stat-icon {
+    position: static;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .mml-mkt-stat-icon-svg {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .mml-mkt-stat-value {
+    grid-column: 1;
+    padding-right: 0;
+  }
+
   .mml-mkt-stat-label {
+    grid-column: 1;
     max-width: none;
+    margin: 0.75rem 0 0;
+    padding-right: 0;
   }
 }
 
@@ -3211,8 +3311,59 @@
     max-width: min(1080px, 100%);
   }
 
+  .mml-mkt-screen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(188px, 20vw, 220px);
+    grid-template-areas:
+      "copy phone"
+      "stages stages";
+    column-gap: 1.75rem;
+    row-gap: 1.85rem;
+    align-items: start;
+  }
+
+  .mml-mkt-hero-top {
+    display: contents;
+  }
+
+  .mml-mkt-hero-copy {
+    grid-area: copy;
+    max-width: none;
+    padding-right: 0;
+  }
+
+  .mml-mkt-hero-phone {
+    grid-area: phone;
+    display: block;
+    width: 100%;
+    margin: 0;
+    align-self: start;
+    justify-self: end;
+    transform: translateX(-1.75rem);
+  }
+
+  .mml-mkt-phone-frame {
+    width: 100%;
+    border-radius: 26px;
+    padding: 7px;
+  }
+
+  .mml-mkt-phone-screen {
+    border-radius: 20px;
+    max-height: 15.5rem;
+  }
+
+  .mml-mkt-phone-img {
+    height: 15.5rem;
+  }
+
+  .mml-mkt-stages {
+    grid-area: stages;
+    margin-top: 0;
+  }
+
   .mml-mkt-title {
-    max-width: min(100%, 22ch);
+    max-width: none;
   }
 
   .mml-mkt-title-line,
@@ -3221,7 +3372,11 @@
   }
 
   .mml-mkt-sub {
-    max-width: min(100%, 50rem);
+    max-width: none;
+  }
+
+  .mml-mkt-sub-line {
+    white-space: nowrap;
   }
 
   .mml-mkt-stage-icon {
@@ -3256,20 +3411,32 @@
     max-width: min(1240px, 100%);
   }
 
+  .mml-mkt-screen {
+    grid-template-columns: minmax(0, 1fr) clamp(200px, 18vw, 236px);
+    column-gap: 2rem;
+  }
+
+  .mml-mkt-phone-screen {
+    max-height: 16.25rem;
+  }
+
+  .mml-mkt-phone-img {
+    height: 16.25rem;
+  }
+
   .mml-mkt-title {
     max-width: none;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: baseline;
-    column-gap: 0.3em;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
   }
 
   .mml-mkt-title-accent {
-    margin-top: 0;
+    margin-top: 0.02em;
   }
 
   .mml-mkt-sub {
-    max-width: min(100%, 58rem);
+    max-width: none;
   }
 
   .mml-mkt-stage {
@@ -3330,8 +3497,20 @@
     max-width: min(1400px, 100%);
   }
 
+  .mml-mkt-screen {
+    grid-template-columns: minmax(0, 1fr) clamp(210px, 16vw, 248px);
+  }
+
+  .mml-mkt-phone-screen {
+    max-height: 16.75rem;
+  }
+
+  .mml-mkt-phone-img {
+    height: 16.75rem;
+  }
+
   .mml-mkt-sub {
-    max-width: min(100%, 64rem);
+    max-width: none;
   }
 
   .mml-mkt-stage {
