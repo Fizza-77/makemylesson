@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 function RoutesUnderline() {
   return (
     <svg
@@ -34,6 +38,7 @@ type CurriculumCard = {
   structure: string;
   structureClass: string;
   items: ListItem[];
+  previewCount?: number;
   more?: "navy" | "cyan";
   numTone?: "cyan" | "navy";
 };
@@ -93,10 +98,17 @@ const CARDS: CurriculumCard[] = [
     flagAlt: "Australia flag",
     structure: "/Australia.svg",
     structureClass: "mml-cc-structure--au",
+    previewCount: 3,
     items: [
       "New South Wales – Higher School Certificate (HSC)",
       "Victoria – Victorian Certificate of Education (VCE)",
-      "Queensland – Queensland Certificate",
+      "Queensland – Queensland Certificate of Education (QCE)",
+      "Western Australia – Western Australian Certificate of Education (WACE)",
+      "South Australia – South Australian Certificate of Education (SACE)",
+      "Tasmania – Tasmanian Certificate of Education (TCE)",
+      "Australian Capital Territory – ACT Senior Secondary Certificate (ACT SSC)",
+      "Northern Territory – Northern Territory Certificate of Education and Training (NTCET)",
+      { title: "National Assessments", detail: "NAPLAN" },
     ],
     more: "cyan",
   },
@@ -109,10 +121,16 @@ const CARDS: CurriculumCard[] = [
     flagAlt: "Canada flag",
     structure: "/Canada.svg",
     structureClass: "mml-cc-structure--ca",
+    previewCount: 3,
     items: [
       "Ontario – Ontario Secondary School Diploma (OSSD)",
       "British Columbia – Dogwood Diploma",
       "Alberta – Alberta High School Diploma",
+      "Québec – Diplôme d'études secondaires (DES)",
+      "Manitoba – Manitoba High School Diploma",
+      "Saskatchewan – Saskatchewan Grade 12 Diploma",
+      "Atlantic Provinces",
+      "Northern Territories",
     ],
     more: "cyan",
   },
@@ -121,18 +139,22 @@ const CARDS: CurriculumCard[] = [
 function CardList({
   items,
   numTone = "cyan",
+  startIndex = 0,
+  className = "",
 }: {
   items: ListItem[];
   numTone?: "cyan" | "navy";
+  startIndex?: number;
+  className?: string;
 }) {
   return (
-    <ol className={`mml-cc-list mml-cc-list--${numTone}`}>
+    <ol className={`mml-cc-list mml-cc-list--${numTone}${className ? ` ${className}` : ""}`}>
       {items.map((item, i) => {
         const isObj = typeof item === "object";
         return (
-          <li key={i} className="mml-cc-list-item">
+          <li key={startIndex + i} className="mml-cc-list-item">
             <span className="mml-cc-num" aria-hidden>
-              {i + 1}
+              {startIndex + i + 1}
             </span>
             <span className="mml-cc-list-body">
               {isObj ? (
@@ -152,6 +174,12 @@ function CardList({
 }
 
 export default function CurriculumCoverageSection() {
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+
+  const toggleCard = (id: string) => {
+    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
   return (
     <section className="mml-cc" id="curriculum" aria-labelledby="mml-cc-heading">
       <div className="mml-cc-inner">
@@ -172,43 +200,75 @@ export default function CurriculumCoverageSection() {
         </p>
 
         <div className="mml-cc-grid" role="list">
-          {CARDS.map((card) => (
-            <article
-              key={card.id}
-              className={`mml-cc-card mml-cc-card--${card.id} mml-cc-card--${card.tone}`}
-              role="listitem"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={card.structure}
-                alt=""
-                aria-hidden
-                className={`mml-cc-structure ${card.structureClass}`}
-              />
+          {CARDS.map((card) => {
+            const previewCount = card.previewCount ?? card.items.length;
+            const isExpanded = Boolean(expanded[card.id]);
+            const canExpand = Boolean(card.more) && card.items.length > previewCount;
+            const previewItems = canExpand
+              ? card.items.slice(0, previewCount)
+              : card.items;
+            const extraItems = canExpand ? card.items.slice(previewCount) : [];
 
-              <div className="mml-cc-card-top">
+            return (
+              <article
+                key={card.id}
+                className={`mml-cc-card mml-cc-card--${card.id} mml-cc-card--${card.tone}${
+                  isExpanded ? " mml-cc-card--expanded" : ""
+                }`}
+                role="listitem"
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={card.flag}
-                  alt={card.flagAlt}
-                  className="mml-cc-flag"
-                  width={48}
-                  height={32}
+                  src={card.structure}
+                  alt=""
+                  aria-hidden
+                  className={`mml-cc-structure ${card.structureClass}`}
                 />
-              </div>
 
-              <div className="mml-cc-card-body">
-                <h3 className="mml-cc-card-title">{card.title}</h3>
-                <p className="mml-cc-card-range">{card.range}</p>
-                <CardList items={card.items} numTone={card.numTone ?? "cyan"} />
-                {card.more ? (
-                  <p className={`mml-cc-more mml-cc-more--${card.more}`}>
-                    Read more....
-                  </p>
-                ) : null}
-              </div>
-            </article>
-          ))}
+                <div className="mml-cc-card-top">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={card.flag}
+                    alt={card.flagAlt}
+                    className="mml-cc-flag"
+                    width={48}
+                    height={32}
+                  />
+                </div>
+
+                <div className="mml-cc-card-body">
+                  <h3 className="mml-cc-card-title">{card.title}</h3>
+                  <p className="mml-cc-card-range">{card.range}</p>
+                  <CardList items={previewItems} numTone={card.numTone ?? "cyan"} />
+                  {extraItems.length > 0 ? (
+                    <div
+                      className={`mml-cc-more-panel${isExpanded ? " mml-cc-more-panel--open" : ""}`}
+                      aria-hidden={!isExpanded}
+                    >
+                      <div className="mml-cc-more-panel-inner">
+                        <CardList
+                          items={extraItems}
+                          numTone={card.numTone ?? "cyan"}
+                          startIndex={previewCount}
+                          className="mml-cc-list--extra"
+                        />
+                      </div>
+                    </div>
+                  ) : null}
+                  {canExpand ? (
+                    <button
+                      type="button"
+                      className={`mml-cc-more mml-cc-more--${card.more}`}
+                      aria-expanded={isExpanded}
+                      onClick={() => toggleCard(card.id)}
+                    >
+                      {isExpanded ? "Show less" : "Read more...."}
+                    </button>
+                  ) : null}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

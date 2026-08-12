@@ -1917,8 +1917,14 @@
 
 .mml-cc-more {
   margin: 1.1rem 0 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
   font-size: 0.9rem;
   font-weight: 600;
+  text-align: left;
+  cursor: pointer;
 }
 
 .mml-cc-more--navy {
@@ -1927,6 +1933,57 @@
 
 .mml-cc-more--cyan {
   color: #35bebc;
+}
+
+.mml-cc-more:hover,
+.mml-cc-more:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+.mml-cc-card--expanded {
+  z-index: 2;
+}
+
+.mml-cc-more-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mml-cc-more-panel--open {
+  grid-template-rows: 1fr;
+}
+
+.mml-cc-more-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mml-cc-more-panel--open .mml-cc-more-panel-inner {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.04s;
+}
+
+.mml-cc-list--extra {
+  margin-top: 0.65rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mml-cc-more-panel,
+  .mml-cc-more-panel-inner {
+    transition: none;
+  }
+
+  .mml-cc-more-panel-inner {
+    transform: none;
+  }
 }
 
 @media (max-width: 900px) {
