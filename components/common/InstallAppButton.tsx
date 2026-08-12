@@ -20,10 +20,13 @@ export function InstallAppButton({
   variant = "app",
   className,
   compact = false,
+  expanded = false,
 }: {
   variant?: Variant;
   className?: string;
   compact?: boolean;
+  /** Full-width control with visible label (e.g. mobile nav drawer). */
+  expanded?: boolean;
 }) {
   const { installed, platform, canPromptInstall, promptInstall } =
     usePwaInstall();
@@ -54,6 +57,7 @@ export function InstallAppButton({
 
   const marketing = variant === "marketing";
   const label = canPromptInstall ? "Install app" : "Download app";
+  const iconOnlyMobile = !compact && !marketing && !expanded;
 
   async function handleInstallClick() {
     setBusy(true);
@@ -77,7 +81,10 @@ export function InstallAppButton({
   }
 
   return (
-    <div ref={rootRef} className={cn("relative inline-flex", className)}>
+    <div
+      ref={rootRef}
+      className={cn("relative inline-flex", expanded && "w-full", className)}
+    >
       <button
         type="button"
         aria-haspopup="dialog"
@@ -91,12 +98,13 @@ export function InstallAppButton({
             ? "rounded-full border-[1.5px] border-[#35BEBC] bg-transparent px-3.5 py-2 text-[length:var(--site-nav-font-size,13px)] font-bold text-white hover:bg-[#35BEBC]/15"
             : "rounded-full border-[1.5px] border-[#1A1E3A] bg-white px-3.5 py-2 text-[length:var(--site-nav-font-size,13px)] font-bold text-[#1A1E3A] hover:bg-[#1A1E3A] hover:text-white",
           compact && "size-10 px-0",
-          !compact && !marketing && "max-sm:size-10 max-sm:px-0",
+          iconOnlyMobile && "max-sm:size-10 max-sm:px-0",
+          expanded && "h-auto min-h-11 w-full px-4 py-3",
         )}
       >
         <DownloadGlyph className="size-4 shrink-0" />
         {!compact ? (
-          <span className={cn(!marketing && "max-sm:sr-only")}>{label}</span>
+          <span className={cn(iconOnlyMobile && "max-sm:sr-only")}>{label}</span>
         ) : (
           <span className="sr-only">{label}</span>
         )}

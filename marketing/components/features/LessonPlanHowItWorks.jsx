@@ -51,7 +51,7 @@ export default function LessonPlanHowItWorks() {
       </p>
       <h2
         id="lesson-plan-hiw-heading"
-        className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+        className="max-w-full text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
       >
         Three choices.{' '}
         <span className="pricing-hero-underline pricing-hero-underline--pale relative inline-block">

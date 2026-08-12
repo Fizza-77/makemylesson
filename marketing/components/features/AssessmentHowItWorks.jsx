@@ -44,7 +44,7 @@ export default function AssessmentHowItWorks() {
             </p>
             <h2
               id="assessment-hiw-heading"
-              className="whitespace-nowrap text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A]"
+              className="max-w-full text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
             >
               Three choices. One{' '}
               <span className="pricing-hero-underline relative inline-block">assessment system.</span>
@@ -56,36 +56,36 @@ export default function AssessmentHowItWorks() {
           </p>
         </div>
 
-        <div className="mt-10 grid items-stretch gap-5 lg:mt-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6">
-          <div className="relative overflow-hidden rounded-[28px] bg-[#12162b] p-6 pb-14 sm:rounded-[36px] sm:p-8 sm:pb-16 lg:p-10 lg:pb-20">
+        <div className="mt-10 grid min-w-0 items-stretch gap-5 lg:mt-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6">
+          <div className="relative min-w-0 overflow-hidden rounded-[28px] bg-[#12162b] p-4 pb-12 sm:rounded-[36px] sm:p-8 sm:pb-16 lg:p-10 lg:pb-20">
             {/* Layered decorative shapes — behind content */}
             <div
-              className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-[40%] bg-[#35BEBC] sm:-right-12 sm:-top-16 sm:h-72 sm:w-72"
+              className="pointer-events-none absolute -right-20 -top-24 h-52 w-52 rounded-[40%] bg-[#35BEBC] sm:-right-12 sm:-top-16 sm:h-72 sm:w-72"
               aria-hidden
             />
             <div
-              className="pointer-events-none absolute -bottom-24 -left-20 h-56 w-56 rounded-[45%] bg-[#ade5df]/90 sm:-bottom-20 sm:-left-16 sm:h-64 sm:w-64"
+              className="pointer-events-none absolute -bottom-28 -left-24 h-48 w-48 rounded-[45%] bg-[#ade5df]/90 sm:-bottom-20 sm:-left-16 sm:h-64 sm:w-64"
               aria-hidden
             />
             <div
-              className="pointer-events-none absolute bottom-16 left-4 h-40 w-28 -rotate-[18deg] rounded-[28px] bg-[#35BEBC]/85 sm:bottom-20 sm:left-8 sm:h-48 sm:w-32"
+              className="pointer-events-none absolute bottom-14 left-2 hidden h-40 w-28 -rotate-[18deg] rounded-[28px] bg-[#35BEBC]/85 sm:bottom-20 sm:left-8 sm:block sm:h-48 sm:w-32"
               aria-hidden
             />
             <div
-              className="pointer-events-none absolute right-2 top-24 h-52 w-36 rotate-[12deg] rounded-[32px] bg-[#9fd9d4]/70 sm:right-6 sm:top-28 sm:h-60 sm:w-40"
+              className="pointer-events-none absolute right-0 top-20 hidden h-52 w-36 rotate-[12deg] rounded-[32px] bg-[#9fd9d4]/70 sm:right-6 sm:top-28 sm:block sm:h-60 sm:w-40"
               aria-hidden
             />
 
-            <div className="relative z-[1] mx-auto w-full max-w-none md:max-w-[480px] lg:max-w-[520px]">
+            <div className="relative z-[1] mx-auto w-full min-w-0 max-w-none md:max-w-[480px] lg:max-w-[520px]">
               {/* Cyan mark scheme — taller, tucked under paper; only top-left corner peeks */}
               <div
-                className="absolute bottom-8 left-6 z-0 flex h-[15.5rem] w-[13rem] -translate-x-[18%] translate-y-[12%] flex-col justify-start rounded-[20px] bg-[#35BEBC] px-3.5 py-3.5 shadow-[0_12px_28px_rgba(53,190,188,0.35)] sm:bottom-10 sm:left-8 sm:h-[17.5rem] sm:w-[14.5rem] sm:-translate-x-[14%] sm:translate-y-[10%] sm:rounded-[22px] sm:px-4 sm:py-4"
+                className="absolute bottom-5 left-3 z-0 flex h-[12.5rem] w-[10.25rem] -translate-x-[6%] translate-y-[10%] flex-col justify-start rounded-[18px] bg-[#35BEBC] px-3 py-3 shadow-[0_12px_28px_rgba(53,190,188,0.35)] sm:bottom-10 sm:left-8 sm:h-[17.5rem] sm:w-[14.5rem] sm:-translate-x-[14%] sm:translate-y-[10%] sm:rounded-[22px] sm:px-4 sm:py-4"
                 aria-hidden
               >
                 <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/90">
                   Generated with
                 </p>
-                <p className="mt-1 text-[15px] font-bold leading-none text-white sm:text-[17px]">
+                <p className="mt-1 text-[14px] font-bold leading-none text-white sm:text-[17px]">
                   Mark Scheme
                 </p>
                 <p className="mt-1.5 text-[10px] leading-snug text-white/85">
@@ -93,52 +93,52 @@ export default function AssessmentHowItWorks() {
                 </p>
               </div>
 
-              <div className="relative z-[1] rounded-[24px] bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.28)] sm:rounded-[28px] sm:p-5 lg:p-6">
-                <div className="flex items-center justify-between gap-3 px-1 pb-1 sm:px-1.5">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#1A1E3A] sm:text-[11px]">
+              <div className="relative z-[1] min-w-0 rounded-[22px] bg-white p-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.28)] sm:rounded-[28px] sm:p-5 lg:p-6">
+                <div className="flex items-center justify-between gap-2 px-0.5 pb-1 sm:gap-3 sm:px-1.5">
+                  <p className="min-w-0 text-[10px] font-bold uppercase tracking-[0.12em] text-[#1A1E3A] sm:text-[11px]">
                     Assessment paper
                   </p>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#1A1E3A] sm:text-[11px]">
+                  <p className="shrink-0 text-[10px] font-bold uppercase tracking-[0.12em] text-[#1A1E3A] sm:text-[11px]">
                     30 marks
                   </p>
                 </div>
 
-                <div className="mt-4 space-y-3 sm:mt-5 sm:space-y-3.5">
-                  <div className="relative overflow-hidden rounded-[18px] bg-[#EAF5F6] p-3.5 sm:rounded-[20px] sm:p-4">
-                    <div className="pr-[5.5rem] sm:pr-28">
+                <div className="mt-3.5 space-y-2.5 sm:mt-5 sm:space-y-3.5">
+                  <div className="relative overflow-hidden rounded-[16px] bg-[#EAF5F6] p-3 sm:rounded-[20px] sm:p-4">
+                    <div className="pr-14 sm:pr-28">
                       <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#4B5068]">
                         01 — Multiple choice
                       </p>
-                      <p className="mt-2 text-[13px] font-bold leading-snug text-[#1A1E3A] sm:text-[14px]">
+                      <p className="mt-2 text-[12.5px] font-bold leading-snug text-[#1A1E3A] sm:text-[14px]">
                         What primarily drives evaporation?
                       </p>
                       <p className="mt-2 text-[11px] font-medium text-[#4B5068]">1 mark</p>
                     </div>
-                    <div className="absolute bottom-2.5 right-2.5 w-[4.5rem] sm:w-24">
+                    <div className="absolute bottom-2 right-2 w-12 sm:bottom-2.5 sm:right-2.5 sm:w-24">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src="/evaporation.svg"
                         alt=""
-                        className="h-14 w-full object-contain object-right-bottom sm:h-[4.5rem]"
+                        className="h-11 w-full object-contain object-right-bottom sm:h-[4.5rem]"
                       />
                     </div>
                   </div>
 
-                  <div className="rounded-[18px] bg-[#9fd9d4] p-3.5 sm:rounded-[20px] sm:p-4">
+                  <div className="rounded-[16px] bg-[#9fd9d4] p-3 sm:rounded-[20px] sm:p-4">
                     <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#1A1E3A]/55">
                       02 — Short answer
                     </p>
-                    <p className="mt-2 text-[13px] font-bold leading-snug text-[#1A1E3A] sm:text-[14px]">
+                    <p className="mt-2 text-[12.5px] font-bold leading-snug text-[#1A1E3A] sm:text-[14px]">
                       State two changes of state involved in cloud formation.
                     </p>
                     <p className="mt-2 text-[11px] font-medium text-[#1A1E3A]/55">2 marks</p>
                   </div>
 
-                  <div className="rounded-[18px] bg-[#1A1E3A] p-3.5 sm:rounded-[20px] sm:p-4">
+                  <div className="rounded-[16px] bg-[#1A1E3A] p-3 sm:rounded-[20px] sm:p-4">
                     <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/55">
                       03 — Extended response
                     </p>
-                    <p className="mt-2 text-[13px] font-bold leading-snug text-white sm:text-[14px]">
+                    <p className="mt-2 text-[12.5px] font-bold leading-snug text-white sm:text-[14px]">
                       Explain the effect of prolonged drought on the water cycle.
                     </p>
                     <p className="mt-2 text-[11px] font-medium text-white/70">4 marks</p>
@@ -148,7 +148,7 @@ export default function AssessmentHowItWorks() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 sm:gap-4">
+          <div className="flex min-w-0 flex-col gap-3 sm:gap-4">
             {STEPS.map((step) => {
               const teal = step.tone === 'teal'
               return (
@@ -156,24 +156,26 @@ export default function AssessmentHowItWorks() {
                   key={step.n}
                   className={
                     teal
-                      ? 'relative rounded-[24px] bg-[#ade5df] p-5 text-[#1A1E3A] sm:p-6'
-                      : 'relative rounded-[24px] bg-[#1A1E3A] p-5 text-white sm:p-6'
+                      ? 'relative min-w-0 rounded-[24px] bg-[#ade5df] p-5 text-[#1A1E3A] sm:p-6'
+                      : 'relative min-w-0 rounded-[24px] bg-[#1A1E3A] p-5 text-white sm:p-6'
                   }
                 >
-                  {step.badge ? (
-                    <span className="absolute right-4 top-4 rounded-full border border-[#1A1E3A] bg-transparent px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1A1E3A]">
-                      {step.badge}
+                  <div className="flex items-start justify-between gap-3">
+                    <span
+                      className={
+                        teal
+                          ? 'inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1A1E3A] text-[12px] font-bold text-white'
+                          : 'inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#35BEBC] text-[12px] font-bold text-[#1A1E3A]'
+                      }
+                    >
+                      {step.n}
                     </span>
-                  ) : null}
-                  <span
-                    className={
-                      teal
-                        ? 'inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#1A1E3A] text-[12px] font-bold text-white'
-                        : 'inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#35BEBC] text-[12px] font-bold text-[#1A1E3A]'
-                    }
-                  >
-                    {step.n}
-                  </span>
+                    {step.badge ? (
+                      <span className="shrink-0 rounded-full border border-[#1A1E3A] bg-transparent px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1A1E3A]">
+                        {step.badge}
+                      </span>
+                    ) : null}
+                  </div>
                   <p
                     className={
                       teal
@@ -183,7 +185,7 @@ export default function AssessmentHowItWorks() {
                   >
                     {step.label}
                   </p>
-                  <h3 className="mt-1.5 whitespace-nowrap text-[1.15rem] font-normal tracking-tight sm:text-[1.25rem]">
+                  <h3 className="mt-1.5 max-w-full text-[1.1rem] font-normal leading-snug tracking-tight sm:text-[1.25rem]">
                     {step.title}
                   </h3>
                   <p

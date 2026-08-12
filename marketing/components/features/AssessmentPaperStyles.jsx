@@ -93,7 +93,7 @@ export default function AssessmentPaperStyles() {
             </p>
             <h2
               id="paper-styles-heading"
-              className="whitespace-nowrap text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-white"
+              className="max-w-full text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-white md:whitespace-nowrap"
             >
               Pick a style. Watch the paper{' '}
               <span className="pricing-hero-underline relative inline-block">re-balance itself.</span>

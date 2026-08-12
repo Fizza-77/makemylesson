@@ -19,7 +19,7 @@ export default function LessonPlanCognitiveBalance() {
         </p>
         <h2
           id="cognitive-balance-heading"
-          className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+          className="max-w-full text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
         >
           Bloom&apos;s Taxonomy,{' '}
           <span className="pricing-hero-underline relative inline-block">actually balanced.</span>

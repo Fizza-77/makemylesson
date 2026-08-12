@@ -32,7 +32,7 @@ export default function SlideDeckSpeakerNotes() {
           </p>
           <h2
             id="speaker-notes-heading"
-            className="whitespace-nowrap text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A]"
+            className="max-w-full text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
           >
             What the class sees.{' '}
             <span className="pricing-hero-underline relative inline-block">What you see.</span>

@@ -38,7 +38,7 @@ export default function ActivityNextStages() {
         </p>
         <h2
           id="activity-next-stages-heading"
-          className="whitespace-nowrap text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+          className="max-w-full text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
         >
           Your activity connects to{' '}
           <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block">three more stages.</span>

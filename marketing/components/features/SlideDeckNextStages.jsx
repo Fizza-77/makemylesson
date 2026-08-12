@@ -38,7 +38,7 @@ export default function SlideDeckNextStages() {
         </p>
         <h2
           id="slide-next-stages-heading"
-          className="whitespace-nowrap text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A]"
+          className="max-w-full text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
         >
           Your deck connects to{' '}
           <span className="pricing-hero-underline relative inline-block">three more stages.</span>

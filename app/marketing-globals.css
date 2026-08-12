@@ -396,6 +396,9 @@
 
 #site-nav .site-nav-drawer-cta {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.625rem;
   margin-top: 0.5rem;
   padding-top: 0.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -403,6 +406,10 @@
 
 #site-nav.site-nav--light .site-nav-drawer-cta {
   border-top-color: rgba(26, 30, 58, 0.08);
+}
+
+#site-nav .site-nav-drawer-cta .site-nav-drawer-install {
+  width: 100%;
 }
 
 #site-nav .site-nav-drawer-cta .site-nav-cta {
@@ -8208,8 +8215,8 @@ body:has(.landing-page) .cookie-consent-close {
 
 @media (max-width: 720px) {
   .cta-card-pad {
-    padding-left: max(1.25rem, 0.5in);
-    padding-right: max(1.25rem, 0.5in);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 }
 

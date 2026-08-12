@@ -169,7 +169,8 @@ export default function Navbar({ theme = 'home' }) {
           <div className="site-nav-drawer-cta">
             <InstallAppButton
               variant={isLight ? 'app' : 'marketing'}
-              className="w-full [&_button]:w-full"
+              expanded
+              className="site-nav-drawer-install"
             />
             <Link
               href={MML_APP.signUp || MML_APP.stage1}

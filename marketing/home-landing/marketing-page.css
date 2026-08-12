@@ -594,7 +594,7 @@
   margin-top: 2.25rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5in;
+  gap: 0.85rem;
   width: 100%;
   text-align: left;
 }
@@ -815,12 +815,12 @@
 }
 
 .mml-ba-arrow {
-  display: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  display: flex;
+  position: relative;
   z-index: 3;
-  transform: translate(-50%, -50%);
+  /* Stacked cards: sit in the gap, point down */
+  justify-self: center;
+  transform: rotate(90deg);
   width: 2.6rem;
   height: 2.6rem;
   align-items: center;
@@ -3649,8 +3649,10 @@
 
   .mml-ba-arrow {
     display: flex;
+    position: absolute;
     left: 50%;
     top: 50%;
+    justify-self: auto;
     transform: translate(-50%, -50%);
   }
 
