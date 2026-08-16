@@ -122,7 +122,11 @@ export function localizeAccessPlans(currency) {
   })
 }
 
-export function AccessPlanCard({ plan, onCheckout, checkoutLoading }) {
+export function AccessPlanCard({
+  plan,
+  onCheckout = undefined,
+  checkoutLoading = false,
+}) {
   const ctaClass = 'mml-pr-cta'
   const ctaLabel = checkoutLoading ? 'Redirecting…' : plan.cta
 
