@@ -37,7 +37,7 @@ export default function SlideDeckSpeakerNotes() {
             What the class sees.{' '}
             <span className="pricing-hero-underline relative inline-block">What you see.</span>
           </h2>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/55 sm:text-base">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-black sm:text-base">
             Every slide ships with presenter notes already written — flip the switch to reveal them.
           </p>
         </div>
@@ -50,7 +50,7 @@ export default function SlideDeckSpeakerNotes() {
                 onClick={() => setView('class')}
                 className={cn(
                   'rounded-full px-4 py-2 text-[13px] font-semibold transition',
-                  isClass ? 'bg-[#35BEBC] text-white' : 'text-white/55 hover:text-white/80',
+                  isClass ? 'bg-[#35BEBC] text-white' : 'text-white hover:text-white',
                 )}
               >
                 Class view
@@ -60,13 +60,13 @@ export default function SlideDeckSpeakerNotes() {
                 onClick={() => setView('presenter')}
                 className={cn(
                   'rounded-full px-4 py-2 text-[13px] font-semibold transition',
-                  !isClass ? 'bg-[#35BEBC] text-white' : 'text-white/55 hover:text-white/80',
+                  !isClass ? 'bg-[#35BEBC] text-white' : 'text-white hover:text-white',
                 )}
               >
                 Presenter view
               </button>
             </div>
-            <p className="mt-3 text-center text-[12px] text-white/45">
+            <p className="mt-3 text-center text-[12px] text-white">
               {isClass
                 ? 'Class view — clean slide, no clutter.'
                 : 'Presenter view — your notes stay off the board.'}
@@ -92,7 +92,7 @@ export default function SlideDeckSpeakerNotes() {
             </ul>
 
             {!isClass ? (
-              <div className="mt-6 rounded-2xl bg-[#1A1E3A]/90 px-4 py-3 text-[13px] leading-relaxed text-white/90">
+              <div className="mt-6 rounded-2xl bg-[#1A1E3A]/90 px-4 py-3 text-[13px] leading-relaxed text-white">
                 <span className="font-semibold text-[#35BEBC]">Speaker note · </span>
                 {PRESENTER_NOTE}
               </div>

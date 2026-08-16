@@ -16,12 +16,27 @@ function slidesForDuration(minutes) {
 }
 
 const EXPORTS = [
-  'PowerPoint (PPTX)',
-  'Google Slides',
-  'PDF',
-  'Google Classroom',
-  'Microsoft Teams',
+  { id: 'pptx', label: 'PowerPoint (PPTX)', color: '#C43E1C', letter: 'P' },
+  { id: 'gslides', label: 'Google Slides', color: '#F4B400', letter: 'S' },
+  { id: 'pdf', label: 'PDF', color: '#E11D48', letter: 'P' },
+  { id: 'gclass', label: 'Google Classroom', color: '#EA580C', letter: 'C' },
+  { id: 'teams', label: 'Microsoft Teams', color: '#5B5FC7', letter: 'T' },
 ]
+
+function ExportPill({ item }) {
+  return (
+    <div className="inline-flex shrink-0 items-center gap-2.5 rounded-2xl bg-white px-3.5 py-2.5 shadow-[0_8px_24px_rgba(26,30,58,0.08)]">
+      <span
+        className="inline-flex h-7 w-7 items-center justify-center rounded-md text-[12px] font-bold text-white"
+        style={{ backgroundColor: item.color }}
+        aria-hidden
+      >
+        {item.letter}
+      </span>
+      <span className="text-[13px] font-semibold text-[#1A1E3A] sm:text-[14px]">{item.label}</span>
+    </div>
+  )
+}
 
 export default function SlideDeckDuration() {
   const [minutes, setMinutes] = useState(45)
@@ -54,7 +69,7 @@ export default function SlideDeckDuration() {
 
           <div className="rounded-[28px] bg-[#1A1E3A] p-5 shadow-[0_20px_50px_rgba(26,30,58,0.18)] sm:rounded-[32px] sm:p-7">
             <div className="flex items-baseline justify-between gap-3">
-              <p className="text-[14px] font-medium text-white/70">Lesson duration</p>
+              <p className="text-[14px] font-medium text-white">Lesson duration</p>
               <p className="text-[18px] font-bold text-[#35BEBC]">{minutes} min</p>
             </div>
 
@@ -77,7 +92,7 @@ export default function SlideDeckDuration() {
                 <span
                   key={i}
                   className={cn(
-                    'inline-flex h-11 w-full items-center justify-center rounded-xl bg-white/10 text-[14px] font-semibold text-white/80 sm:h-12 sm:text-[15px]',
+                    'inline-flex h-11 w-full items-center justify-center rounded-xl bg-white/10 text-[14px] font-semibold text-white sm:h-12 sm:text-[15px]',
                   )}
                 >
                   {i + 1}
@@ -85,7 +100,7 @@ export default function SlideDeckDuration() {
               ))}
             </div>
 
-            <p className="mt-5 text-[13px] leading-relaxed text-white/55 sm:text-[14px]">
+            <p className="mt-5 text-[13px] leading-relaxed text-white sm:text-[14px]">
               A{' '}
               <span className="font-semibold text-[#35BEBC]">{minutes}-minute</span> lesson generates{' '}
               <span className="font-semibold text-[#35BEBC]">{slideCount} slides</span> — enough to
@@ -108,14 +123,9 @@ export default function SlideDeckDuration() {
             </p>
           </div>
 
-          <div className="flex w-full flex-nowrap gap-2.5 overflow-x-auto lg:justify-end">
-            {EXPORTS.map((label) => (
-              <span
-                key={label}
-                className="inline-flex shrink-0 rounded-full bg-[#1A1E3A] px-4 py-2.5 text-[12px] font-semibold text-white sm:text-[13px]"
-              >
-                {label}
-              </span>
+          <div className="flex w-full flex-wrap items-center gap-2.5 lg:justify-end">
+            {EXPORTS.map((item) => (
+              <ExportPill key={item.id} item={item} />
             ))}
           </div>
         </div>

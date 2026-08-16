@@ -11,8 +11,8 @@ export default function LessonPlanCta() {
         >
           Your next plan is one topic away.
         </h2>
-        <p className="cta-card-copy mt-4 text-[14px] leading-relaxed text-[#1A1E3A]/45 sm:text-[15px]">
-          10 free credits · one credit per plan · no card required
+        <p className="cta-card-copy mt-4 text-[14px] leading-relaxed text-black sm:text-[15px]">
+          5 free credits · one credit per plan · no card required
         </p>
         <Link
           href={MML_APP.signUp || MML_APP.stage1}

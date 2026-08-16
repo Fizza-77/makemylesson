@@ -104,7 +104,7 @@ function FaqRow({ item, isOpen, onToggle }) {
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="space-y-2.5 rounded-b-[24px] bg-white px-5 pb-4 text-[13px] leading-relaxed text-[#4B5068]">
+            <div className="space-y-2.5 rounded-b-[24px] bg-white px-5 pb-4 text-[13px] leading-relaxed text-black">
               {paragraphs.map((p, i) => (
                 <p key={i} className="whitespace-pre-wrap">
                   {p.trim()}
@@ -224,7 +224,7 @@ export default function FaqPage() {
             </div>
 
             <div className="min-w-0 rounded-[28px] bg-[#1A1E3A] p-5 shadow-[0_20px_50px_rgba(26,30,58,0.2)] sm:rounded-[32px] sm:p-7">
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white">
                 Search the help centre
               </p>
 
@@ -241,12 +241,12 @@ export default function FaqPage() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Type to search – try 'credits', 'IGCSE', or 'export'..."
-                    className="w-full rounded-2xl border-0 bg-white py-3.5 pl-11 pr-4 text-[14px] text-[#1A1E3A] outline-none ring-0 placeholder:text-[#4B5068]/55 focus:ring-2 focus:ring-[#35BEBC]/40"
+                    className="w-full rounded-2xl border-0 bg-white py-3.5 pl-11 pr-4 text-[14px] text-[#1A1E3A] outline-none ring-0 placeholder:text-black/55 focus:ring-2 focus:ring-[#35BEBC]/40"
                   />
                 </span>
               </label>
 
-              <p className="mt-3 text-[13px] leading-relaxed text-white/70 sm:text-[14px]">
+              <p className="mt-3 text-[13px] leading-relaxed text-white sm:text-[14px]">
                 <span className="font-semibold text-[#35BEBC]">{filteredItems.length} questions</span>{' '}
                 across {topicCount} topics – start typing and the list filters itself.
               </p>
@@ -281,7 +281,7 @@ export default function FaqPage() {
       <section className="mt-8 bg-[#1A1E3A] py-12 sm:mt-10 sm:py-14 lg:py-16" aria-label="FAQ topics">
         <div className="faq-topics-shell">
           {topicCards.length === 0 ? (
-            <p className="rounded-[24px] bg-white/5 px-5 py-10 text-center text-[15px] text-white/60">
+            <p className="rounded-[24px] bg-white/5 px-5 py-10 text-center text-[15px] text-white">
               No questions match that search. Try another keyword or reset the topic filter.
             </p>
           ) : (
@@ -310,7 +310,7 @@ export default function FaqPage() {
               >
                 Didn&apos;t find your answer?
               </h2>
-              <p className="mt-1.5 text-[14px] leading-relaxed text-[#4B5068] sm:text-[15px]">
+              <p className="mt-1.5 text-[14px] leading-relaxed text-black sm:text-[15px]">
                 Real humans reply — usually within one school day.
               </p>
             </div>

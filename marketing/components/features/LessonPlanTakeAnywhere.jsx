@@ -33,23 +33,21 @@ export default function LessonPlanTakeAnywhere() {
       className="bg-[#ade5df] py-14 sm:py-16 lg:py-20"
       aria-labelledby="take-anywhere-heading"
     >
-      <div className="fp-shell flex flex-col items-start gap-8 px-4 sm:px-6 md:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
-        <div className="max-w-sm shrink-0 lg:max-w-xs">
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1E9A98]">
-            Take it anywhere
-          </p>
-          <h2
-            id="take-anywhere-heading"
-            className="text-[clamp(1.75rem,3.4vw,2.6rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
-          >
-            Yours to edit, print, and{' '}
-            <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
-              share.
-            </span>
-          </h2>
-        </div>
+      <div className="fp-shell flex flex-col items-center px-4 text-center sm:px-6 md:px-8">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
+          Take it anywhere
+        </p>
+        <h2
+          id="take-anywhere-heading"
+          className="mx-auto w-max max-w-full text-[clamp(1.5rem,4.2vw,2.6rem)] font-bold leading-[1.15] tracking-tight text-[#1A1E3A] sm:whitespace-nowrap"
+        >
+          <span className="block sm:inline">Yours to edit, print, and</span>{' '}
+          <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block">
+            share.
+          </span>
+        </h2>
 
-        <div className="flex w-full flex-wrap gap-3 lg:w-auto lg:flex-nowrap lg:justify-end">
+        <div className="mt-8 flex w-full flex-wrap items-center justify-center gap-3 sm:mt-10">
           {EXPORTS.map((item) => (
             <ExportPill key={item.id} item={item} />
           ))}

@@ -40,7 +40,7 @@
   margin: 1.25rem 0 0;
   font-size: 0.875rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.88);
+  color: #ffffff;
 }
 
 .legal-article-meta span {
@@ -59,7 +59,7 @@
   max-width: none;
   font-size: clamp(0.9375rem, 0.2vw + 0.85rem, 1.0625rem);
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
 }
 
 .legal-section {
@@ -82,7 +82,7 @@
   font-size: clamp(1rem, 0.35vw + 0.9rem, 1.125rem);
   font-weight: 600;
   line-height: 1.35;
-  color: rgba(255, 255, 255, 0.96);
+  color: #ffffff;
 }
 
 .legal-article-body p {

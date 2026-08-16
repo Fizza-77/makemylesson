@@ -32,7 +32,7 @@ export default function AssessmentStageHero() {
             </span>
           </h1>
 
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/80 sm:text-base">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-black sm:text-base">
             Generate the assessment paper and mark scheme together — balanced across Bloom&apos;s
             levels, written in curriculum-aware command language, and matched to what the lesson
             actually taught.
@@ -53,17 +53,17 @@ export default function AssessmentStageHero() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-medium text-[#1A1E3A]/55">
-            <span className="text-[#1E9A98]">★★★★★</span>
+          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-medium text-black">
+            <span className="text-[#EAB308]">★★★★★</span>
             <span>Rated by educators</span>
-            <span className="text-[#1A1E3A]/25" aria-hidden>
+            <span className="text-black" aria-hidden>
               ·
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Globe className="h-3.5 w-3.5" aria-hidden strokeWidth={2} />
               71 curriculum routes
             </span>
-            <span className="text-[#1A1E3A]/25" aria-hidden>
+            <span className="text-black" aria-hidden>
               ·
             </span>
             <span>Paper + scheme generated together</span>
@@ -77,7 +77,7 @@ export default function AssessmentStageHero() {
               <span className="h-2.5 w-2.5 rounded-full bg-[#35BEBC]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#9ddad4]" />
             </div>
-            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-white/75">
+            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
               Generating assessment · The Water Cycle · Year 7
             </p>
           </div>
@@ -92,12 +92,12 @@ export default function AssessmentStageHero() {
                 <div className="rounded-2xl bg-[#EAF5F6] px-3.5 py-3">
                   <div className="flex items-baseline justify-between gap-2">
                     <p className="text-[12px] font-bold text-[#35BEBC]">Multiple choice</p>
-                    <p className="shrink-0 text-[11px] font-medium text-[#4B5068]">1 mark</p>
+                    <p className="shrink-0 text-[11px] font-medium text-black">1 mark</p>
                   </div>
                   <p className="mt-1.5 text-[12px] leading-snug text-[#1A1E3A]">
                     What primarily drives the water cycle?
                   </p>
-                  <ul className="mt-2.5 space-y-1.5 text-[11px] text-[#4B5068]">
+                  <ul className="mt-2.5 space-y-1.5 text-[11px] text-black">
                     {['Gravity alone', 'Solar energy', 'Wind pressure'].map((opt) => (
                       <li key={opt} className="flex items-center gap-2">
                         <span
@@ -113,7 +113,7 @@ export default function AssessmentStageHero() {
                 <div className="rounded-2xl bg-[#EAF5F6] px-3.5 py-3">
                   <div className="flex items-baseline justify-between gap-2">
                     <p className="text-[12px] font-bold text-[#35BEBC]">Short answer</p>
-                    <p className="shrink-0 text-[11px] font-medium text-[#4B5068]">2 marks</p>
+                    <p className="shrink-0 text-[11px] font-medium text-black">2 marks</p>
                   </div>
                   <p className="mt-1.5 text-[12px] leading-snug text-[#1A1E3A]">
                     State the two changes of state involved in cloud formation.
@@ -123,7 +123,7 @@ export default function AssessmentStageHero() {
                 <div className="rounded-2xl bg-[#EAF5F6] px-3.5 py-3">
                   <div className="flex items-baseline justify-between gap-2">
                     <p className="text-[12px] font-bold text-[#35BEBC]">Extended response</p>
-                    <p className="shrink-0 text-[11px] font-medium text-[#4B5068]">4 marks</p>
+                    <p className="shrink-0 text-[11px] font-medium text-black">4 marks</p>
                   </div>
                   <p className="mt-1.5 text-[12px] leading-snug text-[#1A1E3A]">
                     Explain how the water cycle would change during a prolonged drought.
@@ -140,21 +140,21 @@ export default function AssessmentStageHero() {
               <div className="mt-3 space-y-2.5">
                 <div className="rounded-2xl border border-[#35BEBC]/45 bg-[#EAF5F6] px-3.5 py-3">
                   <p className="text-[12px] font-bold text-[#1A1E3A]">B — Solar energy · 1 mark</p>
-                  <p className="mt-1.5 text-[11px] leading-snug text-[#4B5068]">
+                  <p className="mt-1.5 text-[11px] leading-snug text-black">
                     Distractor note: &apos;gravity&apos; tests a common misconception.
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-[#35BEBC]/45 bg-[#EAF5F6] px-3.5 py-3">
                   <p className="text-[12px] font-bold text-[#1A1E3A]">2 × 1 mark</p>
-                  <p className="mt-1.5 text-[11px] leading-snug text-[#4B5068]">
+                  <p className="mt-1.5 text-[11px] leading-snug text-black">
                     Evaporation (1) and condensation (1), either order.
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-[#35BEBC]/45 bg-[#EAF5F6] px-3.5 py-3">
                   <p className="text-[12px] font-bold text-[#1A1E3A]">Level-marked · 4 marks</p>
-                  <p className="mt-1.5 text-[11px] leading-snug text-[#4B5068]">
+                  <p className="mt-1.5 text-[11px] leading-snug text-black">
                     L2 (3–4): mechanism + two linked effects. L1 (1–2): one effect without mechanism.
                   </p>
                 </div>
@@ -162,7 +162,7 @@ export default function AssessmentStageHero() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-2 bg-[#1A1E3A] px-4 py-2.5 text-[11px] text-white/80">
+          <div className="flex flex-wrap items-center justify-between gap-2 bg-[#1A1E3A] px-4 py-2.5 text-[11px] text-white">
             <span>Paper assembled · 3 question types</span>
             <span className="inline-flex items-center gap-1.5">
               Total:{' '}

@@ -82,28 +82,24 @@ export default function AssessmentPaperStyles() {
       aria-labelledby="paper-styles-heading"
     >
       <div className="fp-shell-md px-4 sm:px-6 md:px-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <div>
-            <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
-              <span className="flex items-center gap-1" aria-hidden>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
-                <span className="h-1.5 w-1.5 rounded-full bg-white" />
-              </span>
-              Paper styles
-            </p>
-            <h2
-              id="paper-styles-heading"
-              className="max-w-full text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-white md:whitespace-nowrap"
-            >
-              Pick a style. Watch the paper{' '}
-              <span className="pricing-hero-underline relative inline-block">re-balance itself.</span>
-            </h2>
-          </div>
-          <p className="max-w-xs text-[14px] leading-relaxed text-white/45 sm:text-[15px] lg:pb-1 lg:text-right">
-            Each paper style carries its own question count and Bloom weighting. Adjust only when you
-            need to.
-          </p>
-        </div>
+        <p className="mb-3 flex items-center justify-center gap-2 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
+          <span className="flex items-center gap-1" aria-hidden>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white" />
+          </span>
+          Paper styles
+        </p>
+        <h2
+          id="paper-styles-heading"
+          className="max-w-full text-center text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-white md:whitespace-nowrap"
+        >
+          Pick a style. Watch the paper{' '}
+          <span className="pricing-hero-underline relative inline-block">re-balance itself.</span>
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-center text-[14px] leading-relaxed text-white sm:text-[15px]">
+          Each paper style carries its own question count and Bloom weighting. Adjust only when you
+          need to.
+        </p>
 
         <div className="mt-10 grid gap-5 lg:mt-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-6">
           <ul className="flex flex-col gap-3">
@@ -126,7 +122,7 @@ export default function AssessmentPaperStyles() {
                       <span
                         className={cn(
                           'mt-1 block text-[12px] sm:text-[13px]',
-                          on ? 'text-white/85' : 'text-white/45',
+                          on ? 'text-white' : 'text-white',
                         )}
                       >
                         {style.blurb}
@@ -135,7 +131,7 @@ export default function AssessmentPaperStyles() {
                     <span
                       className={cn(
                         'shrink-0 text-[13px] font-semibold',
-                        on ? 'text-white' : 'text-white/55',
+                        on ? 'text-white' : 'text-white',
                       )}
                     >
                       {style.duration}
@@ -154,7 +150,7 @@ export default function AssessmentPaperStyles() {
 
             <div className="relative z-[1] flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="text-[1.15rem] font-bold text-white sm:text-[1.25rem]">{active.title}</h3>
-              <p className="text-[13px] font-semibold text-white/70 sm:text-[14px]">
+              <p className="text-[13px] font-semibold text-white sm:text-[14px]">
                 {active.questions} questions · {active.marks} marks
               </p>
             </div>
@@ -162,19 +158,19 @@ export default function AssessmentPaperStyles() {
             <ul className="relative z-[1] mt-6 space-y-3.5">
               {active.bloom.map((row) => (
                 <li key={row.label} className="grid grid-cols-[6.5rem_1fr_2.75rem] items-center gap-3 sm:grid-cols-[7.5rem_1fr_3rem]">
-                  <span className="text-[13px] font-medium text-white/80">{row.label}</span>
+                  <span className="text-[13px] font-medium text-white">{row.label}</span>
                   <div className="h-2.5 overflow-hidden rounded-full bg-white/10">
                     <div
                       className={cn('h-full rounded-full', BAR_CLASS[row.tone])}
                       style={{ width: `${row.pct}%` }}
                     />
                   </div>
-                  <span className="text-right text-[13px] font-semibold text-white/70">{row.pct}%</span>
+                  <span className="text-right text-[13px] font-semibold text-white">{row.pct}%</span>
                 </li>
               ))}
             </ul>
 
-            <p className="relative z-[1] mt-7 rounded-2xl bg-white/10 px-4 py-3 text-[13px] leading-relaxed text-white/70 backdrop-blur-sm sm:text-[14px]">
+            <p className="relative z-[1] mt-7 rounded-2xl bg-white/10 px-4 py-3 text-[13px] leading-relaxed text-white backdrop-blur-sm sm:text-[14px]">
               {active.note}
             </p>
           </div>

@@ -1,9 +1,11 @@
 "use client";
 
 /**
- * Module-level PWA install capture.
+ * Module-level PWA install helpers.
+ *
  * Chrome fires `beforeinstallprompt` once, often before React hydrates.
- * Storing it here prevents the event from being lost.
+ * We only call `preventDefault()` while custom install UI is mounted
+ * (ref-counted). Otherwise the browser keeps its native install UI.
  */
 
 export type BeforeInstallPromptEvent = Event & {
@@ -15,6 +17,7 @@ type Listener = () => void;
 
 let deferredPrompt: BeforeInstallPromptEvent | null = null;
 let installed = false;
+let captureRefCount = 0;
 const listeners = new Set<Listener>();
 
 function notify() {
@@ -47,6 +50,9 @@ function ensureInstalledFlag() {
 }
 
 function onBeforeInstallPrompt(e: Event) {
+  // Without preventDefault, Chromium can show its own install UI.
+  // Only suppress + stash the event while custom install controls are active.
+  if (captureRefCount <= 0) return;
   e.preventDefault();
   deferredPrompt = e as BeforeInstallPromptEvent;
   notify();
@@ -67,6 +73,23 @@ export function wirePwaInstallListeners() {
   ensureInstalledFlag();
   window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
   window.addEventListener("appinstalled", onAppInstalled);
+}
+
+/**
+ * Opt into deferred `beforeinstallprompt` capture for custom install UI.
+ * Ref-counted so multiple controls can mount safely.
+ */
+export function acquirePwaInstallCapture() {
+  wirePwaInstallListeners();
+  captureRefCount += 1;
+}
+
+export function releasePwaInstallCapture() {
+  captureRefCount = Math.max(0, captureRefCount - 1);
+  if (captureRefCount === 0) {
+    deferredPrompt = null;
+    notify();
+  }
 }
 
 export function subscribePwaInstall(listener: Listener): () => void {

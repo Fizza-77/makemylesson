@@ -50,7 +50,7 @@ export default function LessonPlanStageHero() {
         aria-hidden
       />
 
-      <div className="relative z-[1] grid items-center gap-10 px-6 py-10 sm:px-8 sm:py-12 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:px-12 lg:py-14">
+      <div className="relative z-[1] grid items-center gap-10 px-6 py-[1cm] sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:px-12">
         <div>
           <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
             <FileText className="h-3.5 w-3.5 text-[#1A1E3A]" aria-hidden strokeWidth={2.25} />
@@ -67,7 +67,7 @@ export default function LessonPlanStageHero() {
             </span>
           </h1>
 
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/80 sm:text-base">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-black sm:text-base">
             Choose your curriculum route, grade, subject, and topic. Get a standards-aligned plan with
             objectives, timings, differentiation, and Bloom&apos;s balance — in under 30 seconds.
           </p>
@@ -87,16 +87,18 @@ export default function LessonPlanStageHero() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-medium text-[#1A1E3A]/55">
-            <span>★★★★★ Rated by educators</span>
-            <span className="text-[#1A1E3A]/25" aria-hidden>
+          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-medium text-black">
+            <span>
+              <span className="text-[#EAB308]">★★★★★</span> Rated by educators
+            </span>
+            <span className="text-black" aria-hidden>
               ·
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Globe className="h-3.5 w-3.5" aria-hidden strokeWidth={2} />
               71 curriculum routes
             </span>
-            <span className="text-[#1A1E3A]/25" aria-hidden>
+            <span className="text-black" aria-hidden>
               ·
             </span>
             <span>1 credit per plan</span>
@@ -110,7 +112,7 @@ export default function LessonPlanStageHero() {
               <span className="h-2.5 w-2.5 rounded-full bg-[#1E9A98]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#74FFFD]" />
             </div>
-            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-white/75">
+            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
               Generating lesson plan...
             </p>
           </div>
@@ -119,7 +121,7 @@ export default function LessonPlanStageHero() {
             <h2 className="text-[17px] font-bold tracking-tight text-[#1A1E3A] sm:text-[18px]">
               The Water Cycle — 45 min
             </h2>
-            <p className="mt-1.5 text-[12px] leading-snug text-[#1A1E3A]/55 sm:text-[13px]">
+            <p className="mt-1.5 text-[12px] leading-snug text-black sm:text-[13px]">
               Cambridge IGCSE · Science · Year 7 · Collaborative Learning
             </p>
 
@@ -137,11 +139,11 @@ export default function LessonPlanStageHero() {
                   >
                     {row.tag}
                   </span>
-                  <span className="min-w-0 flex-1 text-[12px] leading-snug text-[#1A1E3A]/80 sm:text-[13px]">
+                  <span className="min-w-0 flex-1 text-[12px] leading-snug text-black sm:text-[13px]">
                     {row.text}
                   </span>
                   {row.time ? (
-                    <span className="shrink-0 text-[12px] font-semibold text-[#1A1E3A]/45">
+                    <span className="shrink-0 text-[12px] font-semibold text-black">
                       {row.time}
                     </span>
                   ) : null}

@@ -94,7 +94,7 @@ export default function ActivityTypes() {
       aria-labelledby="activity-types-heading"
     >
       <div className="fp-shell-md px-4 text-center sm:px-6 md:px-8">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1E9A98]">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
           Activity types
         </p>
         <h2
@@ -106,7 +106,7 @@ export default function ActivityTypes() {
             the right topic.
           </span>
         </h2>
-        <p className="mt-4 text-[15px] leading-relaxed text-[#1A1E3A]/55 sm:text-base">
+        <p className="mt-4 text-[15px] leading-relaxed text-black sm:text-base">
           Tap a type to preview how it looks on the student sheet.
         </p>
 
@@ -123,7 +123,7 @@ export default function ActivityTypes() {
                   'inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-[13px] font-semibold transition sm:px-4',
                   on
                     ? 'border-[#1A1E3A] bg-[#1A1E3A] text-white'
-                    : 'border-white/70 bg-white text-[#1A1E3A]/70 hover:border-[#1A1E3A]/25',
+                    : 'border-white/70 bg-white text-black hover:border-[#1A1E3A]/25',
                 )}
               >
                 <TabIcon className="h-3.5 w-3.5" aria-hidden strokeWidth={2.25} />
@@ -141,10 +141,10 @@ export default function ActivityTypes() {
                 {active.title}
               </h3>
             </div>
-            <p className="mt-4 text-[15px] leading-relaxed text-white/60 sm:text-base">
+            <p className="mt-4 text-[15px] leading-relaxed text-white sm:text-base">
               {active.body}
             </p>
-            <div className="mt-6 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-[13px] leading-relaxed text-white/70 sm:text-[14px]">
+            <div className="mt-6 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-[13px] leading-relaxed text-white sm:text-[14px]">
               Best for:{' '}
               <span className="font-semibold text-[#35BEBC]">{active.bestFor}</span> {active.bestRest}
             </div>

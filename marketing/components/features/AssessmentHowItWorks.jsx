@@ -33,28 +33,20 @@ export default function AssessmentHowItWorks() {
       aria-labelledby="assessment-hiw-heading"
     >
       <div className="fp-shell-md px-4 sm:px-6 md:px-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <div>
-            <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
-              <span className="flex items-center gap-1" aria-hidden>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#74FFFD]" />
-                <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
-              </span>
-              How it works
-            </p>
-            <h2
-              id="assessment-hiw-heading"
-              className="max-w-full text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
-            >
-              Three choices. One{' '}
-              <span className="pricing-hero-underline relative inline-block">assessment system.</span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-[14px] leading-relaxed text-[#1A1E3A]/50 sm:text-[15px] lg:pb-1 lg:text-right">
-            Start with the type of paper you need, shape the question balance, then export the student
-            paper and teacher mark scheme as one connected pair.
-          </p>
-        </div>
+        <p className="mb-3 flex items-center justify-center gap-2 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
+          <span className="flex items-center gap-1" aria-hidden>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#74FFFD]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
+          </span>
+          How it works
+        </p>
+        <h2
+          id="assessment-hiw-heading"
+          className="max-w-full text-center text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
+        >
+          Three choices. One{' '}
+          <span className="pricing-hero-underline relative inline-block">assessment system.</span>
+        </h2>
 
         <div className="mt-10 grid min-w-0 items-stretch gap-5 lg:mt-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6">
           <div className="relative min-w-0 overflow-hidden rounded-[28px] bg-[#12162b] p-4 pb-12 sm:rounded-[36px] sm:p-8 sm:pb-16 lg:p-10 lg:pb-20">
@@ -82,13 +74,13 @@ export default function AssessmentHowItWorks() {
                 className="absolute bottom-5 left-3 z-0 flex h-[12.5rem] w-[10.25rem] -translate-x-[6%] translate-y-[10%] flex-col justify-start rounded-[18px] bg-[#35BEBC] px-3 py-3 shadow-[0_12px_28px_rgba(53,190,188,0.35)] sm:bottom-10 sm:left-8 sm:h-[17.5rem] sm:w-[14.5rem] sm:-translate-x-[14%] sm:translate-y-[10%] sm:rounded-[22px] sm:px-4 sm:py-4"
                 aria-hidden
               >
-                <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/90">
+                <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-white">
                   Generated with
                 </p>
                 <p className="mt-1 text-[14px] font-bold leading-none text-white sm:text-[17px]">
                   Mark Scheme
                 </p>
-                <p className="mt-1.5 text-[10px] leading-snug text-white/85">
+                <p className="mt-1.5 text-[10px] leading-snug text-white">
                   model answers · levels · accept/reject
                 </p>
               </div>
@@ -106,13 +98,13 @@ export default function AssessmentHowItWorks() {
                 <div className="mt-3.5 space-y-2.5 sm:mt-5 sm:space-y-3.5">
                   <div className="relative overflow-hidden rounded-[16px] bg-[#EAF5F6] p-3 sm:rounded-[20px] sm:p-4">
                     <div className="pr-14 sm:pr-28">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#4B5068]">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-black">
                         01 — Multiple choice
                       </p>
                       <p className="mt-2 text-[12.5px] font-bold leading-snug text-[#1A1E3A] sm:text-[14px]">
                         What primarily drives evaporation?
                       </p>
-                      <p className="mt-2 text-[11px] font-medium text-[#4B5068]">1 mark</p>
+                      <p className="mt-2 text-[11px] font-medium text-black">1 mark</p>
                     </div>
                     <div className="absolute bottom-2 right-2 w-12 sm:bottom-2.5 sm:right-2.5 sm:w-24">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -125,23 +117,23 @@ export default function AssessmentHowItWorks() {
                   </div>
 
                   <div className="rounded-[16px] bg-[#9fd9d4] p-3 sm:rounded-[20px] sm:p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#1A1E3A]/55">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-black">
                       02 — Short answer
                     </p>
                     <p className="mt-2 text-[12.5px] font-bold leading-snug text-[#1A1E3A] sm:text-[14px]">
                       State two changes of state involved in cloud formation.
                     </p>
-                    <p className="mt-2 text-[11px] font-medium text-[#1A1E3A]/55">2 marks</p>
+                    <p className="mt-2 text-[11px] font-medium text-black">2 marks</p>
                   </div>
 
                   <div className="rounded-[16px] bg-[#1A1E3A] p-3 sm:rounded-[20px] sm:p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/55">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-white">
                       03 — Extended response
                     </p>
                     <p className="mt-2 text-[12.5px] font-bold leading-snug text-white sm:text-[14px]">
                       Explain the effect of prolonged drought on the water cycle.
                     </p>
-                    <p className="mt-2 text-[11px] font-medium text-white/70">4 marks</p>
+                    <p className="mt-2 text-[11px] font-medium text-white">4 marks</p>
                   </div>
                 </div>
               </div>
@@ -179,8 +171,8 @@ export default function AssessmentHowItWorks() {
                   <p
                     className={
                       teal
-                        ? 'mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[#1A1E3A]/55'
-                        : 'mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45'
+                        ? 'mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-black'
+                        : 'mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white'
                     }
                   >
                     {step.label}
@@ -191,8 +183,8 @@ export default function AssessmentHowItWorks() {
                   <p
                     className={
                       teal
-                        ? 'mt-2 text-[13px] leading-relaxed text-[#1A1E3A]/75 sm:text-[14px]'
-                        : 'mt-2 text-[13px] leading-relaxed text-white/65 sm:text-[14px]'
+                        ? 'mt-2 text-[13px] leading-relaxed text-black sm:text-[14px]'
+                        : 'mt-2 text-[13px] leading-relaxed text-white sm:text-[14px]'
                     }
                   >
                     {step.body}
@@ -202,6 +194,11 @@ export default function AssessmentHowItWorks() {
             })}
           </div>
         </div>
+
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[14px] leading-relaxed text-black sm:mt-10 sm:text-[15px]">
+          Start with the type of paper you need, shape the question balance, then export the student
+          paper and teacher mark scheme as one connected pair.
+        </p>
       </div>
     </section>
   )

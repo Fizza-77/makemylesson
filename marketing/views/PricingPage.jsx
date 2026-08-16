@@ -4,15 +4,11 @@ import { Suspense, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Check, ChevronDown, Minus, Plus } from 'lucide-react'
 import { PageShell } from '@marketing/components/layout/Container'
-import PricingPlanFloatCards from '@marketing/components/PricingPlanFloatCards'
+import { AccessPlanCard, localizeAccessPlans } from '@marketing/components/AccessPlanCards'
 import { MML_APP } from '@marketing/lib/appUrls'
 import { cn } from '@marketing/lib/cn'
 import { usePayPalCheckout } from '@/features/billing/usePayPalCheckout'
-import {
-  currencySymbol,
-  formatUsdPrice,
-  priceForPlan,
-} from '@/services/paypal-checkout.service'
+import { priceForPlan } from '@/services/paypal-checkout.service'
 
 const CURRENCIES = [
   { code: 'USD', symbol: '$', rate: 1 },
@@ -20,13 +16,6 @@ const CURRENCIES = [
   { code: 'GBP', symbol: '£', rate: 0.79 },
   { code: 'CAD', symbol: 'C$', rate: 1.37 },
   { code: 'EUR', symbol: '€', rate: 0.92 },
-]
-
-const INDIVIDUAL_FEATURES = [
-  'Everything in Free',
-  'Ayla AI co-pilot on every stage',
-  'Google Classroom & Teams export',
-  'Priority generation queue',
 ]
 
 function formatMoney(usdAmount, currency) {
@@ -54,7 +43,7 @@ export default function PricingPage() {
 }
 
 function PricingPageInner() {
-  const [billing, setBilling] = useState('monthly')
+  const [billing] = useState('monthly')
   const [currencyCode, setCurrencyCode] = useState('USD')
   const {
     quote,
@@ -69,24 +58,20 @@ function PricingPageInner() {
     [currencyCode],
   )
 
-  const symbol = currencySymbol(quote)
-  const monthlyUsd = Number.parseFloat(priceForPlan(quote, 'individual_monthly')) || 12.99
-  const annualUsd = Number.parseFloat(priceForPlan(quote, 'individual_annual')) || 99.99
   const topUpUsd = Number.parseFloat(priceForPlan(quote, 'credit_topup_50')) || 29.99
   const departmentUsd = Number.parseFloat(priceForPlan(quote, 'department')) || 349
   const schoolUsd = Number.parseFloat(priceForPlan(quote, 'school')) || 599
 
-  const individualPrice = billing === 'annual' ? annualUsd / 12 : monthlyUsd
-  const schoolSeatPrice = billing === 'annual' ? schoolUsd / 10 / 12 : schoolUsd / 10 / 12
+  const schoolSeatPrice = schoolUsd / 10 / 12
   const addonPrice = topUpUsd
 
-  const individualPlanKey = billing === 'annual' ? 'individual_annual' : 'individual_monthly'
+  const localizedPlans = useMemo(() => localizeAccessPlans(currency), [currency])
 
   return (
     <PageShell
       variant="content"
       className="pricing-page-shell !bg-white border-t-transparent"
-      contentClassName="pricing-page-inner !max-w-none !px-0 !py-0 !pt-2 pb-10 md:pb-14"
+      contentClassName="pricing-page-inner !max-w-none !px-0 !py-0 !pt-2 pb-0"
     >
       {finalizing ? (
         <div className="pricing-section-inner mb-4">
@@ -135,13 +120,12 @@ function PricingPageInner() {
               required to try the full workflow.
             </p>
             {quoteLoading ? (
-              <p className="mt-2 text-[12px] text-[#1A1E3A]/55">Loading live prices…</p>
+              <p className="mt-2 text-[12px] text-black">Loading live prices…</p>
             ) : quote?.regionLine ? (
-              <p className="mt-2 text-[12px] text-[#1A1E3A]/55">{quote.regionLine}</p>
+              <p className="mt-2 text-[12px] text-black">{quote.regionLine}</p>
             ) : null}
 
             <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-              <BillingToggle billing={billing} setBilling={setBilling} />
               <CurrencySelect currencyCode={currencyCode} setCurrencyCode={setCurrencyCode} />
             </div>
           </div>
@@ -150,171 +134,94 @@ function PricingPageInner() {
         {/* Plans */}
         <section
           id="pricing-plans"
-          className="pricing-plans relative z-[1] px-4 pb-12 pt-0 sm:px-6 sm:pb-14 md:px-8 lg:px-10"
+          className="pricing-plans relative z-[1] px-3 pb-[1cm] pt-0 sm:px-5 md:px-6 lg:px-8"
           aria-label="Pricing plans"
         >
-          <div className="mx-auto grid w-full max-w-none items-stretch gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:gap-5 xl:gap-6 2xl:gap-8">
-            {/* Individual */}
-            <article className="relative flex min-h-full flex-col overflow-hidden rounded-[32px] bg-[#1A1E3A] p-8 text-left text-white sm:p-10 xl:rounded-[36px] xl:p-12 2xl:p-14">
-              <div
-                className="pointer-events-none absolute bottom-0 right-0 h-[280px] w-[280px] translate-x-[42%] translate-y-[48%] rounded-full bg-[#35BEBC] xl:h-[320px] xl:w-[320px] 2xl:h-[360px] 2xl:w-[360px]"
-                aria-hidden
+          <div className="mml-pr-grid !mt-0">
+            {localizedPlans.map((plan) => (
+              <AccessPlanCard
+                key={plan.key}
+                plan={plan}
+                onCheckout={
+                  plan.planKey
+                    ? (key) => {
+                        void startCheckout(key)
+                      }
+                    : undefined
+                }
+                checkoutLoading={Boolean(plan.planKey && loadingPlan(plan.planKey))}
               />
-              <div
-                className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 translate-x-[38%] translate-y-[42%] rounded-full bg-[#7dded8]/40 xl:h-48 xl:w-48"
-                aria-hidden
-              />
+            ))}
+          </div>
 
-              <span className="relative mb-6 inline-flex w-fit rounded-full bg-[#35BEBC] px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[#1A1E3A] xl:mb-7 xl:px-4 xl:text-[11px]">
-                Most popular
-              </span>
-
-              <h2 className="relative text-[2rem] font-bold leading-none tracking-tight sm:text-[2.35rem] xl:text-[2.65rem] 2xl:text-[2.85rem]">
-                Individual
-              </h2>
-              <p className="relative mt-3 max-w-[34ch] text-[14px] leading-relaxed text-white/55 sm:text-[15px] xl:mt-4 xl:max-w-[40ch] xl:text-[16px] 2xl:text-[17px]">
-                For teachers planning every week who want the complete workflow in one place.
-              </p>
-
-              <p className="relative mt-7 text-[2.5rem] font-bold leading-none tracking-tight sm:text-[2.75rem] xl:mt-8 xl:text-[3.1rem] 2xl:text-[3.35rem]">
-                {currencyCode === 'USD'
-                  ? formatUsdPrice(String(individualPrice), symbol)
-                  : formatMoney(individualPrice, currency)}
-                <span className="ml-1.5 text-[1.05rem] font-medium text-white/50 xl:text-[1.15rem]">
-                  / {billing === 'annual' ? 'mo' : 'month'}
-                </span>
-              </p>
-              {billing === 'annual' ? (
-                <p className="relative mt-2 text-sm text-[#35BEBC] xl:text-[15px]">
-                  Billed annually · {formatUsdPrice(String(annualUsd), symbol)}/year
+          <div className="mt-4 grid gap-4 sm:mt-5 sm:gap-5 lg:grid-cols-2 xl:gap-6">
+            <article className="flex flex-col justify-between rounded-[28px] bg-[#1A1E3A] px-7 py-6 text-white sm:px-8 sm:py-7 xl:rounded-[32px] xl:px-10 xl:py-8">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white xl:text-[12px]">
+                  Need more?
                 </p>
-              ) : null}
-
-              <span className="relative mt-5 inline-flex w-fit rounded-full border border-white/25 bg-[#1A1E3A]/40 px-3.5 py-1.5 text-[12px] font-medium text-[#35BEBC] xl:mt-6 xl:px-4 xl:text-[13px]">
-                30 credits / month — complete packs across all stages
-              </span>
-
-              <ul className="relative mt-8 space-y-3.5 text-[14px] text-white/90 sm:text-[15px] xl:mt-10 xl:space-y-4 xl:text-[16px]">
-                {INDIVIDUAL_FEATURES.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check className="mt-0.5 h-[18px] w-[18px] shrink-0 text-[#35BEBC] xl:h-5 xl:w-5" strokeWidth={2.75} />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                type="button"
-                disabled={loadingPlan(individualPlanKey)}
-                onClick={() => void startCheckout(individualPlanKey)}
-                className="relative mt-10 inline-flex w-full max-w-[280px] self-center items-center justify-center rounded-2xl bg-[#35BEBC] px-8 py-3.5 text-center text-[15px] font-bold text-white transition hover:bg-[#4ec9c7] disabled:opacity-60 sm:mt-auto xl:max-w-[320px] xl:px-10 xl:py-4 xl:text-[16px] 2xl:max-w-[340px]"
-              >
-                {loadingPlan(individualPlanKey) ? 'Redirecting to PayPal…' : 'Choose Individual'}
-              </button>
+                <h2 className="mt-2 text-[1.55rem] font-bold tracking-tight xl:text-[1.8rem]">
+                  Add-On Credits
+                </h2>
+                <p className="mt-2 max-w-[36ch] text-[14px] leading-relaxed text-white xl:max-w-[42ch] xl:text-[15px]">
+                  Top up any plan without changing your subscription.
+                </p>
+              </div>
+              <div className="mt-6 flex flex-wrap items-end justify-between gap-3 xl:mt-8">
+                <span className="text-[1.85rem] font-bold leading-none xl:text-[2.15rem]">
+                  {formatMoney(addonPrice, currency)}
+                </span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full border border-white/35 px-3.5 py-1.5 text-[12px] font-semibold text-white xl:px-4 xl:py-2 xl:text-[13px]">
+                    50 credits
+                  </span>
+                  <button
+                    type="button"
+                    disabled={loadingPlan('credit_topup_50')}
+                    onClick={() => void startCheckout('credit_topup_50')}
+                    className="rounded-full bg-[#35BEBC] px-3.5 py-1.5 text-[12px] font-semibold text-[#1A1E3A] disabled:opacity-60 xl:px-4 xl:py-2 xl:text-[13px]"
+                  >
+                    {loadingPlan('credit_topup_50') ? '…' : 'Buy top-up'}
+                  </button>
+                </div>
+              </div>
             </article>
 
-            {/* Side stack — equal height fill */}
-            <div className="flex min-h-0 flex-col gap-4 xl:gap-5 2xl:gap-6">
-              <article className="flex flex-1 flex-col justify-between rounded-[28px] border border-black/[0.04] bg-white px-7 py-6 text-[#1A1E3A] sm:px-8 sm:py-7 xl:rounded-[32px] xl:px-10 xl:py-8 2xl:px-11 2xl:py-9">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8b93a7] xl:text-[12px]">
-                    Start here
-                  </p>
-                  <h2 className="mt-2 text-[1.55rem] font-bold tracking-tight xl:text-[1.8rem] 2xl:text-[1.95rem]">
-                    Free Trial
-                  </h2>
-                  <p className="mt-2 max-w-[36ch] text-[14px] leading-relaxed text-[#5c657a] xl:max-w-[42ch] xl:text-[15px] 2xl:text-[16px]">
-                    Try the full workflow with no card required.
-                  </p>
-                </div>
-                <div className="mt-6 flex flex-wrap items-end justify-between gap-3 xl:mt-8">
-                  <span className="text-[1.85rem] font-bold leading-none xl:text-[2.15rem] 2xl:text-[2.3rem]">
-                    Free
-                  </span>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full border border-[#d5dae5] bg-white px-3.5 py-1.5 text-[12px] font-semibold text-[#3a4258] xl:px-4 xl:py-2 xl:text-[13px]">
-                      5 credits
-                    </span>
-                    <Link
-                      href={MML_APP.signUp}
-                      className="rounded-full bg-[#1A1E3A] px-3.5 py-1.5 text-[12px] font-semibold text-white no-underline xl:px-4 xl:py-2 xl:text-[13px]"
-                    >
-                      Sign up
-                    </Link>
-                  </div>
-                </div>
-              </article>
-
-              <article className="flex flex-1 flex-col justify-between rounded-[28px] bg-[#1A1E3A] px-7 py-6 text-white sm:px-8 sm:py-7 xl:rounded-[32px] xl:px-10 xl:py-8 2xl:px-11 2xl:py-9">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45 xl:text-[12px]">
-                    Need more?
-                  </p>
-                  <h2 className="mt-2 text-[1.55rem] font-bold tracking-tight xl:text-[1.8rem] 2xl:text-[1.95rem]">
-                    Add-On Credits
-                  </h2>
-                  <p className="mt-2 max-w-[36ch] text-[14px] leading-relaxed text-white/50 xl:max-w-[42ch] xl:text-[15px] 2xl:text-[16px]">
-                    Top up any plan without changing your subscription.
-                  </p>
-                </div>
-                <div className="mt-6 flex flex-wrap items-end justify-between gap-3 xl:mt-8">
-                  <span className="text-[1.85rem] font-bold leading-none xl:text-[2.15rem] 2xl:text-[2.3rem]">
-                    {currencyCode === 'USD'
-                      ? formatUsdPrice(String(addonPrice), symbol)
-                      : formatMoney(addonPrice, currency)}
-                  </span>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full border border-white/35 px-3.5 py-1.5 text-[12px] font-semibold text-white xl:px-4 xl:py-2 xl:text-[13px]">
-                      50 credits
-                    </span>
-                    <button
-                      type="button"
-                      disabled={loadingPlan('credit_topup_50')}
-                      onClick={() => void startCheckout('credit_topup_50')}
-                      className="rounded-full bg-[#35BEBC] px-3.5 py-1.5 text-[12px] font-semibold text-[#1A1E3A] disabled:opacity-60 xl:px-4 xl:py-2 xl:text-[13px]"
-                    >
-                      {loadingPlan('credit_topup_50') ? '…' : 'Buy top-up'}
-                    </button>
-                  </div>
-                </div>
-              </article>
-
-              <article className="flex flex-1 flex-col justify-between rounded-[28px] bg-[#35BEBC] px-7 py-6 text-white sm:px-8 sm:py-7 xl:rounded-[32px] xl:px-10 xl:py-8 2xl:px-11 2xl:py-9">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/80 xl:text-[12px]">
-                    For teams
-                  </p>
-                  <h2 className="mt-2 text-[1.55rem] font-bold tracking-tight xl:text-[1.8rem] 2xl:text-[1.95rem]">
-                    School &amp; Department
-                  </h2>
-                  <p className="mt-2 max-w-[36ch] text-[14px] leading-relaxed text-white/85 xl:max-w-[42ch] xl:text-[15px] 2xl:text-[16px]">
-                    Department from {formatUsdPrice(String(departmentUsd), symbol)}/yr · School from{' '}
-                    {formatUsdPrice(String(schoolUsd), symbol)}/yr.
-                  </p>
-                </div>
-                <div className="mt-6 flex flex-wrap items-center gap-2 xl:mt-8">
-                  <button
-                    type="button"
-                    disabled={loadingPlan('department')}
-                    onClick={() => void startCheckout('department')}
-                    className="rounded-full bg-[#1A1E3A] px-3.5 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60 xl:px-4 xl:py-2 xl:text-[13px]"
-                  >
-                    {loadingPlan('department') ? '…' : 'Department'}
-                  </button>
-                  <button
-                    type="button"
-                    disabled={loadingPlan('school')}
-                    onClick={() => void startCheckout('school')}
-                    className="rounded-full border border-[#1A1E3A]/40 bg-white/20 px-3.5 py-1.5 text-[12px] font-semibold text-[#1A1E3A] disabled:opacity-60 xl:px-4 xl:py-2 xl:text-[13px]"
-                  >
-                    {loadingPlan('school') ? '…' : 'School'}
-                  </button>
-                  <span className="text-[11px] font-medium text-[#1A1E3A]/70 xl:text-[12px]">
-                    ~{formatMoney(schoolSeatPrice, currency)} / seat / mo
-                  </span>
-                </div>
-              </article>
-            </div>
+            <article className="flex flex-col justify-between rounded-[28px] bg-[#35BEBC] px-7 py-6 text-[#1A1E3A] sm:px-8 sm:py-7 xl:rounded-[32px] xl:px-10 xl:py-8">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A] xl:text-[12px]">
+                  For teams
+                </p>
+                <h2 className="mt-2 text-[1.55rem] font-bold tracking-tight xl:text-[1.8rem]">
+                  School &amp; Department
+                </h2>
+                <p className="mt-2 max-w-[36ch] text-[14px] leading-relaxed text-black xl:max-w-[42ch] xl:text-[15px]">
+                  Department from {formatMoney(departmentUsd, currency)}/yr · School from{' '}
+                  {formatMoney(schoolUsd, currency)}/yr.
+                </p>
+              </div>
+              <div className="mt-6 flex flex-wrap items-center gap-2 xl:mt-8">
+                <button
+                  type="button"
+                  disabled={loadingPlan('department')}
+                  onClick={() => void startCheckout('department')}
+                  className="rounded-full bg-[#1A1E3A] px-3.5 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60 xl:px-4 xl:py-2 xl:text-[13px]"
+                >
+                  {loadingPlan('department') ? '…' : 'Department'}
+                </button>
+                <button
+                  type="button"
+                  disabled={loadingPlan('school')}
+                  onClick={() => void startCheckout('school')}
+                  className="rounded-full border border-[#1A1E3A]/40 bg-white/20 px-3.5 py-1.5 text-[12px] font-semibold text-[#1A1E3A] disabled:opacity-60 xl:px-4 xl:py-2 xl:text-[13px]"
+                >
+                  {loadingPlan('school') ? '…' : 'School'}
+                </button>
+                <span className="text-[11px] font-medium text-black xl:text-[12px]">
+                  ~{formatMoney(schoolSeatPrice, currency)} / seat / mo
+                </span>
+              </div>
+            </article>
           </div>
         </section>
       </div>
@@ -325,9 +232,6 @@ function PricingPageInner() {
       <PlanCompare />
       <SchoolsDepartments startCheckout={startCheckout} loadingPlan={loadingPlan} />
       <PricingFaq />
-      <div className="pricing-section-inner">
-        <StartFreeCta />
-      </div>
     </PageShell>
   )
 }
@@ -387,8 +291,8 @@ function PlanFitCalculator({ startCheckout, loadingPlan, billing }) {
       aria-labelledby="plan-fit-heading"
     >
       <div className="pricing-plan-fit-inner">
-        <header className="pricing-plan-fit-header">
-          <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
+        <header className="pricing-plan-fit-header mx-auto flex flex-col items-center text-center">
+          <p className="mb-4 flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
             <span className="flex items-center gap-1" aria-hidden>
               <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
               <span className="h-1.5 w-1.5 rounded-full bg-[#1A1E3A]" />
@@ -404,7 +308,7 @@ function PlanFitCalculator({ startCheckout, loadingPlan, billing }) {
               the maths.
             </span>
           </h2>
-          <p className="pricing-plan-fit-lead mt-4 text-[15px] leading-relaxed text-[#1a2438]/75 sm:text-base xl:max-w-none xl:whitespace-nowrap xl:text-[17px]">
+          <p className="pricing-plan-fit-lead mx-auto mt-4 text-[15px] leading-relaxed text-[#1a2438]/75 sm:text-base xl:max-w-none xl:whitespace-nowrap xl:text-[17px]">
             Estimate your monthly credit use from the number of lessons you prepare and how much of
             the pack you usually generate.
           </p>
@@ -443,14 +347,14 @@ function PlanFitCalculator({ startCheckout, loadingPlan, billing }) {
             <h3 className="mt-3 text-[2rem] font-bold tracking-tight sm:text-[2.35rem] xl:text-[2.75rem] 2xl:text-[3rem]">
               {recommendation.plan}
             </h3>
-            <p className="mt-3 max-w-md text-[14px] leading-relaxed text-white/60 sm:text-[15px] xl:max-w-xl xl:text-[16px] 2xl:max-w-2xl 2xl:text-[17px]">
+            <p className="mt-3 max-w-md text-[14px] leading-relaxed text-white sm:text-[15px] xl:max-w-xl xl:text-[16px] 2xl:max-w-2xl 2xl:text-[17px]">
               {recommendation.blurb}
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5 xl:mt-8 xl:gap-3">
-              <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-medium text-white/85 xl:px-4 xl:py-2 xl:text-[13px]">
+              <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-medium text-white xl:px-4 xl:py-2 xl:text-[13px]">
                 Credits / month: {creditsPerMonth}
               </span>
-              <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-medium text-white/85 xl:px-4 xl:py-2 xl:text-[13px]">
+              <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-medium text-white xl:px-4 xl:py-2 xl:text-[13px]">
                 Est. hours saved: {hoursSaved}
               </span>
             </div>
@@ -514,51 +418,6 @@ function PricingSlider({ id, label, min, max, step, value, displayValue, onChang
   )
 }
 
-function BillingToggle({ billing, setBilling }) {
-  return (
-    <div
-      className="inline-flex items-center rounded-full bg-white p-1 shadow-[0_1px_2px_rgba(18,21,42,0.06)]"
-      role="group"
-      aria-label="Billing period"
-    >
-      <button
-        type="button"
-        onClick={() => setBilling('monthly')}
-        className={cn(
-          'rounded-full px-5 py-2.5 text-sm font-semibold transition-colors',
-          billing === 'monthly'
-            ? 'bg-[#1A1E3A] text-white'
-            : 'bg-transparent text-[#1A1E3A] hover:bg-black/[0.04]',
-        )}
-        aria-pressed={billing === 'monthly'}
-      >
-        Monthly
-      </button>
-      <button
-        type="button"
-        onClick={() => setBilling('annual')}
-        className={cn(
-          'inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors',
-          billing === 'annual'
-            ? 'bg-[#1A1E3A] text-white'
-            : 'bg-transparent text-[#1A1E3A] hover:bg-black/[0.04]',
-        )}
-        aria-pressed={billing === 'annual'}
-      >
-        Annual
-        <span
-          className={cn(
-            'rounded-md px-2 py-0.5 text-[10px] font-bold lowercase tracking-wide',
-            billing === 'annual' ? 'bg-white/15 text-[#35BEBC]' : 'bg-[#35BEBC] text-[#1A1E3A]',
-          )}
-        >
-          save 20%
-        </span>
-      </button>
-    </div>
-  )
-}
-
 function CurrencySelect({ currencyCode, setCurrencyCode }) {
   return (
     <label className="relative inline-flex cursor-pointer items-center">
@@ -575,7 +434,7 @@ function CurrencySelect({ currencyCode, setCurrencyCode }) {
         ))}
       </select>
       <ChevronDown
-        className="pointer-events-none absolute right-3.5 h-4 w-4 text-[#1A1E3A]/65"
+        className="pointer-events-none absolute right-3.5 h-4 w-4 text-black"
         aria-hidden
       />
     </label>
@@ -611,7 +470,7 @@ function HowCreditsWork() {
           >
             One credit, one stage. Four credits, the complete pack.
           </h2>
-          <p className="relative mt-4 max-w-md text-[14px] leading-relaxed text-white/55 sm:text-[15px] xl:max-w-lg xl:text-[16px] 2xl:max-w-xl 2xl:text-[17px]">
+          <p className="relative mt-4 max-w-md text-[14px] leading-relaxed text-white sm:text-[15px] xl:max-w-lg xl:text-[16px] 2xl:max-w-xl 2xl:text-[17px]">
             Generate only what you need — or run all four stages to create the full seven-document
             teaching pack.
           </p>
@@ -641,7 +500,7 @@ function HowCreditsWork() {
                 <span
                   className={cn(
                     'inline-flex w-fit rounded-full px-3 py-1 text-[11px] font-semibold xl:px-3.5 xl:text-[12px]',
-                    mint ? 'bg-white/70 text-[#1A1E3A]' : 'bg-white/10 text-white/80',
+                    mint ? 'bg-white/70 text-[#1A1E3A]' : 'bg-white/10 text-white',
                   )}
                 >
                   {item.stage}
@@ -653,7 +512,7 @@ function HowCreditsWork() {
                   <p
                     className={cn(
                       'mt-3 text-[14px] font-semibold xl:text-[15px]',
-                      mint ? 'text-[#1A1E3A]/75' : 'text-white/70',
+                      mint ? 'text-black' : 'text-white',
                     )}
                   >
                     1 credit
@@ -671,8 +530,8 @@ function HowCreditsWork() {
 const COMPARE_ROWS = [
   {
     feature: 'Credits included',
-    free: { type: 'text', value: '10 one-time' },
-    individual: { type: 'text', value: '60 / month' },
+    free: { type: 'text', value: '5 one-time' },
+    individual: { type: 'text', value: '100 / month' },
     school: { type: 'text', value: 'Pooled' },
   },
   {
@@ -705,21 +564,23 @@ function CompareCell({ cell }) {
   if (cell.type === 'yes') {
     return (
       <span
-        className="mx-auto inline-flex h-6 w-9 items-center justify-center rounded-full bg-[#35BEBC]"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#35BEBC] text-[#1A1E3A]"
         aria-label="Included"
       >
-        <span className="h-[2px] w-3 rounded-full bg-white" aria-hidden />
+        <Check className="h-4 w-4" strokeWidth={3} aria-hidden />
       </span>
     )
   }
   if (cell.type === 'no') {
     return (
-      <span className="text-[15px] font-medium text-white/35" aria-label="Not included">
+      <span className="text-[18px] font-semibold leading-none text-[#1A1E3A]/45" aria-label="Not included">
         —
       </span>
     )
   }
-  return <span className="text-[14px] font-medium text-white/75 sm:text-[15px]">{cell.value}</span>
+  return (
+    <span className="text-[14px] font-semibold text-[#1A1E3A] sm:text-[15px]">{cell.value}</span>
+  )
 }
 
 function PlanCompare() {
@@ -730,37 +591,36 @@ function PlanCompare() {
       aria-labelledby="plan-compare-heading"
     >
       <div className="pricing-section-inner">
-        <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <div className="max-w-xl xl:max-w-2xl">
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
-              Side by side
-            </p>
-            <h2
-              id="plan-compare-heading"
-              className="text-[clamp(1.75rem,3.8vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-white"
-            >
-              Every plan, on{' '}
-              <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
-                one sheet.
-              </span>
-            </h2>
-          </div>
-          <p className="max-w-xs text-[14px] leading-relaxed text-white/50 sm:text-[15px] lg:pb-1 lg:text-right xl:max-w-sm xl:text-base">
+        <header className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
+            Side by side
+          </p>
+          <h2
+            id="plan-compare-heading"
+            className="text-[clamp(1.75rem,3.8vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-white"
+          >
+            Every plan, on{' '}
+            <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+              one sheet.
+            </span>
+          </h2>
+          <p className="mt-4 max-w-md text-[14px] leading-relaxed text-white sm:text-[15px]">
             Compare the essentials without opening four separate pricing cards.
           </p>
         </header>
 
-        <div className="mt-10 overflow-x-auto rounded-[28px] border border-white/[0.08] bg-[#222640] sm:mt-12">
+        <div className="mt-10 overflow-x-auto rounded-[28px] bg-white shadow-[0_16px_40px_rgba(0,0,0,0.18)] sm:mt-12">
           <table className="w-full min-w-[640px] border-collapse text-left">
             <thead>
-              <tr className="border-b border-white/[0.08]">
+              <tr className="border-b border-[#e8eef5] bg-[#f4fbfb]">
                 {['Feature', 'Free', 'Individual', 'School'].map((label, i) => (
                   <th
                     key={label}
                     scope="col"
                     className={cn(
-                      'px-5 py-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40 sm:px-7 sm:py-6',
+                      'px-5 py-4 text-[12px] font-bold uppercase tracking-[0.12em] text-[#1A1E3A] sm:px-7 sm:py-5',
                       i === 0 ? 'text-left' : 'text-center',
+                      i === 2 && 'bg-[#35BEBC]/15',
                     )}
                   >
                     {label}
@@ -769,22 +629,34 @@ function PlanCompare() {
               </tr>
             </thead>
             <tbody>
-              {COMPARE_ROWS.map((row) => (
-                <tr key={row.feature} className="border-b border-white/[0.06] last:border-b-0">
+              {COMPARE_ROWS.map((row, rowIndex) => (
+                <tr
+                  key={row.feature}
+                  className={cn(
+                    'border-b border-[#e8eef5] last:border-b-0',
+                    rowIndex % 2 === 1 && 'bg-[#f8fafc]',
+                  )}
+                >
                   <th
                     scope="row"
-                    className="px-5 py-5 text-[14px] font-semibold text-white sm:px-7 sm:py-6 sm:text-[15px]"
+                    className="px-5 py-4 text-[14px] font-semibold text-[#1A1E3A] sm:px-7 sm:py-5 sm:text-[15px]"
                   >
                     {row.feature}
                   </th>
-                  <td className="px-5 py-5 text-center sm:px-7 sm:py-6">
-                    <CompareCell cell={row.free} />
+                  <td className="px-5 py-4 text-center sm:px-7 sm:py-5">
+                    <span className="inline-flex justify-center">
+                      <CompareCell cell={row.free} />
+                    </span>
                   </td>
-                  <td className="px-5 py-5 text-center sm:px-7 sm:py-6">
-                    <CompareCell cell={row.individual} />
+                  <td className="bg-[#35BEBC]/08 px-5 py-4 text-center sm:px-7 sm:py-5">
+                    <span className="inline-flex justify-center">
+                      <CompareCell cell={row.individual} />
+                    </span>
                   </td>
-                  <td className="px-5 py-5 text-center sm:px-7 sm:py-6">
-                    <CompareCell cell={row.school} />
+                  <td className="px-5 py-4 text-center sm:px-7 sm:py-5">
+                    <span className="inline-flex justify-center">
+                      <CompareCell cell={row.school} />
+                    </span>
                   </td>
                 </tr>
               ))}
@@ -868,7 +740,7 @@ function SchoolsDepartments({ startCheckout, loadingPlan }) {
 
         <div className="pricing-schools-visual flex items-center justify-center bg-[#1A1E3A] py-12 sm:py-16 lg:py-20">
           <div className="w-full max-w-md rounded-[24px] border border-white/10 bg-white/5 p-6 sm:p-7 xl:max-w-lg">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
               Department of Science — 5 seats
             </p>
             <ul className="mt-6 space-y-3">
@@ -933,7 +805,7 @@ function PricingFaq() {
   return (
     <section
       id="pricing-faq"
-      className="pricing-faq-section relative left-1/2 mt-10 mb-10 w-screen max-w-[100vw] -translate-x-1/2 bg-[#1A1E3A] py-14 sm:mt-14 sm:mb-14 sm:py-16 lg:py-20"
+      className="pricing-faq-section relative left-1/2 mt-10 mb-0 w-screen max-w-[100vw] -translate-x-1/2 bg-[#1A1E3A] py-14 sm:mt-14 sm:py-16 lg:py-20"
       aria-labelledby="pricing-faq-heading"
     >
       <div className="pricing-faq-inner">
@@ -1010,41 +882,6 @@ function PricingFaq() {
             )
           })}
         </div>
-      </div>
-    </section>
-  )
-}
-
-function StartFreeCta() {
-  return (
-    <section
-      id="start-free"
-      className="mt-6 overflow-hidden rounded-[32px] bg-[#ade5df] px-6 py-12 sm:mt-8 sm:rounded-[40px] sm:px-8 sm:py-16 lg:px-10 lg:py-20"
-      aria-labelledby="start-free-heading"
-    >
-      <div className="mx-auto grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
-        <div className="min-w-0 w-full">
-          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]/45 xl:text-[12px]">
-            Start free
-          </p>
-          <h2
-            id="start-free-heading"
-            className="cta-card-copy text-[clamp(2rem,4vw,3.35rem)] font-bold leading-[1.08] tracking-tight text-[#1A1E3A]"
-          >
-            Try everything before you pay anything.
-          </h2>
-          <p className="cta-card-copy mt-5 text-[15px] leading-relaxed text-[#1A1E3A]/75 sm:text-base xl:text-[1.05rem]">
-            5 free credits — enough to try the full workflow. No card required.
-          </p>
-          <Link
-            href={MML_APP.signUp}
-            className="mt-8 inline-flex items-center justify-center rounded-full bg-[#1A1E3A] px-8 py-3.5 text-[15px] font-bold text-white no-underline shadow-[0_10px_24px_rgba(18,21,42,0.22)] transition hover:bg-[#242845] xl:px-9 xl:py-4 xl:text-[16px]"
-          >
-            Start Free
-          </Link>
-        </div>
-
-        <PricingPlanFloatCards />
       </div>
     </section>
   )

@@ -34,23 +34,21 @@ export default function ActivityTakeAnywhere() {
       className="bg-[#1A1E3A] py-14 sm:py-16 lg:py-20"
       aria-labelledby="activity-take-anywhere-heading"
     >
-      <div className="fp-shell-md flex flex-col items-start justify-between gap-10 px-4 sm:px-6 md:px-8 lg:flex-row lg:items-center lg:gap-12">
-        <div className="max-w-md shrink-0">
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
-            Take it anywhere
-          </p>
-          <h2
-            id="activity-take-anywhere-heading"
-            className="text-[clamp(1.75rem,3.4vw,2.6rem)] font-bold leading-[1.12] tracking-tight text-white"
-          >
-            Photocopier-ready in{' '}
-            <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
-              one click.
-            </span>
-          </h2>
-        </div>
+      <div className="fp-shell-md flex flex-col items-center px-4 text-center sm:px-6 md:px-8">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
+          Take it anywhere
+        </p>
+        <h2
+          id="activity-take-anywhere-heading"
+          className="mx-auto max-w-full text-[clamp(1.75rem,3.4vw,2.6rem)] font-bold leading-[1.12] tracking-tight text-white sm:whitespace-nowrap"
+        >
+          Photocopier-ready in{' '}
+          <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block whitespace-nowrap">
+            one click.
+          </span>
+        </h2>
 
-        <div className="flex w-full max-w-2xl flex-wrap gap-2.5 lg:justify-end">
+        <div className="mt-8 flex w-full flex-wrap items-center justify-center gap-2.5 sm:mt-10">
           {EXPORTS.map((item) => (
             <ExportPill key={item.id} item={item} />
           ))}

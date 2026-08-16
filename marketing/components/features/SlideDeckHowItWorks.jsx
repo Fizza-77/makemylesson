@@ -29,7 +29,7 @@ export default function SlideDeckHowItWorks() {
       aria-labelledby="slide-deck-hiw-heading"
     >
       <div className="fp-shell-wide">
-        <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
+        <p className="mb-3 flex items-center justify-center gap-2 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
           <span className="flex items-center gap-1" aria-hidden>
             <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
             <span className="h-1.5 w-1.5 rounded-full bg-[#1A1E3A]" />
@@ -38,7 +38,7 @@ export default function SlideDeckHowItWorks() {
         </p>
         <h2
           id="slide-deck-hiw-heading"
-          className="text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A]"
+          className="text-center text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A]"
         >
           From plan to deck in{' '}
           <span className="pricing-hero-underline relative inline-block">one click.</span>
@@ -65,8 +65,8 @@ export default function SlideDeckHowItWorks() {
                 <p
                   className={
                     teal
-                      ? 'mt-3 flex-1 text-[14px] leading-relaxed text-[#1A1E3A]/85 sm:text-[15px]'
-                      : 'mt-3 flex-1 text-[14px] leading-relaxed text-white/75 sm:text-[15px]'
+                      ? 'mt-3 flex-1 text-[14px] leading-relaxed text-black sm:text-[15px]'
+                      : 'mt-3 flex-1 text-[14px] leading-relaxed text-white sm:text-[15px]'
                   }
                 >
                   {step.body}

@@ -12,7 +12,7 @@ const SPRING = { type: 'spring', stiffness: 300, damping: 25 }
 const PLATFORMS = [
   {
     name: 'Studiely',
-    tagline: 'Start Learning Smarter',
+    tagline: 'Start Studying Smarter',
     url: 'https://www.studiely.com',
     logo: '/logo-studiely.jpeg',
     description: [

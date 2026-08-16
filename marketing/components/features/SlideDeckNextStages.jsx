@@ -29,7 +29,7 @@ export default function SlideDeckNextStages() {
       aria-labelledby="slide-next-stages-heading"
     >
       <div className="fp-shell px-4 sm:px-6 md:px-8">
-        <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
+        <p className="mb-3 flex items-center justify-center gap-2 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
           <span className="flex items-center gap-1" aria-hidden>
             <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
             <span className="h-1.5 w-1.5 rounded-full bg-[#1A1E3A]" />
@@ -38,7 +38,7 @@ export default function SlideDeckNextStages() {
         </p>
         <h2
           id="slide-next-stages-heading"
-          className="max-w-full text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
+          className="max-w-full text-center text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
         >
           Your deck connects to{' '}
           <span className="pricing-hero-underline relative inline-block">three more stages.</span>
@@ -50,13 +50,13 @@ export default function SlideDeckNextStages() {
               key={stage.slug}
               className="flex min-h-[240px] w-full min-w-0 flex-col rounded-[28px] bg-[#1A1E3A] p-6 text-white sm:min-h-[260px] sm:p-7"
             >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/45">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
                 {stage.eyebrow}
               </p>
               <h3 className="mt-4 text-[1.2rem] font-normal tracking-tight sm:text-[1.3rem]">
                 {stage.title}
               </h3>
-              <p className="mt-3 text-[14px] leading-relaxed text-white/60 sm:text-[15px]">
+              <p className="mt-3 text-[14px] leading-relaxed text-white sm:text-[15px]">
                 {stage.body}
               </p>
               <Link

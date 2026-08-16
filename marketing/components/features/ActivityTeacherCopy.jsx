@@ -65,7 +65,7 @@ export default function ActivityTeacherCopy() {
                 onClick={() => setView('student')}
                 className={cn(
                   'rounded-full px-4 py-2 text-[13px] font-semibold transition',
-                  isStudent ? 'bg-[#35BEBC] text-[#1A1E3A]' : 'text-[#1A1E3A]/65 hover:text-[#1A1E3A]',
+                  isStudent ? 'bg-[#35BEBC] text-[#1A1E3A]' : 'text-black hover:text-[#1A1E3A]',
                 )}
               >
                 Student sheet
@@ -77,7 +77,7 @@ export default function ActivityTeacherCopy() {
                   'rounded-full px-4 py-2 text-[13px] font-semibold transition',
                   !isStudent
                     ? 'bg-[#35BEBC] text-[#1A1E3A]'
-                    : 'text-[#1A1E3A]/65 hover:text-[#1A1E3A]',
+                    : 'text-black hover:text-[#1A1E3A]',
                 )}
               >
                 Teacher key
@@ -93,7 +93,7 @@ export default function ActivityTeacherCopy() {
               >
                 <p className="font-medium text-black">{row.text}</p>
                 {row.tip ? (
-                  <p className="mt-1.5 text-[12px] leading-snug text-[#1A1E3A]/50 sm:text-[13px]">
+                  <p className="mt-1.5 text-[12px] leading-snug text-black sm:text-[13px]">
                     {row.tip}
                   </p>
                 ) : null}
@@ -101,7 +101,7 @@ export default function ActivityTeacherCopy() {
             ))}
           </ul>
 
-          <p className="mt-5 text-center text-[12px] text-[#1A1E3A]/40 sm:text-[13px]">
+          <p className="mt-5 text-center text-[12px] text-black sm:text-[13px]">
             {data.footer}
           </p>
         </div>

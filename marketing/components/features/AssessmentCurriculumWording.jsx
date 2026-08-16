@@ -66,7 +66,7 @@ export default function AssessmentCurriculumWording() {
                 Different exam language.
               </span>
             </h2>
-            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-[#1A1E3A]/70 sm:text-base">
+            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-black sm:text-base">
               Switch the curriculum route and see the command style change with it.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function AssessmentCurriculumWording() {
                       'rounded-full border px-3.5 py-2 text-[12px] font-semibold transition sm:text-[13px]',
                       on
                         ? 'border-[#35BEBC] bg-[#35BEBC] text-white'
-                        : 'border-white/20 bg-transparent text-white/80 hover:border-white/40',
+                        : 'border-white/20 bg-transparent text-white hover:border-white/40',
                     )}
                   >
                     {route.label}
@@ -102,7 +102,7 @@ export default function AssessmentCurriculumWording() {
               </p>
             </div>
 
-            <p className="mt-4 text-center text-[11px] leading-relaxed text-white/45 sm:text-[12px]">
+            <p className="mt-4 text-center text-[11px] leading-relaxed text-white sm:text-[12px]">
               {active.caption}
             </p>
           </div>

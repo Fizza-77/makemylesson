@@ -13,8 +13,41 @@ const CHIPS = [
   "EXTENSION TASK",
 ] as const;
 
+const MESSAGES = [
+  {
+    role: "bot" as const,
+    text: "Hi! I can refine your lesson, suggest activities or adjust difficulty.",
+  },
+  {
+    role: "user" as const,
+    text: "Add a group activity to the Ecosystems lesson.",
+  },
+  {
+    role: "bot" as const,
+    text: "Done — I added a 15-minute Ecosystem Mapping task after core teaching.",
+  },
+  {
+    role: "user" as const,
+    text: "Can you adapt that activity for ELL students?",
+  },
+  {
+    role: "bot" as const,
+    text: "Yes — I added visual cards and sentence starters so ELL learners can join in confidently.",
+  },
+] as const;
+
 const AYLA_IMAGE = "/ChatGPT Image Aug 5, 2026, 11_22_18 AM 1.svg";
 const AYLA_AVATAR = "/Group 7.svg";
+
+function TypingDots() {
+  return (
+    <span className="mml-ayla-typing" aria-hidden>
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
 
 export default function MeetAylaSection() {
   return (
@@ -54,30 +87,42 @@ export default function MeetAylaSection() {
         <div className="mml-ayla-right">
           <div className="mml-ayla-chat">
             <header className="mml-ayla-chat-head">
-              <Image
-                src={AYLA_AVATAR}
-                alt=""
-                width={44}
-                height={44}
-                className="mml-ayla-chat-avatar"
-              />
+              <div className="mml-ayla-chat-avatar-wrap">
+                <Image
+                  src={AYLA_AVATAR}
+                  alt=""
+                  width={44}
+                  height={44}
+                  className="mml-ayla-chat-avatar"
+                />
+                <span className="mml-ayla-chat-online" aria-hidden />
+              </div>
               <div>
                 <p className="mml-ayla-chat-name">Ayla</p>
                 <p className="mml-ayla-chat-role">AI TEACHING ASSISTANT</p>
               </div>
             </header>
 
-            <div className="mml-ayla-msgs">
-              <div className="mml-ayla-msg mml-ayla-msg--bot">
-                Hi! I can refine your lesson, suggest activities or adjust
-                difficulty.
-              </div>
-              <div className="mml-ayla-msg mml-ayla-msg--user">
-                Add a group activity to the Ecosystems lesson.
-              </div>
-              <div className="mml-ayla-msg mml-ayla-msg--bot">
-                Done — I added a 15-minute Ecosystem Mapping task after core
-                teaching.
+            <div
+              className="mml-ayla-msgs"
+              tabIndex={0}
+              aria-label="Ayla conversation"
+            >
+              {MESSAGES.map((msg) => (
+                <div
+                  key={`${msg.role}-${msg.text.slice(0, 24)}`}
+                  className={`mml-ayla-msg mml-ayla-msg--${msg.role}`}
+                >
+                  {msg.text}
+                </div>
+              ))}
+
+              <div
+                className="mml-ayla-msg mml-ayla-msg--bot mml-ayla-msg--typing"
+                aria-live="polite"
+                aria-label="Ayla is typing"
+              >
+                <TypingDots />
               </div>
             </div>
 

@@ -1,18 +1,19 @@
-"use client";
-
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 
 import {
+  acquirePwaInstallCapture,
   detectPlatform,
   getDeferredPrompt,
   getPwaInstalled,
   promptPwaInstall,
+  releasePwaInstallCapture,
   subscribePwaInstall,
   wirePwaInstallListeners,
 } from "@/lib/pwa-install";
 
 /**
  * React bindings for the module-level PWA install store.
+ * Enables deferred prompt capture only while a consumer is mounted.
  */
 export function usePwaInstall() {
   const deferred = useSyncExternalStore(
@@ -25,13 +26,16 @@ export function usePwaInstall() {
     () => getPwaInstalled(),
     () => false,
   );
-  const [platform, setPlatform] = useState<"ios" | "android" | "desktop">(
-    "desktop",
+  const platform = useSyncExternalStore(
+    () => () => {},
+    () => detectPlatform(),
+    () => "desktop" as const,
   );
 
   useEffect(() => {
     wirePwaInstallListeners();
-    setPlatform(detectPlatform());
+    acquirePwaInstallCapture();
+    return () => releasePwaInstallCapture();
   }, []);
 
   const canPromptInstall = Boolean(deferred) && !installed;

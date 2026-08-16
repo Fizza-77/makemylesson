@@ -80,7 +80,7 @@ function ContactPageInner() {
 
   return (
     <div className="contact-page min-h-[calc(100vh-4rem)] bg-white">
-      <div className="contact-hero-shell pt-6 sm:pt-8">
+      <div className="contact-hero-shell pt-2 sm:pt-3">
         <section
           className="relative overflow-hidden rounded-[32px] bg-[#ade5df] sm:rounded-[40px]"
           aria-labelledby="contact-hero-heading"
@@ -94,8 +94,8 @@ function ContactPageInner() {
             aria-hidden
           />
 
-          <div className="relative z-[1] px-6 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-14 xl:px-14 xl:py-16">
-            <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1E9A98]">
+          <div className="relative z-[1] px-6 py-[1cm] text-center sm:px-8 lg:px-12 xl:px-14">
+            <p className="mb-4 flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1E9A98]">
               <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#35BEBC]">
                 <Mail className="h-3.5 w-3.5 text-white" aria-hidden strokeWidth={2.25} />
               </span>
@@ -104,11 +104,11 @@ function ContactPageInner() {
 
             <h1
               id="contact-hero-heading"
-              className="max-w-[16ch] text-[clamp(1.85rem,4vw,3.1rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] sm:max-w-[20ch] lg:max-w-[24ch] xl:max-w-none xl:whitespace-nowrap"
+              className="mx-auto max-w-[16ch] text-[clamp(1.85rem,4vw,3.1rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] sm:max-w-[20ch] lg:max-w-[24ch] xl:max-w-none xl:whitespace-nowrap"
             >
               Marking to finish? We&apos;ll be quick.
             </h1>
-            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#4B5068] sm:max-w-2xl sm:text-base xl:max-w-3xl xl:text-[17px] 2xl:max-w-4xl">
+            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-black sm:max-w-2xl sm:text-base xl:max-w-3xl xl:text-[17px] 2xl:max-w-4xl">
               Tell us who you are and we&apos;ll route your message to the right person — with an honest
               idea of when you&apos;ll hear back.
             </p>
@@ -131,21 +131,23 @@ function ContactPageInner() {
                       active && 'ring-2 ring-[#1A1E3A] ring-offset-2 ring-offset-[#ade5df]',
                     )}
                   >
-                    <span
-                      className={cn(
-                        'inline-flex h-8 w-8 items-center justify-center rounded-lg xl:h-9 xl:w-9',
-                        navy ? 'bg-[#35BEBC] text-white' : 'bg-[#1A1E3A] text-white',
-                      )}
-                    >
-                      <Icon className="h-4 w-4 xl:h-[18px] xl:w-[18px]" aria-hidden strokeWidth={2.25} />
-                    </span>
-                    <p className="mt-4 text-[15px] font-bold tracking-tight sm:text-[16px] xl:mt-5 xl:text-[17px] xl:whitespace-nowrap 2xl:text-[18px]">
-                      {intent.title}
-                    </p>
+                    <div className="flex min-w-0 items-center gap-2.5">
+                      <span
+                        className={cn(
+                          'inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg xl:h-9 xl:w-9',
+                          navy ? 'bg-[#35BEBC] text-white' : 'bg-[#1A1E3A] text-white',
+                        )}
+                      >
+                        <Icon className="h-4 w-4 xl:h-[18px] xl:w-[18px]" aria-hidden strokeWidth={2.25} />
+                      </span>
+                      <p className="min-w-0 text-[15px] font-bold leading-tight tracking-tight sm:text-[16px] xl:text-[17px] 2xl:text-[18px]">
+                        {intent.title}
+                      </p>
+                    </div>
                     <p
                       className={cn(
-                        'mt-1.5 text-[13px] leading-snug xl:text-[14px]',
-                        navy ? 'text-white/65' : 'text-[#4B5068]',
+                        'mt-3 text-[13px] leading-snug xl:text-[14px]',
+                        navy ? 'text-white' : 'text-black',
                       )}
                     >
                       {intent.body}
@@ -181,7 +183,7 @@ function ContactPageInner() {
                       className="flex items-center justify-between gap-3 rounded-2xl bg-white/5 px-4 py-3 text-[13px] font-medium text-white no-underline transition hover:bg-white/10 sm:text-[14px]"
                     >
                       <span>{link.label}</span>
-                      <ArrowRight className="h-4 w-4 shrink-0 text-white/50" aria-hidden />
+                      <ArrowRight className="h-4 w-4 shrink-0 text-white" aria-hidden />
                     </Link>
                   </li>
                 ))}
@@ -228,15 +230,15 @@ function ContactPageInner() {
                 <h3 className="text-[16px] font-bold text-[#1A1E3A] xl:text-[17px]">The company</h3>
               </div>
               <p className="text-[15px] font-bold text-[#1A1E3A]">Skyen Solutions</p>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#4B5068] sm:text-[14px]">
+              <p className="mt-2 text-[13px] leading-relaxed text-black sm:text-[14px]">
                 A trade name of Qismat Ventures W.L.L. (CR 190698-1), Bahrain.
                 <br />
                 Office support available Mon–Fri for school and partnership enquiries.
               </p>
-              <p className="mt-4 text-[12px] font-medium text-[#1A1E3A]/55">
+              <p className="mt-4 text-[12px] font-medium text-black">
                 Sister platforms: Studiely · Linguatude
               </p>
-              <p className="mt-2 text-[12px] text-[#4B5068]">
+              <p className="mt-2 text-[12px] text-black">
                 Support email:{' '}
                 <a href={`mailto:${SUPPORT_EMAIL}`} className="text-[#1E9A98] hover:underline">
                   {SUPPORT_EMAIL}
@@ -260,7 +262,7 @@ function ContactPageInner() {
               >
                 Question about a lesson you&apos;re building right now?
               </h2>
-              <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-[#1A1E3A]/75 sm:text-[15px] xl:max-w-3xl xl:text-[16px]">
+              <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-black sm:text-[15px] xl:max-w-3xl xl:text-[16px]">
                 Ayla is already inside the app — she knows your pack and answers instantly.
               </p>
             </div>

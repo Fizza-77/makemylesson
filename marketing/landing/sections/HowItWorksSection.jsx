@@ -127,7 +127,7 @@ const STAGES = [
 ]
 
 function StageParagraph({ block, dark = false }) {
-  const bodyClass = dark ? 'text-white/88' : 'text-[var(--body)]'
+  const bodyClass = dark ? 'text-white' : 'text-[var(--body)]'
   const strongClass = dark ? 'text-white' : 'text-[var(--ink)]'
 
   if (block.kind === 'plain') {
@@ -264,7 +264,7 @@ function StageExpandedPanel({ stage, onCollapse, liftY }) {
                 {stage.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="hiw-stage-tag rounded-full border border-white/18 bg-white/10 px-2.5 py-1 font-medium text-white/90"
+                    className="hiw-stage-tag rounded-full border border-white/18 bg-white/10 px-2.5 py-1 font-medium text-white"
                   >
                     {tag}
                   </span>

@@ -7,7 +7,7 @@ const PLATFORMS = [
     tone: "mint" as const,
     title: "Studiely — For",
     subtitle: "Students",
-    badge: "Start learning smarter",
+    badge: "Start studying smarter",
     paragraphs: [
       "An AI-powered study platform built for students across the same curriculum systems Make My Lesson serves.",
       "Where Make My Lesson supports the teacher preparing the lesson, Studiely supports the student on the other side of it.",

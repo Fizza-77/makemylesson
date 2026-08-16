@@ -96,7 +96,7 @@ export default function LibraryPage() {
           <div className="relative">
             <Search size={13} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-white" />
             <input
-              className="w-full rounded-lg border border-white/10 bg-mml-navy-mid py-2.5 pl-8 pr-3 font-sans text-[13px] text-white outline-none transition-colors placeholder:text-white/55 focus:border-mml-teal focus:bg-mml-teal/10"
+              className="w-full rounded-lg border border-white/10 bg-mml-navy-mid py-2.5 pl-8 pr-3 font-sans text-[13px] text-white outline-none transition-colors placeholder:text-white focus:border-mml-teal focus:bg-mml-teal/10"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search your lessons…"

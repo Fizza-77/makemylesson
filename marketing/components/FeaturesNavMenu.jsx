@@ -165,7 +165,7 @@ export function FeaturesMobileMenu({ pathname, linkClassName = NAV_MENU_LINK, on
         className={cn(
           linkClassName,
           'site-nav-mobile-dropdown-trigger flex w-full items-center border-none bg-transparent font-[inherit]',
-          active && 'site-nav-link--active',
+          (active || expanded) && 'site-nav-link--active',
         )}
         aria-expanded={expanded}
         onClick={() => setExpanded((v) => !v)}

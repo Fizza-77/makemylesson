@@ -16,7 +16,7 @@ export default function SlideDeckCta() {
           >
             Your next deck is one topic away.
           </h2>
-          <p className="cta-card-copy mt-4 text-[14px] leading-relaxed text-[#1A1E3A]/55 sm:text-[15px]">
+          <p className="cta-card-copy mt-4 text-[14px] leading-relaxed text-black sm:text-[15px]">
             10 free credits · no card required · PPTX and Google Slides export
           </p>
           <Link

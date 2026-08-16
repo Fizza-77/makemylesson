@@ -19,10 +19,10 @@ const INITIAL = {
 }
 
 const inputClass =
-  'w-full rounded-2xl border-0 bg-white px-4 py-3.5 text-[15px] text-[#1A1E3A] outline-none ring-0 placeholder:text-[#4B5068]/45 focus:ring-2 focus:ring-[#35BEBC]/35 disabled:cursor-not-allowed disabled:opacity-60'
+  'w-full rounded-2xl border-0 bg-white px-4 py-3.5 text-[15px] text-[#1A1E3A] outline-none ring-0 placeholder:text-black/45 focus:ring-2 focus:ring-[#35BEBC]/35 disabled:cursor-not-allowed disabled:opacity-60'
 
 const labelClass =
-  'mb-2 block text-[11px] font-bold uppercase tracking-[0.12em] text-[#4B5068]'
+  'mb-2 block text-[11px] font-bold uppercase tracking-[0.12em] text-black'
 
 function FieldError({ id, message }) {
   if (!message) return null
@@ -139,7 +139,7 @@ export default function ContactForm({ initialSubject = '' }) {
         >
           <CheckCircle2 className="mx-auto h-12 w-12 text-[#35BEBC]" aria-hidden />
           <h2 className="mt-4 text-2xl font-bold text-[#1A1E3A]">Thank you</h2>
-          <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-[#4B5068]">
+          <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-black">
             Your message is on its way. We typically reply within one school day.
           </p>
           <button
@@ -256,7 +256,7 @@ export default function ContactForm({ initialSubject = '' }) {
               onChange={(e) => setField('subject', e.target.value)}
               className={cn(
                 inputClass,
-                !form.subject && 'text-[#4B5068]/55',
+                !form.subject && 'text-black/55',
                 fieldErrors.subject && 'ring-2 ring-red-400/50',
               )}
               aria-invalid={!!fieldErrors.subject}

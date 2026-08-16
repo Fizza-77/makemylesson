@@ -41,7 +41,7 @@ export default function ContactToast({ message, variant = 'info', onDismiss }) {
             <button
               type="button"
               onClick={onDismiss}
-              className="shrink-0 rounded-md p-1 text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+              className="shrink-0 rounded-md p-1 text-white transition-colors hover:bg-white/10 hover:text-white"
               aria-label="Dismiss notification"
             >
               <X className="h-4 w-4" />

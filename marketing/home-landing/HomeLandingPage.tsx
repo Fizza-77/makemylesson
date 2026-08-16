@@ -45,26 +45,30 @@ const STAGES = [
 
 const STATS = [
   {
-    value: "15h",
-    label: "Saved weekly by teachers through automated document coordination.",
+    value: "49h",
+    label:
+      "per week the average teacher works, 10 hours above their contracted hours",
     tone: "light" as const,
     icon: "clock" as const,
   },
   {
-    value: "1.2M",
-    label: "Resources created for classrooms worldwide this year.",
+    value: "2–3h",
+    label:
+      "saved per complete teaching pack vs. building across 5 separate tools",
     tone: "dark" as const,
     icon: "doc" as const,
   },
   {
-    value: "98%",
-    label: "Accuracy rate across curriculum-specific alignment checks.",
+    value: "71",
+    label:
+      "curriculum routes across Australia, UK, Canada, IB and US. Every route dedicated, never generic.",
     tone: "light" as const,
     icon: "shield" as const,
   },
   {
-    value: "50K+",
-    label: "Active teachers planning daily with Ayla's AI engine.",
+    value: "16",
+    label:
+      "teaching methods genuinely embedded throughout every stage, not just labelled",
     tone: "dark" as const,
     icon: "people" as const,
   },
@@ -179,8 +183,7 @@ export default function HomeLandingPage() {
                   </div>
 
                   <h1 className="mml-mkt-title">
-                    <span className="mml-mkt-title-line">Create Complete</span>
-                    <span className="mml-mkt-title-line">Lessons in</span>
+                    <span className="mml-mkt-title-line">Create Complete Lessons in</span>
                     <span className="mml-mkt-title-accent">
                       4 Simple Stages
                       <StageUnderline />
@@ -190,31 +193,13 @@ export default function HomeLandingPage() {
                   <p className="mml-mkt-sub">
                     <span className="mml-mkt-sub-line">
                       Plan, present, assess and teach a full lesson pack in minutes,
+                      aligned to your curriculum.
                     </span>
                     <span className="mml-mkt-sub-line">
-                      aligned to your curriculum. Slides, worksheets, quizzes and
-                    </span>
-                    <span className="mml-mkt-sub-line">
-                      teaching plans, all from one topic.
+                      Slides, worksheets, quizzes and teaching plans, all from one
+                      topic.
                     </span>
                   </p>
-                </div>
-
-                <div className="mml-mkt-hero-phone" aria-hidden>
-                  <div className="mml-mkt-phone-frame">
-                    <div className="mml-mkt-phone-notch" />
-                    <div className="mml-mkt-phone-screen">
-                      <Image
-                        src="/mockups/mockup.jpeg"
-                        alt=""
-                        width={390}
-                        height={844}
-                        className="mml-mkt-phone-img"
-                        sizes="(max-width: 960px) 200px, 240px"
-                        priority
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -290,13 +275,17 @@ export default function HomeLandingPage() {
       </section>
 
       <BeforeAfterSection />
+      <div className="mml-band-gap" aria-hidden />
       <ShelfSection />
       <MeetAylaSection />
       <TeachingMethodsSection />
+      <div className="mml-band-gap" aria-hidden />
       <CurriculumCoverageSection />
+      <div className="mml-band-gap" aria-hidden />
       <ReviewsSection />
       <SisterPlatformsSection />
       <PricingSection />
+      <div className="mml-band-gap" aria-hidden />
       <FinalCtaSection />
     </>
   );

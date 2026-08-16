@@ -1,10 +1,38 @@
-const EXPORTS = ['PDF', 'DOCX / Word', 'Google Forms', 'Google Classroom', 'Microsoft Teams', 'Print']
+import { Printer } from 'lucide-react'
+
+const EXPORTS = [
+  { id: 'pdf', label: 'PDF', color: '#E11D48', letter: 'P' },
+  { id: 'docx', label: 'DOCX / Word', color: '#2563EB', letter: 'W' },
+  { id: 'gforms', label: 'Google Forms', color: '#7C3AED', letter: 'F' },
+  { id: 'gclass', label: 'Google Classroom', color: '#EA580C', letter: 'C' },
+  { id: 'teams', label: 'Microsoft Teams', color: '#5B5FC7', letter: 'T' },
+  { id: 'print', label: 'Print', color: '#35BEBC', icon: 'print' },
+]
 
 const STAGES = [
   { stage: 'Stage 1', label: 'Lesson Plan' },
   { stage: 'Stage 2', label: 'Presentation' },
   { stage: 'Stage 3', label: 'Activity' },
 ]
+
+function ExportPill({ item }) {
+  return (
+    <div className="inline-flex shrink-0 items-center gap-2.5 rounded-full bg-white px-3.5 py-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+      <span
+        className="inline-flex h-7 w-7 items-center justify-center rounded-md text-[12px] font-bold text-white"
+        style={{ backgroundColor: item.color }}
+        aria-hidden
+      >
+        {item.icon === 'print' ? (
+          <Printer className="h-3.5 w-3.5" strokeWidth={2.25} />
+        ) : (
+          item.letter
+        )}
+      </span>
+      <span className="text-[12px] font-semibold text-[#1A1E3A] sm:text-[13px]">{item.label}</span>
+    </div>
+  )
+}
 
 export default function AssessmentExportCircle() {
   return (
@@ -21,18 +49,13 @@ export default function AssessmentExportCircle() {
           <h2 className="max-w-[14ch] xl:max-w-none text-[clamp(1.5rem,2.8vw,2.15rem)] font-bold leading-[1.15] tracking-tight">
             Paper, digital, or auto-marked.
           </h2>
-          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-white/60 sm:text-[15px]">
+          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-white sm:text-[15px]">
             Export the assessment and mark scheme into the formats your classroom workflow already
             uses.
           </p>
-          <div className="mt-auto flex flex-wrap gap-2 pt-8">
-            {EXPORTS.map((label) => (
-              <span
-                key={label}
-                className="rounded-full border border-[#35BEBC]/45 bg-white/5 px-3.5 py-2 text-[12px] font-semibold text-[#9fd9d4] sm:text-[13px]"
-              >
-                {label}
-              </span>
+          <div className="mt-auto flex flex-wrap gap-2.5 pt-8">
+            {EXPORTS.map((item) => (
+              <ExportPill key={item.id} item={item} />
             ))}
           </div>
         </article>
@@ -48,7 +71,7 @@ export default function AssessmentExportCircle() {
           <h2 className="max-w-[14ch] xl:max-w-none text-[clamp(1.5rem,2.8vw,2.15rem)] font-bold leading-[1.15] tracking-tight">
             The test only asks what the pack taught.
           </h2>
-          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-[#1A1E3A]/75 sm:text-[15px]">
+          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-black sm:text-[15px]">
             When all four stages belong to the same topic, assessment questions can reflect the
             objectives, presentation content and student practice already created.
           </p>
@@ -58,7 +81,7 @@ export default function AssessmentExportCircle() {
                 key={item.stage}
                 className="rounded-2xl bg-[#1A1E3A] px-3 py-3.5 text-white sm:px-4 sm:py-4"
               >
-                <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-white/45">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-white">
                   {item.stage}
                 </p>
                 <p className="mt-2 text-[13px] font-bold sm:text-[14px]">{item.label}</p>

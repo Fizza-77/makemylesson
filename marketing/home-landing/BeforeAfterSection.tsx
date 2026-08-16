@@ -61,19 +61,19 @@ function DocIcon() {
     >
       <path
         d="M4.375 2.625H14L16.625 5.25V18.375H4.375V2.625"
-        stroke="#35bebc"
+        stroke="currentColor"
         strokeWidth="1.575"
         strokeLinejoin="round"
       />
       <path
         d="M14 2.625V6.125H17.5"
-        stroke="#35bebc"
+        stroke="currentColor"
         strokeWidth="1.575"
         strokeLinejoin="round"
       />
       <path
         d="M7 9.625H14M7 13.125H14M7 16.625H11.375"
-        stroke="#35bebc"
+        stroke="currentColor"
         strokeWidth="1.575"
         strokeLinecap="round"
       />
@@ -197,10 +197,12 @@ export default function BeforeAfterSection() {
               <div className="mml-ba-doc-grid">
                 {AFTER_DOCS.map(({ title, sub }) => (
                   <div key={title} className="mml-ba-doc">
-                    <span className="mml-ba-doc-icon" aria-hidden>
-                      <DocIcon />
-                    </span>
-                    <strong>{title}</strong>
+                    <div className="mml-ba-doc-head">
+                      <span className="mml-ba-doc-icon" aria-hidden>
+                        <DocIcon />
+                      </span>
+                      <strong>{title}</strong>
+                    </div>
                     <span>{sub}</span>
                   </div>
                 ))}

@@ -77,7 +77,7 @@ export default function ActivityMethodShape() {
       aria-labelledby="method-shape-heading"
     >
       <div className="mx-auto max-w-[920px] px-4 text-center sm:px-6 md:px-8">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
           Shaped by your method
         </p>
         <h2
@@ -89,7 +89,7 @@ export default function ActivityMethodShape() {
             Different classroom.
           </span>
         </h2>
-        <p className="mt-4 text-[15px] leading-relaxed text-[#1A1E3A]/55 sm:text-base">
+        <p className="mt-4 text-[15px] leading-relaxed text-black sm:text-base">
           Your teaching method changes how the activity runs — not just what it asks.
         </p>
 
@@ -106,7 +106,7 @@ export default function ActivityMethodShape() {
                     'rounded-full px-3.5 py-2 text-[13px] font-semibold transition sm:px-4',
                     on
                       ? 'bg-[#35BEBC] text-[#1A1E3A]'
-                      : 'bg-white text-[#1A1E3A]/75 hover:bg-white/90',
+                      : 'bg-white text-black hover:bg-white/90',
                   )}
                 >
                   {method.label}
@@ -130,7 +130,7 @@ export default function ActivityMethodShape() {
                   <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#d8f0f4] text-[#1A1E3A]">
                     <Icon className="h-4 w-4" aria-hidden strokeWidth={2} />
                   </span>
-                  <p className="text-[14px] leading-relaxed text-[#1A1E3A]/80 sm:text-[15px]">
+                  <p className="text-[14px] leading-relaxed text-black sm:text-[15px]">
                     {row.text}
                   </p>
                 </li>

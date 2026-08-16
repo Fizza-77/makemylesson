@@ -8,7 +8,6 @@ import { MML_APP } from '@marketing/lib/appUrls'
 import SectionLink from '@marketing/components/SectionLink'
 import { scrollToTop } from '@marketing/lib/homeScroll'
 import { Menu, X } from 'lucide-react'
-import { InstallAppButton } from '@/components/common/InstallAppButton'
 
 const NAV_GUTTER = 'px-4 sm:px-6 md:px-8 xl:px-8 2xl:px-10'
 
@@ -110,8 +109,12 @@ export default function Navbar({ theme = 'home' }) {
       <div className={cn(NAV_CONTAINER, NAV_BAR)}>
         <Link
           href="/"
-          className="site-nav-brand flex shrink-0 items-center no-underline"
+          className={cn(
+            'site-nav-brand flex shrink-0 items-center no-underline',
+            pathname === '/' && 'site-nav-brand--active',
+          )}
           aria-label="Make My Lesson home"
+          aria-current={pathname === '/' ? 'page' : undefined}
           onClick={(e) => {
             if (pathname === '/') {
               e.preventDefault()
@@ -131,10 +134,6 @@ export default function Navbar({ theme = 'home' }) {
         </div>
 
         <div className="site-nav-actions">
-          <InstallAppButton
-            variant={isLight ? 'app' : 'marketing'}
-            className="max-[900px]:hidden"
-          />
           <Link href={MML_APP.signUp || MML_APP.stage1} className="site-nav-cta">
             Get Started
           </Link>
@@ -167,11 +166,6 @@ export default function Navbar({ theme = 'home' }) {
             />
           ))}
           <div className="site-nav-drawer-cta">
-            <InstallAppButton
-              variant={isLight ? 'app' : 'marketing'}
-              expanded
-              className="site-nav-drawer-install"
-            />
             <Link
               href={MML_APP.signUp || MML_APP.stage1}
               className="site-nav-cta"

@@ -25,7 +25,7 @@ export default function SlideDeckStageHero() {
         aria-hidden
       />
 
-      <div className="relative z-[1] grid items-center gap-10 px-6 py-10 sm:px-8 sm:py-12 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:px-12 lg:py-14">
+      <div className="relative z-[1] grid items-center gap-10 px-6 py-[1cm] sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:px-12">
         <div>
           <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
             <span className="flex items-center gap-1" aria-hidden>
@@ -46,7 +46,7 @@ export default function SlideDeckStageHero() {
             not just decorate.
           </h1>
 
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/80 sm:text-base">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-black sm:text-base">
             Every deck follows a real pedagogical sequence — title, objectives, vocabulary, core
             content, practice, recap — with speaker notes already written under every slide.
           </p>
@@ -66,17 +66,17 @@ export default function SlideDeckStageHero() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-medium text-[#1A1E3A]/55">
-            <span className="text-[#1E9A98]">★★★★★</span>
+          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-medium text-black">
+            <span className="text-[#EAB308]">★★★★★</span>
             <span>Rated by educators</span>
-            <span className="text-[#1A1E3A]/25" aria-hidden>
+            <span className="text-black" aria-hidden>
               ·
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Globe className="h-3.5 w-3.5 text-[#35BEBC]" aria-hidden strokeWidth={2} />
               71 curriculum routes
             </span>
-            <span className="text-[#1A1E3A]/25" aria-hidden>
+            <span className="text-black" aria-hidden>
               ·
             </span>
             <span>PPTX + Google Slides export</span>
@@ -90,17 +90,17 @@ export default function SlideDeckStageHero() {
               <span className="h-2.5 w-2.5 rounded-full bg-[#1E9A98]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#74FFFD]" />
             </div>
-            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-white/75">
+            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
               Building deck · Exploring Ecosystems · Year 8
             </p>
           </div>
 
           <div className="p-4 sm:p-5">
             <div className="relative overflow-hidden rounded-2xl border border-[#e8eef5] bg-[#f8fafc] px-5 py-8 sm:min-h-[200px] sm:px-6 sm:py-10">
-              <p className="absolute right-4 top-3 text-[11px] font-semibold text-[#1A1E3A]/35">
+              <p className="absolute right-4 top-3 text-[11px] font-semibold text-black">
                 {activeSlide} / {SLIDE_COUNT}
               </p>
-              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#1A1E3A]/40">
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-black">
                 Title
               </p>
               <h2 className="mt-2 max-w-[12ch] xl:max-w-none text-[1.45rem] font-bold leading-tight tracking-tight text-[#1A1E3A] sm:text-[1.65rem]">
@@ -128,7 +128,7 @@ export default function SlideDeckStageHero() {
                       'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-[12px] font-bold transition',
                       on
                         ? 'border-[#35BEBC] bg-white text-[#1A1E3A]'
-                        : 'border-[#e8eef5] bg-white text-[#1A1E3A]/45 hover:border-[#35BEBC]/50',
+                        : 'border-[#e8eef5] bg-white text-black hover:border-[#35BEBC]/50',
                     )}
                   >
                     {n}
@@ -139,11 +139,11 @@ export default function SlideDeckStageHero() {
 
             <div className="mt-3 flex items-start gap-2.5 rounded-xl bg-[#1A1E3A] px-3.5 py-3 text-white">
               <MessageSquare
-                className="mt-0.5 h-4 w-4 shrink-0 text-white/70"
+                className="mt-0.5 h-4 w-4 shrink-0 text-white"
                 aria-hidden
                 strokeWidth={2}
               />
-              <p className="text-[12px] leading-relaxed text-white/85 sm:text-[13px]">
+              <p className="text-[12px] leading-relaxed text-white sm:text-[13px]">
                 Speaker note: welcome the class and ask who has visited a forest, pond, or beach this
                 year.
               </p>

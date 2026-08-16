@@ -94,18 +94,18 @@ export default function SlideDeckSequence() {
       />
 
       <div className="relative z-[1] fp-shell-md px-4 sm:px-6 md:px-8">
-        <p className="mb-4 flex items-center gap-1" aria-hidden>
+        <p className="mb-4 flex items-center justify-center gap-1" aria-hidden>
           <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
           <span className="h-1.5 w-1.5 rounded-full bg-[#74FFFD]" />
         </p>
         <h2
           id="slide-sequence-heading"
-          className="whitespace-nowrap text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-white"
+          className="whitespace-nowrap text-center text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-white"
         >
           Eight slides,{' '}
           <span className="pricing-hero-underline relative inline-block">in teaching order.</span>
         </h2>
-        <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-white/55 sm:text-base">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-[15px] leading-relaxed text-white sm:text-base">
           Click any slide in the strip to see what the generator builds into it — this is a
           pedagogical sequence, not a stack of bullet points.
         </p>
@@ -128,7 +128,7 @@ export default function SlideDeckSequence() {
                 <span
                   className={cn(
                     'text-[11px] font-semibold tabular-nums',
-                    on ? 'text-white/80' : 'text-white/55',
+                    on ? 'text-white' : 'text-white',
                   )}
                 >
                   {slide.num}
@@ -149,7 +149,7 @@ export default function SlideDeckSequence() {
             <h3 className="mt-4 text-[1.65rem] font-bold tracking-tight text-[#1A1E3A] sm:text-[1.85rem]">
               {active.title}
             </h3>
-            <p className="mt-3 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/65 sm:text-base">
+            <p className="mt-3 max-w-md text-[15px] leading-relaxed text-black sm:text-base">
               {active.body}
             </p>
           </div>

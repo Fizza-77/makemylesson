@@ -156,7 +156,7 @@ export function TeachingMethodsMobileMenu({ pathname, linkClassName = NAV_MENU_L
         className={cn(
           linkClassName,
           'site-nav-mobile-mega-trigger flex w-full items-center border-none bg-transparent font-[inherit]',
-          active && 'site-nav-link--active',
+          (active || expanded) && 'site-nav-link--active',
         )}
         aria-expanded={expanded}
         onClick={() => setExpanded((v) => !v)}

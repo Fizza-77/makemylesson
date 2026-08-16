@@ -45,7 +45,7 @@ export default function LessonPlanDifferentiation() {
       aria-labelledby="differentiation-heading"
     >
       <div className="mx-auto max-w-[920px] px-4 text-center sm:px-6 md:px-8">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1E9A98]">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
           Differentiation
         </p>
         <h2
@@ -57,7 +57,7 @@ export default function LessonPlanDifferentiation() {
             Every learner.
           </span>
         </h2>
-        <p className="mt-4 text-[15px] leading-relaxed text-[#1A1E3A]/55 sm:text-base">
+        <p className="mt-4 text-[15px] leading-relaxed text-black sm:text-base">
           Tap a learner profile to see how the same practice task adapts.
         </p>
 
@@ -74,7 +74,7 @@ export default function LessonPlanDifferentiation() {
                     'rounded-full border px-3.5 py-2 text-[13px] font-semibold transition sm:px-4',
                     on
                       ? 'border-[#1A1E3A] bg-[#1A1E3A] text-white'
-                      : 'border-[#d5dde8] bg-white text-[#1A1E3A]/70 hover:border-[#1A1E3A]/35',
+                      : 'border-[#d5dde8] bg-white text-black hover:border-[#1A1E3A]/35',
                   )}
                 >
                   {profile.label}

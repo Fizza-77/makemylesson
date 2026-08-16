@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { PageShell } from '@marketing/components/layout/Container'
 import PricingPlanFloatCards from '@marketing/components/PricingPlanFloatCards'
 import {
@@ -198,7 +199,7 @@ function TeachingMethodsHero() {
               rebuild itself.
             </span>
           </h1>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/80 sm:text-base">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-black sm:text-base">
             Sixteen recognised pedagogies — and your choice restructures every document in the pack,
             not just a label at the top.
           </p>
@@ -218,8 +219,9 @@ function TeachingMethodsHero() {
             </a>
           </div>
 
-          <p className="mt-5 text-[12px] leading-relaxed text-[#1A1E3A]/55">
-            ★★★★★ Rated by educators · 16 methods · 4 categories
+          <p className="mt-5 text-[12px] leading-relaxed text-black">
+            <span className="text-[#EAB308]">★★★★★</span> Rated by educators · 16 methods · 4
+            categories
             <br />
             Embedded across the teaching pack
           </p>
@@ -232,7 +234,7 @@ function TeachingMethodsHero() {
               <span className="h-2.5 w-2.5 rounded-full bg-[#1E9A98]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#74FFFD]" />
             </div>
-            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-white/75">
+            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
               Same topic · The Water Cycle · Year 7 · 45 min
             </p>
           </div>
@@ -274,17 +276,17 @@ function TeachingMethodsHero() {
                   >
                     {row.tag}
                   </span>
-                  <span className="min-w-0 flex-1 text-[12px] leading-snug text-[#1A1E3A]/80 sm:text-[13px]">
+                  <span className="min-w-0 flex-1 text-[12px] leading-snug text-black sm:text-[13px]">
                     {row.text}
                   </span>
-                  <span className="shrink-0 text-[12px] font-semibold text-[#1A1E3A]/45">
+                  <span className="shrink-0 text-[12px] font-semibold text-black">
                     {row.time}
                   </span>
                 </li>
               ))}
             </ul>
 
-            <p className="mt-4 text-[11px] leading-relaxed text-[#1A1E3A]/50">
+            <p className="mt-4 text-[11px] leading-relaxed text-black">
               Highlighted rows show how the selected pedagogy restructures the lesson.
             </p>
           </div>
@@ -309,29 +311,27 @@ function FullDeckSection() {
       aria-labelledby="full-deck-heading"
     >
       <div className="tm-full-deck-inner px-4 sm:px-6 md:px-8">
-        <header className="tm-full-deck-header flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <div className="tm-full-deck-heading-wrap min-w-0 w-full max-w-none lg:max-w-[42rem] xl:max-w-none">
-            <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
-              <span className="flex items-center gap-1" aria-hidden>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
-                <span className="h-1.5 w-1.5 rounded-full bg-white" />
+        <header className="tm-full-deck-header flex flex-col items-center text-center">
+          <p className="mb-3 flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
+            <span className="flex items-center gap-1" aria-hidden>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-white" />
+            </span>
+            The full deck
+          </p>
+          <h2
+            id="full-deck-heading"
+            className="tm-full-deck-title text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-white"
+          >
+            <span className="tm-full-deck-title-line">All 16 methods,</span>
+            <span className="tm-full-deck-title-line">
+              clearly{' '}
+              <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+                defined.
               </span>
-              The full deck
-            </p>
-            <h2
-              id="full-deck-heading"
-              className="tm-full-deck-title text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-white"
-            >
-              <span className="tm-full-deck-title-line">All 16 methods,</span>
-              <span className="tm-full-deck-title-line">
-                clearly{' '}
-                <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
-                  defined.
-                </span>
-              </span>
-            </h2>
-          </div>
-          <p className="tm-full-deck-copy min-w-0 w-full max-w-md text-[14px] leading-relaxed text-white/55 sm:text-[15px] lg:max-w-sm lg:pb-1 xl:max-w-md">
+            </span>
+          </h2>
+          <p className="tm-full-deck-copy mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-white sm:text-[15px]">
             Every method explains what it is and exactly what it changes inside your generated
             teaching pack.
           </p>
@@ -349,7 +349,7 @@ function FullDeckSection() {
                   'rounded-full border px-3.5 py-2 text-[12px] font-semibold transition sm:px-4 sm:text-[13px]',
                   active
                     ? 'border-[#35BEBC] bg-[#35BEBC] text-[#1A1E3A]'
-                    : 'border-white/20 bg-transparent text-white/80 hover:border-white/40 hover:text-white',
+                    : 'border-white/20 bg-transparent text-white hover:border-white/40 hover:text-white',
                 )}
               >
                 {item.label} — {item.count}
@@ -369,7 +369,7 @@ function FullDeckSection() {
                 key={method.slug}
                 href={getTeachingMethodPath(method.slug)}
                 className={cn(
-                  'tm-full-deck-card relative flex min-h-[260px] w-full min-w-0 flex-col overflow-hidden rounded-[24px] p-5 no-underline transition duration-200 sm:min-h-[280px] sm:p-6 xl:min-h-[300px]',
+                  'tm-full-deck-card relative flex min-h-[220px] w-full min-w-0 flex-col overflow-hidden rounded-[24px] p-4 no-underline transition duration-200 sm:min-h-[240px] sm:p-5 xl:min-h-[250px]',
                   'hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35BEBC]',
                   teal ? 'bg-[#35BEBC] text-[#1A1E3A]' : 'bg-[#eaf4f4] text-[#1A1E3A]',
                 )}
@@ -384,21 +384,27 @@ function FullDeckSection() {
                 <span
                   className={cn(
                     'relative inline-flex w-fit rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em]',
-                    teal ? 'bg-[#1A1E3A]/15 text-[#1A1E3A]' : 'bg-[#1A1E3A]/10 text-[#1A1E3A]/65',
+                    teal ? 'bg-[#1A1E3A]/15 text-[#1A1E3A]' : 'bg-[#1A1E3A]/10 text-black',
                   )}
                 >
                   {badge}
                 </span>
-                <h3 className="relative mt-4 text-[1.2rem] font-bold leading-tight tracking-tight">
+                <h3 className="relative mt-2.5 text-[1.2rem] font-bold leading-tight tracking-tight">
                   {method.label}
                 </h3>
-                <p className="relative mt-3 text-[13px] leading-relaxed opacity-80">
+                <p className="relative mt-2 text-[13px] leading-relaxed opacity-80">
                   {SHORT_BLURB[method.slug] ?? method.description}
                 </p>
-                <p className="relative mt-auto pt-5 text-[12px] font-medium leading-relaxed text-[#1A1E3A]">
-                  {PACK_BLURB[method.slug] ??
-                    'In your pack: Structure, tasks and checks are aligned to this pedagogy.'}
-                </p>
+                <div className="relative mt-auto flex flex-col gap-2 pt-3">
+                  <p className="text-[12px] font-bold leading-relaxed text-[#1A1E3A]">
+                    {PACK_BLURB[method.slug] ??
+                      'In your pack: Structure, tasks and checks are aligned to this pedagogy.'}
+                  </p>
+                  <span className="inline-flex items-center gap-1 self-end text-[12px] font-bold text-[#1A1E3A]">
+                    Read more
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden strokeWidth={2.5} />
+                  </span>
+                </div>
               </Link>
             )
           })}
@@ -552,8 +558,8 @@ function MethodChooserCard() {
     >
       <div className="grid lg:grid-cols-2">
         <div className="flex flex-col bg-[#35BEBC] px-6 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
-          <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#1A1E3A]" aria-hidden />
+          <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white">
+            <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden />
             Not sure which?
           </p>
           <h2
@@ -615,14 +621,14 @@ function MethodChooserCard() {
             </div>
           </div>
 
-          <p className="mt-auto pt-10 text-[12px] leading-relaxed text-[#1A1E3A]/45 sm:text-[13px]">
+          <p className="mt-auto pt-10 text-[12px] font-bold leading-relaxed text-white sm:text-[13px]">
             A starting point, not a rule — you know your class. Every method remains one click away
             inside the generator.
           </p>
         </div>
 
         <div className="flex flex-col justify-center bg-[#1A1E3A] px-6 py-10 text-white sm:px-8 sm:py-12 lg:px-10 lg:py-14">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
             Try this method
           </p>
           <h3 className="mt-3 text-[clamp(1.75rem,3vw,2.35rem)] font-bold tracking-tight text-[#35BEBC]">
@@ -633,7 +639,7 @@ function MethodChooserCard() {
               {result.label}
             </Link>
           </h3>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/80 sm:text-base">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white sm:text-base">
             {result.blurb}
           </p>
           <p className="mt-8 text-[13px] text-white">{result.ideal}</p>
@@ -671,7 +677,7 @@ function ReadyWhenYouAreCta() {
           >
             Pick a method. The pack does the rest.
           </h2>
-          <p className="cta-card-copy mt-4 text-[15px] leading-relaxed text-[#1A1E3A]/80 sm:text-base xl:text-[1.05rem]">
+          <p className="cta-card-copy mt-4 text-[15px] leading-relaxed text-black sm:text-base xl:text-[1.05rem]">
             10 free credits · all 16 methods available · no credit card required
           </p>
           <Link

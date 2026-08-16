@@ -44,7 +44,7 @@ export default function ActivityStageHero() {
             </span>
           </h1>
 
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#1A1E3A]/75 sm:text-base">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-black sm:text-base">
             The student activity sheet and the teacher answer key are generated together, always —
             same questions, same numbering, plus marking guidance only you can see.
           </p>
@@ -64,17 +64,17 @@ export default function ActivityStageHero() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-medium text-[#1A1E3A]/55">
-            <span className="text-[#1E9A98]">★★★★★</span>
+          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-medium text-black">
+            <span className="text-[#EAB308]">★★★★★</span>
             <span>Rated by educators</span>
-            <span className="text-[#1A1E3A]/25" aria-hidden>
+            <span className="text-black" aria-hidden>
               ·
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Globe className="h-3.5 w-3.5 text-[#35BEBC]" aria-hidden strokeWidth={2} />
               71 curriculum routes
             </span>
-            <span className="text-[#1A1E3A]/25" aria-hidden>
+            <span className="text-black" aria-hidden>
               ·
             </span>
             <span>2 documents per generation</span>
@@ -132,7 +132,7 @@ export default function ActivityStageHero() {
                       <span className="inline-flex rounded-full bg-[#d8f3ef] px-2.5 py-1 text-[11px] font-semibold text-[#1E9A98] sm:text-[12px]">
                         {item.answer}
                       </span>
-                      <p className="mt-1.5 text-[10px] leading-snug text-[#4B5068] sm:text-[11px]">
+                      <p className="mt-1.5 text-[10px] leading-snug text-black sm:text-[11px]">
                         {item.tip}
                       </p>
                     </li>

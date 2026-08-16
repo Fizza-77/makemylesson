@@ -33,19 +33,20 @@ export default function LessonPlanNextStages() {
       aria-labelledby="next-stages-heading"
     >
       <div className="fp-shell px-4 sm:px-6 md:px-8">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
+        <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
           Keep the topic moving
         </p>
         <h2
           id="next-stages-heading"
-          className="max-w-full text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
+          className="max-w-full text-center text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
         >
           Your plan feeds{' '}
           <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block">three more stages.</span>
         </h2>
-        <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#1A1E3A]/55 sm:text-base">
-          Generate them together and every document stays coherent — same objectives, same language,
-          same level.
+        <p className="mx-auto mt-4 w-fit max-w-full text-center text-[15px] leading-relaxed text-black sm:text-base sm:whitespace-nowrap">
+          Generate them together and every document stays coherent —{' '}
+          <br className="sm:hidden" />
+          same objectives, same language, same level.
         </p>
 
         <div className="mt-8 fp-card-grid sm:mt-10">
@@ -62,7 +63,7 @@ export default function LessonPlanNextStages() {
                 <p
                   className={cn(
                     'text-[11px] font-semibold uppercase tracking-[0.12em]',
-                    teal ? 'text-[#1A1E3A]/70' : 'text-white/55',
+                    teal ? 'text-black' : 'text-white',
                   )}
                 >
                   {stage.eyebrow}
@@ -73,7 +74,7 @@ export default function LessonPlanNextStages() {
                 <p
                   className={cn(
                     'mt-3 text-[14px] leading-relaxed sm:text-[15px]',
-                    teal ? 'text-[#1A1E3A]/80' : 'text-white/70',
+                    teal ? 'text-black' : 'text-white',
                   )}
                 >
                   {stage.body}

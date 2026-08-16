@@ -73,28 +73,20 @@ export default function AssessmentMarkScheme() {
       aria-labelledby="mark-scheme-heading"
     >
       <div className="fp-shell-md px-4 sm:px-6 md:px-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <div>
-            <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
-              <span className="flex items-center gap-1" aria-hidden>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
-                <span className="h-1.5 w-1.5 rounded-full bg-[#1A1E3A]" />
-              </span>
-              Inside the mark scheme
-            </p>
-            <h2
-              id="mark-scheme-heading"
-              className="max-w-full text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
-            >
-              Not just the answer.{' '}
-              <span className="pricing-hero-underline relative inline-block">The judgement behind it.</span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-[14px] leading-relaxed text-[#1A1E3A]/50 sm:text-[15px] lg:pb-1 lg:text-right">
-            Every important marking decision can sit beside the question: what a strong answer looks
-            like, where levels change, what to accept, and which misconceptions to watch for.
-          </p>
-        </div>
+        <p className="mb-3 flex items-center justify-center gap-2 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
+          <span className="flex items-center gap-1" aria-hidden>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#1A1E3A]" />
+          </span>
+          Inside the mark scheme
+        </p>
+        <h2
+          id="mark-scheme-heading"
+          className="max-w-full text-center text-[clamp(1.35rem,2.6vw,1.85rem)] font-normal leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
+        >
+          Not just the answer.{' '}
+          <span className="pricing-hero-underline relative inline-block">The judgement behind it.</span>
+        </h2>
 
         <div className="mt-10 grid items-stretch gap-5 lg:mt-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6">
           <div className="relative overflow-hidden rounded-[28px] bg-[#1A1E3A] p-5 sm:rounded-[32px] sm:p-6">
@@ -110,7 +102,7 @@ export default function AssessmentMarkScheme() {
             <div className="relative z-[1] rounded-[28px] bg-white p-5 shadow-[0_16px_40px_rgba(0,0,0,0.18)] sm:rounded-[32px] sm:p-6">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#4B5068]">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-black">
                     Teacher mark scheme
                   </p>
                   <h3 className="mt-1.5 text-[1.2rem] font-bold tracking-tight text-[#1A1E3A] sm:text-[1.35rem]">
@@ -145,11 +137,11 @@ export default function AssessmentMarkScheme() {
                         <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#1A1E3A]">
                           {row.title}
                         </p>
-                        <span className="shrink-0 rounded-full border border-[#1A1E3A]/15 bg-white px-2.5 py-0.5 text-[10px] font-semibold text-[#4B5068]">
+                        <span className="shrink-0 rounded-full border border-[#1A1E3A]/15 bg-white px-2.5 py-0.5 text-[10px] font-semibold text-black">
                           {row.tag}
                         </span>
                       </div>
-                      <p className="mt-1.5 text-[12px] leading-snug text-[#4B5068] sm:text-[13px]">
+                      <p className="mt-1.5 text-[12px] leading-snug text-black sm:text-[13px]">
                         {row.body}
                       </p>
                     </div>
@@ -184,7 +176,7 @@ export default function AssessmentMarkScheme() {
                   <p
                     className={cn(
                       'mt-2 text-[13px] leading-relaxed',
-                      navy ? 'text-white/65' : 'text-[#1A1E3A]/75',
+                      navy ? 'text-white' : 'text-black',
                     )}
                   >
                     {card.body}
@@ -192,7 +184,7 @@ export default function AssessmentMarkScheme() {
                   <ArrowUpRight
                     className={cn(
                       'absolute bottom-4 right-4 h-4 w-4',
-                      navy ? 'text-white/40' : 'text-[#1A1E3A]/40',
+                      navy ? 'text-white' : 'text-black',
                     )}
                     aria-hidden
                     strokeWidth={2}
@@ -202,6 +194,11 @@ export default function AssessmentMarkScheme() {
             })}
           </div>
         </div>
+
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[14px] leading-relaxed text-black sm:mt-10 sm:text-[15px]">
+          Every important marking decision can sit beside the question: what a strong answer looks
+          like, where levels change, what to accept, and which misconceptions to watch for.
+        </p>
       </div>
     </section>
   )

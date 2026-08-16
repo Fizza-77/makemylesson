@@ -14,12 +14,12 @@ export default function LessonPlanCognitiveBalance() {
       aria-labelledby="cognitive-balance-heading"
     >
       <div className="fp-shell px-4 sm:px-6 md:px-8">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
+        <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
           Cognitive balance
         </p>
         <h2
           id="cognitive-balance-heading"
-          className="max-w-full text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
+          className="max-w-full text-center text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
         >
           Bloom&apos;s Taxonomy,{' '}
           <span className="pricing-hero-underline relative inline-block">actually balanced.</span>
@@ -45,7 +45,7 @@ export default function LessonPlanCognitiveBalance() {
             ))}
           </ul>
 
-          <p className="text-[15px] leading-relaxed text-white/80 sm:text-base lg:pl-2">
+          <p className="text-[15px] leading-relaxed text-white sm:text-base lg:pl-2">
             Most AI plans cluster at &ldquo;remember and understand.&rdquo; Make My Lesson distributes
             objectives and questions across all six levels, weighted for your grade — so a Year 7
             introduction and a Year 12 revision lesson get different balances, on purpose. The same

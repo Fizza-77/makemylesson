@@ -25,7 +25,7 @@ export default function AssessmentCta() {
               <span className="block xl:inline">Paper on the desk.</span>{' '}
               <span className="block xl:inline">Scheme in your hand.</span>
             </h2>
-            <p className="cta-card-copy mt-4 text-[15px] leading-relaxed text-[#1A1E3A]/70 sm:text-base xl:text-[1.05rem]">
+            <p className="cta-card-copy mt-4 text-[15px] leading-relaxed text-black sm:text-base xl:text-[1.05rem]">
               10 free credits · assessment and mark scheme generated together · no card required
             </p>
             <Link

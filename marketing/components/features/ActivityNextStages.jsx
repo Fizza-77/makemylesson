@@ -33,12 +33,12 @@ export default function ActivityNextStages() {
       aria-labelledby="activity-next-stages-heading"
     >
       <div className="fp-shell px-4 sm:px-6 md:px-8">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35BEBC]">
+        <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
           Keep the topic moving
         </p>
         <h2
           id="activity-next-stages-heading"
-          className="max-w-full text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
+          className="max-w-full text-center text-[clamp(1.75rem,3.6vw,2.75rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] md:whitespace-nowrap"
         >
           Your activity connects to{' '}
           <span className="pricing-hero-underline pricing-hero-underline--straight relative inline-block">three more stages.</span>
@@ -58,7 +58,7 @@ export default function ActivityNextStages() {
               <p
                 className={cn(
                   'text-[11px] font-semibold uppercase tracking-[0.12em]',
-                  stage.tone === 'navy' ? 'text-white/50' : 'text-[#1A1E3A]/55',
+                  stage.tone === 'navy' ? 'text-white' : 'text-black',
                 )}
               >
                 {stage.eyebrow}
@@ -69,7 +69,7 @@ export default function ActivityNextStages() {
               <p
                 className={cn(
                   'mt-3 text-[14px] leading-relaxed sm:text-[15px]',
-                  stage.tone === 'navy' ? 'text-white/70' : 'text-[#1A1E3A]/75',
+                  stage.tone === 'navy' ? 'text-white' : 'text-black',
                 )}
               >
                 {stage.body}

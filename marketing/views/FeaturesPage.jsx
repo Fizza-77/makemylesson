@@ -50,6 +50,7 @@ function LessonPlanStage() {
         <LessonPlanHowItWorks />
       </div>
       <LessonPlanWhatsInside />
+      <div className="h-[1cm] bg-white" aria-hidden />
       <LessonPlanDifferentiation />
       <LessonPlanCognitiveBalance />
       <LessonPlanTakeAnywhere />
@@ -67,6 +68,7 @@ function SlideDeckStage() {
       </div>
       <div className="h-10 bg-white sm:h-14" aria-hidden />
       <SlideDeckHowItWorks />
+      <div className="h-[1cm] bg-white" aria-hidden />
       <SlideDeckSequence />
       <SlideDeckSpeakerNotes />
       <SlideDeckDuration />
@@ -83,7 +85,9 @@ function ActivityStage() {
         <ActivityStageHero />
       </div>
       <ActivityHowItWorks />
+      <div className="h-[1cm] bg-white" aria-hidden />
       <ActivityTypes />
+      <div className="h-[1cm] bg-white" aria-hidden />
       <ActivityTeacherCopy />
       <ActivityMethodShape />
       <ActivityTakeAnywhere />
@@ -101,6 +105,7 @@ function AssessmentStage() {
       </div>
       <AssessmentHowItWorks />
       <AssessmentPaperStyles />
+      <div className="h-[1cm] bg-white" aria-hidden />
       <AssessmentMarkScheme />
       <AssessmentCurriculumWording />
       <AssessmentExportCircle />
