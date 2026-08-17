@@ -37,7 +37,6 @@ import {
   STAGE2_DEFAULT_SLIDE_COUNT,
   STAGE2_DEFAULT_THEME_ID,
   STAGE2_MIN_SOURCE_CHARS,
-  STAGE2_SLIDE_COUNT_OPTIONS,
   stage2SlideCountForDurationMinutes,
   stage2SlideFromJson,
   type Stage2Slide,
@@ -328,10 +327,7 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
   },
 
   setSlideCount: (n) => {
-    const allowed = [...STAGE2_SLIDE_COUNT_OPTIONS];
-    set({
-      slideCount: allowed.includes(n) ? n : STAGE2_DEFAULT_SLIDE_COUNT,
-    });
+    set({ slideCount: snapStage2SlideCount(n) });
   },
 
   setUploadedSource: ({ fileName, lessonText }) =>
