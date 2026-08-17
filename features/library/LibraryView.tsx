@@ -153,9 +153,9 @@ function LibraryItemCard({
         className="pointer-events-none h-auto w-full select-none"
       />
 
-      <div className="absolute inset-0 flex flex-col px-[5%] pt-[18%] pb-[6%] sm:px-[5.5%] sm:pt-[17%] sm:pb-[5%]">
+      <div className="absolute inset-0 flex flex-col px-[5%] pt-[18%] pb-[6%]">
         <div className="flex items-start justify-between gap-2">
-          <span className="rounded-full bg-[#20AAA7] px-2.5 py-1 text-[10px] font-bold tracking-wide text-black uppercase sm:text-[11px]">
+          <span className="rounded-full bg-[#20AAA7] px-2.5 py-1 text-[10px] font-bold tracking-wide text-black uppercase">
             {stageBadgeLabel(item)}
           </span>
           <div className="flex shrink-0 items-center gap-1.5">
@@ -192,16 +192,16 @@ function LibraryItemCard({
         <button
           type="button"
           onClick={onOpen}
-          className="mt-3 flex w-full items-center gap-3 rounded-2xl border border-[#E5EBEF] bg-white px-3 py-3 text-left shadow-[0_6px_16px_-12px_rgba(13,20,48,0.25)] transition hover:border-[#CFE6E4] sm:mt-4 sm:px-3.5 sm:py-3.5"
+          className="mt-3 flex w-full items-center gap-3 rounded-2xl border border-[#E5EBEF] bg-white px-3 py-3 text-left shadow-[0_6px_16px_-12px_rgba(13,20,48,0.25)] transition hover:border-[#CFE6E4]"
         >
           <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#E7F6F5] text-[#128C89]">
             <DocMiniIcon />
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm font-bold text-[#0D1430] sm:text-[15px]">
+            <span className="block truncate text-sm font-bold text-[#0D1430]">
               {item.topic || "Untitled"}
             </span>
-            <span className="mt-0.5 block line-clamp-2 text-[11px] leading-snug text-[#8A93A3] sm:text-xs">
+            <span className="mt-0.5 block line-clamp-2 text-[11px] leading-snug text-[#8A93A3]">
               {meta || kindTitle(item.kind)}
               {item.kind === "presentation" && item.presentationStyle
                 ? ` · Theme: ${item.presentationStyle}`
@@ -218,7 +218,7 @@ function LibraryItemCard({
           {tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="max-w-[9rem] truncate rounded-full border border-[#D5DCE3] bg-white px-2.5 py-1 text-[10px] font-medium text-[#0D1430] sm:text-[11px]"
+              className="max-w-[9rem] truncate rounded-full border border-[#D5DCE3] bg-white px-2.5 py-1 text-[10px] font-medium text-[#0D1430]"
             >
               {tag}
             </span>
@@ -427,7 +427,7 @@ export function LibraryView() {
               className={cn(
                 "grid gap-4",
                 viewMode === "grid"
-                  ? "grid-cols-1 sm:grid-cols-2"
+                  ? "grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3"
                   : "grid-cols-1",
               )}
             >

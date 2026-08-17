@@ -334,7 +334,7 @@ export function Stage3AssessmentBuilder({
       <div className="space-y-5 border-t border-slate-200 bg-white px-4 py-5 sm:px-5 sm:py-6">
         <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,0.65fr)_minmax(0,1.35fr)]">
           {/* Teacher Clipboard — light cyan */}
-          <div className="relative rounded-2xl border border-[#B9E6E2] bg-[#E8F8F8] p-4 pt-11 shadow-sm sm:p-5 sm:pt-12">
+          <div className="relative min-w-0 overflow-hidden rounded-2xl border border-[#B9E6E2] bg-[#E8F8F8] p-4 pt-11 shadow-sm sm:p-5 sm:pt-12">
             <div className="absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
               <Image
                 src="/badge.svg"
@@ -345,15 +345,17 @@ export function Stage3AssessmentBuilder({
                 unoptimized
               />
             </div>
-            <p className="text-[10px] font-semibold tracking-wide text-[#28C2C0] uppercase">
-              Teacher clipboard
-            </p>
-            <h3 className="mt-1 whitespace-nowrap text-sm font-bold text-[#151B35] sm:text-base">
-              Choose Assessment Source
-            </h3>
-            <p className="mt-1 text-xs text-slate-500">
-              Select where the assessment content should come from
-            </p>
+            <div className="min-w-0">
+              <p className="text-[10px] font-semibold tracking-wide text-[#28C2C0] uppercase">
+                Teacher clipboard
+              </p>
+              <h3 className="mt-1 text-sm font-bold leading-snug text-[#151B35] break-words hyphens-auto sm:text-base">
+                Choose Assessment Source
+              </h3>
+              <p className="mt-1 text-xs leading-snug break-words text-slate-500">
+                Select where the assessment content should come from
+              </p>
+            </div>
 
             <div className="mt-4 flex flex-col gap-2.5">
               <button

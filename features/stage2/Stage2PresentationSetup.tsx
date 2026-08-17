@@ -7,10 +7,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/lib/urls";
 import { STAGE2_THEMES, type Stage2SlideTheme } from "@/data/stage2-themes";
-import { STAGE2_MIN_SOURCE_CHARS } from "@/types/stage2";
+import {
+  STAGE2_MIN_SOURCE_CHARS,
+  STAGE2_SLIDE_COUNT_OPTIONS,
+} from "@/types/stage2";
 import type { LibraryItem } from "@/types/library-item";
-
-const SLIDE_COUNTS = [5, 7, 9, 11, 13] as const;
 
 function MonitorIcon() {
   return (
@@ -519,7 +520,7 @@ export function Stage2PresentationSetup({
               </p>
             </div>
             <div className="grid w-full grid-cols-5 gap-2 max-[340px]:grid-cols-3 max-[340px]:justify-items-center sm:flex sm:w-auto sm:flex-nowrap sm:gap-3">
-              {SLIDE_COUNTS.map((n) => {
+              {STAGE2_SLIDE_COUNT_OPTIONS.map((n) => {
                 const active = slideCount === n;
                 return (
                   <button

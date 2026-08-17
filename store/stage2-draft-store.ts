@@ -32,8 +32,13 @@ import {
   slidesJsonForLibrary,
   slidesToReviewBody,
   slidesToSpeakerNotes,
+  snapStage2LessonDuration,
+  snapStage2SlideCount,
+  STAGE2_DEFAULT_SLIDE_COUNT,
   STAGE2_DEFAULT_THEME_ID,
   STAGE2_MIN_SOURCE_CHARS,
+  STAGE2_SLIDE_COUNT_OPTIONS,
+  stage2SlideCountForDurationMinutes,
   stage2SlideFromJson,
   type Stage2Slide,
   type Stage2SourceMode,
@@ -51,7 +56,7 @@ export type Stage2DraftState = {
   sourceFileName: string | null;
   sourceLessonText: string;
   themeId: string;
-  /** Target slide count for generation UI (5–13 odd). */
+  /** Target slide count for generation UI (5/7/9/11/13 — Flutter parity). */
   slideCount: number;
   topLevelId: string;
   curriculumLabel: string;
@@ -140,25 +145,13 @@ type Stage2Store = Stage2DraftState & {
   resetResult: () => void;
 };
 
-const STAGE2_SLIDE_COUNT_OPTIONS = [5, 7, 9, 11, 13] as const;
-
-function snapStage2SlideCount(n: number): number {
-  const count = Math.max(1, Math.round(n) || 7);
-  if ((STAGE2_SLIDE_COUNT_OPTIONS as readonly number[]).includes(count)) {
-    return count;
-  }
-  return STAGE2_SLIDE_COUNT_OPTIONS.reduce((best, option) =>
-    Math.abs(option - count) < Math.abs(best - count) ? option : best,
-  );
-}
-
 const initial: Stage2DraftState = {
   sourceMode: "stage1Library",
   sourceLibraryItemId: null,
   sourceFileName: null,
   sourceLessonText: "",
   themeId: STAGE2_DEFAULT_THEME_ID,
-  slideCount: 7,
+  slideCount: STAGE2_DEFAULT_SLIDE_COUNT,
   topLevelId: "british",
   curriculumLabel: "British Curriculum",
   pathwayId: "",
@@ -335,8 +328,10 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
   },
 
   setSlideCount: (n) => {
-    const allowed = [5, 7, 9, 11, 13];
-    set({ slideCount: allowed.includes(n) ? n : 7 });
+    const allowed = [...STAGE2_SLIDE_COUNT_OPTIONS];
+    set({
+      slideCount: allowed.includes(n) ? n : STAGE2_DEFAULT_SLIDE_COUNT,
+    });
   },
 
   setUploadedSource: ({ fileName, lessonText }) =>
@@ -388,6 +383,11 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
         params.pathwayDisplayName ?? get().pathwayDisplayName,
       method: params.method ?? get().method,
       duration: params.duration ?? get().duration,
+      slideCount: snapStage2SlideCount(
+        stage2SlideCountForDurationMinutes(
+          parseDurationMinutes(params.duration ?? get().duration),
+        ),
+      ),
       status: "",
       progress: 0,
       jobId: null,
@@ -439,6 +439,11 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
       pathwayDisplayName: params.pathwayDisplayName,
       method: params.method,
       duration: params.duration,
+      slideCount: snapStage2SlideCount(
+        stage2SlideCountForDurationMinutes(
+          parseDurationMinutes(params.duration),
+        ),
+      ),
     });
   },
 
@@ -669,7 +674,10 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
           subject: effectiveSubject(s.subject, s.subjectName),
           topic: effectiveTopic(s.topic),
           teachingMethod: s.method,
-          lessonDuration: parseDurationMinutes(s.duration),
+          lessonDuration: snapStage2LessonDuration(
+            parseDurationMinutes(s.duration),
+          ),
+          slideCount: snapStage2SlideCount(s.slideCount),
           presentationStyle: s.themeId,
           sourceType:
             s.sourceMode === "stage1Library"

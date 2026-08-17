@@ -26,18 +26,14 @@ const COMPANY_LINKS = [
   { href: '/blog', label: 'Blog' },
 ]
 
-const LEGAL_LINKS = [
-  { href: '/privacy-policy', label: 'Privacy' },
-  { href: '/terms-of-service', label: 'Terms' },
-  { href: '/acceptable-use-policy', label: 'Acceptable Use' },
-  { href: '/cookie-policy', label: 'Cookies' },
-]
-
 const LEGAL_DOCS_ROW = [
   { href: '/privacy-policy', label: 'Privacy Policy' },
-  { href: '/terms-of-service', label: 'Terms of Use' },
+  { href: '/terms-of-service', label: 'Terms of Service' },
   { href: '/acceptable-use-policy', label: 'Acceptable Use Policy' },
   { href: '/cookie-policy', label: 'Cookie Policy' },
+  { href: '/disclaimer', label: 'Disclaimer' },
+  { href: '/refund-payments-policy', label: 'Refund & Payments Policy' },
+  { href: '/account-data-deletion', label: 'Account & Data Deletion' },
 ]
 
 const SOCIAL_LINKS = [
@@ -248,7 +244,7 @@ function SiteFooter() {
           </div>
 
           {/* Tagline + link columns */}
-          <div className="mt-8 grid gap-8 border-t border-white/10 pt-7 sm:grid-cols-2 lg:mt-9 lg:grid-cols-[1.5fr_0.7fr_0.7fr_0.7fr_0.7fr] lg:gap-8 lg:pt-8">
+          <div className="mt-8 grid gap-8 border-t border-white/10 pt-7 sm:grid-cols-2 lg:mt-9 lg:grid-cols-[1.5fr_0.85fr_0.85fr_0.85fr] lg:gap-8 lg:pt-8">
             <div className="max-w-sm sm:col-span-2 lg:col-span-1">
               <p className="text-[14px] leading-relaxed text-white sm:text-[15px]">
                 AI-powered lesson planning and classroom-ready teaching packs for educators across
@@ -259,7 +255,6 @@ function SiteFooter() {
             <FooterColumn title="Product" links={PRODUCT_LINKS} />
             <FooterColumn title="Teaching" links={TEACHING_LINKS} />
             <FooterColumn title="Company" links={COMPANY_LINKS} />
-            <FooterColumn title="Legal" links={LEGAL_LINKS} />
           </div>
 
           {/* Legal docs row */}

@@ -29,6 +29,7 @@ export async function generateStage2Presentation(
       topic: request.topic,
       teachingMethod: request.teachingMethod,
       lessonDuration: request.lessonDuration,
+      slideCount: request.slideCount,
       presentationStyle: request.presentationStyle,
       sourceType: request.sourceType,
       sourceLessonText: request.sourceLessonText,

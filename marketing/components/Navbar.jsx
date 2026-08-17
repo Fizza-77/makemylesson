@@ -8,6 +8,7 @@ import { MML_APP } from '@marketing/lib/appUrls'
 import SectionLink from '@marketing/components/SectionLink'
 import { scrollToTop } from '@marketing/lib/homeScroll'
 import { Menu, X } from 'lucide-react'
+import { MarketingHomeLink } from '@/components/common/MarketingHomeLink'
 
 const NAV_GUTTER = 'px-4 sm:px-6 md:px-8 xl:px-8 2xl:px-10'
 
@@ -107,8 +108,7 @@ export default function Navbar({ theme = 'home' }) {
       )}
     >
       <div className={cn(NAV_CONTAINER, NAV_BAR)}>
-        <Link
-          href="/"
+        <MarketingHomeLink
           className={cn(
             'site-nav-brand flex shrink-0 items-center no-underline',
             pathname === '/' && 'site-nav-brand--active',
@@ -123,7 +123,7 @@ export default function Navbar({ theme = 'home' }) {
           }}
         >
           <span className="site-nav-brand-text font-sans">Make My Lesson</span>
-        </Link>
+        </MarketingHomeLink>
 
         <div className={NAV_DESKTOP}>
           <div className="site-nav-links" role="list">

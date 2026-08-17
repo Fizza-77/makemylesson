@@ -6,14 +6,21 @@ function pricingPath(search = ""): string {
   return `${ROUTES.pricing}${search.startsWith("?") ? search : `?${search}`}`;
 }
 
+function marketingOrigin(): string {
+  if (typeof window !== "undefined") {
+    return (MARKETING_ORIGIN || window.location.origin).replace(/\/$/, "");
+  }
+  return MARKETING_ORIGIN.replace(/\/$/, "");
+}
+
+/** Absolute marketing landing URL (`/`). */
+export function marketingHomeUrl(): string {
+  return `${marketingOrigin()}/`;
+}
+
 /** Absolute marketing pricing URL (always the marketing site origin). */
 export function marketingPricingUrl(search = ""): string {
-  const path = pricingPath(search);
-  const origin =
-    typeof window !== "undefined"
-      ? MARKETING_ORIGIN || window.location.origin
-      : MARKETING_ORIGIN;
-  return `${origin.replace(/\/$/, "")}${path}`;
+  return `${marketingOrigin()}${pricingPath(search)}`;
 }
 
 function isAndroidUa(): boolean {
@@ -82,6 +89,30 @@ export function openPricingPage(
 
   if (navigateInApp) {
     navigateInApp(path);
+    return;
+  }
+
+  if (typeof window !== "undefined") {
+    window.location.assign(url);
+  }
+}
+
+/**
+ * Open the marketing landing page.
+ * In an installed PWA, force the system browser (marketing routes redirect in-app).
+ */
+export function openMarketingHome(
+  navigateInApp?: (href: string) => void,
+): void {
+  const url = marketingHomeUrl();
+
+  if (typeof window !== "undefined" && isStandaloneDisplay()) {
+    openInSystemBrowser(url);
+    return;
+  }
+
+  if (navigateInApp) {
+    navigateInApp("/");
     return;
   }
 

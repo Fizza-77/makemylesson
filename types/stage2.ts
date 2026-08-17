@@ -45,7 +45,13 @@ export type Stage2GenerateRequest = {
   subject: string;
   topic: string;
   teachingMethod: string;
+  /** Must be one of STAGE2_LESSON_DURATIONS (matches Flutter / Cloud Function). */
   lessonDuration: number;
+  /**
+   * User-facing deck size (5/7/9/11/13). Backend generates slideCount − 1
+   * content slides; Flutter/web prepend a Cover as display slide 1.
+   */
+  slideCount: number;
   sourceType: "generated_lesson_plan" | "teacher_uploaded_lesson_plan";
   sourceLessonText: string;
   pathwayProgram?: string | null;
@@ -64,6 +70,49 @@ export type Stage2GenerationStatus = {
 
 export const STAGE2_DEFAULT_THEME_ID = "classic_navy";
 export const STAGE2_MIN_SOURCE_CHARS = 50;
+
+/** Allowed by Stage 2 cloud function (`lessonDuration`). */
+export const STAGE2_LESSON_DURATIONS = [30, 35, 40, 45, 50, 55, 60] as const;
+
+/**
+ * User-facing slide counts from Flutter `LessonDraft.allowedStage2SlideCounts`
+ * / Cloud Function `STAGE2_ALLOWED_SLIDE_COUNTS`.
+ */
+export const STAGE2_SLIDE_COUNT_OPTIONS = [5, 7, 9, 11, 13] as const;
+export const STAGE2_DEFAULT_SLIDE_COUNT = 7;
+
+export function snapStage2LessonDuration(minutes: number): number {
+  const m = Math.max(1, Math.round(minutes) || 45);
+  if ((STAGE2_LESSON_DURATIONS as readonly number[]).includes(m)) return m;
+  return STAGE2_LESSON_DURATIONS.reduce((best, option) =>
+    Math.abs(option - m) < Math.abs(best - m) ? option : best,
+  );
+}
+
+export function snapStage2SlideCount(n: number): number {
+  const count = Math.max(1, Math.round(n) || STAGE2_DEFAULT_SLIDE_COUNT);
+  if ((STAGE2_SLIDE_COUNT_OPTIONS as readonly number[]).includes(count)) {
+    return count;
+  }
+  return STAGE2_SLIDE_COUNT_OPTIONS.reduce((best, option) =>
+    Math.abs(option - count) < Math.abs(best - count) ? option : best,
+  );
+}
+
+/** Soft default slide count from lesson length (snapped to allowed odd options). */
+export function stage2SlideCountForDurationMinutes(minutes: number): number {
+  const m = snapStage2LessonDuration(minutes);
+  const faqHeuristic: Record<number, number> = {
+    30: 6,
+    35: 7,
+    40: 8,
+    45: 9,
+    50: 10,
+    55: 11,
+    60: 12,
+  };
+  return snapStage2SlideCount(faqHeuristic[m] ?? STAGE2_DEFAULT_SLIDE_COUNT);
+}
 
 export function newStage2JobId(): string {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {

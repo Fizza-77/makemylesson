@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { NotificationsPanel } from "@/features/notifications/NotificationsPanel";
 import { AylaMobileFab } from "@/components/common/AylaMobileFab";
 import { InstallAppButton } from "@/components/common/InstallAppButton";
+import { MarketingHomeLink } from "@/components/common/MarketingHomeLink";
 import { OpenInAppDialog } from "@/components/common/OpenInAppDialog";
 import { PricingLink } from "@/components/common/PricingLink";
 import { cn } from "@/lib/utils";
@@ -171,12 +172,9 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
 
       <header className="sticky top-0 z-40 border-b border-[#E8EAED] bg-white">
         <div className="app-shell-inner flex h-[72px] items-center gap-4">
-          {/* Left brand → app home (Stage 1) */}
+          {/* Left brand → web landing (system browser when installed as PWA) */}
           <div className="flex min-w-0 flex-1 items-center">
-            <Link
-              href={ROUTES.home}
-              className="flex min-w-0 items-center gap-3"
-            >
+            <MarketingHomeLink className="flex min-w-0 items-center gap-3">
               <Image
                 src="/logo.png"
                 alt="Make My Lesson"
@@ -193,7 +191,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                   Professional teacher workspace
                 </span>
               </span>
-            </Link>
+            </MarketingHomeLink>
           </div>
 
           {/* Center tabs — plain Tailwind flex, no CSS grid */}

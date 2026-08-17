@@ -67,13 +67,47 @@ export function Stage2View() {
   const [successFlash, setSuccessFlash] = useState(0);
   const [exporting, setExporting] = useState(false);
   const [libraryDirty, setLibraryDirty] = useState(false);
+  /** Display index including Cover as 0 (Flutter parity). */
+  const [displayIndex, setDisplayIndex] = useState(0);
   const slidesBaselineRef = useRef("");
 
-  const activeSlide = draft.slides[draft.activeSlideIndex] ?? null;
   const hasDeck = draft.slides.length > 0;
+  const displayCount = hasDeck ? draft.slides.length + 1 : 0;
+  const isCoverSelected = hasDeck && displayIndex === 0;
+  const contentIndex = isCoverSelected ? 0 : Math.max(0, displayIndex - 1);
+  const activeSlide = isCoverSelected
+    ? null
+    : (draft.slides[contentIndex] ?? null);
   const displaySlides = draft.slides;
   const isGenerating = draft.isGenerating;
   const sourceLen = draft.sourceLessonText.trim().length;
+
+  const coverData = useMemo(
+    () => ({
+      topic: draft.presentationTitle || draft.topic || "Presentation",
+      grade: draft.grade || "",
+      subject: draft.subjectName || draft.subject || "",
+      curriculum:
+        draft.mappedCurriculumName || draft.curriculumLabel || "",
+      schoolName:
+        account?.useSchoolNameInAi && account.schoolName?.trim()
+          ? account.schoolName.trim()
+          : null,
+      teacherName: account?.displayName?.trim() || null,
+    }),
+    [
+      account?.displayName,
+      account?.schoolName,
+      account?.useSchoolNameInAi,
+      draft.curriculumLabel,
+      draft.grade,
+      draft.mappedCurriculumName,
+      draft.presentationTitle,
+      draft.subject,
+      draft.subjectName,
+      draft.topic,
+    ],
+  );
 
   const slidesFingerprint = useMemo(
     () => JSON.stringify(draft.slides),
@@ -84,10 +118,19 @@ export function Stage2View() {
   const prevLinkedPresentationId = useRef(linkedPresentationId);
 
   useEffect(() => {
+    if (!hasDeck) {
+      setDisplayIndex(0);
+      return;
+    }
+    setDisplayIndex((i) => Math.min(Math.max(0, i), displayCount - 1));
+  }, [displayCount, hasDeck, slidesFingerprint]);
+
+  useEffect(() => {
     if (prevLinkedPresentationId.current !== linkedPresentationId) {
       prevLinkedPresentationId.current = linkedPresentationId;
       slidesBaselineRef.current = slidesFingerprint;
       setLibraryDirty(false);
+      setDisplayIndex(0);
       return;
     }
     if (!linkedPresentationId) {
@@ -373,8 +416,9 @@ export function Stage2View() {
                 "Exploring Ecosystems"
               }
               slides={displaySlides}
-              activeSlideIndex={draft.activeSlideIndex}
+              activeSlideIndex={displayIndex}
               themeId={draft.themeId}
+              cover={coverData}
               linkedLibraryItemId={draft.linkedPresentationLibraryItemId}
               isSavingLibrary={draft.isSavingLibrary}
               exportMenuOpen={exportMenuOpen}
@@ -386,14 +430,16 @@ export function Stage2View() {
               onExport={(id) => void onExport(id as Stage2DownloadActionId)}
               onShare={() => void onShare()}
               onSaveLibrary={() => void onSaveLibrary()}
-              onPrev={() =>
-                draft.setActiveSlideIndex(draft.activeSlideIndex - 1)
-              }
+              onPrev={() => setDisplayIndex((i) => Math.max(0, i - 1))}
               onNext={() =>
-                draft.setActiveSlideIndex(draft.activeSlideIndex + 1)
+                setDisplayIndex((i) => Math.min(displayCount - 1, i + 1))
               }
-              onSelectSlide={(idx) => draft.setActiveSlideIndex(idx)}
-              onEdit={() => setEditOpen(true)}
+              onSelectSlide={(idx) => setDisplayIndex(idx)}
+              onEdit={() => {
+                if (isCoverSelected) return;
+                draft.setActiveSlideIndex(contentIndex);
+                setEditOpen(true);
+              }}
               showSave={
                 Boolean(draft.linkedPresentationLibraryItemId) && libraryDirty
               }
@@ -403,6 +449,7 @@ export function Stage2View() {
                 draft.resetResult();
                 slidesBaselineRef.current = "";
                 setLibraryDirty(false);
+                setDisplayIndex(0);
               }}
             />
           </GenerationSuccessOverlay>
@@ -412,7 +459,7 @@ export function Stage2View() {
             slide={activeSlide}
             onClose={() => setEditOpen(false)}
             onSave={(patch) => {
-              draft.updateSlide(draft.activeSlideIndex, patch);
+              draft.updateSlide(contentIndex, patch);
               setEditOpen(false);
               if (draft.linkedPresentationLibraryItemId) {
                 setLibraryDirty(true);

@@ -5,6 +5,10 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/Button";
 import { LessonPlanContentView } from "@/features/stage1/LessonPlanContentView";
+import {
+  Stage2CoverCanvas,
+  type Stage2CoverData,
+} from "@/features/stage2/Stage2CoverCanvas";
 import { Stage2SlideCanvas } from "@/features/stage2/Stage2SlideCanvas";
 import { stage2ThemeById } from "@/data/stage2-themes";
 import { ROUTES } from "@/lib/urls";
@@ -113,6 +117,7 @@ export function PresentationResultPanel({
   slides,
   activeSlideIndex,
   themeId,
+  cover,
   linkedLibraryItemId,
   isSavingLibrary,
   exportMenuOpen,
@@ -136,8 +141,10 @@ export function PresentationResultPanel({
   isGenerating?: boolean;
   title: string;
   slides: Stage2Slide[];
+  /** Display index including Cover as slide 1 (Flutter parity). */
   activeSlideIndex: number;
   themeId: string;
+  cover?: Stage2CoverData | null;
   linkedLibraryItemId?: string | null;
   isSavingLibrary?: boolean;
   exportMenuOpen?: boolean;
@@ -158,17 +165,36 @@ export function PresentationResultPanel({
   onClear?: () => void;
   className?: string;
 }) {
-  const activeSlide = slides[activeSlideIndex] ?? null;
+  // Backend returns content slides only; Cover is prepended client-side.
+  const displayCount = hasDeck ? slides.length + 1 : 0;
+  const isCover = hasDeck && activeSlideIndex === 0;
+  const contentIndex = isCover ? -1 : activeSlideIndex - 1;
+  const activeSlide =
+    contentIndex >= 0 ? (slides[contentIndex] ?? null) : null;
   const theme = stage2ThemeById(themeId);
-  const slideLabel =
-    activeSlide?.slideTitle?.trim() ||
-    activeSlide?.slideType?.trim() ||
-    (hasDeck ? `Slide ${activeSlideIndex + 1}` : "Title Slide");
+  const coverData: Stage2CoverData = cover ?? {
+    topic: title,
+    grade: "",
+    subject: "",
+    curriculum: "",
+  };
+  const slideLabel = isCover
+    ? "Cover"
+    : activeSlide?.slideTitle?.trim() ||
+      activeSlide?.slideType?.trim() ||
+      (hasDeck ? `Slide ${activeSlideIndex + 1}` : "Title Slide");
   const slideCountLabel = hasDeck
-    ? `${slides.length} slide${slides.length === 1 ? "" : "s"}`
+    ? `${displayCount} slide${displayCount === 1 ? "" : "s"}`
     : isGenerating
       ? "Generating…"
       : "0 slides";
+  const notesHeading = hasDeck
+    ? isCover
+      ? "Cover Slide Notes"
+      : `Slide ${activeSlideIndex + 1} Notes`
+    : "Slide 1 Notes";
+  const coverNotes =
+    "This is the cover slide. It shows your school name and your name (from Profile), plus the lesson topic, grade, subject and curriculum. Personalization can be changed in your Profile.";
 
   return (
     <section
@@ -223,39 +249,65 @@ export function PresentationResultPanel({
 
               <div className="theme-scroll-hover min-h-0 flex-1 divide-y divide-slate-200 overflow-y-auto">
                 {hasDeck ? (
-                  slides.map((slide, idx) => {
-                    const active = idx === activeSlideIndex;
-                    const name =
-                      slide.slideTitle?.trim() ||
-                      slide.slideType?.trim() ||
-                      `Slide ${idx + 1}`;
-                    return (
-                      <button
-                        key={`${slide.slideNumber}-${idx}`}
-                        type="button"
-                        onClick={() => onSelectSlide?.(idx)}
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => onSelectSlide?.(0)}
+                      className={cn(
+                        "flex w-full items-center gap-3 px-3 py-3 text-left transition sm:px-4",
+                        isCover
+                          ? "bg-[#E8F8F8]"
+                          : "bg-white hover:bg-slate-50",
+                      )}
+                    >
+                      <span className="w-4 shrink-0 text-sm font-semibold text-slate-500">
+                        1
+                      </span>
+                      <SlideThumbPreview themeId={themeId} title="Cover" />
+                      <span
                         className={cn(
-                          "flex w-full items-center gap-3 px-3 py-3 text-left transition sm:px-4",
-                          active
-                            ? "bg-[#E8F8F8]"
-                            : "bg-white hover:bg-slate-50",
+                          "min-w-0 flex-1 truncate text-sm font-medium",
+                          isCover ? "text-[#128C89]" : "text-slate-500",
                         )}
                       >
-                        <span className="w-4 shrink-0 text-sm font-semibold text-slate-500">
-                          {idx + 1}
-                        </span>
-                        <SlideThumbPreview themeId={themeId} title={name} />
-                        <span
+                        Cover
+                      </span>
+                    </button>
+                    {slides.map((slide, idx) => {
+                      const displayIdx = idx + 1;
+                      const active = displayIdx === activeSlideIndex;
+                      const name =
+                        slide.slideTitle?.trim() ||
+                        slide.slideType?.trim() ||
+                        `Slide ${displayIdx + 1}`;
+                      return (
+                        <button
+                          key={`${slide.slideNumber}-${idx}`}
+                          type="button"
+                          onClick={() => onSelectSlide?.(displayIdx)}
                           className={cn(
-                            "min-w-0 flex-1 truncate text-sm font-medium",
-                            active ? "text-[#128C89]" : "text-slate-500",
+                            "flex w-full items-center gap-3 px-3 py-3 text-left transition sm:px-4",
+                            active
+                              ? "bg-[#E8F8F8]"
+                              : "bg-white hover:bg-slate-50",
                           )}
                         >
-                          {name}
-                        </span>
-                      </button>
-                    );
-                  })
+                          <span className="w-4 shrink-0 text-sm font-semibold text-slate-500">
+                            {displayIdx + 1}
+                          </span>
+                          <SlideThumbPreview themeId={themeId} title={name} />
+                          <span
+                            className={cn(
+                              "min-w-0 flex-1 truncate text-sm font-medium",
+                              active ? "text-[#128C89]" : "text-slate-500",
+                            )}
+                          >
+                            {name}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </>
                 ) : (
                   (
                     [
@@ -303,7 +355,7 @@ export function PresentationResultPanel({
                   <button
                     type="button"
                     onClick={onEdit}
-                    disabled={!hasDeck}
+                    disabled={!hasDeck || isCover}
                     className="relative z-10 disabled:opacity-40"
                     aria-label="Edit slide"
                   >
@@ -326,7 +378,15 @@ export function PresentationResultPanel({
               {/* Align monitor bezel left edge under "Current Slide"; sit flush below label */}
               <div className="relative -mt-0.5 -ml-[4.5%] w-[109%] min-w-0">
                 <div className="absolute top-[6.5%] right-[8%] bottom-[16%] left-[8%] z-[1] overflow-hidden">
-                  {hasDeck && activeSlide ? (
+                  {hasDeck && isCover ? (
+                    <Stage2CoverCanvas
+                      data={coverData}
+                      themeId={themeId}
+                      totalSlides={displayCount}
+                      fill
+                      className="h-full w-full rounded-none"
+                    />
+                  ) : hasDeck && activeSlide ? (
                     <Stage2SlideCanvas
                       slide={activeSlide}
                       themeId={themeId}
@@ -389,7 +449,7 @@ export function PresentationResultPanel({
                   <button
                     type="button"
                     disabled={
-                      !hasDeck || activeSlideIndex >= slides.length - 1
+                      !hasDeck || activeSlideIndex >= displayCount - 1
                     }
                     onClick={onNext}
                     className="flex size-9 items-center justify-center rounded-lg bg-[#E8F8F8] text-[#1A9E9C] transition hover:bg-[#D5F3F2] disabled:opacity-40"
@@ -423,7 +483,7 @@ export function PresentationResultPanel({
                   <button
                     type="button"
                     onClick={onEdit}
-                    disabled={!hasDeck}
+                    disabled={!hasDeck || isCover}
                     className="relative z-10 disabled:opacity-40"
                     aria-label="Edit notes"
                   >
@@ -451,20 +511,24 @@ export function PresentationResultPanel({
                     <span>Teacher notes</span>
                   </div>
                   <p className="mt-1.5 text-base font-bold text-[#151B35]">
-                    {hasDeck
-                      ? `Slide ${activeSlideIndex + 1} Notes`
-                      : "Slide 1 Notes"}
+                    {notesHeading}
                   </p>
                   <div className="mt-2 h-[3px] w-full rounded-full bg-[#202B52]" />
                 </header>
 
                 <div className="theme-scroll-hover min-h-0 flex-1 overflow-y-auto overscroll-contain px-3.5 py-3 sm:px-4">
                   {hasDeck ? (
-                    <LessonPlanContentView
-                      content={activeSlide?.speakerNotes ?? ""}
-                      emptyPlaceholder="No speaker notes for this slide."
-                      className="prose prose-sm max-w-none text-slate-500 prose-headings:my-1.5 prose-headings:text-sm prose-headings:font-bold prose-headings:text-[#151B35] prose-p:my-1 prose-p:text-xs prose-p:leading-relaxed sm:prose-p:text-sm prose-strong:font-bold prose-strong:text-[#151B35] prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-li:marker:text-[#28C2C0]"
-                    />
+                    isCover ? (
+                      <p className="text-xs leading-relaxed text-slate-500 sm:text-sm">
+                        {coverNotes}
+                      </p>
+                    ) : (
+                      <LessonPlanContentView
+                        content={activeSlide?.speakerNotes ?? ""}
+                        emptyPlaceholder="No speaker notes for this slide."
+                        className="prose prose-sm max-w-none text-slate-500 prose-headings:my-1.5 prose-headings:text-sm prose-headings:font-bold prose-headings:text-[#151B35] prose-p:my-1 prose-p:text-xs prose-p:leading-relaxed sm:prose-p:text-sm prose-strong:font-bold prose-strong:text-[#151B35] prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-li:marker:text-[#28C2C0]"
+                      />
+                    )
                   ) : (
                     <>
                       <p className="whitespace-pre-wrap text-xs leading-relaxed text-slate-500 sm:text-sm">
@@ -508,20 +572,24 @@ export function PresentationResultPanel({
                   </div>
 
                   <p className="mt-2 shrink-0 text-base font-bold text-[#151B35] sm:mt-2.5 sm:text-lg">
-                    {hasDeck
-                      ? `Slide ${activeSlideIndex + 1} Notes`
-                      : "Slide 1 Notes"}
+                    {notesHeading}
                   </p>
 
                   <div className="mt-2 h-[3px] w-full shrink-0 rounded-full bg-[#202B52]" />
 
                   <div className="theme-scroll-hover mt-2.5 min-h-0 flex-1 overflow-auto">
                     {hasDeck ? (
-                      <LessonPlanContentView
-                        content={activeSlide?.speakerNotes ?? ""}
-                        emptyPlaceholder="No speaker notes for this slide."
-                        className="prose prose-sm max-w-none text-slate-500 prose-headings:my-1.5 prose-headings:text-sm prose-headings:font-bold prose-headings:text-[#151B35] prose-p:my-1 prose-p:text-xs prose-p:leading-relaxed sm:prose-p:text-sm prose-strong:font-bold prose-strong:text-[#151B35] prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-li:marker:text-[#28C2C0]"
-                      />
+                      isCover ? (
+                        <p className="text-xs leading-relaxed text-slate-500 sm:text-sm">
+                          {coverNotes}
+                        </p>
+                      ) : (
+                        <LessonPlanContentView
+                          content={activeSlide?.speakerNotes ?? ""}
+                          emptyPlaceholder="No speaker notes for this slide."
+                          className="prose prose-sm max-w-none text-slate-500 prose-headings:my-1.5 prose-headings:text-sm prose-headings:font-bold prose-headings:text-[#151B35] prose-p:my-1 prose-p:text-xs prose-p:leading-relaxed sm:prose-p:text-sm prose-strong:font-bold prose-strong:text-[#151B35] prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-li:marker:text-[#28C2C0]"
+                        />
+                      )
                     ) : (
                       <>
                         <p className="whitespace-pre-wrap text-xs leading-relaxed text-slate-500 sm:text-sm">
