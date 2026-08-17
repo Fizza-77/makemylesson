@@ -28,7 +28,7 @@ const PLATFORMS = [
     ],
     cta: "Visit Linguatude",
     href: "https://linguatude.com",
-    logo: "/logo-linguatude.jpg",
+    logo: "/linguatude.jpeg",
   },
   {
     key: "worksheeta",
@@ -42,7 +42,7 @@ const PLATFORMS = [
     ],
     cta: "Visit Worksheeta",
     href: "https://worksheeta.com",
-    logo: "/logo (512x512).png",
+    logo: "/worksheeta.jpeg",
   },
 ] as const;
 
