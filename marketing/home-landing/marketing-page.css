@@ -327,19 +327,21 @@
 
 .mml-mkt-stage-name {
   margin: 0.3rem 0 0;
-  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  font-size: clamp(0.92rem, 1.1vw, 1.15rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--mml-ink);
   flex-shrink: 0;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 .mml-mkt-stage-desc {
   margin: 0.25rem 0 0;
   width: 100%;
   max-width: none;
-  min-height: 2.4em;
-  font-size: clamp(0.74rem, 0.9vw, 0.86rem);
+  min-height: 4.2em;
+  font-size: clamp(0.72rem, 0.85vw, 0.82rem);
   line-height: 1.35;
   color: #000000;
 }
@@ -423,17 +425,207 @@
   flex-shrink: 0;
 }
 
-.mml-mkt-trust {
-  margin: 0.75rem 0 0;
-  text-align: center;
-  font-size: 0.88rem;
-  font-weight: 400;
-  color: #ffffff;
-  letter-spacing: 0.01em;
+/* Trust indicators — matches reference strip */
+.mml-trust {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 1rem 0.5in 1.15rem;
+  background: #ffffff;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 3;
 }
 
-.mml-mkt-trust-dot {
-  color: var(--mml-cyan);
+.mml-trust-inner {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.mml-trust-card {
+  border: 1px solid #e6eaf0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+  overflow: hidden;
+}
+
+.mml-trust-row {
+  list-style: none;
+  margin: 0;
+  padding: 1.1rem 0.35rem 0.65rem;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0;
+}
+
+.mml-trust-note {
+  margin: 0;
+  padding: 0 1.1rem 0.85rem;
+  font-size: 0.62rem;
+  line-height: 1.45;
+  font-weight: 500;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.mml-trust-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+  padding: 0.55rem 0.7rem 0.45rem;
+  gap: 0.45rem;
+  transition: transform 0.22s ease;
+}
+
+.mml-trust-item:hover {
+  transform: translateY(-6px);
+}
+
+.mml-trust-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  right: 0;
+  width: 1px;
+  background: #e8ecf1;
+}
+
+.mml-trust-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.mml-trust-icon-svg {
+  width: 2.05rem;
+  height: 2.05rem;
+}
+
+.mml-trust-icon--purple {
+  background: #f1e9ff;
+  color: #7c3aed;
+}
+.mml-trust-icon--teal {
+  background: #dff7f5;
+  color: #0d9488;
+}
+.mml-trust-icon--orange {
+  background: #ffedd5;
+  color: #ea580c;
+}
+.mml-trust-icon--pink {
+  background: #fce7f3;
+  color: #db2777;
+}
+.mml-trust-icon--blue {
+  background: #dbeafe;
+  color: #2563eb;
+}
+.mml-trust-icon--green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.mml-trust-icon--yellow {
+  background: #fef3c7;
+  color: #ca8a04;
+}
+
+.mml-trust-title {
+  margin: 0;
+  font-size: clamp(0.92rem, 1.1vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.mml-trust-desc {
+  margin: 0;
+  font-size: clamp(0.82rem, 0.95vw, 0.95rem);
+  line-height: 1.4;
+  font-weight: 400;
+  color: #64748b;
+  max-width: 14.5rem;
+}
+
+.mml-trust-pill {
+  display: inline;
+  padding: 0.05em 0.35em;
+  border-radius: 9999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mml-trust-pill--purple {
+  background: #efe6ff;
+  color: #6d28d9;
+}
+
+@media (max-width: 1100px) {
+  .mml-trust-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    row-gap: 0.85rem;
+    padding: 1rem 0.5rem;
+  }
+
+  .mml-trust-item:nth-child(4)::after,
+  .mml-trust-item:nth-child(7)::after {
+    display: none;
+  }
+
+  .mml-trust-item:nth-child(n + 5) {
+    border-top: 1px solid #eef1f5;
+    padding-top: 0.9rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .mml-trust-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mml-trust-item:nth-child(even)::after {
+    display: none;
+  }
+
+  .mml-trust-item:nth-child(n + 3) {
+    border-top: 1px solid #eef1f5;
+    padding-top: 0.9rem;
+  }
+
+  .mml-trust-item:nth-child(4)::after {
+    display: block;
+  }
+}
+
+@media (max-width: 420px) {
+  .mml-trust-row {
+    grid-template-columns: 1fr;
+  }
+
+  .mml-trust-item::after {
+    display: none !important;
+  }
+
+  .mml-trust-item:not(:first-child) {
+    border-top: 1px solid #eef1f5;
+    padding-top: 0.9rem;
+  }
+
+  .mml-trust-desc {
+    max-width: none;
+  }
 }
 
 .mml-mkt-stats {
@@ -468,6 +660,7 @@
   box-sizing: border-box;
   position: relative;
   z-index: 1;
+  scroll-margin-top: 5.5rem;
 }
 
 .mml-ba-inner {
@@ -1391,105 +1584,167 @@
   color: #ffffff;
 }
 
-.mml-tm-hint {
+.mml-tm-panel {
   margin: 1.75rem 0 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #35bebc;
-}
-
-.mml-tm-grid {
-  margin-top: 1.35rem;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.mml-tm-grid-item {
-  min-width: 0;
-}
-
-.mml-tm-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  width: 100%;
-  min-height: 0;
-  height: 100%;
-  padding: 1rem 1.05rem 1.1rem;
-  border: 2px solid #1a1e3a;
-  border-radius: 22px;
-  background: #ffffff;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
-  text-align: left;
-  overflow: hidden;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.15rem 1.25rem;
+  list-style: none;
+  padding: 0;
+  background: transparent;
   box-sizing: border-box;
 }
 
-.mml-tm-card-head {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
+.mml-tm-panel-item {
   min-width: 0;
+  background: transparent;
 }
 
-.mml-tm-card-badge {
+.mml-tm-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  background: transparent;
+}
+
+.mml-tm-col-heading {
+  margin: 0;
+  padding: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-align: left;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.mml-tm-col-heading::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 0.55rem;
+  border-radius: 9999px;
+  background: #35bebc;
+}
+
+.mml-tm-col-cards {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: transparent;
+}
+
+.mml-tm-col-cards > .mml-tm-method-card + .mml-tm-method-card {
+  margin-top: 0.7rem;
+}
+
+.mml-tm-col-extra {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s ease;
+}
+
+.mml-tm-col-extra--open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.mml-tm-col-extra-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-height: 0;
+  overflow: hidden;
+  padding-top: 0.7rem;
+}
+
+.mml-tm-col-extra:not(.mml-tm-col-extra--open) .mml-tm-col-extra-inner {
+  pointer-events: none;
+}
+
+.mml-tm-col-extra .mml-tm-method-card {
+  transform: translateY(-6px);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mml-tm-col-extra--open .mml-tm-method-card {
+  transform: translateY(0);
+}
+
+.mml-tm-method-card {
+  margin: 0;
+  padding: 0.95rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+  text-align: left;
+}
+
+.mml-tm-method-card-title {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.mml-tm-method-card-blurb {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #64748b;
+}
+
+.mml-tm-col-expand {
+  margin: 0.55rem auto 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2.25rem;
-  height: 2.25rem;
-  padding: 0 0.4rem;
-  border-radius: 8px;
-  background: rgba(26, 30, 58, 0.08);
-  font-family: var(--font-manrope), Manrope, sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-  line-height: 1;
-  color: #1a1e3a;
-  flex-shrink: 0;
-}
-
-.mml-tm-card-title {
-  margin: 0;
-  min-width: 0;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.25;
-  color: #1a1e3a;
-}
-
-.mml-tm-card-def {
-  margin: 0;
-  font-size: 0.78rem;
-  line-height: 1.4;
-  font-weight: 500;
-  color: #000000;
-}
-
-.mml-tm-view-all {
-  margin-top: 1.5rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.85rem 1.4rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
   border-radius: 9999px;
-  background: #35bebc;
-  color: #0b1224;
-  font-size: 0.92rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: filter 0.15s ease, transform 0.15s ease;
+  background: transparent;
+  color: #35bebc;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
 
-.mml-tm-view-all:hover {
-  filter: brightness(1.05);
-  transform: translateY(-1px);
+.mml-tm-col-expand:hover {
+  background: rgba(53, 190, 188, 0.12);
+  color: #1a9592;
+}
+
+.mml-tm-col-expand-icon {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mml-tm-col-expand-icon.is-open {
+  transform: rotate(180deg);
+}
+
+.mml-tm .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .mml-tm-banner {
@@ -3624,23 +3879,19 @@
   }
 }
 
-@media (min-width: 720px) {
-  .mml-tm-grid {
+@media (max-width: 959px) {
+  .mml-tm-panel {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.1rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .mml-tm-panel {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (min-width: 960px) {
-  .mml-tm-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.15rem;
-  }
-
-  .mml-tm-card {
-    min-height: 0;
-  }
-
   .mml-tm-banner {
     flex-direction: row;
     align-items: center;
@@ -3756,10 +4007,6 @@
   .mml-mkt-stats-inner,
   .mml-sp-grid {
     max-width: min(1360px, 100%);
-  }
-
-  .mml-tm-card {
-    min-height: 0;
   }
 }
 

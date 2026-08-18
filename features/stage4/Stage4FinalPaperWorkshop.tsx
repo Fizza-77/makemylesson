@@ -162,10 +162,11 @@ function ConditionSlider({
   className?: string;
 }) {
   const pct = max === min ? 0 : ((value - min) / (max - min)) * 100;
+  const visibleLabels = labels.filter((n) => n >= min && n <= max);
   return (
     <div className={cn("pt-3", className)}>
       <div className="mb-1.5 flex justify-between px-0.5 text-[10px] font-medium text-slate-400">
-        {labels.map((n) => (
+        {visibleLabels.map((n) => (
           <span key={n}>{n}</span>
         ))}
       </div>
@@ -480,14 +481,14 @@ export function Stage4FinalPaperWorkshop({
 
         {/* Duration · Marks · Final build */}
         <div className="mt-4 grid gap-3 lg:grid-cols-3">
-          <div className="relative flex items-center gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="absolute top-4 right-5 text-lg font-bold tracking-tight text-[#151B35]">
-              {durationMinutes} min
-            </p>
+          <div className="flex items-center gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
             <RingGauge label="TIME" progress={durationProgress} />
             <div className="min-w-0 flex-1">
-              <p className="pr-20 text-[10px] font-bold tracking-wide text-[#28C2C0] uppercase">
+              <p className="text-[10px] font-bold tracking-wide text-[#28C2C0] uppercase">
                 Duration
+              </p>
+              <p className="text-lg font-bold tracking-tight text-[#151B35]">
+                {durationMinutes} min
               </p>
               <p className="mt-1 w-full text-[11px] leading-snug text-slate-500">
                 Time students have to complete the paper.
@@ -504,17 +505,17 @@ export function Stage4FinalPaperWorkshop({
             </div>
           </div>
 
-          <div className="relative flex items-center gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="absolute top-4 right-5 text-lg font-bold tracking-tight text-[#151B35]">
-              {totalMarks} marks
-            </p>
+          <div className="flex items-center gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
             <RingGauge label="Marks" progress={marksProgress} />
             <div className="min-w-0 flex-1">
-              <p className="pr-24 text-[10px] font-bold tracking-wide text-[#28C2C0] uppercase">
+              <p className="text-[10px] font-bold tracking-wide text-[#28C2C0] uppercase">
                 Marks
               </p>
+              <p className="text-lg font-bold tracking-tight text-[#151B35]">
+                {totalMarks} marks
+              </p>
               <p className="mt-1 w-full text-[11px] leading-snug text-slate-500">
-                Balance marks with duration /difficulty.
+                Balance marks with duration / difficulty.
               </p>
               <ConditionSlider
                 labels={MARKS_TICK_LABELS}

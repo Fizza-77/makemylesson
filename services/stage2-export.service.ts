@@ -70,20 +70,49 @@ function slideImageSrc(slide: Stage2Slide): string | null {
 }
 
 async function fetchImageAsDataUrl(src: string): Promise<string | null> {
+  if (!src) return null;
+  if (src.startsWith("data:")) return src;
+
+  // 1. Try fetch with no-cors mode — works if Storage bucket has CORS configured.
   try {
-    if (src.startsWith("data:")) return src;
-    const res = await fetch(src);
-    if (!res.ok) return null;
-    const blob = await res.blob();
-    return await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result));
-      reader.onerror = () => reject(reader.error);
-      reader.readAsDataURL(blob);
-    });
+    const res = await fetch(src, { mode: "cors" });
+    if (res.ok) {
+      const blob = await res.blob();
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(blob);
+      });
+      if (dataUrl && dataUrl.startsWith("data:image")) return dataUrl;
+    }
   } catch {
-    return null;
+    // Fall through to canvas approach below.
   }
+
+  // 2. Fallback: load via <img crossOrigin="anonymous"> + canvas.
+  //    Works when the server sends permissive CORS headers on the image response.
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth || img.width;
+        canvas.height = img.naturalHeight || img.height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) { resolve(null); return; }
+        ctx.drawImage(img, 0, 0);
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
+        resolve(dataUrl.startsWith("data:image") ? dataUrl : null);
+      } catch {
+        resolve(null);
+      }
+    };
+    img.onerror = () => resolve(null);
+    // Bust cache so the browser re-requests with CORS headers.
+    img.src = src.includes("?") ? `${src}&_cb=${Date.now()}` : `${src}?_cb=${Date.now()}`;
+  });
 }
 
 function paintPdfBackground(

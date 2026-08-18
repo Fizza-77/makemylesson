@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import AylaMarketingChat from "@marketing/components/AylaMarketingChat";
 import CookieConsent from "@marketing/components/CookieConsent";
 import Footer from "@marketing/components/Footer";
+import LandingScrollHandler from "@marketing/components/LandingScrollHandler";
 import Navbar from "@marketing/components/Navbar";
 
 type MarketingChromeProps = {
@@ -29,6 +30,7 @@ export default function MarketingChrome({
         style={{ background: "#1a1e3a", minHeight: "100vh" }}
       >
         <Navbar theme="home" />
+        <LandingScrollHandler />
         <div className="pt-16">{children}</div>
         <Footer />
         <CookieConsent />

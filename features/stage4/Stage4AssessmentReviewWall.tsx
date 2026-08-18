@@ -174,7 +174,7 @@ export function Stage4AssessmentReviewWall({
                 </div>
                 <div className="relative min-h-[16rem] px-4 py-10 sm:min-h-[18rem]">
                   {hasResult && hasStudentContent ? (
-                    <div className="max-h-72 overflow-auto text-left">
+                    <div className="theme-scroll-hover max-h-72 overflow-auto text-left">
                       <Stage4AssessmentContentView result={result} />
                     </div>
                   ) : (

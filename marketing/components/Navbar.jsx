@@ -134,8 +134,11 @@ export default function Navbar({ theme = 'home' }) {
         </div>
 
         <div className="site-nav-actions">
+          <Link href={MML_APP.signIn} className="site-nav-signin max-[900px]:hidden">
+            Sign in
+          </Link>
           <Link href={MML_APP.signUp || MML_APP.stage1} className="site-nav-cta">
-            Get Started
+            Start Your First Lesson — Free
           </Link>
           <button
             type="button"
@@ -167,11 +170,18 @@ export default function Navbar({ theme = 'home' }) {
           ))}
           <div className="site-nav-drawer-cta">
             <Link
+              href={MML_APP.signIn}
+              className="site-nav-signin"
+              onClick={() => setMobileOpen(false)}
+            >
+              Sign in
+            </Link>
+            <Link
               href={MML_APP.signUp || MML_APP.stage1}
               className="site-nav-cta"
               onClick={() => setMobileOpen(false)}
             >
-              Get Started
+              Start Your First Lesson — Free
             </Link>
           </div>
         </div>

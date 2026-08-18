@@ -137,6 +137,7 @@ type Stage3Store = Stage3DraftState & {
   generate: () => Promise<{ savedToLibrary: boolean; saveError?: string }>;
   saveCurrentToLibrary: () => Promise<void>;
   resetResult: () => void;
+  resetAll: () => void;
 };
 
 const initial: Stage3DraftState = {
@@ -514,6 +515,12 @@ export const useStage3DraftStore = create<Stage3Store>((set, get) => ({
       isGenerating: false,
       linkedActivityLibraryItemId: null,
     });
+  },
+
+  resetAll: () => {
+    stopPolling();
+    activeJobId = null;
+    set(initial);
   },
 
   saveCurrentToLibrary: async () => {

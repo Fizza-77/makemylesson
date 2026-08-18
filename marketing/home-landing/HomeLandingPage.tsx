@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import BeforeAfterSection from "@marketing/home-landing/BeforeAfterSection";
-import ShelfSection from "@marketing/home-landing/ShelfSection";
 import MeetAylaSection from "@marketing/home-landing/MeetAylaSection";
 import TeachingMethodsSection from "@marketing/home-landing/TeachingMethodsSection";
 import CurriculumCoverageSection from "@marketing/home-landing/CurriculumCoverageSection";
@@ -10,111 +9,163 @@ import ReviewsSection from "@marketing/home-landing/ReviewsSection";
 import SisterPlatformsSection from "@marketing/home-landing/SisterPlatformsSection";
 import PricingSection from "@marketing/home-landing/PricingSection";
 import FinalCtaSection from "@marketing/home-landing/FinalCtaSection";
+import SectionLink from "@marketing/components/SectionLink";
 import { MML_APP } from "@marketing/lib/appUrls";
 
 const STAGES = [
   {
-    num: "01",
-    name: "Plan",
-    desc: "Curriculum-aligned lesson plan in seconds.",
+    num: "1",
+    name: "Lesson Plan",
+    desc: "Tell us your topic, grade, subject, and duration. We'll build a structured, curriculum-aligned plan.",
     iconSrc: "/plan.svg",
     href: MML_APP.stage1,
   },
   {
-    num: "02",
-    name: "Present",
-    desc: "Slides with speaker notes, ready to project.",
+    num: "2",
+    name: "Presentation",
+    desc: "Get slide-by-slide content with speaker notes and beautiful visuals.",
     iconSrc: "/present.svg",
     href: MML_APP.stage2,
   },
   {
-    num: "03",
-    name: "Assess",
-    desc: "Worksheets, quizzes and exams that match the lesson.",
-    iconSrc: "/assess.svg",
+    num: "3",
+    name: "Classroom Activity",
+    desc: "Engage students with ready-to-use activities, worksheets, and group tasks.",
+    iconSrc: "/activity.svg",
     href: MML_APP.stage3,
   },
   {
-    num: "04",
-    name: "Teach",
-    desc: "Walk in prepared — everything in one pack.",
-    iconSrc: "/teach.svg",
+    num: "4",
+    name: "Assessment",
+    desc: "Create assessments with answer keys and marking guides. Any stage. Any order. You're in control.",
+    iconSrc: "/assess.svg",
     href: MML_APP.stage4,
   },
 ] as const;
 
-const STATS = [
+const TRUST_INDICATORS = [
   {
-    value: "49h",
-    label:
-      "per week the average teacher works, 10 hours above their contracted hours",
-    tone: "light" as const,
-    icon: "clock" as const,
+    key: "curriculum",
+    title: "Curriculum Aligned",
+    tone: "purple" as const,
+    icon: "book" as const,
+    description: (
+      <>
+        Aligned with{" "}
+        <span className="mml-trust-pill mml-trust-pill--purple">
+          71+ curricula
+        </span>{" "}
+        worldwide. All grade levels.
+      </>
+    ),
   },
   {
-    value: "2–3h",
-    label:
-      "saved per complete teaching pack vs. building across 5 separate tools",
-    tone: "dark" as const,
-    icon: "doc" as const,
+    key: "customizable",
+    title: "Fully Customizable",
+    tone: "teal" as const,
+    icon: "sliders" as const,
+    description: "Edit, adjust, and tailor every part to your teaching style.",
   },
   {
-    value: "71",
-    label:
-      "curriculum routes across Australia, UK, Canada, IB and US. Every route dedicated, never generic.",
-    tone: "light" as const,
+    key: "export",
+    title: "Export & Share",
+    tone: "orange" as const,
+    icon: "cloud" as const,
+    description: "Download or share to Google Classroom and Microsoft Teams.",
+  },
+  {
+    key: "teacher-first",
+    title: "Teacher First",
+    tone: "pink" as const,
     icon: "shield" as const,
+    description: "Built for teachers. Saved profiles, history & easy reuse.",
   },
   {
-    value: "16",
-    label:
-      "teaching methods genuinely embedded throughout every stage, not just labelled",
-    tone: "dark" as const,
+    key: "methods",
+    title: "16 Teaching Methods",
+    tone: "blue" as const,
+    icon: "grad" as const,
+    description: "Use the best-fit methods to engage every learner.",
+  },
+  {
+    key: "teachers",
+    title: "50K+ Teachers",
+    tone: "green" as const,
     icon: "people" as const,
+    description: "Trusted by 50K+ teachers worldwide.",
+  },
+  {
+    key: "rating",
+    title: "4.8/5 Teacher Rating",
+    tone: "yellow" as const,
+    icon: "star" as const,
+    description: "Loved by teachers around the world for results that matter.",
   },
 ] as const;
 
-function StatIcon({ name }: { name: (typeof STATS)[number]["icon"] }) {
+function TrustIcon({ name }: { name: (typeof TRUST_INDICATORS)[number]["icon"] }) {
   const common = {
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: 1.8,
+    strokeWidth: 1.9,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
     "aria-hidden": true as const,
-    className: "mml-mkt-stat-icon-svg",
+    className: "mml-trust-icon-svg",
   };
   switch (name) {
-    case "clock":
+    case "book":
       return (
         <svg {...common}>
-          <circle cx="12" cy="12" r="8.25" />
-          <path d="M12 8.2v4.1l2.8 1.7" />
+          <path d="M4.5 6.5c2.2-1.2 4.4-1.4 7.5.2v11.6c-3.1-1.6-5.3-1.4-7.5-.2V6.5Z" />
+          <path d="M19.5 6.5c-2.2-1.2-4.4-1.4-7.5.2v11.6c3.1-1.6 5.3-1.4 7.5-.2V6.5Z" />
         </svg>
       );
-    case "doc":
+    case "sliders":
       return (
         <svg {...common}>
-          <path d="M8 3.75h5.2L17.5 8v12.25H8z" />
-          <path d="M13.1 3.75V8H17.5" />
-          <path d="M10.2 12.2h5.1M10.2 15.4h5.1" />
+          <path d="M5 7h14M5 12h14M5 17h14" />
+          <circle cx="9" cy="7" r="2" fill="currentColor" stroke="none" />
+          <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none" />
+          <circle cx="10.5" cy="17" r="2" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "cloud":
+      return (
+        <svg {...common}>
+          <path d="M8.2 17.5h8.1A3.7 3.7 0 0 0 18.5 10.6a5.2 5.2 0 0 0-9.9 1.5A3.5 3.5 0 0 0 8.2 17.5Z" />
+          <path d="M12 11.2v5.2M9.8 14.2 12 16.4l2.2-2.2" />
         </svg>
       );
     case "shield":
       return (
         <svg {...common}>
-          <path d="M12 3.6 18.4 6v5.2c0 4-2.7 6.9-6.4 8.2-3.7-1.3-6.4-4.2-6.4-8.2V6L12 3.6Z" />
-          <path d="m9.4 12.1 1.9 1.9 3.6-3.8" />
+          <path d="M12 3.5 19 6.2v5.1c0 4.4-2.9 7.4-7 8.7-4.1-1.3-7-4.3-7-8.7V6.2L12 3.5Z" />
+          <path d="m9.4 12.1 1.8 1.8 3.5-3.7" />
+        </svg>
+      );
+    case "grad":
+      return (
+        <svg {...common}>
+          <path d="m3.5 10 8.5-4.2L20.5 10 12 14.2 3.5 10Z" />
+          <path d="M7.2 12.2v4.2c0 1.5 2.2 2.8 4.8 2.8s4.8-1.3 4.8-2.8v-4.2" />
+          <path d="M19.2 10.5v5.2" />
         </svg>
       );
     case "people":
       return (
         <svg {...common}>
-          <circle cx="9" cy="9" r="2.6" />
-          <circle cx="15.4" cy="9.4" r="2.2" />
-          <path d="M4.8 18.2c.7-2.6 2.7-4 4.2-4s3.5 1.4 4.2 4" />
-          <path d="M13.2 14.4c1.1-.5 2.4-.4 3.5.4 1.2.9 1.9 2.2 2.2 3.4" />
+          <circle cx="9" cy="8.2" r="2.4" />
+          <circle cx="16.2" cy="9" r="2" />
+          <path d="M3.8 18.2c.4-2.6 2.4-4 5.2-4s4.8 1.4 5.2 4" />
+          <path d="M14.2 14.6c1.7-.4 3.5.2 4.5 2.2.4.8.5 1.6.5 1.4" />
+        </svg>
+      );
+    case "star":
+      return (
+        <svg {...common}>
+          <path d="m12 3.6 2.3 4.7 5.2.8-3.8 3.6.9 5.1L12 15.4 7.4 17.8l.9-5.1-3.8-3.6 5.2-.8L12 3.6Z" />
         </svg>
       );
   }
@@ -177,15 +228,10 @@ export default function HomeLandingPage() {
             <div className="mml-mkt-screen">
               <div className="mml-mkt-hero-top">
                 <div className="mml-mkt-hero-copy">
-                  <div className="mml-mkt-badge">
-                    <span className="mml-mkt-badge-dot" aria-hidden />
-                    AI-POWERED CO-TEACHER • GRADES 1–12
-                  </div>
-
                   <h1 className="mml-mkt-title">
-                    <span className="mml-mkt-title-line">Create Complete Lessons in</span>
+                    <span className="mml-mkt-title-line">From plan to classroom in</span>
                     <span className="mml-mkt-title-accent">
-                      4 Simple Stages
+                      4 simple steps
                       <StageUnderline />
                     </span>
                   </h1>
@@ -212,7 +258,7 @@ export default function HomeLandingPage() {
                       </span>
                     ) : null}
                     <Link href={href} className="mml-mkt-stage">
-                      <span className="mml-mkt-stage-label">STAGE {num}</span>
+                      <span className="mml-mkt-stage-label">Step {num}</span>
                       <Image
                         src={iconSrc}
                         alt=""
@@ -232,51 +278,54 @@ export default function HomeLandingPage() {
           </div>
 
           <div className="mml-mkt-ctas">
-            <Link href="/signup" className="mml-mkt-cta-primary">
+            <Link href={MML_APP.stage1} className="mml-mkt-cta-primary">
               Start Your First Lesson — Free
               <span aria-hidden>→</span>
             </Link>
-            <Link href="/#how-it-works" className="mml-mkt-cta-secondary">
+            <SectionLink
+              sectionId="sample-lesson"
+              href="/"
+              className="mml-mkt-cta-secondary"
+            >
               <span className="mml-mkt-cta-icon" aria-hidden>
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
                   <path d="M2 1.2v7.6L8.5 5 2 1.2z" />
                 </svg>
               </span>
               See a Sample Lesson
-            </Link>
+            </SectionLink>
           </div>
-
-          <p className="mml-mkt-trust">
-            Free to start <span className="mml-mkt-trust-dot" aria-hidden>•</span>{" "}
-            No card needed <span className="mml-mkt-trust-dot" aria-hidden>•</span>{" "}
-            Grades 1–12 <span className="mml-mkt-trust-dot" aria-hidden>•</span>{" "}
-            Any curriculum
-          </p>
         </div>
       </main>
 
-      <section className="mml-mkt-stats" aria-label="Key stats">
-        <div className="mml-mkt-stats-inner">
-          <ul className="mml-mkt-stats-grid">
-            {STATS.map((stat) => (
-              <li
-                key={stat.value}
-                className={`mml-mkt-stat-card mml-mkt-stat-card--${stat.tone}`}
-              >
-                <span className="mml-mkt-stat-icon" aria-hidden>
-                  <StatIcon name={stat.icon} />
-                </span>
-                <p className="mml-mkt-stat-value">{stat.value}</p>
-                <p className="mml-mkt-stat-label">{stat.label}</p>
-              </li>
-            ))}
-          </ul>
+      <section className="mml-trust" aria-label="Trust indicators">
+        <div className="mml-trust-inner">
+          <div className="mml-trust-card">
+            <ul className="mml-trust-row">
+              {TRUST_INDICATORS.map((item) => (
+                <li key={item.key} className="mml-trust-item">
+                  <span
+                    className={`mml-trust-icon mml-trust-icon--${item.tone}`}
+                    aria-hidden
+                  >
+                    <TrustIcon name={item.icon} />
+                  </span>
+                  <p className="mml-trust-title">{item.title}</p>
+                  <p className="mml-trust-desc">{item.description}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mml-trust-note">
+              These numbers are live, real, and updated every week. We&apos;re a
+              new platform — we&apos;d rather show you where we actually are than
+              pretend to be somewhere we&apos;re not. Join us early and help us
+              build something genuine.
+            </p>
+          </div>
         </div>
       </section>
 
       <BeforeAfterSection />
-      <div className="mml-band-gap" aria-hidden />
-      <ShelfSection />
       <MeetAylaSection />
       <TeachingMethodsSection />
       <div className="mml-band-gap" aria-hidden />

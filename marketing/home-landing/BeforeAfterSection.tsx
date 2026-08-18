@@ -105,7 +105,11 @@ function UntilNowUnderline() {
 
 export default function BeforeAfterSection() {
   return (
-    <section className="mml-ba" aria-labelledby="mml-ba-heading">
+    <section
+      className="mml-ba"
+      id="sample-lesson"
+      aria-labelledby="mml-ba-heading"
+    >
       <div className="mml-ba-inner">
         <div className="mml-ba-badge">
           <span className="mml-ba-badge-icon" aria-hidden>

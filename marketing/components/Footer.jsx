@@ -3,27 +3,35 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import {
+  Briefcase,
+  CircleHelp,
+  FileText,
+  GraduationCap,
+  Heart,
+  Home,
+  Mail,
+  Pencil,
+  Sparkles,
+  Tag,
+} from 'lucide-react'
+import BrandMark from '@marketing/components/BrandMark'
 import Container from '@marketing/components/layout/Container'
 import { getFeaturePath } from '@marketing/data/features'
-import { APP_STORE_URL, GOOGLE_PLAY_URL, MML_APP } from '@marketing/lib/appUrls'
+import { APP_STORE_URL, GOOGLE_PLAY_URL } from '@marketing/lib/appUrls'
 
-const PRODUCT_LINKS = [
-  { href: '/#how-it-works', label: 'How It Works' },
-  { href: getFeaturePath('lesson-plan-generator'), label: 'Teaching Pack' },
-  { href: MML_APP.ayla, label: 'Ayla' },
-  { href: '/pricing', label: 'Pricing' },
-]
+const TEAL = '#35BEBC'
 
-const TEACHING_LINKS = [
-  { href: '/teaching-methods', label: 'Teaching Methods' },
-  { href: '/#curriculum', label: 'Curriculums' },
-  { href: '/blog', label: 'Resources' },
-]
-
-const COMPANY_LINKS = [
-  { href: '/contact', label: 'About' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/blog', label: 'Blog' },
+const SITEMAP_LINKS = [
+  { href: '/', label: 'Home', Icon: Home },
+  { href: '/features/lesson-plan-generator', label: 'Features', Icon: Sparkles },
+  { href: '/teaching-methods', label: 'Teaching Methods', Icon: GraduationCap },
+  { href: '/#how-it-works', label: 'How It Works', Icon: FileText },
+  { href: getFeaturePath('lesson-plan-generator'), label: 'Teaching Pack', Icon: Briefcase },
+  { href: '/pricing', label: 'Pricing', Icon: Tag },
+  { href: '/faq', label: 'FAQs', Icon: CircleHelp },
+  { href: '/blog', label: 'Blog', Icon: Pencil },
+  { href: '/contact', label: 'Contact Us', Icon: Mail },
 ]
 
 const LEGAL_DOCS_ROW = [
@@ -63,11 +71,17 @@ const SOCIAL_LINKS = [
   },
 ]
 
+const SISTER_LINKS = [
+  { href: 'https://studiely.com', label: 'Studiely' },
+  { href: 'https://linguatude.com', label: 'Linguatude' },
+  { href: 'https://worksheeta.com', label: 'Worksheeta' },
+]
+
 function SocialIcon({ children }) {
   return (
     <svg
-      width={18}
-      height={18}
+      width={16}
+      height={16}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -118,47 +132,35 @@ function LinkedinIcon() {
   )
 }
 
-function AppleIcon() {
+function AppleBadgeIcon() {
   return (
-    <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width={17} height={17} viewBox="0 0 24 24" fill="currentColor" aria-hidden className="shrink-0">
       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
     </svg>
   )
 }
 
-function GooglePlayIcon() {
+function GooglePlayBadgeIcon() {
   return (
-    <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12 3.84 21.85c-.5-.24-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27zm.89-6.81c.34.27.54.68.54 1.13s-.2.86-.54 1.13L17.69 15 6.05 2.66 15.5 2.5l2.2 5.81z" />
+    <svg width={15} height={15} viewBox="0 0 24 24" aria-hidden className="shrink-0">
+      <path fill="#EA4335" d="M3.6 2.2 13.7 12 3.6 21.8c-.4-.2-.6-.6-.6-1V3.2c0-.4.2-.8.6-1z" />
+      <path fill="#FBBC04" d="m13.7 12 2.5 2.5-9.5 5.5L3.6 21.8 13.7 12z" />
+      <path fill="#4285F4" d="M20.4 10.1c.5.3.8.8.8 1.4s-.3 1.1-.8 1.4l-3.4 2-2.8-2.7 2.8-2.8 3.4 1.7z" />
+      <path fill="#34A853" d="M13.7 12 6.7 4.9l9.5 5.5L13.7 12z" />
     </svg>
   )
 }
 
-function FooterLink({ href, label }) {
+function ExternalTextLink({ href, children }) {
   return (
-    <Link
+    <a
       href={href}
-      className="block text-[14px] font-medium text-white/90 no-underline transition-colors hover:text-white"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-semibold text-[#35BEBC] underline underline-offset-2 transition-opacity hover:opacity-90"
     >
-      {label}
-    </Link>
-  )
-}
-
-function FooterColumn({ title, links }) {
-  return (
-    <div>
-      <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
-        {title}
-      </p>
-      <ul className="space-y-3">
-        {links.map((item) => (
-          <li key={`${title}-${item.label}`}>
-            <FooterLink href={item.href} label={item.label} />
-          </li>
-        ))}
-      </ul>
-    </div>
+      {children}
+    </a>
   )
 }
 
@@ -167,107 +169,177 @@ function SiteFooter() {
     <>
       <div className="h-[1cm] bg-white" aria-hidden />
       <footer className="mt-auto w-full min-w-0 bg-[#1A1E3A] text-white">
-        <Container className="py-8 sm:py-10 lg:py-12">
-          {/* Brand + social | App download + QR */}
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
-            <div className="flex min-w-0 flex-col items-center self-start">
+        <Container className="py-8 sm:py-9 lg:py-10">
+          {/* Top: Brand | Sitemap | Follow | Download */}
+          <div className="grid gap-8 lg:grid-cols-[minmax(11.5rem,0.85fr)_minmax(0,2.55fr)_auto_minmax(0,1.2fr)] lg:items-start lg:gap-0">
+            {/* Brand */}
+            <div className="min-w-0 lg:pr-4 lg:border-r lg:border-white/15">
               <Link
                 href="/"
-                className="inline-block text-center text-[1.15rem] font-bold tracking-tight text-white no-underline"
+                className="inline-flex max-w-full items-center gap-2 no-underline"
+                aria-label="Make My Lesson home"
               >
-                Make My Lesson
+                <BrandMark className="h-8 w-8 shrink-0 object-contain sm:h-9 sm:w-9" />
+                <span className="whitespace-nowrap text-[1rem] font-bold tracking-tight text-white sm:text-[1.05rem]">
+                  Make My Lesson
+                </span>
               </Link>
-              <div className="mt-3 flex w-fit flex-col items-center">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
-                  Follow us
-                </p>
-                <div className="mt-2.5 flex items-center gap-2.5">
-                  {SOCIAL_LINKS.map(({ key, href, label, Icon }) => (
-                    <a
-                      key={key}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={label}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-[#35BEBC] hover:bg-[#35BEBC] hover:text-[#1A1E3A]"
-                    >
-                      <Icon />
-                    </a>
-                  ))}
-                </div>
+              <p className="mt-3 text-[12px] leading-relaxed text-white/75 sm:text-[13px]">
+                AI-powered lesson planning for teachers across Australia, United Kingdom, Canada,
+                International Baccalaureate and United States.
+              </p>
+            </div>
+
+            {/* Sitemap */}
+            <div className="min-w-0 lg:border-r lg:border-white/15">
+              <p
+                className="mb-3 text-center text-[13px] font-semibold tracking-tight"
+                style={{ color: TEAL }}
+              >
+                Sitemap
+              </p>
+              <nav aria-label="Sitemap">
+                <ul className="flex w-full flex-nowrap items-stretch overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {SITEMAP_LINKS.map(({ href, label, Icon }, index) => {
+                    const isLast = index === SITEMAP_LINKS.length - 1
+                    return (
+                      <li
+                        key={label}
+                        className={`min-w-0 flex-1 ${
+                          !isLast ? 'border-r border-white/20' : ''
+                        }`}
+                      >
+                        <Link
+                          href={href}
+                          className="group flex h-full flex-col items-center gap-1.5 px-1.5 py-0.5 text-center no-underline"
+                        >
+                          <span
+                            className="inline-flex h-7 w-7 shrink-0 items-center justify-center transition-transform group-hover:scale-105"
+                            style={{ color: TEAL }}
+                          >
+                            <Icon size={20} strokeWidth={1.75} aria-hidden />
+                          </span>
+                          <span className="max-w-[4.75rem] text-[10px] font-medium leading-tight text-white/90 transition-colors group-hover:text-white sm:text-[11px]">
+                            {label}
+                          </span>
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </nav>
+            </div>
+
+            {/* Follow us */}
+            <div className="min-w-0 lg:px-5 lg:border-r lg:border-white/15">
+              <p
+                className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.14em]"
+                style={{ color: TEAL }}
+              >
+                Follow Us
+              </p>
+              <div className="mx-auto grid w-fit grid-cols-2 gap-2.5">
+                {SOCIAL_LINKS.map(({ key, href, label, Icon }) => (
+                  <a
+                    key={key}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border text-white transition hover:bg-[#35BEBC] hover:text-[#1A1E3A]"
+                    style={{ borderColor: TEAL }}
+                  >
+                    <Icon />
+                  </a>
+                ))}
               </div>
             </div>
 
-            <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center sm:gap-5 lg:justify-end">
-              <div className="min-w-0">
-                <p className="text-[15px] font-semibold tracking-tight text-white sm:text-[16px]">
-                  Teach Anywhere. Download the app
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2.5">
+            {/* Download the app */}
+            <div className="min-w-0 lg:pl-10">
+              <p
+                className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] lg:text-left"
+                style={{ color: TEAL }}
+              >
+                Download the App
+              </p>
+              <div className="flex flex-nowrap items-start gap-3">
+                <div className="flex min-w-0 flex-col gap-2">
                   <a
                     href={APP_STORE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:border-white/50 hover:bg-white/10"
+                    className="inline-flex h-[42px] w-[138px] items-center gap-2 rounded-lg bg-black px-2.5 text-white no-underline ring-1 ring-white/25 transition hover:bg-black/90"
                   >
-                    <AppleIcon />
-                    App Store
+                    <AppleBadgeIcon />
+                    <span className="flex min-w-0 flex-col leading-none">
+                      <span className="text-[8px] font-medium tracking-wide text-white/85">
+                        Download on the
+                      </span>
+                      <span className="mt-0.5 text-[13px] font-semibold tracking-tight">
+                        App Store
+                      </span>
+                    </span>
                   </a>
                   <a
                     href={GOOGLE_PLAY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:border-white/50 hover:bg-white/10"
+                    className="inline-flex h-[42px] w-[138px] items-center gap-2 rounded-lg bg-black px-2.5 text-white no-underline ring-1 ring-white/25 transition hover:bg-black/90"
                   >
-                    <GooglePlayIcon />
-                    Google Play
+                    <GooglePlayBadgeIcon />
+                    <span className="flex min-w-0 flex-col leading-none">
+                      <span className="text-[8px] font-medium tracking-wide text-white/85">
+                        GET IT ON
+                      </span>
+                      <span className="mt-0.5 text-[13px] font-semibold tracking-tight">
+                        Google Play
+                      </span>
+                    </span>
                   </a>
                 </div>
+
+                <div className="flex shrink-0 flex-col items-center gap-1">
+                  <a
+                    href="https://makemylesson.app/smartlink"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-[92px] w-[92px] shrink-0 items-center justify-center overflow-hidden rounded-md bg-white p-1.5"
+                    aria-label="Scan QR code to download Make My Lesson"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fmakemylesson.app%2Fsmartlink"
+                      alt="QR code linking to Make My Lesson app"
+                      width={80}
+                      height={80}
+                      className="h-full w-full object-contain"
+                    />
+                  </a>
+                  <p className="max-w-[92px] text-center text-[9px] leading-snug text-white/80">
+                    Scan to download Make My Lesson
+                  </p>
+                </div>
               </div>
-              <a
-                href="https://makemylesson.app/smartlink"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-[112px] w-[112px] shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white p-1.5"
-                aria-label="Scan QR code to download Make My Lesson"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fmakemylesson.app%2Fsmartlink"
-                  alt="QR code linking to Make My Lesson app"
-                  width={100}
-                  height={100}
-                  className="h-full w-full object-contain"
-                />
-              </a>
             </div>
           </div>
 
-          {/* Tagline + link columns */}
-          <div className="mt-8 grid gap-8 border-t border-white/10 pt-7 sm:grid-cols-2 lg:mt-9 lg:grid-cols-[1.5fr_0.85fr_0.85fr_0.85fr] lg:gap-8 lg:pt-8">
-            <div className="max-w-sm sm:col-span-2 lg:col-span-1">
-              <p className="text-[14px] leading-relaxed text-white sm:text-[15px]">
-                AI-powered lesson planning and classroom-ready teaching packs for educators across
-                multiple curriculum systems.
-              </p>
-            </div>
-
-            <FooterColumn title="Product" links={PRODUCT_LINKS} />
-            <FooterColumn title="Teaching" links={TEACHING_LINKS} />
-            <FooterColumn title="Company" links={COMPANY_LINKS} />
-          </div>
-
-          {/* Legal docs row */}
+          {/* Legal docs */}
           <nav
             aria-label="Legal documents"
-            className="mt-7 border-t border-white/10 pt-5 sm:mt-8 sm:pt-5"
+            className="mt-8 border-t border-white/15 pt-5 sm:mt-9 sm:pt-5"
           >
-            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:gap-x-8">
-              {LEGAL_DOCS_ROW.map((item) => (
-                <li key={item.href}>
+            <ul className="flex flex-wrap items-center justify-center gap-x-0 gap-y-2">
+              {LEGAL_DOCS_ROW.map((item, index) => (
+                <li key={item.href} className="inline-flex items-center">
+                  {index > 0 ? (
+                    <span className="mx-2.5 text-[11px] sm:mx-3" style={{ color: TEAL }} aria-hidden>
+                      •
+                    </span>
+                  ) : null}
                   <Link
                     href={item.href}
-                    className="text-[13px] font-semibold text-white no-underline transition-colors hover:text-[#35BEBC] sm:text-[14px]"
+                    className="text-[12px] font-medium text-white/85 no-underline transition-colors hover:text-[#35BEBC] sm:text-[13px]"
                   >
                     {item.label}
                   </Link>
@@ -276,31 +348,42 @@ function SiteFooter() {
             </ul>
           </nav>
 
-          {/* Opposite taglines */}
-          <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5 sm:mt-7 sm:flex-row sm:items-start sm:justify-between sm:gap-8 sm:pt-5">
-            <p className="max-w-md text-[12px] leading-relaxed text-white/85 sm:text-[13px]">
-              AI-powered lesson planning for teachers across Australia, United Kingdom, Canada,
-              International Baccalaureate and United States.
-            </p>
-            <p className="max-w-md text-[12px] leading-relaxed text-white/85 sm:text-right sm:text-[13px]">
-              Make My Lesson is a product of{' '}
-              <a
-                href="https://skyensolutions.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white underline-offset-2 transition-colors hover:underline"
-              >
-                Skyen Solutions
-              </a>
-              , a trade name of Qismat Ventures W.L.L. (CR 190698-1) — Office 501, Building 1025, Road
-              3621, Block 436, Al Seef, Bahrain.
+          {/* Company blurb */}
+          <div className="mt-5 border-t border-white/15 pt-5 sm:mt-6 sm:pt-5">
+            <p className="text-center text-[11px] leading-relaxed text-white/70 sm:text-[12px]">
+              Make My Lesson is a product of Skyen Solutions, a trade name of Qismat Ventures W.L.L.
+              (CR 190698-1) — located at Office 501, Building 1025, Road 3621, Block 436, Al Seef,
+              Bahrain — and is a sister product of{' '}
+              {SISTER_LINKS.map((item, index) => (
+                <span key={item.href}>
+                  {index > 0 ? (index === SISTER_LINKS.length - 1 ? ', and ' : ', ') : null}
+                  <ExternalTextLink href={item.href}>{item.label}</ExternalTextLink>
+                </span>
+              ))}
+              . For educational technology platforms, please contact{' '}
+              <ExternalTextLink href="https://skyensolutions.com">Skyen Solutions</ExternalTextLink>
+              .
             </p>
           </div>
 
-          {/* Copyright */}
-          <p className="mt-6 text-center text-[12px] leading-relaxed text-white/80 sm:mt-7 sm:text-[13px]">
-            © 2026 Qismat Ventures W.L.L. All rights reserved.
-          </p>
+          {/* Bottom bar */}
+          <div className="mt-5 flex flex-col items-center gap-3 border-t border-white/15 pt-5 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-5">
+            <p className="flex items-center gap-2 text-center text-[12px] leading-snug text-white/75 sm:text-left sm:text-[13px]">
+              <Heart
+                size={14}
+                strokeWidth={2}
+                className="shrink-0"
+                style={{ color: TEAL }}
+                fill="none"
+                aria-hidden
+              />
+              <span>Built by educator. Designed for teachers. Made for every classroom.</span>
+            </p>
+            <p className="flex items-center gap-3 text-[12px] text-white/70 sm:text-[13px]">
+              <span className="hidden h-4 w-px bg-white/25 sm:block" aria-hidden />
+              <span>© 2026 Qismat Ventures W.L.L. All rights reserved.</span>
+            </p>
+          </div>
         </Container>
       </footer>
     </>

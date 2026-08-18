@@ -151,6 +151,7 @@ type Stage4Store = Stage4DraftState & {
   generate: () => Promise<{ savedToLibrary: boolean; saveError?: string }>;
   saveCurrentToLibrary: () => Promise<void>;
   resetResult: () => void;
+  resetAll: () => void;
 };
 
 const initial: Stage4DraftState = {
@@ -604,6 +605,12 @@ export const useStage4DraftStore = create<Stage4Store>((set, get) => ({
       isGenerating: false,
       linkedAssessmentLibraryItemId: null,
     });
+  },
+
+  resetAll: () => {
+    stopPolling();
+    activeJobId = null;
+    set(initial);
   },
 
   saveCurrentToLibrary: async () => {
