@@ -5,7 +5,9 @@ import dynamic from "next/dynamic";
 
 import generatingLottie from "@/data/generating-lottie.json";
 
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+const Lottie = dynamic(() => import("lottie-react").then((mod) => mod.default), {
+  ssr: false,
+});
 
 const TIPS = [
   "Ayla is drafting the details…",
