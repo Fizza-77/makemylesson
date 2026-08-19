@@ -2,6 +2,7 @@ export const APP_ORIGIN =
   process.env.NEXT_PUBLIC_APP_ORIGIN?.replace(/\/$/, "") ??
   "https://makemylesson.ai";
 
+/** App and marketing share one host now; kept separate for legacy env overrides. */
 export const MARKETING_ORIGIN =
   process.env.NEXT_PUBLIC_MARKETING_ORIGIN?.replace(/\/$/, "") ??
   "https://makemylesson.ai";
@@ -149,5 +150,5 @@ export const AppUrls = {
   contactSales: "/contact",
   helpEmail: "hello@makemylesson.ai",
   supportEmail: "support@makemylesson.ai",
-  smartLink: "https://makemylesson.app/smartlink",
+  smartLink: "https://makemylesson.ai/smartlink",
 } as const;

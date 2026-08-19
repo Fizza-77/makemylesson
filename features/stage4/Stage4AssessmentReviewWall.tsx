@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { MarkdownContentView } from "@/components/common/MarkdownContentView";
+import { WorksheetContentView } from "@/components/common/WorksheetContentView";
 import { ROUTES } from "@/lib/urls";
 import { cn } from "@/lib/utils";
 import { Stage4AssessmentContentView } from "@/features/stage4/Stage4AssessmentContentView";
@@ -47,7 +47,7 @@ function PackSlot({
   contentClassName?: string;
 }) {
   return (
-    <div className="flex min-w-0 flex-col rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+    <div className="flex h-full min-w-0 flex-col rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
       <div className="relative mb-1 flex min-h-9 items-center">
         <p className="z-10 text-[10px] font-semibold tracking-wide text-white uppercase">
           {label}
@@ -63,7 +63,62 @@ function PackSlot({
           />
         </div>
       </div>
-      <div className={cn("min-w-0 flex-1", contentClassName)}>{children}</div>
+      <div
+        className={cn(
+          "flex min-h-0 min-w-0 flex-1 flex-col",
+          contentClassName,
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function ReviewDocHeader({
+  tone,
+  eyebrow,
+  meta,
+  title,
+  onEdit,
+}: {
+  tone: "cyan" | "navy";
+  eyebrow: string;
+  meta: string;
+  title: string;
+  onEdit?: () => void;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex shrink-0 flex-col justify-start px-4 py-3 text-white",
+        tone === "cyan"
+          ? "bg-gradient-to-r from-[#20AAA7] to-[#35BEBC]"
+          : "bg-gradient-to-r from-[#202B52] to-[#30416F]",
+      )}
+    >
+      <div className="flex min-h-[1.15rem] items-start justify-between gap-2">
+        <p className="text-[9px] font-medium tracking-wide uppercase opacity-90">
+          {eyebrow}
+        </p>
+        <div className="flex shrink-0 items-center gap-2">
+          {onEdit ? (
+            <button
+              type="button"
+              onClick={onEdit}
+              className="text-[11px] font-semibold text-white/90 underline-offset-2 hover:text-white hover:underline"
+            >
+              Edit
+            </button>
+          ) : null}
+          <p className="text-right text-[11px] leading-none text-white/85">
+            {meta}
+          </p>
+        </div>
+      </div>
+      <p className="mt-1.5 text-base font-bold leading-snug break-words">
+        {title}
+      </p>
     </div>
   );
 }
@@ -80,7 +135,8 @@ export function Stage4AssessmentReviewWall({
   exportMenuOpen,
   exportActions,
   linkedLibraryItemId,
-  onPreview,
+  onEditStudent,
+  onEditMarkScheme,
   onToggleExport,
   onExport,
   onShare,
@@ -98,7 +154,8 @@ export function Stage4AssessmentReviewWall({
   exportMenuOpen?: boolean;
   exportActions: { id: string; label: string }[];
   linkedLibraryItemId?: string | null;
-  onPreview: () => void;
+  onEditStudent: () => void;
+  onEditMarkScheme: () => void;
   onToggleExport: () => void;
   onExport: (id: string) => void;
   onShare: () => void;
@@ -106,12 +163,12 @@ export function Stage4AssessmentReviewWall({
   className?: string;
 }) {
   const hasResult = !!result;
-  const paperTitle =
+  const topicHeading =
+    result?.topic?.trim() ||
     result?.paperTitle?.trim() ||
     result?.assessmentTitle?.trim() ||
     `Generated ${kindLabel(quizKind)}`;
   const paperMeta = `${kindLabel(quizKind)} · ${questionCount} Qs · ${durationMinutes} min`;
-  const schemeTitle = result?.markSchemeLabel?.trim() || "Mark Scheme";
   const studentBody = result?.studentAssessmentText?.trim() || "";
   const schemeBody = result?.teacherMarkSchemeText?.trim() || "";
   const structuredQuestionCount = result
@@ -141,13 +198,9 @@ export function Stage4AssessmentReviewWall({
             </p>
           </div>
         </div>
-        <button
-          type="button"
-          onClick={onPreview}
-          className="shrink-0 rounded-full bg-[#E8F8F8] px-4 py-1.5 text-sm font-semibold text-[#1A9E9C] transition hover:bg-[#D5F3F2]"
-        >
+        <span className="inline-flex shrink-0 items-center rounded-full border border-teal-100 bg-teal-50 px-3.5 py-1.5 text-xs font-semibold tracking-wide whitespace-nowrap text-teal-600 uppercase">
           Preview
-        </button>
+        </span>
       </header>
 
       <div className="border-t border-slate-200 px-4 py-5 sm:px-5 sm:py-6">
@@ -158,27 +211,21 @@ export function Stage4AssessmentReviewWall({
 
           <div className="mt-4 grid gap-4 lg:grid-cols-2 lg:gap-5">
             <PackSlot label="Student paper" contentClassName="mt-8 sm:mt-10">
-              <div className="overflow-hidden rounded-2xl bg-[#EEF2F5] shadow-sm">
-                <div className="bg-gradient-to-r from-[#20AAA7] to-[#35BEBC] px-4 py-3 text-white">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-[9px] font-medium tracking-wide uppercase opacity-90">
-                      Student assessment
-                    </p>
-                    <p className="shrink-0 text-right text-[11px] leading-none text-white/85">
-                      {paperMeta}
-                    </p>
-                  </div>
-                  <p className="mt-1.5 text-base font-bold leading-snug break-words">
-                    {paperTitle}
-                  </p>
-                </div>
-                <div className="relative min-h-[16rem] px-4 py-10 sm:min-h-[18rem]">
+              <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl bg-[#EEF2F5] shadow-sm">
+                <ReviewDocHeader
+                  tone="cyan"
+                  eyebrow="Student assessment"
+                  meta={paperMeta}
+                  title={topicHeading}
+                  onEdit={hasResult ? onEditStudent : undefined}
+                />
+                <div className="relative flex-1 px-4 py-8 sm:px-5 sm:py-10">
                   {hasResult && hasStudentContent ? (
-                    <div className="theme-scroll-hover max-h-72 overflow-auto text-left">
+                    <div className="text-left">
                       <Stage4AssessmentContentView result={result} />
                     </div>
                   ) : (
-                    <div className="flex h-full min-h-[14rem] flex-col items-center justify-center text-center sm:min-h-[16rem]">
+                    <div className="flex min-h-[14rem] flex-col items-center justify-center text-center sm:min-h-[16rem]">
                       <p className="text-sm font-bold text-[#151B35]">
                         {isGenerating
                           ? "Generating assessment…"
@@ -194,27 +241,19 @@ export function Stage4AssessmentReviewWall({
             </PackSlot>
 
             <PackSlot label="Mark scheme" contentClassName="mt-8 sm:mt-10">
-              <div className="overflow-hidden rounded-2xl bg-[#EEF2F5] shadow-sm">
-                <div className="bg-gradient-to-r from-[#202B52] to-[#30416F] px-4 py-3 text-white">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-[10px] font-medium tracking-wide uppercase opacity-90">
-                      Teacher copy
-                    </p>
-                    <p className="shrink-0 text-right text-[11px] leading-none text-white/85">
-                      Total · {result?.totalMarks ?? totalMarks} marks
-                    </p>
-                  </div>
-                  <p className="mt-1.5 text-base font-bold leading-snug break-words">
-                    {schemeTitle}
-                  </p>
-                </div>
-                <div className="relative min-h-[16rem] px-4 py-10 sm:min-h-[18rem]">
+              <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl bg-[#EEF2F5] shadow-sm">
+                <ReviewDocHeader
+                  tone="navy"
+                  eyebrow="Teacher copy"
+                  meta={`Total · ${result?.totalMarks ?? totalMarks} marks`}
+                  title={topicHeading}
+                  onEdit={hasResult ? onEditMarkScheme : undefined}
+                />
+                <div className="relative flex-1 px-4 py-8 sm:px-5 sm:py-10">
                   {hasResult && schemeBody ? (
-                    <div className="theme-scroll-hover max-h-72 overflow-auto">
-                      <MarkdownContentView content={schemeBody} />
-                    </div>
+                    <WorksheetContentView content={schemeBody} />
                   ) : (
-                    <div className="flex h-full min-h-[14rem] flex-col items-center justify-center text-center sm:min-h-[16rem]">
+                    <div className="flex min-h-[14rem] flex-col items-center justify-center text-center sm:min-h-[16rem]">
                       <p className="text-sm font-bold text-[#151B35]">
                         {isGenerating
                           ? "Preparing mark scheme…"

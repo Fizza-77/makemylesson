@@ -1,6 +1,7 @@
 "use client";
 
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { type Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import { cn } from "@/lib/utils";
 
@@ -15,6 +16,17 @@ type Props = {
   emptyPlaceholder?: string;
   className?: string;
   compact?: boolean;
+};
+
+const REMARK_PLUGINS = [remarkGfm];
+
+/** Rubric tables are wider than the stage panels, so they scroll on their own. */
+const MARKDOWN_COMPONENTS: Components = {
+  table: ({ node: _node, children, ...props }) => (
+    <div className="markdown-table-scroll">
+      <table {...props}>{children}</table>
+    </div>
+  ),
 };
 
 /** Renders stored markdown as formatted text (no raw ### / ** visible). */
@@ -32,8 +44,19 @@ export function MarkdownContentView({
   }
 
   return (
-    <div className={cn(compact ? MARKDOWN_PROSE_COMPACT : MARKDOWN_PROSE, className)}>
-      <ReactMarkdown>{text}</ReactMarkdown>
+    <div
+      className={cn(
+        "markdown-body",
+        compact ? MARKDOWN_PROSE_COMPACT : MARKDOWN_PROSE,
+        className,
+      )}
+    >
+      <ReactMarkdown
+        remarkPlugins={REMARK_PLUGINS}
+        components={MARKDOWN_COMPONENTS}
+      >
+        {text}
+      </ReactMarkdown>
     </div>
   );
 }

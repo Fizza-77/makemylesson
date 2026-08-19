@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Replace **Flutter Web** (`MakeMyLesson/`, legacy Firebase `/app/` paths) with a **Next.js App Router PWA** on **`https://makemylesson.app`**, sharing Firebase project **`makemylesson-44088`** with Flutter **Android/iOS**. Public marketing remains **`https://makemylesson.ai`** (separate site). No schema migration, no duplicate databases.
+Replace **Flutter Web** (`MakeMyLesson/`, legacy Firebase `/app/` paths) with a **Next.js App Router PWA** on **`https://makemylesson.ai`**, sharing Firebase project **`makemylesson-44088`** with Flutter **Android/iOS**. Public marketing lives on the **same host** (route group `(marketing)`). No schema migration, no duplicate databases.
 
 See [firebase-structure.md](./firebase-structure.md#domain--url-strategy-decided) for URL rules.
 
@@ -105,7 +105,7 @@ Flutter uses **path-based** routing with `usePathUrlStrategy()` on web. Initial 
 
 - Tabs: Home (`/`), Ayla (`/ayla`), Library (`/library`), Profile (`/profile`), Notifications (`/notifications`)
 - Desktop web: top-right tab bar; mobile: floating bottom nav
-- Web “Home” tab opens external marketing site (`https://makemylesson.ai`) via `AppUrls.openMarketingHome()`
+- Web “Home” tab opens the marketing landing at `/` on the same host (`makemylesson.ai`)
 
 Stage routes (`/stage1`–`/stage4`) use the shell but are not tab roots.
 
@@ -147,7 +147,7 @@ Library persistence: `users/{uid}/libraryItems/{itemId}` via `LibraryCatalogServ
 | **Web** | **PayPal** via `createPayPalAccessOrder`, `finalizePayPalAccessOrder`, `getMmlWebPricingQuote` |
 | Org plans | `createOrganizationSubscription`, seat management callables |
 
-PayPal checkout return/cancel URLs: `https://makemylesson.app/subscription?...` (see `PayPalWebCheckoutService` — replace legacy `/app/subscription` prefix).
+PayPal checkout return/cancel URLs: `https://makemylesson.ai/subscription?...` (see `PayPalWebCheckoutService` — replace legacy `/app/subscription` prefix).
 
 ## Notifications
 
@@ -175,11 +175,11 @@ Client-side PDF/DOCX/PPTX generation in Flutter (`document_export_core_service`,
 
 ## Deployment note
 
-- **Production app domain:** `makemylesson.app` — Next.js at **root** (`basePath` not used).
+- **Production domain:** `makemylesson.ai` — Next.js at **root** (`basePath` not used); marketing and app share this host.
 - **Hosting provider:** **Hostinger VPS** — nginx + **PM2** + Next.js **`output: 'standalone'`** on port 3000. Firebase remains **backend only**.
-- **Marketing:** `makemylesson.ai` — separate site; nav “Home” links there.
+- **Legacy domains:** `makemylesson.app` and `makemylesson.com` 301 redirect to `makemylesson.ai`.
 - **Cutover:** Redirect legacy `/app/*` and decommission Flutter web on Firebase Hosting when Hostinger is live.
-- **SEO:** Canonical / Open Graph for the PWA use `makemylesson.app`; avoid duplicating marketing content from `makemylesson.ai`.
+- **SEO:** Canonical / Open Graph use `makemylesson.ai`; the legacy domains must redirect rather than serve duplicates.
 
 See [firebase-structure.md](./firebase-structure.md#production-hosting--hostinger-vps-decided).
 

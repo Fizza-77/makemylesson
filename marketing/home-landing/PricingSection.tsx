@@ -1,3 +1,5 @@
+import { Info, Lock } from 'lucide-react'
+
 import {
   AccessPlanCard,
   localizeAccessPlans,
@@ -31,11 +33,32 @@ export default function PricingSection() {
           Start free, then choose the access period that works best for you.
         </p>
 
+        <div className="mml-pr-banner">
+          <span className="mml-pr-banner-icon" aria-hidden>
+            <Info size={17} strokeWidth={2.4} />
+          </span>
+          <span className="mml-pr-banner-lines">
+            <strong>
+              Every new account receives 5 free generation credits — no credit
+              card required.
+            </strong>
+            <span>
+              Each credit = one stage generation. A complete 4-stage teaching
+              pack costs 4 credits.
+            </span>
+          </span>
+        </div>
+
         <div className="mml-pr-grid">
           {plans.map((plan) => (
             <AccessPlanCard key={plan.key} plan={plan} />
           ))}
         </div>
+
+        <p className="mml-pr-note">
+          <Lock size={13} strokeWidth={2.4} aria-hidden />
+          All prices are in USD. Cancel anytime.
+        </p>
       </div>
     </section>
   )

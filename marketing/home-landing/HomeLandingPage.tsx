@@ -3,12 +3,10 @@ import Link from "next/link";
 
 import BeforeAfterSection from "@marketing/home-landing/BeforeAfterSection";
 import MeetAylaSection from "@marketing/home-landing/MeetAylaSection";
-import TeachingMethodsSection from "@marketing/home-landing/TeachingMethodsSection";
 import CurriculumCoverageSection from "@marketing/home-landing/CurriculumCoverageSection";
 import ReviewsSection from "@marketing/home-landing/ReviewsSection";
 import SisterPlatformsSection from "@marketing/home-landing/SisterPlatformsSection";
 import PricingSection from "@marketing/home-landing/PricingSection";
-import FinalCtaSection from "@marketing/home-landing/FinalCtaSection";
 import SectionLink from "@marketing/components/SectionLink";
 import { MML_APP } from "@marketing/lib/appUrls";
 
@@ -327,15 +325,12 @@ export default function HomeLandingPage() {
 
       <BeforeAfterSection />
       <MeetAylaSection />
-      <TeachingMethodsSection />
       <div className="mml-band-gap" aria-hidden />
       <CurriculumCoverageSection />
       <div className="mml-band-gap" aria-hidden />
       <ReviewsSection />
       <SisterPlatformsSection />
       <PricingSection />
-      <div className="mml-band-gap" aria-hidden />
-      <FinalCtaSection />
     </>
   );
 }

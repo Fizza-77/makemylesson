@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { LessonPlanContentView } from "@/features/stage1/LessonPlanContentView";
@@ -15,12 +16,34 @@ import { ROUTES } from "@/lib/urls";
 import { cn } from "@/lib/utils";
 import type { Stage2Slide } from "@/types/stage2";
 
+const STORYBOARD_WIDTH_KEY = "mml.stage2.storyboardWidth";
+const STORYBOARD_MIN_W = 168;
+const STORYBOARD_MAX_W = 420;
+const STORYBOARD_DEFAULT_W = 288;
+const PREVIEW_MIN_W = 320;
+
+function readStoryboardWidth(): number {
+  if (typeof window === "undefined") return STORYBOARD_DEFAULT_W;
+  const raw = Number.parseInt(
+    window.localStorage.getItem(STORYBOARD_WIDTH_KEY) ?? "",
+    10,
+  );
+  if (!Number.isFinite(raw)) return STORYBOARD_DEFAULT_W;
+  return Math.min(STORYBOARD_MAX_W, Math.max(STORYBOARD_MIN_W, raw));
+}
+
 function EditLabel() {
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 transition hover:text-[#28C2C0]">
-      <span className="h-3.5 w-px bg-slate-400" aria-hidden />
+    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#28C2C0] transition hover:brightness-90">
+      <svg viewBox="0 0 16 16" className="size-3.5" fill="none" aria-hidden>
+        <path
+          d="M11.5 2.5a1.5 1.5 0 0 1 2.1 2.1L5.2 13H3v-2.2L11.5 2.5Z"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinejoin="round"
+        />
+      </svg>
       Edit
-      <span className="h-3.5 w-px bg-slate-400" aria-hidden />
     </span>
   );
 }
@@ -196,6 +219,70 @@ export function PresentationResultPanel({
   const coverNotes =
     "This is the cover slide. It shows your school name and your name (from Profile), plus the lesson topic, grade, subject and curriculum. Personalization can be changed in your Profile.";
 
+  const rowRef = useRef<HTMLDivElement>(null);
+  const widthRef = useRef(STORYBOARD_DEFAULT_W);
+  const [storyboardWidth, setStoryboardWidth] = useState(STORYBOARD_DEFAULT_W);
+  const [resizing, setResizing] = useState(false);
+  widthRef.current = storyboardWidth;
+
+  useEffect(() => {
+    const stored = readStoryboardWidth();
+    widthRef.current = stored;
+    setStoryboardWidth(stored);
+  }, []);
+
+  const persistWidth = useCallback((width: number) => {
+    try {
+      window.localStorage.setItem(STORYBOARD_WIDTH_KEY, String(width));
+    } catch {
+      // Ignore storage failures.
+    }
+  }, []);
+
+  const onResizePointerDown = useCallback(
+    (event: ReactPointerEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      const handle = event.currentTarget;
+      const startX = event.clientX;
+      const startW = widthRef.current;
+      const rowW = rowRef.current?.clientWidth ?? 0;
+      const maxW = Math.min(
+        STORYBOARD_MAX_W,
+        Math.max(
+          STORYBOARD_MIN_W,
+          rowW > 0 ? rowW - PREVIEW_MIN_W : STORYBOARD_MAX_W,
+        ),
+      );
+      handle.setPointerCapture(event.pointerId);
+      setResizing(true);
+      const prevCursor = document.body.style.cursor;
+      const prevSelect = document.body.style.userSelect;
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+
+      const onMove = (moveEvent: PointerEvent) => {
+        const next = Math.round(startW + (moveEvent.clientX - startX));
+        const clamped = Math.min(maxW, Math.max(STORYBOARD_MIN_W, next));
+        widthRef.current = clamped;
+        setStoryboardWidth(clamped);
+      };
+      const onUp = () => {
+        handle.releasePointerCapture(event.pointerId);
+        handle.removeEventListener("pointermove", onMove);
+        handle.removeEventListener("pointerup", onUp);
+        handle.removeEventListener("pointercancel", onUp);
+        document.body.style.cursor = prevCursor;
+        document.body.style.userSelect = prevSelect;
+        setResizing(false);
+        persistWidth(widthRef.current);
+      };
+      handle.addEventListener("pointermove", onMove);
+      handle.addEventListener("pointerup", onUp);
+      handle.addEventListener("pointercancel", onUp);
+    },
+    [persistWidth],
+  );
+
   return (
     <section
       className={cn(
@@ -234,10 +321,19 @@ export function PresentationResultPanel({
       </header>
 
       <div className="rounded-b-2xl border-t border-slate-200 bg-white px-3 py-4 sm:px-5 sm:py-5">
-        <div className="grid items-start gap-4 lg:grid-cols-[18rem_minmax(0,1fr)] xl:grid-cols-[19rem_minmax(0,1fr)]">
-          {/* Lesson Storyboard — sticky like tips/Ayla; tall lists scroll inside */}
-          <aside className="z-20 lg:sticky lg:top-[5.25rem] lg:self-start">
-            <div className="group flex max-h-[calc(100vh-6.5rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div
+          ref={rowRef}
+          className={cn(
+            "flex flex-col gap-4 lg:flex-row lg:items-start",
+            resizing && "select-none",
+          )}
+        >
+          {/* Lesson Storyboard — sticky like tips/Ayla; width is user-resizable on desktop */}
+          <aside
+            className="relative z-20 w-full max-lg:!w-full lg:sticky lg:top-[5.25rem] lg:shrink-0 lg:self-start"
+            style={{ width: storyboardWidth }}
+          >
+            <div className="group flex max-h-[calc(100vh-6.5rem)] min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="shrink-0 border-b border-slate-200 bg-[#FFFDF8] px-4 py-3.5">
                 <p className="text-[10px] font-semibold tracking-wide text-[#128C89] uppercase">
                   Lesson storyboard
@@ -342,10 +438,29 @@ export function PresentationResultPanel({
                 )}
               </div>
             </div>
+            <button
+              type="button"
+              aria-label="Resize storyboard"
+              title="Drag to resize"
+              onPointerDown={onResizePointerDown}
+              onDoubleClick={() => {
+                widthRef.current = STORYBOARD_DEFAULT_W;
+                setStoryboardWidth(STORYBOARD_DEFAULT_W);
+                persistWidth(STORYBOARD_DEFAULT_W);
+              }}
+              className="absolute top-0 -right-2 z-30 hidden h-full w-4 cursor-col-resize touch-none items-center justify-center lg:flex"
+            >
+              <span
+                className={cn(
+                  "h-16 w-1 rounded-full bg-slate-300 transition",
+                  resizing ? "bg-[#28C2C0]" : "hover:bg-[#28C2C0]",
+                )}
+              />
+            </button>
           </aside>
 
           {/* Current slide + notes */}
-          <div className="flex min-w-0 flex-col gap-4">
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
             <div>
               <div className="mb-0 flex items-center justify-between gap-2">
                 <h3 className="text-sm font-bold text-[#28C2C0]">
@@ -355,8 +470,8 @@ export function PresentationResultPanel({
                   <button
                     type="button"
                     onClick={onEdit}
-                    disabled={!hasDeck || isCover}
-                    className="relative z-10 disabled:opacity-40"
+                    disabled={!hasDeck}
+                    className="relative z-10 cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
                     aria-label="Edit slide"
                   >
                     <EditLabel />
@@ -483,8 +598,8 @@ export function PresentationResultPanel({
                   <button
                     type="button"
                     onClick={onEdit}
-                    disabled={!hasDeck || isCover}
-                    className="relative z-10 disabled:opacity-40"
+                    disabled={!hasDeck}
+                    className="relative z-10 cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
                     aria-label="Edit notes"
                   >
                     <EditLabel />
@@ -558,14 +673,21 @@ export function PresentationResultPanel({
               {/* Desktop: notebook SVG with overlaid notes */}
               <div className="group relative -mt-0.5 -ml-[6%] hidden w-[112%] min-w-0 md:block">
                 <Image
-                  src="/speakernotes.svg"
+                  src={hasDeck ? "/speakernotes-tall.svg" : "/speakernotes.svg"}
                   alt=""
                   width={518}
-                  height={343}
+                  height={hasDeck ? 463 : 343}
                   className="h-auto w-full select-none"
                   unoptimized
                 />
-                <div className="absolute top-[24%] right-[calc(9%+5px)] bottom-[18%] left-[9%] flex flex-col px-0 sm:top-[25%] sm:right-[calc(10%+5px)] sm:bottom-[19%] sm:left-[10%]">
+                <div
+                  className={cn(
+                    "absolute right-[calc(9%+5px)] left-[9%] flex flex-col px-0 sm:right-[calc(10%+5px)] sm:left-[10%]",
+                    hasDeck
+                      ? "top-[17.8%] bottom-[13.3%] sm:top-[18.5%] sm:bottom-[14.1%]"
+                      : "top-[24%] bottom-[18%] sm:top-[25%] sm:bottom-[19%]",
+                  )}
+                >
                   <div className="flex shrink-0 items-center justify-between gap-2 text-[9px] font-bold tracking-[0.08em] text-[#28C2C0] uppercase sm:text-[10px]">
                     <span>Speaker notes</span>
                     <span>Teacher notes</span>

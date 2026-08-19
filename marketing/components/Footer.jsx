@@ -301,7 +301,7 @@ function SiteFooter() {
 
                 <div className="flex shrink-0 flex-col items-center gap-1">
                   <a
-                    href="https://makemylesson.app/smartlink"
+                    href="https://makemylesson.ai/smartlink"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex h-[92px] w-[92px] shrink-0 items-center justify-center overflow-hidden rounded-md bg-white p-1.5"
@@ -309,7 +309,7 @@ function SiteFooter() {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fmakemylesson.app%2Fsmartlink"
+                      src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fmakemylesson.ai%2Fsmartlink"
                       alt="QR code linking to Make My Lesson app"
                       width={80}
                       height={80}

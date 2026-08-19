@@ -1,6 +1,6 @@
 # Screen Mapping (Flutter → Next.js)
 
-Next.js uses **web-friendly** routes. Flutter mobile keeps `/auth/...`. On `makemylesson.app`, legacy paths **301 redirect** to the web routes (see `next.config.ts`). **Firebase is not changed.**
+Next.js uses **web-friendly** routes. Flutter mobile keeps `/auth/...`. On `makemylesson.ai`, legacy paths **301 redirect** to the web routes (see `next.config.ts`). **Firebase is not changed.**
 
 | Flutter screen | Flutter route (mobile / legacy) | Next.js route | Auth | Notes |
 |----------------|----------------------------------|---------------|------|-------|
@@ -52,7 +52,7 @@ Implement middleware matching Flutter `quickAuthRoutingCheck` + stage gates:
 
 ## Deep links
 
-- Smart link: `https://makemylesson.app/smartlink` — Next.js route or `public/` on the **VPS**.
+- Smart link: `https://makemylesson.ai/smartlink` — Next.js route or `public/` on the **VPS**.
 - Notification `deepLink` values — map 1:1 to Next routes.
 
 ## SEO pages (new for Next.js)

@@ -21,6 +21,16 @@ export function isExpectedAuthCredentialError(error: unknown): boolean {
   );
 }
 
+/**
+ * Signup hit an email that already has an account. Callers should offer a
+ * "sign in instead" path rather than surfacing this as a failure.
+ */
+export function isAccountAlreadyExistsError(error: unknown): boolean {
+  if (!(error instanceof FirebaseError)) return false;
+  const code = error.code.replace(/^functions\//, "");
+  return code === "already-exists" || code === "auth/email-already-in-use";
+}
+
 export function mapFirebaseAuthError(error: unknown): string {
   if (error instanceof FirebaseError) {
     switch (error.code) {

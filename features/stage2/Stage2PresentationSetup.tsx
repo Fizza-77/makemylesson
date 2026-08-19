@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/lib/urls";
+import { ChosenDeviceFileChip } from "@/components/common/ChosenDeviceFileChip";
 import { STAGE2_THEMES, type Stage2SlideTheme } from "@/data/stage2-themes";
 import {
   STAGE2_MIN_SOURCE_CHARS,
@@ -166,6 +167,7 @@ export function Stage2PresentationSetup({
   slideCount,
   sourceLen,
   topic,
+  sourceFileName,
   isGenerating,
   isLoading,
   lessonPlans,
@@ -175,6 +177,7 @@ export function Stage2PresentationSetup({
   onSelectStage1,
   onPickLibraryItem,
   onUploadFile,
+  onClearUpload,
   onThemeSelect,
   onSlideCount,
   onGenerate,
@@ -185,6 +188,7 @@ export function Stage2PresentationSetup({
   slideCount: number;
   sourceLen: number;
   topic: string;
+  sourceFileName?: string | null;
   isGenerating?: boolean;
   isLoading?: boolean;
   lessonPlans: LibraryItem[];
@@ -194,19 +198,19 @@ export function Stage2PresentationSetup({
   onSelectStage1: () => void;
   onPickLibraryItem: (item: LibraryItem) => void;
   onUploadFile: () => void;
+  onClearUpload: () => void;
   onThemeSelect: (id: string) => void;
   onSlideCount: (n: number) => void;
   onGenerate: () => void;
   canGenerate: boolean;
 }) {
-  const [showPaste, setShowPaste] = useState(false);
   const themesScrollRef = useRef<HTMLDivElement>(null);
   const themesBarRef = useRef<HTMLDivElement>(null);
   const [themesScrollWidth, setThemesScrollWidth] = useState(0);
   const syncingThemesScroll = useRef(false);
   const themesSyncRaf = useRef(0);
-  const stage1Selected = sourceMode === "stage1Library" && !showPaste;
-  const uploadSelected = sourceMode === "upload" || showPaste;
+  const stage1Selected = sourceMode === "stage1Library";
+  const uploadSelected = sourceMode === "upload";
 
   useEffect(() => {
     const el = themesScrollRef.current;
@@ -300,42 +304,47 @@ export function Stage2PresentationSetup({
             </p>
 
             <div className="mt-4 flex flex-col gap-2.5">
-              <button
-                type="button"
-                disabled={isGenerating}
-                onClick={() => {
-                  setShowPaste(false);
-                  onSelectUpload();
-                  onUploadFile();
-                }}
-                className={cn(
-                  "flex w-full items-center gap-2.5 rounded-2xl border px-3 py-2 text-left transition",
-                  uploadSelected && sourceMode === "upload"
-                    ? "border-[#28C2C0] bg-[#28C2C0] text-white shadow-sm"
-                    : "border-[#E5E7EB] bg-white text-[#151B35] hover:border-[#28C2C0]/50",
-                  isGenerating && "opacity-50",
-                )}
-              >
-                <span
+              <div className="min-w-0">
+                <ChosenDeviceFileChip
+                  fileName={sourceFileName}
+                  disabled={isGenerating}
+                  onClear={onClearUpload}
+                />
+                <button
+                  type="button"
+                  disabled={isGenerating}
+                  onClick={() => {
+                    onSelectUpload();
+                    onUploadFile();
+                  }}
                   className={cn(
-                    "flex size-8 shrink-0 items-center justify-center rounded-lg",
+                    "flex w-full items-center gap-2.5 rounded-2xl border px-3 py-2 text-left transition",
                     uploadSelected && sourceMode === "upload"
-                      ? "bg-white/20 text-white"
-                      : "bg-[#E8F8F8] text-[#28C2C0]",
+                      ? "border-[#28C2C0] bg-[#28C2C0] text-white shadow-sm"
+                      : "border-[#E5E7EB] bg-white text-[#151B35] hover:border-[#28C2C0]/50",
+                    isGenerating && "opacity-50",
                   )}
                 >
-                  <UploadDocIcon />
-                </span>
-                <span className="text-xs font-semibold leading-snug sm:text-sm">
-                  Upload From Device
-                </span>
-              </button>
+                  <span
+                    className={cn(
+                      "flex size-8 shrink-0 items-center justify-center rounded-lg",
+                      uploadSelected && sourceMode === "upload"
+                        ? "bg-white/20 text-white"
+                        : "bg-[#E8F8F8] text-[#28C2C0]",
+                    )}
+                  >
+                    <UploadDocIcon />
+                  </span>
+                  <span className="text-xs font-semibold leading-snug sm:text-sm">
+                    Upload From Device
+                  </span>
+                </button>
+              </div>
 
               <button
                 type="button"
                 disabled={isGenerating}
                 onClick={() => {
-                  setShowPaste(false);
                   onSelectStage1();
                 }}
                 className={cn(
@@ -365,7 +374,6 @@ export function Stage2PresentationSetup({
                 type="button"
                 disabled={isGenerating}
                 onClick={() => {
-                  setShowPaste(false);
                   onTogglePicker();
                 }}
                 className={cn(
@@ -437,14 +445,6 @@ export function Stage2PresentationSetup({
                   </p>
                 ) : null}
               </div>
-            ) : null}
-
-            {uploadSelected &&
-            sourceMode === "upload" &&
-            sourceLen >= STAGE2_MIN_SOURCE_CHARS ? (
-              <p className="mt-3 text-[11px] text-slate-500">
-                {`Uploaded source ready (${sourceLen.toLocaleString()} characters)`}
-              </p>
             ) : null}
           </div>
 

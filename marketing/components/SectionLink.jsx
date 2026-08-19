@@ -12,7 +12,7 @@ export default function SectionLink({
   href = '/',
   className,
   children,
-  onClick,
+  onClick = undefined,
   ...props
 }) {
   const pathname = usePathname()

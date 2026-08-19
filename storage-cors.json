@@ -1,0 +1,15 @@
+[
+  {
+    "origin": [
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      "https://makemylesson.ai",
+      "https://www.makemylesson.ai",
+      "https://makemylesson.app",
+      "https://www.makemylesson.app"
+    ],
+    "method": ["GET", "HEAD", "OPTIONS"],
+    "responseHeader": ["Content-Type", "Content-Disposition", "Content-Length"],
+    "maxAgeSeconds": 3600
+  }
+]

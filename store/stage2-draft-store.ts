@@ -15,6 +15,7 @@ import {
 import {
   addPresentationFromStage2,
   updatePresentationBody,
+  updatePresentationStyle,
 } from "@/services/library-catalog.service";
 import {
   generateStage2Presentation,
@@ -88,6 +89,7 @@ type Stage2Store = Stage2DraftState & {
   setThemeId: (themeId: string) => void;
   setSlideCount: (n: number) => void;
   setUploadedSource: (params: { fileName: string; lessonText: string }) => void;
+  clearUploadedSource: () => void;
   setUploadText: (text: string) => void;
   setLibrarySource: (params: {
     libraryItemId: string;
@@ -134,6 +136,7 @@ type Stage2Store = Stage2DraftState & {
     stage2JobId?: string | null;
   }) => Promise<void>;
   setActiveSlideIndex: (index: number) => void;
+  setPresentationTitle: (title: string) => void;
   updateSlide: (index: number, patch: Partial<Stage2Slide>) => void;
   canGenerate: () => boolean;
   hasUsableDeck: () => boolean;
@@ -216,6 +219,31 @@ function effectiveFamily(topLevelId: string): string {
   return t || "british";
 }
 
+/**
+ * The theme is deck-level metadata that library exports and previews read from
+ * the saved item, so a linked deck has to persist it right away. Otherwise a
+ * theme picked after loading from the library only lives in this store and
+ * exports keep using the previously saved style.
+ */
+async function syncThemeToLibrary(itemId: string, themeId: string) {
+  try {
+    const { getFirebaseAuth } = await import("@/firebase/config");
+    if (!getFirebaseAuth().currentUser) return;
+    await updatePresentationStyle({ id: itemId, presentationStyle: themeId });
+    const { useLibraryCatalogStore } = await import(
+      "@/store/library-catalog-store"
+    );
+    const catalog = useLibraryCatalogStore.getState();
+    catalog.setItems(
+      catalog.items.map((i) =>
+        i.id === itemId ? { ...i, presentationStyle: themeId } : i,
+      ),
+    );
+  } catch (e) {
+    console.warn("[Stage2] theme sync to library failed", e);
+  }
+}
+
 async function persistDeckToLibrary(
   get: () => Stage2Store,
   set: (
@@ -238,7 +266,8 @@ async function persistDeckToLibrary(
     return { saved: false, saveError: "Sign in to save to your library." };
   }
 
-  const topic = effectiveTopic(s.topic);
+  const topic =
+    s.presentationTitle.trim() || effectiveTopic(s.topic);
   const grade = effectiveGrade(s.grade);
   const subject = effectiveSubject(s.subject, s.subjectName);
   const curriculumRoute = s.mappedCurriculumName ?? s.curriculumLabel;
@@ -324,6 +353,8 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
     const resolved = stage2ThemeById(themeId).id;
     if (resolved === get().themeId) return;
     set({ themeId: resolved });
+    const linkedId = get().linkedPresentationLibraryItemId?.trim();
+    if (linkedId) void syncThemeToLibrary(linkedId, resolved);
   },
 
   setSlideCount: (n) => {
@@ -344,6 +375,13 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
       linkedPresentationLibraryItemId: null,
       error: null,
       activeSlideIndex: 0,
+    }),
+
+  clearUploadedSource: () =>
+    set({
+      sourceFileName: null,
+      sourceLessonText: "",
+      sourceLibraryItemId: null,
     }),
 
   setUploadText: (text) =>
@@ -502,6 +540,9 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
   },
 
   setActiveSlideIndex: (index) => set({ activeSlideIndex: index }),
+
+  setPresentationTitle: (title) =>
+    set({ presentationTitle: title.trim() }),
 
   updateSlide: (index, patch) => {
     const slides = [...get().slides];

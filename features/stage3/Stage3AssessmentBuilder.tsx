@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/lib/urls";
+import { ChosenDeviceFileChip } from "@/components/common/ChosenDeviceFileChip";
 import type { LibraryItem } from "@/types/library-item";
 import {
   FORMATIVE_KINDS,
@@ -17,26 +17,22 @@ import {
 const KIND_META: Record<
   FormativeKind,
   {
-    badge: string;
     title: string;
     description: string;
     footer?: string;
   }
 > = {
   quickCheck: {
-    badge: "Fast check",
     title: "Quick Check",
     description: "Up to 5 quick questions. Gauge student understanding quickly.",
   },
   practiceWorksheet: {
-    badge: "Practice",
     title: "Worksheet",
     description:
       "Up to 15 questions. Deep practice and review for the whole class.",
     footer: "Longer practice set",
   },
   exitTicket: {
-    badge: "End of lesson",
     title: "Exit Ticket",
     description: "Targeted questions for the end of the lesson check-in.",
     footer: "Quick evidence of learning",
@@ -168,11 +164,7 @@ function AssessmentBoardCard({
             : "border-[#DDE6E8] hover:border-[#28C2C0]/40",
         )}
       >
-        <span className="absolute top-3.5 right-3 rounded-full bg-slate-100 px-1.5 py-0.5 text-[8px] font-semibold tracking-wide text-slate-500 uppercase">
-          {meta.badge}
-        </span>
-
-        <div className="mt-1 flex items-center gap-1.5 pr-14">
+        <div className="mt-1 flex items-center gap-1.5">
           <CheckCircle active={selected} />
           <span className="whitespace-nowrap text-xs font-bold text-[#151B35] sm:text-sm">
             {meta.title}
@@ -228,6 +220,7 @@ export function Stage3AssessmentBuilder({
   sourceMode,
   sourceLen,
   topic,
+  sourceFileName,
   formativeKind,
   questionCount,
   qMin,
@@ -245,8 +238,7 @@ export function Stage3AssessmentBuilder({
   onSelectStage2,
   onPickLibraryItem,
   onUploadFile,
-  onPasteText,
-  sourceText,
+  onClearUpload,
   onFormativeKind,
   onQuestionCount,
   onQuestionType,
@@ -255,6 +247,7 @@ export function Stage3AssessmentBuilder({
   sourceMode: "stage2Library" | "upload";
   sourceLen: number;
   topic: string;
+  sourceFileName?: string | null;
   formativeKind: FormativeKind;
   questionCount: number;
   qMin: number;
@@ -272,8 +265,7 @@ export function Stage3AssessmentBuilder({
   onSelectStage2: () => void;
   onPickLibraryItem: (item: LibraryItem) => void;
   onUploadFile: () => void;
-  onPasteText: (text: string) => void;
-  sourceText: string;
+  onClearUpload: () => void;
   onFormativeKind: (kind: FormativeKind) => void;
   onQuestionCount: (n: number) => void;
   onQuestionType: (
@@ -282,9 +274,8 @@ export function Stage3AssessmentBuilder({
   ) => void;
   onGenerate: () => void;
 }) {
-  const [showPaste, setShowPaste] = useState(false);
-  const stage2Selected = sourceMode === "stage2Library" && !showPaste;
-  const uploadSelected = sourceMode === "upload" || showPaste;
+  const stage2Selected = sourceMode === "stage2Library";
+  const uploadSelected = sourceMode === "upload";
 
   const typeState = [
     multipleChoice,
@@ -358,42 +349,47 @@ export function Stage3AssessmentBuilder({
             </div>
 
             <div className="mt-4 flex flex-col gap-2.5">
-              <button
-                type="button"
-                disabled={isGenerating}
-                onClick={() => {
-                  setShowPaste(false);
-                  onSelectUpload();
-                  onUploadFile();
-                }}
-                className={cn(
-                  "flex w-full items-center gap-2.5 rounded-2xl border px-3 py-2 text-left transition",
-                  uploadSelected && sourceMode === "upload" && !showPaste
-                    ? "border-[#28C2C0] bg-[#28C2C0] text-white shadow-sm"
-                    : "border-[#E5E7EB] bg-white text-[#151B35] hover:border-[#28C2C0]/50",
-                  isGenerating && "opacity-50",
-                )}
-              >
-                <span
+              <div className="min-w-0">
+                <ChosenDeviceFileChip
+                  fileName={sourceFileName}
+                  disabled={isGenerating}
+                  onClear={onClearUpload}
+                />
+                <button
+                  type="button"
+                  disabled={isGenerating}
+                  onClick={() => {
+                    onSelectUpload();
+                    onUploadFile();
+                  }}
                   className={cn(
-                    "flex size-8 shrink-0 items-center justify-center rounded-lg",
-                    uploadSelected && sourceMode === "upload" && !showPaste
-                      ? "bg-white/20 text-white"
-                      : "bg-[#E8F8F8] text-[#28C2C0]",
+                    "flex w-full items-center gap-2.5 rounded-2xl border px-3 py-2 text-left transition",
+                    uploadSelected
+                      ? "border-[#28C2C0] bg-[#28C2C0] text-white shadow-sm"
+                      : "border-[#E5E7EB] bg-white text-[#151B35] hover:border-[#28C2C0]/50",
+                    isGenerating && "opacity-50",
                   )}
                 >
-                  <UploadDocIcon />
-                </span>
-                <span className="text-[11px] font-semibold leading-snug sm:text-xs">
-                  Upload From Device
-                </span>
-              </button>
+                  <span
+                    className={cn(
+                      "flex size-8 shrink-0 items-center justify-center rounded-lg",
+                      uploadSelected
+                        ? "bg-white/20 text-white"
+                        : "bg-[#E8F8F8] text-[#28C2C0]",
+                    )}
+                  >
+                    <UploadDocIcon />
+                  </span>
+                  <span className="text-[11px] font-semibold leading-snug sm:text-xs">
+                    Upload From Device
+                  </span>
+                </button>
+              </div>
 
               <button
                 type="button"
                 disabled={isGenerating}
                 onClick={() => {
-                  setShowPaste(false);
                   onSelectStage2();
                 }}
                 className={cn(
@@ -423,7 +419,6 @@ export function Stage3AssessmentBuilder({
                 type="button"
                 disabled={isGenerating}
                 onClick={() => {
-                  setShowPaste(false);
                   onTogglePicker();
                 }}
                 className={cn(
@@ -446,36 +441,6 @@ export function Stage3AssessmentBuilder({
                 </span>
                 <span className="text-[11px] font-semibold leading-snug sm:text-xs">
                   Pick from library
-                </span>
-              </button>
-
-              <button
-                type="button"
-                disabled={isGenerating}
-                onClick={() => {
-                  onSelectUpload();
-                  setShowPaste(true);
-                }}
-                className={cn(
-                  "flex w-full items-center gap-2.5 rounded-2xl border px-3 py-2 text-left transition",
-                  showPaste
-                    ? "border-[#28C2C0] bg-[#28C2C0] text-white shadow-sm"
-                    : "border-[#E5E7EB] bg-white text-[#151B35] hover:border-[#28C2C0]/50",
-                  isGenerating && "opacity-50",
-                )}
-              >
-                <span
-                  className={cn(
-                    "flex size-8 shrink-0 items-center justify-center rounded-lg",
-                    showPaste
-                      ? "bg-white/20 text-white"
-                      : "bg-[#E8F8F8] text-[#28C2C0]",
-                  )}
-                >
-                  <LibraryIcon />
-                </span>
-                <span className="text-[11px] font-semibold leading-snug sm:text-xs">
-                  Paste text
                 </span>
               </button>
             </div>
@@ -518,17 +483,7 @@ export function Stage3AssessmentBuilder({
               </div>
             ) : null}
 
-            {showPaste ? (
-              <textarea
-                className="mt-3 min-h-[100px] w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-[#28C2C0]"
-                value={sourceText}
-                disabled={isGenerating}
-                placeholder="Paste presentation or lesson context…"
-                onChange={(e) => onPasteText(e.target.value)}
-              />
-            ) : null}
-
-            {sourceLen >= STAGE3_MIN_SOURCE_CHARS ? (
+            {stage2Selected && sourceLen >= STAGE3_MIN_SOURCE_CHARS ? (
               <p className="mt-3 text-[11px] text-slate-500">
                 {`Source ready${topic ? ` · ${topic}` : ""}`}
               </p>

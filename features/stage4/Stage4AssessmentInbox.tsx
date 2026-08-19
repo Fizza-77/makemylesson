@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { ROUTES } from "@/lib/urls";
 import { cn } from "@/lib/utils";
+import { ChosenDeviceFileChip } from "@/components/common/ChosenDeviceFileChip";
 import type { LibraryItem } from "@/types/library-item";
 import { STAGE4_MIN_SOURCE_CHARS } from "@/types/stage4";
 
@@ -58,6 +59,7 @@ export function Stage4AssessmentInbox({
   sourceMode,
   sourceLen,
   topic,
+  sourceFileName,
   activities,
   pickerOpen,
   isGenerating,
@@ -66,12 +68,12 @@ export function Stage4AssessmentInbox({
   onTogglePicker,
   onPickLibraryItem,
   onUploadFile,
-  onPasteText,
-  sourceText,
+  onClearUpload,
 }: {
   sourceMode: "stage3Library" | "upload";
   sourceLen: number;
   topic: string;
+  sourceFileName?: string | null;
   activities: LibraryItem[];
   pickerOpen: boolean;
   isGenerating?: boolean;
@@ -80,21 +82,20 @@ export function Stage4AssessmentInbox({
   onTogglePicker: () => void;
   onPickLibraryItem: (item: LibraryItem) => void;
   onUploadFile: () => void;
-  onPasteText: (text: string) => void;
-  sourceText: string;
+  onClearUpload: () => void;
 }) {
   const sourceReady = sourceLen >= STAGE4_MIN_SOURCE_CHARS;
   const stage3Selected = sourceMode === "stage3Library";
   const uploadSelected = sourceMode === "upload";
 
-  const selectedTitle =
-    topic.trim() ||
-    (stage3Selected ? "Quick Check Assessment" : "Uploaded source");
+  const selectedTitle = stage3Selected
+    ? topic.trim() || "Quick Check Assessment"
+    : sourceFileName?.trim() || "Uploaded source";
   const selectedDesc = stage3Selected
     ? "Stage 3 content is ready to expand into a quiz or full test."
     : sourceReady
-      ? "Your uploaded source is ready to expand into a quiz or full test."
-      : "Upload a file or paste text to continue.";
+      ? "Your chosen file is ready to expand into a quiz or full test."
+      : "Choose a file to continue.";
 
   return (
     <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_10px_28px_-12px_rgba(13,20,48,0.18)]">
@@ -148,21 +149,27 @@ export function Stage4AssessmentInbox({
           {/* Right column */}
           <div className="flex min-w-0 flex-col gap-3">
             <div className="grid gap-3 sm:grid-cols-2">
-              <button
-                type="button"
-                disabled={isGenerating}
-                onClick={() => {
-                  onSelectUpload();
-                  onUploadFile();
-                }}
-                className={cn(
-                  "flex flex-col items-start rounded-2xl border p-3 text-left transition",
-                  uploadSelected
-                    ? "border-[#28C2C0] bg-white shadow-sm ring-1 ring-[#28C2C0]/30"
-                    : "border-slate-200 bg-white hover:border-[#28C2C0]/40",
-                  isGenerating && "opacity-50",
-                )}
-              >
+              <div className="min-w-0">
+                <ChosenDeviceFileChip
+                  fileName={sourceFileName}
+                  disabled={isGenerating}
+                  onClear={onClearUpload}
+                />
+                <button
+                  type="button"
+                  disabled={isGenerating}
+                  onClick={() => {
+                    onSelectUpload();
+                    onUploadFile();
+                  }}
+                  className={cn(
+                    "flex h-full w-full flex-col items-start rounded-2xl border p-3 text-left transition",
+                    uploadSelected
+                      ? "border-[#28C2C0] bg-white shadow-sm ring-1 ring-[#28C2C0]/30"
+                      : "border-slate-200 bg-white hover:border-[#28C2C0]/40",
+                    isGenerating && "opacity-50",
+                  )}
+                >
                 <span className="flex size-8 items-center justify-center rounded-lg bg-[#E8F8F8] text-[#28C2C0]">
                   <UploadIcon />
                 </span>
@@ -173,6 +180,7 @@ export function Stage4AssessmentInbox({
                   Use a lesson file, notes or an existing question paper.
                 </p>
               </button>
+              </div>
 
               <button
                 type="button"
@@ -265,16 +273,6 @@ export function Stage4AssessmentInbox({
               </div>
             ) : null}
 
-            {uploadSelected ? (
-              <textarea
-                className="min-h-[88px] w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-[#28C2C0]"
-                value={sourceText}
-                disabled={isGenerating}
-                placeholder="Or paste formative activity / lesson context…"
-                onChange={(e) => onPasteText(e.target.value)}
-              />
-            ) : null}
-
             {/* Selected source */}
             <div className="rounded-2xl border border-[#B9E6E2] bg-[#E8F8F8] p-4 sm:p-5">
               <div className="flex items-start justify-between gap-2">
@@ -292,11 +290,11 @@ export function Stage4AssessmentInbox({
                 </span>
               </div>
 
-              <div className="mt-2 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                <h4 className="text-base font-bold text-[#151B35]">
+              <div className="mt-2 flex min-w-0 flex-col gap-1.5">
+                <h4 className="line-clamp-2 min-w-0 break-all text-base font-bold leading-snug text-[#151B35]">
                   {selectedTitle}
                 </h4>
-                <p className="text-xs leading-relaxed text-slate-500 sm:max-w-[55%] sm:text-right">
+                <p className="text-xs leading-relaxed text-slate-500">
                   {selectedDesc}
                 </p>
               </div>

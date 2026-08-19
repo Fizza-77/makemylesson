@@ -5,7 +5,7 @@ Ordered implementation backlog. Update status in repo-root `docs/progress.md` as
 ## Phase 0 — Project scaffold
 
 - [x] Initialize Next.js (App Router, TypeScript, Tailwind, ESLint, Prettier)
-- [x] Hosting domain: **`makemylesson.app`** at root (no `basePath`); marketing on **`makemylesson.ai`**
+- [x] Hosting domain: **`makemylesson.ai`** at root (no `basePath`) for app **and** marketing; legacy `makemylesson.app` / `makemylesson.com` redirect here
 - [x] Hosting provider: **Hostinger VPS** (nginx + PM2 + Next standalone) — deploy later
 - [x] `next.config`: `output: 'standalone'`, canonical URL, legacy `/app/*` redirects, next-pwa
 - [x] Add `ecosystem.config.cjs` + deploy notes (`docs/deploy-hostinger.md`)
@@ -140,13 +140,14 @@ Ordered implementation backlog. Update status in repo-root `docs/progress.md` as
 
 Requires server/DNS access (see `docs/deploy-hostinger.md`):
 
-- [ ] Provision VPS; point `makemylesson.app` DNS to VPS IP
-- [ ] nginx + Certbot TLS; proxy to `127.0.0.1:3000`
+- [ ] Provision VPS; point `makemylesson.ai` (+ `www` and the legacy `.app` / `.com` hosts) DNS to VPS IP
+- [ ] nginx + Certbot TLS; proxy to `127.0.0.1:3000`; 301 legacy hosts → `makemylesson.ai`
 - [ ] `npm run build` (standalone); **PM2** start/reload
 - [ ] Production `.env` on server (`NEXT_PUBLIC_*`, origins, `PORT=3000`)
 - [ ] 301 legacy `/app/*` → `/*` (`next.config` redirects)
-- [ ] Verify PayPal return URLs on `https://makemylesson.app/subscription`
-- [ ] Verify Firebase Auth authorized domains include `makemylesson.app`
+- [ ] Verify PayPal return URLs on `https://makemylesson.ai/subscription`
+- [ ] Verify Firebase Auth authorized domains include `makemylesson.ai` and `www.makemylesson.ai`
+- [ ] Update Storage CORS origins to `makemylesson.ai` (exports fetch images in the browser)
 - [ ] Decommission Flutter web on Firebase Hosting
 - [ ] Leave Flutter mobile builds unchanged
 
@@ -160,7 +161,7 @@ Requires server/DNS access (see `docs/deploy-hostinger.md`):
 
 ## Open questions (resolve before Phase 14)
 
-1. ~~Final hosting path~~ → **`makemylesson.app`** (app), **`makemylesson.ai`** (marketing).
+1. ~~Final hosting path~~ → **`makemylesson.ai`** for app **and** marketing (one host).
 2. ~~Hosting provider~~ → **Hostinger VPS** (nginx, PM2, Next standalone).
 3. New Firebase Web App ID registered and production `.env` on VPS?
 4. Stage 2 canvas: DOM/CSS vs canvas library for pixel parity?

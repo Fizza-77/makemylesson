@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useState } from "react";
 
+import { AccountExistsDialog } from "@/features/auth/AccountExistsDialog";
 import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -15,6 +16,7 @@ import {
 } from "@/firebase/auth";
 import { getFirebaseAuth } from "@/firebase/config";
 import {
+  isAccountAlreadyExistsError,
   isAuthSignInCancelled,
   mapFunctionsError,
   mapSocialAuthError,
@@ -42,6 +44,9 @@ export function SignUpForm() {
   const setDraft = useSignupDraftStore((s) => s.setDraft);
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [socialLoading, setSocialLoading] = useState<"google" | "apple" | null>(
+    null,
+  );
+  const [existingAccountEmail, setExistingAccountEmail] = useState<string | null>(
     null,
   );
   const socialBusyRef = useRef(false);
@@ -86,6 +91,7 @@ export function SignUpForm() {
   async function onSubmit(values: SignUpValues) {
     const email = values.email.trim();
     authLog.info("sign_up.email.start", { email: authLog.email(email) });
+    setExistingAccountEmail(null);
     try {
       await startEmailSignupVerification(email);
 
@@ -110,6 +116,13 @@ export function SignUpForm() {
       toast.success(`Verification email sent to ${email}. Enter the 6-digit code.`);
       router.push(`${ROUTES.verifyOtp}?email=${encodeURIComponent(email)}`);
     } catch (e) {
+      if (isAccountAlreadyExistsError(e)) {
+        authLog.info("sign_up.email.already_exists", {
+          email: authLog.email(email),
+        });
+        setExistingAccountEmail(email);
+        return;
+      }
       authLog.error("sign_up.email.failed", e, { email: authLog.email(email) });
       toast.error(mapFunctionsError(e));
     }
@@ -350,6 +363,12 @@ export function SignUpForm() {
         </Link>
       </p>
       </div>
+
+      <AccountExistsDialog
+        open={existingAccountEmail !== null}
+        email={existingAccountEmail ?? ""}
+        onClose={() => setExistingAccountEmail(null)}
+      />
     </AuthGlassShell>
   );
 }

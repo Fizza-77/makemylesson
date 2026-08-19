@@ -1,94 +1,106 @@
 import Link from 'next/link'
-import { Check } from 'lucide-react'
+import { CalendarDays, Check, ChevronDown } from 'lucide-react'
 import { MML_APP } from '@marketing/lib/appUrls'
 import { cn } from '@marketing/lib/cn'
 
-/** Base plan data in USD — convert with `localizeAccessPlans(currency)`. */
+/** Every paid plan carries the same feature set — only the credit volume changes. */
+const PAID_PLAN_POINTS = [
+  'Every feature is on every plan.',
+  'Longer plans cost less each month.',
+  'Nothing else changes.',
+]
+
+const FREE_PLAN_FEATURES = [
+  'Stage 1 — AI Lesson Plans',
+  'Stage 2 — AI Presentations + Speaker Notes',
+  'AI-Generated Slide Images',
+  'Stage 3 — AI Classroom Activities',
+  'Student Worksheet + Teacher Answer Key',
+  'Stage 4 — AI Summative Assessments',
+  'Student Paper + Mark Scheme',
+  '5 Curriculum Families — Australia, UK, Canada, IB & US/AP',
+  '16 Teaching Methods',
+  'Favourites',
+  'Unlimited Manual Editing — No Credits Required',
+  'Unlimited Ayla Refinements — No Credits Required',
+  'Export to PDF',
+  'Export to PowerPoint (PPTX)',
+  'Download Complete Teaching Pack (ZIP)',
+  'Print',
+  'Share to Google Classroom',
+  'Share to Microsoft Teams',
+  'Share to Other Apps',
+]
+
+/**
+ * Base plan data in USD — convert with `localizeAccessPlans(currency)`.
+ * `discountLabel` comes from the pricing sheet rather than being derived, so the
+ * published percentages stay exact after currency conversion.
+ */
 export const ACCESS_PLANS = [
   {
     key: 'free',
     name: 'Free',
-    tone: 'white',
+    generations: 5,
+    tone: 'teal',
     priceUsd: 0,
-    priceNote: 'Forever free',
-    features: ['5 total generations', 'All four stages', 'No card required'],
-    featureStyle: 'dots',
+    priceLabel: 'Free',
+    priceNote: 'Forever Free',
+    includedTitle: 'Included on every plan',
+    features: FREE_PLAN_FEATURES,
+    previewCount: 3,
     cta: 'Get Started',
     href: MML_APP.signUp,
-    footnote: 'After 5 gens, upgrade.',
   },
   {
     key: 'monthly',
     name: 'Monthly',
-    tone: 'white',
-    wasPriceUsd: 14.99,
+    generations: 30,
+    tone: 'navy',
+    wasPriceUsd: 15.99,
     priceUsd: 9.99,
-    priceSuffix: '/mo',
-    priceNote: 'One payment per month of access',
-    features: [
-      'Total 100 generations for 1 month',
-      'Complete teaching packs',
-      'Export PDF & Word',
-    ],
-    featureStyle: 'dots',
+    discountLabel: '37% OFF',
+    features: PAID_PLAN_POINTS,
     cta: 'Choose Monthly',
     planKey: 'individual_monthly',
-    footnote: 'Cancel anytime.',
   },
   {
     key: '3mo',
     name: '3 Months',
-    tone: 'white',
-    wasPriceUsd: 39.99,
-    priceUsd: 26.99,
-    perMonthUsd: 8.99,
-    priceSuffix: ' total',
-    periodLabel: 'one payment per 3 months of access',
-    features: [
-      'Total 300 generations for 3 months',
-      'Everything in Monthly',
-      'All creation tools',
-    ],
-    featureStyle: 'dots',
+    generations: 90,
+    tone: 'indigo',
+    wasPriceUsd: 47.97,
+    priceUsd: 27,
+    discountLabel: '44% OFF',
+    features: PAID_PLAN_POINTS,
+    spreadNote: 'Use your generations in one month or spread them across 3 months.',
     cta: 'Choose 3 Months',
     planKey: 'individual_monthly',
-    footnote: 'Cancel anytime.',
   },
   {
     key: '6mo',
     name: '6 Months',
-    tone: 'white',
+    generations: 180,
+    tone: 'teal',
     popular: true,
-    wasPriceUsd: 74.99,
-    priceUsd: 49.99,
-    perMonthUsd: 8.33,
-    priceSuffix: ' total',
-    periodLabel: 'one payment per 6 months of access',
-    features: [
-      'Total 600 generations for 6 months',
-      'Everything in Monthly',
-      'All creation tools',
-    ],
-    featureStyle: 'dots',
+    wasPriceUsd: 95.94,
+    priceUsd: 50,
+    discountLabel: '48% OFF',
+    features: PAID_PLAN_POINTS,
+    spreadNote: 'Use your generations in one month or spread them across 6 months.',
     cta: 'Choose 6 Months',
     planKey: 'individual_monthly',
-    footnote: 'Cancel anytime.',
   },
   {
     key: 'annual',
     name: 'Annual',
-    tone: 'white',
-    wasPriceUsd: 139.99,
-    priceUsd: 89.99,
-    perMonthUsd: 7.5,
-    priceSuffix: ' total',
-    periodLabel: 'One annual payment',
-    features: [
-      'Total 1200 generations for 12 months',
-      'Everything in Monthly',
-      'All creation tools',
-    ],
-    featureStyle: 'checks',
+    generations: 360,
+    tone: 'navy',
+    wasPriceUsd: 191.98,
+    priceUsd: 90,
+    discountLabel: '53% OFF',
+    features: PAID_PLAN_POINTS,
+    spreadNote: 'Use your generations in one month or spread them across 12 months.',
     cta: 'Choose Annual',
     planKey: 'individual_annual',
   },
@@ -102,24 +114,21 @@ export function formatPlanMoney(usdAmount, currency) {
   return `${currency.symbol}${display}`
 }
 
+/** Struck-through list prices keep their cents, so `$15.99` never reads as `$16`. */
+export function formatPlanMoneyExact(usdAmount, currency) {
+  const value = Math.round(usdAmount * currency.rate * 100) / 100
+  const display = Number.isInteger(value) ? String(value) : value.toFixed(2)
+  return `${currency.symbol}${display}`
+}
+
 export function localizeAccessPlans(currency) {
-  return ACCESS_PLANS.map((plan) => {
-    const price = formatPlanMoney(plan.priceUsd, currency)
-    const wasPrice =
-      plan.wasPriceUsd != null ? formatPlanMoney(plan.wasPriceUsd, currency) : undefined
-
-    let priceNote = plan.priceNote
-    if (plan.perMonthUsd != null && plan.periodLabel) {
-      priceNote = `${formatPlanMoney(plan.perMonthUsd, currency)}/mo · ${plan.periodLabel}`
-    }
-
-    return {
-      ...plan,
-      price,
-      wasPrice,
-      priceNote,
-    }
-  })
+  return ACCESS_PLANS.map((plan) => ({
+    ...plan,
+    currencyCode: currency.code,
+    price: plan.priceLabel ?? formatPlanMoney(plan.priceUsd, currency),
+    wasPrice:
+      plan.wasPriceUsd != null ? formatPlanMoneyExact(plan.wasPriceUsd, currency) : undefined,
+  }))
 }
 
 export function AccessPlanCard({
@@ -127,8 +136,33 @@ export function AccessPlanCard({
   onCheckout = undefined,
   checkoutLoading = false,
 }) {
-  const ctaClass = 'mml-pr-cta'
   const ctaLabel = checkoutLoading ? 'Redirecting…' : plan.cta
+  const isFree = !plan.wasPrice
+
+  /* The free plan lists far more than the paid cards, so only a few lines show
+     up front and the rest sit behind the toggle — that keeps all five cards at a
+     comparable content height. */
+  const shownFeatures = plan.previewCount
+    ? plan.features.slice(0, plan.previewCount)
+    : plan.features
+  const hiddenFeatures = plan.previewCount
+    ? plan.features.slice(plan.previewCount)
+    : []
+
+  /* Visible lines match the paid cards' type scale; only the revealed overflow
+     list is condensed, since it runs long. */
+  const renderFeatures = (items, compact = false) => (
+    <ul className={cn('mml-pr-features', compact && 'mml-pr-features--compact')}>
+      {items.map((feature) => (
+        <li key={feature}>
+          <span className="mml-pr-feature-icon" aria-hidden>
+            <Check size={compact ? 9 : 11} strokeWidth={3.5} />
+          </span>
+          <span>{feature}</span>
+        </li>
+      ))}
+    </ul>
+  )
 
   return (
     <article
@@ -138,48 +172,83 @@ export function AccessPlanCard({
         plan.popular && 'mml-pr-card--popular',
       )}
     >
-      {plan.popular ? <span className="mml-pr-badge">POPULAR</span> : null}
+      {plan.popular ? <span className="mml-pr-badge">Most popular</span> : null}
 
-      <h3 className="mml-pr-name">{plan.name}</h3>
+      <header className="mml-pr-head">
+        <span className="mml-pr-head-count">{plan.generations}</span>
+        <span className="mml-pr-head-label">Generations</span>
+      </header>
 
-      <div className="mml-pr-price-block">
-        {plan.wasPrice ? <span className="mml-pr-was">{plan.wasPrice}</span> : null}
-        <p className="mml-pr-price">
-          <span className="mml-pr-price-main">{plan.price}</span>
-          {plan.priceSuffix ? (
-            <span className="mml-pr-price-suffix">{plan.priceSuffix}</span>
+      <div className="mml-pr-body">
+        {/* The free plan's price line already reads "Free", so skip the label. */}
+        {plan.priceLabel ? null : <h3 className="mml-pr-name">{plan.name}</h3>}
+
+        <div className="mml-pr-price-block">
+          {plan.wasPrice ? (
+            <span className="mml-pr-was">
+              {plan.wasPrice} <span className="mml-pr-was-code">{plan.currencyCode}</span>
+            </span>
           ) : null}
-        </p>
-        <p className="mml-pr-price-note">{plan.priceNote}</p>
+
+          <p className="mml-pr-price">
+            <span className="mml-pr-price-main">{plan.price}</span>
+            {isFree ? null : (
+              <span className="mml-pr-price-suffix">{plan.currencyCode}</span>
+            )}
+          </p>
+
+          {plan.discountLabel ? (
+            <span className="mml-pr-discount">{plan.discountLabel}</span>
+          ) : null}
+
+          {plan.priceNote ? <p className="mml-pr-price-note">{plan.priceNote}</p> : null}
+        </div>
+
+        {plan.includedTitle ? (
+          <p className="mml-pr-included">{plan.includedTitle}</p>
+        ) : null}
+
+        {renderFeatures(shownFeatures)}
+
+        {/* `details` avoids turning the whole marketing section into a client
+            component just to toggle a list. */}
+        {hiddenFeatures.length ? (
+          <details className="mml-pr-details">
+            <summary className="mml-pr-summary">
+              <span>{hiddenFeatures.length} more included</span>
+              <ChevronDown className="mml-pr-summary-chevron" size={14} strokeWidth={3} />
+            </summary>
+            {renderFeatures(hiddenFeatures, true)}
+          </details>
+        ) : null}
+
+        {plan.spreadNote ? (
+          <p className="mml-pr-spread">
+            <CalendarDays size={15} strokeWidth={2.2} aria-hidden />
+            <span>{plan.spreadNote}</span>
+          </p>
+        ) : null}
+
+        {/* Wrapper keeps the button bottom-aligned across cards of unequal height. */}
+        <div className="mml-pr-cta-wrap">
+          {plan.planKey && onCheckout ? (
+            <button
+              type="button"
+              disabled={checkoutLoading}
+              onClick={() => onCheckout(plan.planKey)}
+              className="mml-pr-cta"
+            >
+              {ctaLabel}
+            </button>
+          ) : (
+            <Link href={plan.href || MML_APP.pricing} className="mml-pr-cta">
+              {plan.cta}
+            </Link>
+          )}
+        </div>
       </div>
 
-      <ul className={cn('mml-pr-features', `mml-pr-features--${plan.featureStyle}`)}>
-        {plan.features.map((feature) => (
-          <li key={feature}>
-            <span className="mml-pr-feature-icon" aria-hidden>
-              {plan.featureStyle === 'checks' ? <Check size={11} strokeWidth={3} /> : null}
-            </span>
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ul>
-
-      {plan.planKey && onCheckout ? (
-        <button
-          type="button"
-          disabled={checkoutLoading}
-          onClick={() => onCheckout(plan.planKey)}
-          className={ctaClass}
-        >
-          {ctaLabel}
-        </button>
-      ) : (
-        <Link href={plan.href || MML_APP.pricing} className={ctaClass}>
-          {plan.cta}
-        </Link>
-      )}
-
-      {plan.footnote ? <p className="mml-pr-footnote">{plan.footnote}</p> : null}
+      <p className="mml-pr-foot">Affordable education for all</p>
     </article>
   )
 }

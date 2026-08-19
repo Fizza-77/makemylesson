@@ -58,6 +58,7 @@ export async function buildCompletePackZipBlob(params: {
       grade: pack.grade,
       subject: pack.subject,
       content: lesson.reviewBody,
+      schoolName,
     });
     zip.file("stage1_lesson_plan.pdf", pdf.output("arraybuffer"));
     fileCount++;

@@ -6,11 +6,13 @@ import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
+import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { Stage1Hero } from "@/components/common/Stage1Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
 import { useSignInGate } from "@/features/auth/useSignInGate";
 import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
 import {
   CreateLessonPlanButton,
   LessonDetailsShell,
@@ -35,6 +37,7 @@ import {
 import {
   refreshAccountFromServer,
   syncAccountSubscription,
+  useAccountStore,
 } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
 import { useStage1DraftStore } from "@/store/stage1-draft-store";
@@ -47,8 +50,10 @@ export function Stage1View() {
   const router = useRouter();
   const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
+  const account = useAccountStore((s) => s.account);
   const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
   const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage1);
+  const { confirmGeneration, dialog: confirmDialog } = useGenerationConfirm();
 
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
   const [successFlash, setSuccessFlash] = useState(0);
@@ -85,6 +90,14 @@ export function Stage1View() {
 
     if (requireSignIn()) return;
     if (blockIfNoCredits()) return;
+    if (
+      !(await confirmGeneration(1, {
+        grade: draft.grade,
+        pathway: draft.pathwayDisplayName,
+        topic: draft.topic,
+      }))
+    )
+      return;
     try {
       const result = await draft.generate();
       if (user?.uid) {
@@ -129,6 +142,13 @@ export function Stage1View() {
       grade: draft.grade,
       subject: draft.subject,
       content: draft.generatedSummary,
+      schoolName:
+        account?.useSchoolNameInAi && account.schoolName?.trim()
+          ? account.schoolName.trim()
+          : null,
+      preparedBy: account?.displayName?.trim() || null,
+      teachingStrategy: draft.method,
+      duration: draft.duration,
     };
   }
 
@@ -194,6 +214,18 @@ export function Stage1View() {
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-6">
+      <GenerationBusyOverlay
+        active={isGenerating}
+        title="Generating your lesson plan"
+        progress={draft.progress}
+        status={
+          draft.phase === "saving"
+            ? "Saving to library…"
+            : draft.phase
+              ? `Generating… ${draft.phase}`
+              : undefined
+        }
+      />
       <Stage1Hero />
       <StageProgressNav currentStage={1} />
 
@@ -265,6 +297,11 @@ export function Stage1View() {
               hasPlan={hasPlan}
               isGenerating={isGenerating}
               content={displayContent}
+              curriculumRoute={
+                draft.mappedCurriculumName ?? draft.curriculumLabel
+              }
+              grade={draft.grade}
+              subject={draft.subject}
               linkedLibraryItemId={draft.linkedLibraryItemId}
               isSavingLibrary={draft.isSavingLibrary}
               exportMenuOpen={exportMenuOpen}
@@ -303,6 +340,7 @@ export function Stage1View() {
 
           {signInDialog}
           {upgradeDialog}
+          {confirmDialog}
         </div>
       </StageWorkspace>
     </div>

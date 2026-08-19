@@ -7,10 +7,12 @@ import { Card } from "@/components/ui/Card";
 import { Spinner } from "@/components/ui/Spinner";
 import { Stage2Hero } from "@/components/common/Stage2Hero";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
+import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
 import { useSignInGate } from "@/features/auth/useSignInGate";
 import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
 import { Stage2PresentationSetup } from "@/features/stage2/Stage2PresentationSetup";
 import { PresentationResultPanel } from "@/features/stage2/PresentationResultPanel";
 import { Stage2SlideEditDialog } from "@/features/stage2/Stage2SlideEditDialog";
@@ -51,6 +53,7 @@ export function Stage2View() {
   const account = useAccountStore((s) => s.account);
   const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
   const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage2);
+  const { confirmGeneration, dialog: confirmDialog } = useGenerationConfirm();
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
   const lessonPlans = useMemo(
@@ -188,6 +191,14 @@ export function Stage2View() {
 
     if (requireSignIn()) return;
     if (blockIfNoCredits()) return;
+    if (
+      !(await confirmGeneration(2, {
+        grade: draft.grade,
+        pathway: draft.pathwayDisplayName,
+        topic: draft.topic,
+      }))
+    )
+      return;
 
     try {
       const result = await draft.generate();
@@ -249,6 +260,7 @@ export function Stage2View() {
         account?.useSchoolNameInAi && account.schoolName?.trim()
           ? account.schoolName.trim()
           : null,
+      teacherName: account?.displayName?.trim() || null,
     };
   }
 
@@ -306,6 +318,12 @@ export function Stage2View() {
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-6">
+      <GenerationBusyOverlay
+        active={isGenerating}
+        title="Generating your presentation"
+        progress={draft.progress}
+        status={draft.status || undefined}
+      />
       <Stage2Hero />
       <StageProgressNav currentStage={2} />
 
@@ -317,6 +335,7 @@ export function Stage2View() {
             slideCount={draft.slideCount}
             sourceLen={sourceLen}
             topic={draft.topic}
+            sourceFileName={draft.sourceFileName}
             isGenerating={draft.isGenerating}
             isLoading={draft.isGenerating}
             lessonPlans={lessonPlans}
@@ -370,13 +389,14 @@ export function Stage2View() {
               toast.info(`Using “${item.topic || "Lesson plan"}”`);
             }}
             onUploadFile={() => void onUploadFile()}
+            onClearUpload={() => draft.clearUploadedSource()}
             onThemeSelect={(id) => draft.setThemeId(id)}
             onSlideCount={(n) => draft.setSlideCount(n)}
             onGenerate={() => void onGenerate()}
             canGenerate={draft.canGenerate()}
           />
 
-          {isGenerating || draft.status ? (
+          {isGenerating || draft.error ? (
             <Card className="flex flex-col gap-2">
               <div className="flex items-center justify-between gap-2 text-sm">
                 <span className="font-medium text-[#1A1C30]">
@@ -436,8 +456,10 @@ export function Stage2View() {
               }
               onSelectSlide={(idx) => setDisplayIndex(idx)}
               onEdit={() => {
-                if (isCoverSelected) return;
-                draft.setActiveSlideIndex(contentIndex);
+                if (!hasDeck) return;
+                if (!isCoverSelected) {
+                  draft.setActiveSlideIndex(contentIndex);
+                }
                 setEditOpen(true);
               }}
               showSave={
@@ -456,9 +478,24 @@ export function Stage2View() {
 
           <Stage2SlideEditDialog
             open={editOpen}
-            slide={activeSlide}
+            slide={isCoverSelected ? null : activeSlide}
+            cover={isCoverSelected ? coverData : null}
+            themeId={draft.themeId}
+            totalSlides={displayCount}
             onClose={() => setEditOpen(false)}
-            onSave={(patch) => {
+            onSaveCover={(patch) => {
+              draft.setPresentationTitle(patch.topic);
+              setEditOpen(false);
+              if (draft.linkedPresentationLibraryItemId) {
+                setLibraryDirty(true);
+              } else {
+                void draft
+                  .saveCurrentDeckToLibrary()
+                  .then(() => toast.success("Cover saved."))
+                  .catch(() => toast.info("Cover updated locally."));
+              }
+            }}
+            onSaveSlide={(patch) => {
               draft.updateSlide(contentIndex, patch);
               setEditOpen(false);
               if (draft.linkedPresentationLibraryItemId) {
@@ -473,6 +510,7 @@ export function Stage2View() {
           />
           {signInDialog}
           {upgradeDialog}
+          {confirmDialog}
         </div>
       </StageWorkspace>
     </div>

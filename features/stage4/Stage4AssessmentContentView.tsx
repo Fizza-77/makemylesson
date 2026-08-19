@@ -1,6 +1,8 @@
 "use client";
 
 import { MarkdownContentView } from "@/components/common/MarkdownContentView";
+import { WorksheetContentView } from "@/components/common/WorksheetContentView";
+import { worksheetQuestionMarkdown } from "@/lib/format-worksheet-markdown";
 import {
   parseStage4QuestionsFromRawJson,
   type Stage4AssessmentResult,
@@ -55,7 +57,10 @@ export function Stage4AssessmentContentView({
               </p>
               <div className="mt-2">
                 <MarkdownContentView
-                  content={q.questionText}
+                  content={worksheetQuestionMarkdown({
+                    prompt: q.questionText,
+                    questionType: q.questionType,
+                  })}
                   className="prose-p:my-0 prose-p:text-sm prose-p:font-medium"
                   compact
                 />
@@ -65,7 +70,7 @@ export function Stage4AssessmentContentView({
         </div>
       ) : (
         <div className="rounded-xl bg-[#F5F6FA] p-4">
-          <MarkdownContentView content={body} />
+          <WorksheetContentView content={body} />
         </div>
       )}
     </div>

@@ -4,9 +4,18 @@ import Image from "next/image";
 import { useEffect, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/Button";
+import { SegmentedToggle } from "@/components/ui/SegmentedToggle";
 import { LessonPlanContentView } from "@/features/stage1/LessonPlanContentView";
-import { MarkdownRichTextEditor } from "@/features/stage1/MarkdownRichTextEditor";
+import { LessonPlanSupplementView } from "@/features/stage1/LessonPlanSupplementView";
+import { MarkdownSourceEditor } from "@/features/stage1/MarkdownSourceEditor";
 import { cn } from "@/lib/utils";
+
+type EditMode = "edit" | "preview";
+
+const EDIT_MODES: readonly { id: EditMode; label: string }[] = [
+  { id: "edit", label: "Edit" },
+  { id: "preview", label: "Preview" },
+];
 
 function CheckMark() {
   return (
@@ -22,6 +31,9 @@ export function LessonPlanResultPanel({
   hasPlan,
   isGenerating,
   content,
+  curriculumRoute,
+  grade,
+  subject,
   linkedLibraryItemId,
   isSavingLibrary,
   exportMenuOpen,
@@ -37,6 +49,10 @@ export function LessonPlanResultPanel({
   hasPlan: boolean;
   isGenerating?: boolean;
   content: string;
+  /** Curriculum metadata for the standard appended sections. */
+  curriculumRoute?: string;
+  grade?: string;
+  subject?: string;
   linkedLibraryItemId?: string | null;
   isSavingLibrary?: boolean;
   exportMenuOpen?: boolean;
@@ -50,6 +66,7 @@ export function LessonPlanResultPanel({
   className?: string;
 }) {
   const [editing, setEditing] = useState(false);
+  const [editMode, setEditMode] = useState<EditMode>("edit");
   const [draft, setDraft] = useState(content);
   const [editBaseline, setEditBaseline] = useState(content);
   const [saving, setSaving] = useState(false);
@@ -81,6 +98,7 @@ export function LessonPlanResultPanel({
     setDraft(content);
     setEditBaseline(content);
     setEditorKey((k) => k + 1);
+    setEditMode("edit");
     setEditing(true);
   }
 
@@ -127,7 +145,9 @@ export function LessonPlanResultPanel({
             </h2>
             <p className="mt-1 text-sm text-slate-500">
               {editing
-                ? "Edit in place — Ctrl+B for bold."
+                ? editMode === "preview"
+                  ? "Previewing your unsaved changes."
+                  : "Editing markdown source — headings, lists, and tables."
                 : "Your generated lesson appears below."}
             </p>
           </div>
@@ -135,13 +155,21 @@ export function LessonPlanResultPanel({
         <div className="flex flex-wrap items-center gap-2">
           {hasPlan ? (
             <>
+              {editing ? (
+                <SegmentedToggle
+                  value={editMode}
+                  options={EDIT_MODES}
+                  onChange={setEditMode}
+                  ariaLabel="Editing mode"
+                />
+              ) : null}
               <Button
                 variant="ghost"
                 className="px-2 py-1 text-xs"
                 onClick={editing ? cancelEdit : startEdit}
                 disabled={saving}
               >
-                Edit
+                {editing ? "Cancel" : "Edit"}
               </Button>
               {showSave ? (
                 <Button
@@ -173,17 +201,34 @@ export function LessonPlanResultPanel({
       <div className="border-t border-slate-200 bg-[#F7F8FA] px-4 py-5 sm:px-5 sm:py-6">
         {hasPlan ? (
           editing ? (
-            <MarkdownRichTextEditor
-              key={editorKey}
-              value={draft}
-              onChange={setDraft}
-              placeholder="Edit your lesson plan…"
-              className="min-h-[16rem] border-slate-200 bg-white"
-              editorClassName="min-h-[16rem] h-auto max-h-[min(70vh,36rem)]"
-            />
+            editMode === "edit" ? (
+              <MarkdownSourceEditor
+                key={editorKey}
+                value={draft}
+                onChange={setDraft}
+                placeholder="Edit your lesson plan markdown…"
+                className="min-h-[16rem] max-h-[min(70vh,36rem)]"
+              />
+            ) : (
+              <article className="min-h-[16rem] rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+                <LessonPlanContentView content={draft} />
+                <LessonPlanSupplementView
+                  curriculumRoute={curriculumRoute ?? ""}
+                  grade={grade ?? ""}
+                  subject={subject ?? ""}
+                  className="mt-6 border-t border-slate-200 pt-5"
+                />
+              </article>
+            )
           ) : (
             <article className="min-h-[16rem] rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
               <LessonPlanContentView content={content} />
+              <LessonPlanSupplementView
+                curriculumRoute={curriculumRoute ?? ""}
+                grade={grade ?? ""}
+                subject={subject ?? ""}
+                className="mt-6 border-t border-slate-200 pt-5"
+              />
             </article>
           )
         ) : (

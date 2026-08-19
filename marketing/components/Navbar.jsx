@@ -137,7 +137,7 @@ export default function Navbar({ theme = 'home' }) {
           <Link href={MML_APP.signIn} className="site-nav-signin max-[900px]:hidden">
             Sign in
           </Link>
-          <Link href={MML_APP.signUp || MML_APP.stage1} className="site-nav-cta">
+          <Link href={MML_APP.stage1} className="site-nav-cta">
             Start Your First Lesson — Free
           </Link>
           <button
@@ -177,7 +177,7 @@ export default function Navbar({ theme = 'home' }) {
               Sign in
             </Link>
             <Link
-              href={MML_APP.signUp || MML_APP.stage1}
+              href={MML_APP.stage1}
               className="site-nav-cta"
               onClick={() => setMobileOpen(false)}
             >

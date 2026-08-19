@@ -101,6 +101,7 @@ type Stage4Store = Stage4DraftState & {
     fileName: string;
     assessmentText: string;
   }) => void;
+  clearUploadedSource: () => void;
   setLibrarySource: (params: {
     libraryItemId: string;
     assessmentText: string;
@@ -387,6 +388,13 @@ export const useStage4DraftStore = create<Stage4Store>((set, get) => ({
       result: null,
       linkedAssessmentLibraryItemId: null,
       error: null,
+    }),
+
+  clearUploadedSource: () =>
+    set({
+      sourceFileName: null,
+      sourceAssessmentText: "",
+      sourceLibraryItemId: null,
     }),
 
   setLibrarySource: (params) => {

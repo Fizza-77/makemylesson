@@ -229,6 +229,27 @@ export async function updatePresentationBody(params: {
   await updateLibraryItem(updated);
 }
 
+/**
+ * Persists only the deck theme. Kept separate from `updatePresentationBody` so a
+ * theme switch does not need slide content and does not bump `generatedAt`
+ * (which would reorder the library).
+ */
+export async function updatePresentationStyle(params: {
+  id: string;
+  presentationStyle: string;
+}): Promise<void> {
+  const uid = requireUid();
+  const items = await fetchLibraryItemsForUser(uid);
+  const existing = items.find((i) => i.id === params.id);
+  if (!existing) {
+    throw new Error("Library item not found.");
+  }
+  await updateLibraryItem({
+    ...existing,
+    presentationStyle: params.presentationStyle.trim() || "classic_navy",
+  });
+}
+
 /** Mirrors Flutter `LibraryCatalogNotifier.updateLessonPlanBody`. */
 export async function updateLessonPlanBody(params: {
   id: string;

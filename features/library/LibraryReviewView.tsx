@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { Spinner } from "@/components/ui/Spinner";
+import { WorksheetContentView } from "@/components/common/WorksheetContentView";
 import { LessonPlanContentView } from "@/features/stage1/LessonPlanContentView";
+import { LessonPlanSupplementView } from "@/features/stage1/LessonPlanSupplementView";
 import { LessonPlanEditDialog } from "@/features/stage1/LessonPlanEditDialog";
 import { Stage2SlideCanvas } from "@/features/stage2/Stage2SlideCanvas";
 import { Stage3WorksheetContentView } from "@/features/stage3/Stage3WorksheetContentView";
@@ -135,6 +137,14 @@ export function LibraryReviewView() {
         : null,
     [item, planBundleMembers],
   );
+
+  // Stage 2 persists a theme switch on the linked deck, but fall back to the
+  // live draft theme so preview and export match even if that write is pending.
+  const draftThemeId = useStage2DraftStore((s) =>
+    item && s.linkedPresentationLibraryItemId === item.id ? s.themeId : null,
+  );
+  const presentationThemeId =
+    draftThemeId || item?.presentationStyle || "classic_navy";
 
   const presentationSlidesRaw = useMemo(() => {
     if (!item || item.kind !== "presentation") return [] as Stage2Slide[];
@@ -317,6 +327,8 @@ export function LibraryReviewView() {
         grade: item.grade,
         subject: item.subject,
         content: item.reviewBody,
+        schoolName,
+        preparedBy: account?.displayName?.trim() || null,
       });
       toast.success("PDF download started.");
     } catch (e) {
@@ -335,6 +347,8 @@ export function LibraryReviewView() {
         grade: item.grade,
         subject: item.subject,
         content: item.reviewBody,
+        schoolName,
+        preparedBy: account?.displayName?.trim() || null,
       });
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Could not print.");
@@ -352,6 +366,8 @@ export function LibraryReviewView() {
         grade: item.grade,
         subject: item.subject,
         content: item.reviewBody,
+        schoolName,
+        preparedBy: account?.displayName?.trim() || null,
       });
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
@@ -376,7 +392,7 @@ export function LibraryReviewView() {
         grade: item.grade,
         subject: item.subject,
         slides: presentationSlides,
-        themeId: item.presentationStyle || "classic_navy",
+        themeId: presentationThemeId,
         schoolName,
       });
       toast.success("Export ready.");
@@ -401,7 +417,7 @@ export function LibraryReviewView() {
         grade: item.grade,
         subject: item.subject,
         slides: presentationSlides,
-        themeId: item.presentationStyle || "classic_navy",
+        themeId: presentationThemeId,
         schoolName,
       });
       if (result.success) toast.success(result.message);
@@ -900,7 +916,7 @@ export function LibraryReviewView() {
                 <h3 className="text-sm font-bold text-[#1A1C30]">
                   Activity preview
                 </h3>
-                <LessonPlanContentView content={members.activity.reviewBody} />
+                <WorksheetContentView content={members.activity.reviewBody} />
               </div>
             ) : null}
             {members.assessment?.reviewBody?.trim() ? (
@@ -908,14 +924,22 @@ export function LibraryReviewView() {
                 <h3 className="text-sm font-bold text-[#1A1C30]">
                   Assessment preview
                 </h3>
-                <LessonPlanContentView
+                <WorksheetContentView
                   content={members.assessment.reviewBody}
                 />
               </div>
             ) : null}
           </div>
         ) : item.kind === "lessonPlan" ? (
-          <LessonPlanContentView content={item.reviewBody} />
+          <>
+            <LessonPlanContentView content={item.reviewBody} />
+            <LessonPlanSupplementView
+              curriculumRoute={item.curriculumRoute}
+              grade={item.grade}
+              subject={item.subject}
+              className="mt-6 border-t border-slate-200 pt-5"
+            />
+          </>
         ) : item.kind === "presentation" ? (
           <div className="space-y-4">
             {hydratingSlides && !activeSlide ? (
@@ -928,7 +952,7 @@ export function LibraryReviewView() {
               <>
                 <Stage2SlideCanvas
                   slide={activeSlide}
-                  themeId={item.presentationStyle || "classic_navy"}
+                  themeId={presentationThemeId}
                 />
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <Button
@@ -1020,7 +1044,7 @@ export function LibraryReviewView() {
               </Button>
             </div>
             {showTeacherView ? (
-              <LessonPlanContentView
+              <WorksheetContentView
                 content={item.teacherReviewBody ?? ""}
                 emptyPlaceholder="No answer key saved."
               />
@@ -1030,7 +1054,7 @@ export function LibraryReviewView() {
                 instructions={activityResult.studentInstructions}
               />
             ) : (
-              <LessonPlanContentView
+              <WorksheetContentView
                 content={item.reviewBody}
                 emptyPlaceholder="No activity content saved."
               />
@@ -1057,7 +1081,7 @@ export function LibraryReviewView() {
               </Button>
             </div>
             {showTeacherView ? (
-              <LessonPlanContentView
+              <WorksheetContentView
                 content={item.teacherReviewBody ?? ""}
                 emptyPlaceholder="No mark scheme saved."
               />
@@ -1079,6 +1103,36 @@ export function LibraryReviewView() {
       <LessonPlanEditDialog
         open={editOpen}
         initialValue={editInitialValue}
+        title={
+          item.kind === "activity"
+            ? editTeacherMode
+              ? "Edit answer key"
+              : "Edit student activity"
+            : item.kind === "assessment"
+              ? editTeacherMode
+                ? "Edit mark scheme"
+                : "Edit student paper"
+              : "Edit Lesson Plan"
+        }
+        supplement={
+          item.kind === "lessonPlan"
+            ? {
+                curriculumRoute: item.curriculumRoute,
+                grade: item.grade,
+                subject: item.subject,
+              }
+            : undefined
+        }
+        renderPreview={
+          item.kind === "activity" || item.kind === "assessment"
+            ? (value) => (
+                <WorksheetContentView
+                  content={value}
+                  emptyPlaceholder="Nothing to preview yet."
+                />
+              )
+            : undefined
+        }
         onClose={() => setEditOpen(false)}
         onSave={onSaveEdit}
       />

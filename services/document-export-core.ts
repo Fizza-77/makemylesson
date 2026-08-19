@@ -1,5 +1,8 @@
 import { jsPDF } from "jspdf";
 
+import { structureWorksheetMarkdown } from "@/lib/format-worksheet-markdown";
+import { PDF_INK, PDF_MUTED, PdfWriter } from "@/services/pdf-writer";
+
 /** Shared helpers for Stage 1–4 client exports (mirrors Flutter DocumentExportCoreService). */
 
 export function sanitizeFileName(name: string): string {
@@ -38,78 +41,63 @@ export type WorksheetPdfInput = {
   schoolName?: string | null;
 };
 
-/** A4 markdown-ish worksheet PDF used by Stage 3 & 4. */
-export function buildWorksheetPdf(input: WorksheetPdfInput): jsPDF {
-  const doc = new jsPDF({ unit: "pt", format: "a4" });
-  const margin = 48;
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-  const maxWidth = pageWidth - margin * 2;
-  let y = margin;
+const WORKSHEET_MARGIN = 48;
 
-  const ensureSpace = (needed: number) => {
-    if (y + needed > pageHeight - margin) {
-      doc.addPage();
-      y = margin;
-    }
-  };
+function drawWorksheetHeader(w: PdfWriter, input: WorksheetPdfInput): void {
+  const { doc } = w;
+  const school = input.schoolName?.trim();
 
-  if (input.schoolName?.trim()) {
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(80);
-    const schoolLines = doc.splitTextToSize(input.schoolName.trim(), maxWidth);
-    ensureSpace(schoolLines.length * 14 + 8);
-    doc.text(schoolLines, margin, y);
-    y += schoolLines.length * 14 + 8;
-    doc.setTextColor(0);
+  if (school) {
+    w.paragraph(school, { size: 10, color: PDF_MUTED, after: 6 });
   }
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
+  doc.setTextColor(PDF_INK);
   const titleLines = doc.splitTextToSize(
     input.title.trim() || "Worksheet",
-    maxWidth,
-  );
-  ensureSpace(titleLines.length * 22);
-  doc.text(titleLines, margin, y);
-  y += titleLines.length * 22 + 4;
+    w.maxWidth,
+  ) as string[];
+  for (const line of titleLines) {
+    w.ensure(22);
+    doc.text(line, w.margin, w.y);
+    w.gap(22);
+  }
+  w.gap(2);
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(12);
-  doc.setTextColor(90);
-  ensureSpace(16);
-  doc.text(input.subtitle.trim() || "Document", margin, y);
-  y += 16;
+  w.paragraph(input.subtitle.trim() || "Document", {
+    size: 12,
+    color: PDF_MUTED,
+    after: 4,
+  });
 
-  doc.setFontSize(10);
   for (const line of [
     `Curriculum: ${input.curriculumRoute}`,
     `Grade: ${input.grade}`,
     `Subject: ${input.subject}`,
   ]) {
-    ensureSpace(14);
-    doc.text(line, margin, y);
-    y += 14;
+    w.paragraph(line, { size: 10, color: PDF_MUTED, after: 0 });
   }
-  y += 12;
-  doc.setTextColor(0);
 
-  doc.setFontSize(11);
-  const body = plainMarkdown(input.body.trim() || "—");
-  for (const para of body.split(/\n+/)) {
-    if (!para.trim()) {
-      y += 8;
-      continue;
-    }
-    const lines = doc.splitTextToSize(para, maxWidth);
-    for (const line of lines) {
-      ensureSpace(14);
-      doc.text(line, margin, y);
-      y += 14;
-    }
-    y += 4;
-  }
+  w.gap(6);
+  w.rule();
+  w.gap(16);
+}
+
+/**
+ * A4 worksheet PDF used by Stage 3 & 4 (student activity, answer key, mark scheme).
+ * The body keeps its markdown structure — bold question stems, answers on their own
+ * line, lists and tables — rather than being flattened to one plain text size.
+ */
+export function buildWorksheetPdf(input: WorksheetPdfInput): jsPDF {
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const writer = new PdfWriter(doc, {
+    margin: WORKSHEET_MARGIN,
+    contentTop: WORKSHEET_MARGIN,
+  });
+
+  drawWorksheetHeader(writer, input);
+  writer.markdown(structureWorksheetMarkdown(input.body) || "—");
 
   return doc;
 }

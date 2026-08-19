@@ -88,6 +88,7 @@ type Stage3Store = Stage3DraftState & {
     fileName: string;
     presentationText: string;
   }) => void;
+  clearUploadedSource: () => void;
   setLibrarySource: (params: {
     libraryItemId: string;
     presentationText: string;
@@ -344,6 +345,13 @@ export const useStage3DraftStore = create<Stage3Store>((set, get) => ({
       result: null,
       linkedActivityLibraryItemId: null,
       error: null,
+    }),
+
+  clearUploadedSource: () =>
+    set({
+      sourceFileName: null,
+      sourcePresentationText: "",
+      sourceLibraryItemId: null,
     }),
 
   setLibrarySource: (params) => {

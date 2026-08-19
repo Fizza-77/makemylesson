@@ -3,6 +3,8 @@ import JSZip from "jszip";
 import PptxGenJS from "pptxgenjs";
 
 import { stage2ThemeById, type Stage2SlideTheme } from "@/data/stage2-themes";
+import { structureQuestionAnswerMarkdown } from "@/lib/format-worksheet-markdown";
+import { PDF_INK, PDF_MUTED, PdfWriter } from "@/services/pdf-writer";
 import type { Stage2Slide } from "@/types/stage2";
 
 export type Stage2ExportInput = {
@@ -13,6 +15,7 @@ export type Stage2ExportInput = {
   slides: Stage2Slide[];
   themeId: string;
   schoolName?: string | null;
+  teacherName?: string | null;
 };
 
 function safeTopic(topic: string): string {
@@ -45,6 +48,50 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
   const n = Number.parseInt(full, 16);
   if (!Number.isFinite(n)) return { r: 26, g: 33, b: 62 };
   return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
+
+function hexColor(color: string): string {
+  return color.replace("#", "").trim();
+}
+
+/** OOXML <a:t> cannot contain control chars or literal newlines. */
+function sanitizePptxText(value: string): string {
+  return value
+    .replace(/\r\n|\r/g, "\n")
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "")
+    .replace(/\uFEFF/g, "")
+    .replace(/\n+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function isLightHex(color: string): boolean {
+  const { r, g, b } = hexToRgb(color);
+  return (r * 299 + g * 587 + b * 114) / 1000 > 160;
+}
+
+function splitBullet(text: string): { label: string; rest: string } {
+  const trimmed = text.trim();
+  const idx = trimmed.indexOf(":");
+  if (idx > 0 && idx <= 42 && idx < trimmed.length - 1) {
+    return {
+      label: trimmed.slice(0, idx).trim(),
+      rest: trimmed.slice(idx + 1).trim(),
+    };
+  }
+  return { label: "", rest: trimmed };
+}
+
+function slideBullets(slide: Stage2Slide): string[] {
+  return slide.slideContent.map((b) => plainText(b)).filter(Boolean).slice(0, 5);
+}
+
+function coverMetaLine(input: Stage2ExportInput): string {
+  const bits = [input.grade, input.subject, input.curriculumRoute]
+    .map((v) => v.trim())
+    .filter((v) => v && v !== "—");
+  if (!bits.length) return "";
+  return `For ${bits.join(" · ")}`;
 }
 
 function downloadBlob(blob: Blob, filename: string) {
@@ -123,11 +170,24 @@ function paintPdfBackground(
 ) {
   const w = Number.isFinite(pageW) && pageW > 0 ? pageW : 842;
   const h = Number.isFinite(pageH) && pageH > 0 ? pageH : 595;
-  const mid = hexToRgb(theme.backgroundGradient[1] ?? theme.accentPrimary);
-  // Solid fill — banded gradients previously hit NaN page sizes when format
-  // was misconfigured as "landscape" instead of a real paper size.
-  doc.setFillColor(mid.r, mid.g, mid.b);
+  const back = hexToRgb(theme.backgroundGradient[1] ?? theme.accentPrimary);
+  const accent = hexToRgb(theme.accentPrimary);
+  const accent2 = hexToRgb(theme.accentSecondary);
+  doc.setFillColor(back.r, back.g, back.b);
   doc.rect(0, 0, w, h, "F");
+
+  const gState = doc.GState({ opacity: 0.16 });
+  doc.saveGraphicsState();
+  doc.setGState(gState);
+  doc.setFillColor(accent.r, accent.g, accent.b);
+  doc.circle(w - 48, 36, 110, "F");
+  doc.setFillColor(accent2.r, accent2.g, accent2.b);
+  doc.circle(70, h + 18, 95, "F");
+  doc.restoreGraphicsState();
+
+  doc.setFillColor(accent.r, accent.g, accent.b);
+  doc.rect(0, 0, 10, h, "F");
+  doc.rect(0, h - 8, w, 8, "F");
 }
 
 function addPdfCover(
@@ -143,31 +203,62 @@ function addPdfCover(
   const titleRgb = hexToRgb(theme.titleColor);
   const mutedRgb = hexToRgb(theme.mutedColor);
   const accentRgb = hexToRgb(theme.accentPrimary);
+  const accent2Rgb = hexToRgb(theme.accentSecondary);
+
+  doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.text("COVER SLIDE", 40, 42);
+
+  const school = input.schoolName?.trim();
+  if (school) {
+    doc.setTextColor(titleRgb.r, titleRgb.g, titleRgb.b);
+    doc.setFontSize(13);
+    doc.text(school, 40, 62);
+  }
+  const teacher = input.teacherName?.trim();
+  if (teacher) {
+    doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.text(`Prepared by: ${teacher}`, pageW - 40, 62, { align: "right" });
+  }
 
   doc.setFillColor(accentRgb.r, accentRgb.g, accentRgb.b);
-  doc.roundedRect(48, 56, 72, 8, 2, 2, "F");
+  doc.roundedRect(pageW / 2 - 36, pageH / 2 - 78, 72, 8, 3, 3, "F");
+  doc.setFillColor(accent2Rgb.r, accent2Rgb.g, accent2Rgb.b);
+  doc.circle(pageW / 2 + 52, pageH / 2 - 74, 5, "F");
 
   doc.setTextColor(titleRgb.r, titleRgb.g, titleRgb.b);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(28);
-  const title = doc.splitTextToSize(input.topic.trim() || "Presentation", pageW - 96);
-  doc.text(title, 48, 100);
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(12);
-  doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
-  let y = 100 + title.length * 32 + 12;
-  for (const line of [
-    input.curriculumRoute,
-    `${input.grade} · ${input.subject}`,
-    input.schoolName?.trim() || null,
-  ].filter(Boolean) as string[]) {
-    doc.text(line, 48, y);
-    y += 18;
+  doc.setFontSize(32);
+  const title = doc.splitTextToSize(
+    input.topic.trim() || "Presentation",
+    pageW - 160,
+  ) as string[];
+  let titleY = pageH / 2 - 40;
+  for (const line of title.slice(0, 3)) {
+    doc.text(line, pageW / 2, titleY, { align: "center" });
+    titleY += 38;
   }
 
+  const meta = coverMetaLine(input);
+  if (meta) {
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
+    const metaLines = doc.splitTextToSize(meta, pageW - 160) as string[];
+    let metaY = titleY + 8;
+    for (const line of metaLines.slice(0, 2)) {
+      doc.text(line, pageW / 2, metaY, { align: "center" });
+      metaY += 16;
+    }
+  }
+
+  doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
-  doc.text(`SLIDE 1 OF ${totalSlides}`, pageW / 2, pageH - 28, {
+  doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
+  doc.text(`SLIDE 1 OF ${totalSlides}`, pageW / 2, pageH - 22, {
     align: "center",
   });
 }
@@ -187,14 +278,29 @@ async function addPdfContentSlide(
   const bodyRgb = hexToRgb(theme.bodyColor);
   const mutedRgb = hexToRgb(theme.mutedColor);
   const accentRgb = hexToRgb(theme.accentPrimary);
+  const accent2Rgb = hexToRgb(theme.accentSecondary);
+  const panelRgb = hexToRgb(theme.overlayPanelColor);
 
-  doc.setFillColor(accentRgb.r, accentRgb.g, accentRgb.b);
-  doc.roundedRect(40, 40, 56, 6, 2, 2, "F");
+  doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.text(
+    (slide.slideType || `Slide ${slide.slideNumber}`).toUpperCase(),
+    36,
+    32,
+  );
+  doc.setFont("helvetica", "normal");
+  doc.text(`${slide.estimatedTimeMinutes} min`, pageW - 36, 32, {
+    align: "right",
+  });
 
   const imageSrc = slideImageSrc(slide);
   const imageData = imageSrc ? await fetchImageAsDataUrl(imageSrc) : null;
   const hasImage = Boolean(imageData);
-  const textMaxW = hasImage ? pageW * 0.48 : pageW - 80;
+  const textMaxW = hasImage ? pageW * 0.52 : pageW - 72;
+
+  doc.setFillColor(accentRgb.r, accentRgb.g, accentRgb.b);
+  doc.roundedRect(36, 44, 48, 6, 3, 3, "F");
 
   doc.setTextColor(titleRgb.r, titleRgb.g, titleRgb.b);
   doc.setFont("helvetica", "bold");
@@ -202,31 +308,62 @@ async function addPdfContentSlide(
   const titleLines = doc.splitTextToSize(
     slide.slideTitle.trim() || `Slide ${slide.slideNumber}`,
     textMaxW,
-  );
-  let y = 70;
-  doc.text(titleLines, 40, y);
-  y += titleLines.length * 26 + 12;
+  ) as string[];
+  let y = 68;
+  doc.text(titleLines.slice(0, 2), 36, y);
+  y += titleLines.slice(0, 2).length * 24 + 10;
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(13);
-  doc.setTextColor(bodyRgb.r, bodyRgb.g, bodyRgb.b);
-  const bullets = slide.slideContent
-    .map((b) => plainText(b))
-    .filter(Boolean)
-    .slice(0, 5);
-  for (const bullet of bullets) {
-    const lines = doc.splitTextToSize(`• ${bullet}`, textMaxW);
-    doc.text(lines, 40, y);
-    y += lines.length * 18 + 6;
-    if (y > pageH - 60) break;
+  const bullets = slideBullets(slide);
+  const remaining = pageH - 48 - y;
+  const cardH = Math.min(64, Math.max(42, remaining / Math.max(bullets.length, 1) - 8));
+
+  for (let i = 0; i < bullets.length; i++) {
+    const bullet = bullets[i]!;
+    const { label, rest } = splitBullet(bullet);
+    const iconFill = i % 2 === 0 ? theme.accentPrimary : theme.accentSecondary;
+    const icon = hexToRgb(iconFill);
+    if (y + cardH > pageH - 36) break;
+
+    doc.setFillColor(panelRgb.r, panelRgb.g, panelRgb.b);
+    doc.roundedRect(36, y, textMaxW, cardH, 8, 8, "F");
+    doc.setFillColor(icon.r, icon.g, icon.b);
+    doc.circle(56, y + cardH / 2, 11, "F");
+    if (isLightHex(iconFill)) doc.setTextColor(15, 23, 42);
+    else doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text(String(i + 1), 56, y + cardH / 2 + 4, { align: "center" });
+
+    const textX = 76;
+    const textW = textMaxW - 52;
+    if (label) {
+      doc.setTextColor(titleRgb.r, titleRgb.g, titleRgb.b);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text(label, textX, y + 18);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      doc.setTextColor(bodyRgb.r, bodyRgb.g, bodyRgb.b);
+      const lines = doc.splitTextToSize(rest, textW) as string[];
+      doc.text(lines.slice(0, 2), textX, y + 34);
+    } else {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11);
+      doc.setTextColor(bodyRgb.r, bodyRgb.g, bodyRgb.b);
+      const lines = doc.splitTextToSize(rest, textW) as string[];
+      doc.text(lines.slice(0, 3), textX, y + 22);
+    }
+    y += cardH + 8;
   }
 
   if (imageData) {
     try {
-      const imgW = pageW * 0.38;
-      const imgH = pageH * 0.55;
-      const imgX = pageW - imgW - 36;
-      const imgY = (pageH - imgH) / 2;
+      const imgW = pageW * 0.36;
+      const imgH = pageH * 0.52;
+      const imgX = pageW - imgW - 28;
+      const imgY = 86;
+      doc.setFillColor(panelRgb.r, panelRgb.g, panelRgb.b);
+      doc.roundedRect(imgX - 8, imgY - 8, imgW + 16, imgH + 16, 12, 12, "F");
       const format = imageData.includes("image/png") ? "PNG" : "JPEG";
       doc.addImage(imageData, format, imgX, imgY, imgW, imgH);
     } catch {
@@ -234,9 +371,10 @@ async function addPdfContentSlide(
     }
   }
 
+  doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
   doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
-  doc.text(`SLIDE ${slideNo} OF ${totalSlides}`, pageW / 2, pageH - 24, {
+  doc.text(`SLIDE ${slideNo} OF ${totalSlides}`, pageW / 2, pageH - 18, {
     align: "center",
   });
 }
@@ -268,75 +406,58 @@ export async function buildStage2SpeakerNotesPdf(
   const theme = stage2ThemeById(input.themeId);
   const accent = hexToRgb(theme.accentPrimary);
   const doc = new jsPDF({ unit: "pt", format: "a4" });
-  const margin = 48;
-  const pageW = doc.internal.pageSize.getWidth();
-  const pageH = doc.internal.pageSize.getHeight();
-  const maxW = pageW - margin * 2;
-  let y = margin;
-
-  const ensure = (needed: number) => {
-    if (y + needed > pageH - margin) {
-      doc.addPage();
-      y = margin;
-    }
-  };
+  const w = new PdfWriter(doc, { margin: 48, contentTop: 48 });
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
-  doc.setTextColor(26, 28, 48);
+  doc.setTextColor(PDF_INK);
   const title = doc.splitTextToSize(
     `${input.topic.trim() || "Presentation"} — Speaker notes`,
-    maxW,
-  );
-  doc.text(title, margin, y);
-  y += title.length * 22 + 8;
+    w.maxWidth,
+  ) as string[];
+  for (const line of title) {
+    w.ensure(22);
+    doc.text(line, w.margin, w.y);
+    w.gap(22);
+  }
+  w.gap(6);
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(80);
   for (const line of [
     `Curriculum: ${input.curriculumRoute}`,
     `Grade: ${input.grade}`,
     `Subject: ${input.subject}`,
   ]) {
-    ensure(14);
-    doc.text(line, margin, y);
-    y += 14;
+    w.paragraph(line, { size: 10, color: PDF_MUTED, after: 0 });
   }
-  y += 10;
+  w.gap(10);
 
   for (const slide of input.slides) {
-    ensure(40);
+    w.ensure(46);
     doc.setFillColor(accent.r, accent.g, accent.b);
-    doc.rect(margin, y - 10, 4, 18, "F");
+    doc.rect(w.margin, w.y - 10, 4, 18, "F");
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.setTextColor(26, 28, 48);
+    doc.setTextColor(PDF_INK);
     const heading = doc.splitTextToSize(
       `Slide ${slide.slideNumber}: ${slide.slideTitle || "Untitled"}`,
-      maxW - 12,
-    );
-    doc.text(heading, margin + 12, y);
-    y += heading.length * 16 + 6;
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(11);
-    doc.setTextColor(40);
-    const notes = plainText(slide.speakerNotes) || "No speaker notes provided.";
-    for (const para of notes.split(/\n+/)) {
-      if (!para.trim()) {
-        y += 6;
-        continue;
-      }
-      const lines = doc.splitTextToSize(para, maxW);
-      for (const line of lines) {
-        ensure(14);
-        doc.text(line, margin, y);
-        y += 14;
-      }
-      y += 4;
+      w.maxWidth - 12,
+    ) as string[];
+    for (const line of heading) {
+      doc.text(line, w.margin + 12, w.y);
+      w.gap(16);
     }
-    y += 12;
+    w.gap(4);
+
+    const notes = slide.speakerNotes?.trim();
+    if (notes) {
+      w.markdown(structureQuestionAnswerMarkdown(notes));
+    } else {
+      w.paragraph("No speaker notes provided.", {
+        color: PDF_MUTED,
+        italic: true,
+      });
+    }
+    w.gap(10);
   }
 
   return doc;
@@ -364,110 +485,323 @@ export async function printStage2SpeakerNotesPdf(input: Stage2ExportInput) {
   window.open(doc.output("bloburl"), "_blank");
 }
 
+function decoratePptxSlide(
+  s: ReturnType<PptxGenJS["addSlide"]>,
+  pptx: PptxGenJS,
+  theme: Stage2SlideTheme,
+) {
+  s.background = { color: hexColor(theme.backgroundGradient[1]!) };
+  s.addShape(pptx.ShapeType.ellipse, {
+    x: 10.55,
+    y: -0.35,
+    w: 3.2,
+    h: 3.2,
+    fill: { color: hexColor(theme.accentPrimary), transparency: 82 },
+  });
+  s.addShape(pptx.ShapeType.ellipse, {
+    x: -0.45,
+    y: 5.35,
+    w: 2.6,
+    h: 2.6,
+    fill: { color: hexColor(theme.accentSecondary), transparency: 84 },
+  });
+  s.addShape(pptx.ShapeType.rect, {
+    x: 0,
+    y: 0,
+    w: 0.16,
+    h: 7.5,
+    fill: { color: hexColor(theme.accentPrimary) },
+  });
+  s.addShape(pptx.ShapeType.rect, {
+    x: 0,
+    y: 7.28,
+    w: 13.333,
+    h: 0.22,
+    fill: { color: hexColor(theme.accentPrimary) },
+  });
+}
+
+function pptxTextOpts(extra: Record<string, unknown> = {}) {
+  return {
+    fontFace: "Arial",
+    margin: 0,
+    wrap: true,
+    isTextBox: true,
+    ...extra,
+  };
+}
+
 export async function downloadStage2Pptx(input: Stage2ExportInput) {
   if (!input.slides.length) throw new Error("Generate slides first.");
   const theme = stage2ThemeById(input.themeId);
   const pptx = new PptxGenJS();
-  pptx.defineLayout({ name: "MML_WIDE", width: 13.333, height: 7.5 });
-  pptx.layout = "MML_WIDE";
+  pptx.layout = "LAYOUT_WIDE";
   pptx.author = "Make My Lesson";
-  pptx.title = input.topic.trim() || "Presentation";
+  pptx.title = sanitizePptxText(input.topic) || "Presentation";
+  pptx.revision = "1";
+
+  const accent = hexColor(theme.accentPrimary);
+  const accent2 = hexColor(theme.accentSecondary);
+  const titleC = hexColor(theme.titleColor);
+  const bodyC = hexColor(theme.bodyColor);
+  const mutedC = hexColor(theme.mutedColor);
+  const panelC = hexColor(theme.overlayPanelColor);
 
   const cover = pptx.addSlide();
-  cover.background = { color: theme.backgroundGradient[1]!.replace("#", "") };
-  cover.addShape(pptx.ShapeType.roundRect, {
-    x: 0.6,
-    y: 0.7,
-    w: 0.9,
-    h: 0.12,
-    fill: { color: theme.accentPrimary.replace("#", "") },
-    rectRadius: 0.06,
-  });
-  cover.addText(input.topic.trim() || "Presentation", {
-    x: 0.6,
-    y: 1.2,
-    w: 12,
-    h: 1.4,
-    fontSize: 36,
+  decoratePptxSlide(cover, pptx, theme);
+  cover.addText("COVER SLIDE", pptxTextOpts({
+    x: 0.5,
+    y: 0.32,
+    w: 4,
+    h: 0.32,
+    fontSize: 11,
     bold: true,
-    color: theme.titleColor.replace("#", ""),
-    fontFace: "Arial",
-  });
-  cover.addText(
-    [
-      input.curriculumRoute,
-      `${input.grade} · ${input.subject}`,
-      input.schoolName?.trim() || "",
-    ]
-      .filter(Boolean)
-      .join("\n"),
-    {
-      x: 0.6,
-      y: 2.9,
-      w: 10,
-      h: 1.5,
+    color: mutedC,
+  }));
+  const school = sanitizePptxText(input.schoolName ?? "");
+  if (school) {
+    cover.addText(school, pptxTextOpts({
+      x: 0.5,
+      y: 0.64,
+      w: 7.2,
+      h: 0.4,
       fontSize: 16,
-      color: theme.mutedColor.replace("#", ""),
-      fontFace: "Arial",
-    },
-  );
+      bold: true,
+      color: titleC,
+    }));
+  }
+  const teacher = sanitizePptxText(input.teacherName ?? "");
+  if (teacher) {
+    cover.addText(`Prepared by: ${teacher}`, pptxTextOpts({
+      x: 7.6,
+      y: 0.64,
+      w: 5.2,
+      h: 0.4,
+      fontSize: 14,
+      color: mutedC,
+      align: "right",
+    }));
+  }
+
+  cover.addShape(pptx.ShapeType.roundRect, {
+    x: 6.05,
+    y: 2.15,
+    w: 1.05,
+    h: 0.14,
+    fill: { color: accent },
+    rectRadius: 0.07,
+  });
+  cover.addShape(pptx.ShapeType.ellipse, {
+    x: 7.2,
+    y: 2.1,
+    w: 0.24,
+    h: 0.24,
+    fill: { color: accent2 },
+  });
+  cover.addShape(pptx.ShapeType.ellipse, {
+    x: 5.72,
+    y: 2.08,
+    w: 0.28,
+    h: 0.28,
+    fill: { color: accent2 },
+  });
+
+  cover.addText(sanitizePptxText(input.topic) || "Presentation", pptxTextOpts({
+    x: 0.8,
+    y: 2.5,
+    w: 11.7,
+    h: 1.7,
+    fontSize: 40,
+    bold: true,
+    color: titleC,
+    align: "center",
+    valign: "middle",
+  }));
+  const meta = sanitizePptxText(coverMetaLine(input));
+  if (meta) {
+    cover.addText(meta, pptxTextOpts({
+      x: 1.4,
+      y: 4.3,
+      w: 10.5,
+      h: 0.7,
+      fontSize: 16,
+      color: mutedC,
+      align: "center",
+    }));
+  }
+  cover.addText(`SLIDE 1 OF ${input.slides.length + 1}`, pptxTextOpts({
+    x: 0.5,
+    y: 6.82,
+    w: 12.3,
+    h: 0.32,
+    fontSize: 11,
+    bold: true,
+    color: mutedC,
+    align: "center",
+  }));
 
   for (const slide of input.slides) {
     const s = pptx.addSlide();
-    s.background = { color: theme.backgroundGradient[1]!.replace("#", "") };
-    s.addNotes(plainText(slide.speakerNotes) || "");
+    decoratePptxSlide(s, pptx, theme);
+    const notes = sanitizePptxText(plainText(slide.speakerNotes));
+    if (notes) s.addNotes(notes);
 
     const imageSrc = slideImageSrc(slide);
     const imageData = imageSrc ? await fetchImageAsDataUrl(imageSrc) : null;
-    const textW = imageData ? 6.8 : 12;
+    const textW = imageData ? 7.05 : 12.15;
+
+    s.addText(
+      sanitizePptxText((slide.slideType || `Slide ${slide.slideNumber}`).toUpperCase()),
+      pptxTextOpts({
+        x: 0.5,
+        y: 0.28,
+        w: 8,
+        h: 0.28,
+        fontSize: 11,
+        bold: true,
+        color: mutedC,
+      }),
+    );
+    s.addText(`${slide.estimatedTimeMinutes} min`, pptxTextOpts({
+      x: 10.4,
+      y: 0.28,
+      w: 2.4,
+      h: 0.28,
+      fontSize: 12,
+      color: mutedC,
+      align: "right",
+    }));
 
     s.addShape(pptx.ShapeType.roundRect, {
-      x: 0.55,
-      y: 0.45,
-      w: 0.75,
-      h: 0.1,
-      fill: { color: theme.accentPrimary.replace("#", "") },
+      x: 0.5,
+      y: 0.62,
+      w: 0.72,
+      h: 0.11,
+      fill: { color: accent },
       rectRadius: 0.05,
     });
-    s.addText(slide.slideTitle.trim() || `Slide ${slide.slideNumber}`, {
-      x: 0.55,
-      y: 0.75,
-      w: textW,
-      h: 1,
-      fontSize: 28,
-      bold: true,
-      color: theme.titleColor.replace("#", ""),
-      fontFace: "Arial",
-    });
+    s.addText(
+      sanitizePptxText(slide.slideTitle) || `Slide ${slide.slideNumber}`,
+      pptxTextOpts({
+        x: 0.5,
+        y: 0.78,
+        w: textW,
+        h: 0.78,
+        fontSize: 26,
+        bold: true,
+        color: titleC,
+        valign: "middle",
+      }),
+    );
 
-    const bullets = slide.slideContent
-      .map((b) => plainText(b))
-      .filter(Boolean)
-      .slice(0, 5);
-    if (bullets.length) {
-      s.addText(
-        bullets.map((b) => ({ text: b, options: { bullet: true } })),
-        {
-          x: 0.55,
-          y: 1.9,
-          w: textW,
-          h: 4.5,
-          fontSize: 16,
-          color: theme.bodyColor.replace("#", ""),
-          fontFace: "Arial",
-          valign: "top",
-        },
-      );
-    }
+    const bullets = slideBullets(slide)
+      .map((b) => {
+        const split = splitBullet(b);
+        return {
+          label: sanitizePptxText(split.label),
+          rest: sanitizePptxText(split.rest),
+        };
+      })
+      .filter((b) => b.label || b.rest);
+
+    const startY = 1.68;
+    const gap = 0.1;
+    const avail = 6.95 - startY;
+    const cardH = Math.min(
+      1.18,
+      Math.max(
+        0.92,
+        (avail - gap * Math.max(bullets.length - 1, 0)) /
+          Math.max(bullets.length, 1),
+      ),
+    );
+
+    bullets.forEach((bullet, i) => {
+      const y = startY + i * (cardH + gap);
+      const iconFill = i % 2 === 0 ? theme.accentPrimary : theme.accentSecondary;
+      const iconColor = hexColor(iconFill);
+
+      s.addShape(pptx.ShapeType.roundRect, {
+        x: 0.5,
+        y,
+        w: textW,
+        h: cardH,
+        fill: { color: panelC, transparency: theme.isLight ? 8 : 18 },
+        line: { color: iconColor, width: 1 },
+        rectRadius: 0.1,
+      });
+      s.addShape(pptx.ShapeType.ellipse, {
+        x: 0.68,
+        y: y + (cardH - 0.42) / 2,
+        w: 0.42,
+        h: 0.42,
+        fill: { color: iconColor },
+      });
+      s.addText(String(i + 1), pptxTextOpts({
+        x: 0.68,
+        y: y + (cardH - 0.42) / 2,
+        w: 0.42,
+        h: 0.42,
+        fontSize: 13,
+        bold: true,
+        color: isLightHex(iconFill) ? "0F172A" : "FFFFFF",
+        align: "center",
+        valign: "middle",
+      }));
+
+      const textX = 1.28;
+      const textBoxW = textW - 0.92;
+      if (bullet.label) {
+        s.addText(bullet.label, pptxTextOpts({
+          x: textX,
+          y: y + 0.08,
+          w: textBoxW,
+          h: 0.28,
+          fontSize: 14,
+          bold: true,
+          color: titleC,
+          valign: "middle",
+        }));
+        if (bullet.rest) {
+          s.addText(bullet.rest, pptxTextOpts({
+            x: textX,
+            y: y + 0.36,
+            w: textBoxW,
+            h: Math.max(0.4, cardH - 0.44),
+            fontSize: 13,
+            color: bodyC,
+            valign: "top",
+          }));
+        }
+      } else if (bullet.rest) {
+        s.addText(bullet.rest, pptxTextOpts({
+          x: textX,
+          y: y + 0.1,
+          w: textBoxW,
+          h: cardH - 0.2,
+          fontSize: 15,
+          color: bodyC,
+          valign: "middle",
+        }));
+      }
+    });
 
     if (imageData) {
       try {
+        s.addShape(pptx.ShapeType.roundRect, {
+          x: 7.85,
+          y: 1.7,
+          w: 5.05,
+          h: 4.55,
+          fill: { color: panelC, transparency: 10 },
+          rectRadius: 0.12,
+        });
         s.addImage({
           data: imageData,
-          x: 7.7,
-          y: 1.4,
-          w: 5,
-          h: 4.5,
+          x: 8.0,
+          y: 1.85,
+          w: 4.75,
+          h: 4.25,
         });
       } catch {
         // Ignore image embed failures.

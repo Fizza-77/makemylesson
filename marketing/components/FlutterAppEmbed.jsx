@@ -6,7 +6,7 @@
  */
 export default function FlutterAppEmbed({ segments = [] }) {
   const origin = (
-    process.env.NEXT_PUBLIC_MML_FLUTTER_HOSTING_ORIGIN || 'https://makemylesson.app'
+    process.env.NEXT_PUBLIC_MML_FLUTTER_HOSTING_ORIGIN || 'https://makemylesson.ai'
   ).replace(/\/$/, '')
   const subpath = segments.filter(Boolean).join('/')
   const src = subpath ? `${origin}/app/${subpath}` : `${origin}/app`

@@ -1,6 +1,7 @@
 "use client";
 
 import { MarkdownContentView } from "@/components/common/MarkdownContentView";
+import { structureQuestionAnswerMarkdown } from "@/lib/format-worksheet-markdown";
 
 type Props = {
   content: string;
@@ -15,7 +16,7 @@ export function LessonPlanContentView({
 }: Props) {
   return (
     <MarkdownContentView
-      content={content}
+      content={structureQuestionAnswerMarkdown(content)}
       emptyPlaceholder={emptyPlaceholder}
       className={className}
     />

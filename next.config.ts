@@ -15,7 +15,7 @@ const withPWA = withPWAInit({
 
 const appOrigin =
   process.env.NEXT_PUBLIC_APP_ORIGIN?.replace(/\/$/, "") ??
-  "https://makemylesson.app";
+  "https://makemylesson.ai";
 
 const nextConfig: NextConfig = {
   output: "standalone",

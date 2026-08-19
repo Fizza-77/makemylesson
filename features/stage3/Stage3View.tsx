@@ -4,15 +4,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Spinner } from "@/components/ui/Spinner";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
+import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { Stage3Hero } from "@/components/common/Stage3Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
+import { WorksheetContentView } from "@/components/common/WorksheetContentView";
+import { MarkdownEditPreviewDialog } from "@/components/common/MarkdownEditPreviewDialog";
 import { useSignInGate } from "@/features/auth/useSignInGate";
 import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
 import { Stage3AssessmentBuilder } from "@/features/stage3/Stage3AssessmentBuilder";
 import { Stage3WorksheetPreview } from "@/features/stage3/Stage3WorksheetPreview";
 import { mapFunctionsError } from "@/lib/auth-errors";
@@ -56,6 +59,7 @@ export function Stage3View() {
   const account = useAccountStore((s) => s.account);
   const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
   const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage3);
+  const { confirmGeneration, dialog: confirmDialog } = useGenerationConfirm();
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
   const presentations = useMemo(
@@ -164,6 +168,14 @@ export function Stage3View() {
 
     if (requireSignIn()) return;
     if (blockIfNoCredits()) return;
+    if (
+      !(await confirmGeneration(3, {
+        grade: draft.grade,
+        pathway: draft.pathwayDisplayName,
+        topic: draft.topic,
+      }))
+    )
+      return;
 
     try {
       const result = await draft.generate();
@@ -269,6 +281,12 @@ export function Stage3View() {
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-6">
+      <GenerationBusyOverlay
+        active={draft.isGenerating}
+        title="Generating your classroom activity"
+        progress={draft.progress}
+        status={draft.status || undefined}
+      />
       <Stage3Hero />
       <StageProgressNav currentStage={3} />
 
@@ -278,6 +296,7 @@ export function Stage3View() {
         sourceMode={draft.sourceMode}
         sourceLen={sourceLen}
         topic={draft.topic}
+        sourceFileName={draft.sourceFileName}
         formativeKind={draft.formativeKind}
         questionCount={draft.questionCount}
         qMin={qMin}
@@ -343,20 +362,14 @@ export function Stage3View() {
           toast.info(`Using “${item.topic || "Presentation"}”`);
         }}
         onUploadFile={() => void onUploadFile()}
-        onPasteText={(text) =>
-          draft.setUploadedSource({
-            fileName: "pasted.txt",
-            presentationText: text,
-          })
-        }
-        sourceText={draft.sourcePresentationText}
+        onClearUpload={() => draft.clearUploadedSource()}
         onFormativeKind={(kind) => draft.setFormativeKind(kind)}
         onQuestionCount={(n) => draft.setQuestionCount(n)}
         onQuestionType={(key, value) => draft.setQuestionType(key, value)}
         onGenerate={() => void onGenerate()}
       />
 
-      {draft.isGenerating || draft.status ? (
+      {draft.isGenerating || draft.error ? (
         <Card className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-2 text-sm">
             <span className="font-medium text-[#1A1C30]">
@@ -420,56 +433,40 @@ export function Stage3View() {
         />
       </GenerationSuccessOverlay>
 
-      {(editStudentOpen || editTeacherOpen) && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="max-h-[90vh] w-full max-w-lg overflow-auto rounded-2xl bg-white p-5 shadow-xl">
-            <h2 className="text-lg font-semibold text-[#1A1C30]">
-              {editTeacherOpen ? "Edit answer key" : "Edit student activity"}
-            </h2>
-            <textarea
-              className="mt-3 min-h-[200px] w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:border-[#28C2C0]"
-              value={editDraft}
-              onChange={(e) => setEditDraft(e.target.value)}
-            />
-            <div className="mt-4 flex justify-end gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  setEditStudentOpen(false);
-                  setEditTeacherOpen(false);
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="button"
-                onClick={() => {
-                  if (editTeacherOpen) {
-                    draft.setTeacherAnswerKeyText(editDraft);
-                  } else {
-                    draft.setStudentActivityText(editDraft);
-                  }
-                  setEditStudentOpen(false);
-                  setEditTeacherOpen(false);
-                  if (draft.linkedActivityLibraryItemId) {
-                    setLibraryDirty(true);
-                  } else {
-                    void draft
-                      .saveCurrentToLibrary()
-                      .then(() => toast.success("Saved."))
-                      .catch(() => toast.info("Updated locally."));
-                  }
-                }}
-              >
-                Save
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <MarkdownEditPreviewDialog
+        open={editStudentOpen || editTeacherOpen}
+        title={editTeacherOpen ? "Edit answer key" : "Edit student activity"}
+        initialValue={editDraft}
+        placeholder="Edit the worksheet markdown…"
+        onClose={() => {
+          setEditStudentOpen(false);
+          setEditTeacherOpen(false);
+        }}
+        onSave={(value) => {
+          if (editTeacherOpen) {
+            draft.setTeacherAnswerKeyText(value);
+          } else {
+            draft.setStudentActivityText(value);
+          }
+          if (draft.linkedActivityLibraryItemId) {
+            setLibraryDirty(true);
+          } else {
+            void draft
+              .saveCurrentToLibrary()
+              .then(() => toast.success("Saved."))
+              .catch(() => toast.info("Updated locally."));
+          }
+        }}
+        renderPreview={(value) => (
+          <WorksheetContentView
+            content={value}
+            emptyPlaceholder="Nothing to preview yet."
+          />
+        )}
+      />
       {signInDialog}
       {upgradeDialog}
+      {confirmDialog}
         </div>
       </StageWorkspace>
     </div>

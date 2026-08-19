@@ -3,15 +3,18 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
-import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Spinner } from "@/components/ui/Spinner";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
+import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { Stage4Hero } from "@/components/common/Stage4Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
+import { WorksheetContentView } from "@/components/common/WorksheetContentView";
+import { MarkdownEditPreviewDialog } from "@/components/common/MarkdownEditPreviewDialog";
 import { useSignInGate } from "@/features/auth/useSignInGate";
 import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
 import { Stage4AssessmentInbox } from "@/features/stage4/Stage4AssessmentInbox";
 import { Stage4AssessmentReviewWall } from "@/features/stage4/Stage4AssessmentReviewWall";
 import { Stage4FinalPaperWorkshop } from "@/features/stage4/Stage4FinalPaperWorkshop";
@@ -55,6 +58,7 @@ export function Stage4View() {
   const account = useAccountStore((s) => s.account);
   const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
   const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage4);
+  const { confirmGeneration, dialog: confirmDialog } = useGenerationConfirm();
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
   const activities = useMemo(
@@ -122,6 +126,14 @@ export function Stage4View() {
 
     if (requireSignIn()) return;
     if (blockIfNoCredits()) return;
+    if (
+      !(await confirmGeneration(4, {
+        grade: draft.grade,
+        pathway: draft.pathwayDisplayName,
+        topic: draft.topic,
+      }))
+    )
+      return;
 
     try {
       const result = await draft.generate();
@@ -228,6 +240,12 @@ export function Stage4View() {
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-6">
+      <GenerationBusyOverlay
+        active={draft.isGenerating}
+        title="Generating your assessment"
+        progress={draft.progress}
+        status={draft.status || draft.phase || undefined}
+      />
       <Stage4Hero />
       <StageProgressNav currentStage={4} />
 
@@ -237,6 +255,7 @@ export function Stage4View() {
         sourceMode={draft.sourceMode}
         sourceLen={sourceLen}
         topic={draft.topic}
+        sourceFileName={draft.sourceFileName}
         activities={activities}
         pickerOpen={pickerOpen}
         isGenerating={draft.isGenerating}
@@ -289,13 +308,7 @@ export function Stage4View() {
           toast.info(`Using “${item.topic || "Activity"}”`);
         }}
         onUploadFile={() => void onUploadFile()}
-        onPasteText={(text) =>
-          draft.setUploadedSource({
-            fileName: "pasted.txt",
-            assessmentText: text,
-          })
-        }
-        sourceText={draft.sourceAssessmentText}
+        onClearUpload={() => draft.clearUploadedSource()}
       />
 
       <Stage4FinalPaperWorkshop
@@ -331,17 +344,23 @@ export function Stage4View() {
           exportMenuOpen={exportMenuOpen}
           exportActions={sortActionsByExportPreference(STAGE4_DOWNLOAD_ACTIONS)}
           linkedLibraryItemId={draft.linkedAssessmentLibraryItemId}
-          onPreview={() => {
+          onEditStudent={() => {
             if (!draft.result) {
-              toast.info("Generate an assessment to preview.");
+              toast.info("Generate an assessment to edit.");
               return;
             }
-            setShowMarkScheme((v) => !v);
-            toast.info(
-              showMarkScheme
-                ? "Showing student paper in preview."
-                : "Showing mark scheme in preview.",
-            );
+            setShowMarkScheme(false);
+            setEditDraft(draft.result.studentAssessmentText ?? "");
+            setEditOpen(true);
+          }}
+          onEditMarkScheme={() => {
+            if (!draft.result) {
+              toast.info("Generate an assessment to edit.");
+              return;
+            }
+            setShowMarkScheme(true);
+            setEditDraft(draft.result.teacherMarkSchemeText ?? "");
+            setEditOpen(true);
           }}
           onToggleExport={() => {
             if (!draft.result) {
@@ -356,7 +375,7 @@ export function Stage4View() {
         />
       </GenerationSuccessOverlay>
 
-      {draft.isGenerating || draft.status ? (
+      {draft.isGenerating || draft.error ? (
         <Card className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-2 text-sm">
             <span className="font-medium text-[#1A1C30]">
@@ -392,48 +411,33 @@ export function Stage4View() {
         </GenerationSuccessOverlay>
       ) : null}
 
-      {editOpen ? (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="max-h-[90vh] w-full max-w-lg overflow-auto rounded-2xl bg-white p-5 shadow-xl">
-            <h2 className="text-lg font-semibold text-[#1A1C30]">
-              {showMarkScheme ? "Edit mark scheme" : "Edit student paper"}
-            </h2>
-            <textarea
-              className="mt-3 min-h-[200px] w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:border-[#28C2C0]"
-              value={editDraft}
-              onChange={(e) => setEditDraft(e.target.value)}
-            />
-            <div className="mt-4 flex justify-end gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setEditOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="button"
-                onClick={() => {
-                  if (showMarkScheme) {
-                    draft.setTeacherMarkSchemeText(editDraft);
-                  } else {
-                    draft.setStudentAssessmentText(editDraft);
-                  }
-                  setEditOpen(false);
-                  void draft
-                    .saveCurrentToLibrary()
-                    .then(() => toast.success("Saved."))
-                    .catch(() => toast.info("Updated locally."));
-                }}
-              >
-                Save
-              </Button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      <MarkdownEditPreviewDialog
+        open={editOpen}
+        title={showMarkScheme ? "Edit mark scheme" : "Edit student paper"}
+        initialValue={editDraft}
+        placeholder="Edit the assessment markdown…"
+        onClose={() => setEditOpen(false)}
+        onSave={(value) => {
+          if (showMarkScheme) {
+            draft.setTeacherMarkSchemeText(value);
+          } else {
+            draft.setStudentAssessmentText(value);
+          }
+          void draft
+            .saveCurrentToLibrary()
+            .then(() => toast.success("Saved."))
+            .catch(() => toast.info("Updated locally."));
+        }}
+        renderPreview={(value) => (
+          <WorksheetContentView
+            content={value}
+            emptyPlaceholder="Nothing to preview yet."
+          />
+        )}
+      />
       {signInDialog}
       {upgradeDialog}
+      {confirmDialog}
     </div>
       </StageWorkspace>
     </div>

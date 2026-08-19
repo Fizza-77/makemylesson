@@ -152,14 +152,20 @@ function ExportToggleCard({
 
 function ProfileHero({
   account,
+  displayName,
   curriculumLabel,
 }: {
   account: UserAccountView | null;
+  displayName: string;
   curriculumLabel: string;
 }) {
   const planLabel = account ? PLAN_LABELS[account.planTier] : "Free";
   const credits = account ? Math.max(0, account.generationCredits) : 5;
   const isGuest = !account;
+  const cardName = isGuest ? "Guest" : displayName;
+  const cardSubline = isGuest
+    ? "Sign in to personalise your teacher profile."
+    : (account?.schoolName ?? curriculumLabel);
 
   return (
     <section
@@ -180,7 +186,7 @@ function ProfileHero({
 
           <h1 className="mt-3 text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl">
             Profile <span className="text-[#68D3D0]">·</span>{" "}
-            <span className="text-[#68D3D0]">Teacher</span>
+            <span className="text-[#68D3D0]">{displayName}</span>
           </h1>
 
           <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/75 sm:text-[15px]">
@@ -205,14 +211,48 @@ function ProfileHero({
         </div>
 
         <div className="pointer-events-none relative z-0 hidden h-[200px] w-full max-w-[320px] shrink-0 sm:h-[220px] sm:max-w-[360px] md:block lg:h-[240px] lg:max-w-[400px]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/profile-hero.svg"
-            alt="Teacher identity card illustration"
-            width={451}
-            height={447}
-            className="absolute left-1/2 top-1/2 w-[118%] max-w-none -translate-x-1/2 -translate-y-[46%] select-none"
-          />
+          <div
+            className="absolute left-1/2 top-1/2 w-[118%] max-w-none -translate-x-1/2 -translate-y-[46%]"
+            style={{ containerType: "inline-size" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/profile-hero.svg"
+              alt="Teacher identity card illustration"
+              width={451}
+              height={447}
+              className="h-auto w-full select-none"
+            />
+            {/* The card art leaves the name block empty; sizes are in cqw so the
+                text tracks the artwork at every breakpoint. */}
+            <div
+              className="absolute"
+              style={{
+                left: "33.8%",
+                top: "53.5%",
+                width: "44%",
+                transform: "rotate(-2.3deg)",
+                transformOrigin: "left top",
+              }}
+            >
+              <p
+                className="truncate font-extrabold text-[#0D1430]"
+                style={{ fontSize: "4.9cqw", lineHeight: 1 }}
+              >
+                {cardName}
+              </p>
+              <p
+                className="truncate text-[#5D6B84]"
+                style={{
+                  fontSize: "2.2cqw",
+                  lineHeight: 1,
+                  marginTop: "1.9cqw",
+                }}
+              >
+                {cardSubline}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -389,6 +429,7 @@ function AiExportIdentityKit({
 export function ProfileView() {
   const router = useRouter();
   const user = useAuthStore((s) => s.user);
+  const profile = useAuthStore((s) => s.profile);
   const authReady = useAuthStore((s) => s.authReady);
   const resetAuth = useAuthStore((s) => s.reset);
   const setProfile = useAuthStore((s) => s.setProfile);
@@ -445,6 +486,11 @@ export function ProfileView() {
   }
 
   const signedInAccount = user && account ? account : null;
+  const displayName =
+    signedInAccount?.displayName ||
+    profile?.displayName ||
+    user?.displayName ||
+    "Teacher";
 
   return (
     <div
@@ -452,6 +498,7 @@ export function ProfileView() {
     >
       <ProfileHero
         account={signedInAccount}
+        displayName={displayName}
         curriculumLabel={curriculumLabel}
       />
 

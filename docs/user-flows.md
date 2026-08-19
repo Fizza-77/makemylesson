@@ -59,7 +59,7 @@ Flows derived from Flutter screens, providers, and Cloud Functions. Web-specific
 
 1. `/subscription` or `/pricing` (same screen).
 2. Plans: free display + PayPal for `individual_monthly`, `individual_annual`, `credit_topup_50`, org `department` / `school` / `school_plus`.
-3. `_startWebPayPalCheckout` → `createPayPalAccessOrder` → redirect to PayPal → return URL `https://makemylesson.app/subscription?paypal_sub_done=1&plan=...` (Flutter legacy used `/app/subscription` on the same host).
+3. `_startWebPayPalCheckout` → `createPayPalAccessOrder` → redirect to PayPal → return URL `https://makemylesson.ai/subscription?paypal_sub_done=1&plan=...` (Flutter legacy used `/app/subscription` on the same host).
 4. `finalizePayPalAccessOrder(orderId)` on return.
 5. Org purchase → redirect to `/organization-dashboard?orgId=...`.
 
@@ -123,7 +123,7 @@ flowchart LR
 | `/splash` → onboarding or landing | `/` landing directly |
 | Onboarding carousel | Redirect onboarding → `/` |
 | Bottom nav | Bottom nav & desktop top tabs |
-| Home tab → in-app landing | Home tab → `https://makemylesson.ai` |
+| Home tab → in-app landing | Home tab → `/` (marketing landing, same host) |
 
 ## Role-based access
 

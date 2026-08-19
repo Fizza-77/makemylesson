@@ -2,7 +2,7 @@
 
 This folder contains migration analysis for replacing **Flutter Web** with **Next.js** while keeping **Flutter mobile** and the **shared Firebase backend** unchanged.
 
-**Domains:** product app → [`makemylesson.app`](https://makemylesson.app) on **Hostinger VPS** (nginx + PM2); marketing → [`makemylesson.ai`](https://makemylesson.ai). See [firebase-structure.md](./firebase-structure.md#production-hosting--hostinger-vps-decided).
+**Domain:** app and marketing share [`makemylesson.ai`](https://makemylesson.ai) (and `www`) on **Hostinger VPS** (nginx + PM2). Legacy `makemylesson.app` / `makemylesson.com` redirect here. See [firebase-structure.md](./firebase-structure.md#production-hosting--hostinger-vps-decided).
 
 ## Documents
 
