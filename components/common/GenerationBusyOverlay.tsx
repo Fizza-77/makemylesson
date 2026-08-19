@@ -1,13 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
+import { Lottie } from "lottie-react";
 
 import generatingLottie from "@/data/generating-lottie.json";
-
-const Lottie = dynamic(() => import("lottie-react").then((mod) => mod.default), {
-  ssr: false,
-});
 
 const TIPS = [
   "Ayla is drafting the details…",
@@ -56,7 +52,8 @@ export function GenerationBusyOverlay({
     >
       <div className="flex w-full max-w-sm flex-col items-center rounded-3xl bg-white px-6 py-7 text-center shadow-2xl">
         <Lottie
-          animationData={generatingLottie}
+          src={generatingLottie}
+          autoplay
           loop
           className="h-40 w-40"
           aria-hidden
