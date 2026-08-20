@@ -117,14 +117,41 @@
 
 .mml-mkt-hero {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
   background: #ffffff;
   color: var(--mml-ink);
-  /* Fixed navbar is 4rem; sit the headline 5px under it. */
-  padding: calc(4rem + 5px) 1.1rem 2rem;
-  min-height: 100svh;
+  padding: calc(4rem + clamp(1.25rem, 3vw, 2.5rem)) clamp(1.1rem, 3vw, 2.5rem)
+    clamp(2rem, 4vw, 3.5rem);
   box-sizing: border-box;
+}
+
+.mml-mkt-hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--mml-navy) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--mml-navy) 7%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 0%, #000 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 0%, #000 0%, transparent 72%);
+}
+
+.mml-mkt-hero-glow {
+  position: absolute;
+  top: -6rem;
+  right: max(-4rem, -8vw);
+  z-index: 0;
+  width: min(640px, 78vw);
+  height: min(640px, 78vw);
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--mml-cyan) 18%, transparent) 0%,
+    transparent 68%
+  );
 }
 
 .mml-mkt-hero-inner {
@@ -132,13 +159,292 @@
   z-index: 1;
   margin: 0 auto;
   width: 100%;
-  max-width: min(1080px, 100%);
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
+  max-width: min(1180px, 100%);
+}
+
+.mml-mkt-hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(1.5rem, 3.5vw, 3rem);
   align-items: center;
-  justify-content: flex-start;
+}
+
+.mml-mkt-hero-copy-col {
+  min-width: 0;
+  text-align: left;
+}
+
+.mml-mkt-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mml-cyan-muted);
+}
+
+.mml-mkt-hero-eyebrow-dot {
+  width: 1.35rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--mml-cyan);
+  flex-shrink: 0;
+}
+
+.mml-mkt-hero-title {
+  margin: 0;
+  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  font-size: clamp(1.85rem, 2.4vw + 0.65rem, 3.05rem);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: var(--mml-navy);
+}
+
+.mml-mkt-hero-title-line {
+  display: block;
+}
+
+.mml-mkt-hero-title-line--accent {
+  color: var(--mml-cyan);
+}
+
+.mml-mkt-hero-lead {
+  margin: 1rem 0 0;
+  max-width: 38rem;
+  font-size: clamp(0.95rem, 1.05vw, 1.08rem);
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--mml-navy) 72%, #000);
+}
+
+.mml-mkt-hero-lead strong {
+  color: var(--mml-navy);
+  font-weight: 700;
+}
+
+.mml-mkt-hero-ctas {
+  margin-top: 1.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mml-mkt-hero-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.82rem 1.35rem;
+  border-radius: 9999px;
+  border: none;
+  background: var(--mml-cyan);
+  color: var(--mml-navy);
+  font-size: 0.98rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow:
+    0 0 24px color-mix(in srgb, var(--mml-cyan) 45%, transparent),
+    0 8px 20px color-mix(in srgb, var(--mml-cyan) 22%, transparent);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mml-mkt-hero-cta-primary:hover {
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+}
+
+.mml-mkt-hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.78rem 1.15rem;
+  border-radius: 9999px;
+  border: 1.5px solid color-mix(in srgb, var(--mml-navy) 16%, transparent);
+  background: var(--mml-white);
+  color: var(--mml-navy);
+  font-size: 0.96rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.mml-mkt-hero-cta-secondary:hover {
+  border-color: var(--mml-cyan);
+  color: var(--mml-cyan-muted);
+}
+
+.mml-mkt-hero-visual-col {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  padding-top: 0.75rem;
+}
+
+.mml-mkt-hero-mockups {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  min-height: clamp(16rem, 38vw, 24rem);
+}
+
+.mml-mkt-hero-mockups-glow {
+  position: absolute;
+  inset: -8% -6%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 35% 45%,
+      color-mix(in srgb, var(--mml-cyan) 24%, transparent) 0%,
+      transparent 68%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 72% 58%,
+      color-mix(in srgb, var(--mml-cyan) 16%, transparent) 0%,
+      transparent 70%
+    );
+  filter: blur(24px);
+}
+
+.mml-mkt-hero-mockups-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 108%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--mml-cyan) 28%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mml-white) 70%, transparent);
+  pointer-events: none;
+}
+
+.mml-mkt-hero-phone {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(158px, 42vw, 220px);
+  padding: 7px;
+  border-radius: 30px;
+  background: linear-gradient(160deg, #243450 0%, var(--mml-navy) 55%, #0a1422 100%);
+  border: 1px solid color-mix(in srgb, var(--mml-navy) 18%, transparent);
+  box-shadow:
+    0 28px 56px rgba(15, 27, 45, 0.22),
+    0 10px 22px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.mml-mkt-hero-phone--primary {
+  z-index: 2;
+  margin-right: -8px;
+}
+
+.mml-mkt-hero-phone--secondary {
+  z-index: 1;
+  width: clamp(132px, 35vw, 186px);
+  padding: 6px;
+  border-radius: 26px;
+  box-shadow:
+    0 18px 40px rgba(15, 27, 45, 0.18),
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.mml-mkt-hero-phone--secondary .mml-mkt-hero-phone-screen {
+  border-radius: 19px;
+}
+
+.mml-mkt-hero-phone--secondary .mml-mkt-hero-phone-notch {
+  height: 4px;
+  margin-bottom: 5px;
+}
+
+.mml-mkt-hero-phone-notch {
+  width: 34%;
+  height: 5px;
+  margin: 0 auto 7px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.mml-mkt-hero-phone-screen {
+  overflow: hidden;
+  border-radius: 22px;
+  background: #fff;
+  line-height: 0;
+}
+
+.mml-mkt-hero-phone-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 960px) {
+  .mml-mkt-hero-split {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .mml-mkt-hero-copy-col {
+    text-align: center;
+  }
+
+  .mml-mkt-hero-eyebrow {
+    justify-content: center;
+  }
+
+  .mml-mkt-hero-lead {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mml-mkt-hero-ctas {
+    justify-content: center;
+  }
+
+  .mml-mkt-hero-glow {
+    top: auto;
+    bottom: -4rem;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+@media (min-width: 961px) {
+  .mml-mkt-hero-visual-col {
+    justify-content: flex-end;
+    padding-top: clamp(1.25rem, 2.8vw, 2.25rem);
+  }
+
+  .mml-mkt-hero-mockups {
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 961px) {
+    .mml-mkt-hero-mockups:hover .mml-mkt-hero-phone--primary {
+      transform: translateY(-4px);
+    }
+
+    .mml-mkt-hero-mockups:hover .mml-mkt-hero-phone--secondary {
+      transform: translateY(2px);
+    }
+  }
+
+  .mml-mkt-hero-phone {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 }
 
 /* Outline teaching marks sitting on the white hero, under all hero content */
@@ -158,7 +464,7 @@
   width: var(--mml-hero-mark-size);
   height: var(--mml-hero-mark-size);
   color: var(--mml-navy);
-  opacity: 0.13;
+  opacity: 0.16;
   transform: rotate(var(--mml-hero-mark-tilt));
 }
 

@@ -1,60 +1,59 @@
 # Deploy Make My Lesson (Next.js) on Hostinger VPS
 
-Stack: **nginx** (TLS) → **PM2** → Next.js **standalone** on `127.0.0.1:3000`.
+Stack: **nginx** (TLS) → **PM2** → Next.js on **`127.0.0.1:3010`**.
+
+> This VPS runs multiple apps. **Do not use port 3000** for Make My Lesson —
+> use **3010**. If nginx still proxies to `:3000`, the public site will not load
+> even when `curl http://127.0.0.1:3010` returns `200`.
 
 ## Prerequisites
 
 - Ubuntu/Debian VPS with Node.js 20+
-- Domain `makemylesson.ai` (plus `www` and the legacy `makemylesson.app` / `makemylesson.com`) A/AAAA records pointing at the VPS
-- Production `.env` (copy from `.env.example`; use the Firebase **Next.js** web app IDs)
+- App directory: `/var/www/makemylesson_new` (or your path)
+- Domain DNS A/AAAA → VPS
+- Production `.env.local` or `.env` in the app directory (Firebase `NEXT_PUBLIC_*`, etc.)
 
-## Build on the server (or CI artifact)
+## Build + start (correct)
 
 ```bash
-cd /var/www/makemylesson   # or your app directory
-git pull                   # or unpack release
+cd /var/www/makemylesson_new
+git pull
 npm ci
 npm run build
-```
 
-Standalone output lives in `.next/standalone`. From the Next.js project root:
+# Stop any broken npm-start process
+pm2 delete makemylesson 2>/dev/null || true
 
-```bash
-# Ensure public + static assets sit next to the standalone server
-cp -r public .next/standalone/public
-cp -r .next/static .next/standalone/.next/static
-cp ecosystem.config.cjs .next/standalone/
-cp .env.production .next/standalone/.env   # or export env via PM2
-```
-
-Adjust `ecosystem.config.cjs` `cwd` to the standalone folder when starting from there, or place `server.js` at the process cwd.
-
-## PM2
-
-```bash
-cd .next/standalone   # where server.js lives after copy
+# Start via ecosystem (binds 127.0.0.1:3010)
 pm2 start ecosystem.config.cjs
 pm2 save
-pm2 startup           # enable on reboot
+pm2 startup   # once per server
 ```
 
-Reload after a new build:
+### Sanity check (must pass before touching DNS/nginx)
 
 ```bash
-pm2 reload makemylesson-web
+curl -I http://127.0.0.1:3010
+# Expect: HTTP/1.1 200 OK
+
+pm2 logs makemylesson --lines 50
 ```
 
-## nginx (sketch)
+If this curl fails, the site will not load publicly — fix PM2/build first.
+
+## nginx (critical)
+
+Proxy to **3010**, not 3000:
 
 ```nginx
 server {
   listen 443 ssl http2;
-  server_name makemylesson.ai;
+  server_name makemylesson.ai www.makemylesson.ai;
 
-  # ssl_certificate / etc. via Certbot
+  # ssl_certificate … via Certbot
 
   location / {
-    proxy_pass http://127.0.0.1:3000;
+    proxy_pass http://127.0.0.1:3010;
     proxy_http_version 1.1;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
@@ -62,39 +61,43 @@ server {
     proxy_set_header X-Forwarded-Proto $scheme;
   }
 }
-
-# Legacy domains and www → canonical host
-server {
-  listen 443 ssl http2;
-  server_name www.makemylesson.ai makemylesson.app www.makemylesson.app makemylesson.com www.makemylesson.com;
-  return 301 https://makemylesson.ai$request_uri;
-}
 ```
+
+Apply:
 
 ```bash
-sudo certbot --nginx -d makemylesson.ai -d www.makemylesson.ai \
-  -d makemylesson.app -d www.makemylesson.app \
-  -d makemylesson.com -d www.makemylesson.com
+# Find the site config
+grep -R "makemylesson\|proxy_pass" /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null
+
+# Edit proxy_pass → http://127.0.0.1:3010;
+sudo nginx -t && sudo systemctl reload nginx
 ```
 
-## Cloud Storage CORS
+## “Works on Vercel, blank / error on VPS”
 
-Browser-side exports (PPTX/PDF) fetch slide images and school logos from Storage, so the bucket must allow the **page** origin. Origins live in `storage-cors.json` at the repo root — edit that file, never the console, then apply:
+| Symptom | Likely cause | Fix |
+|--------|--------------|-----|
+| Domain times out / 502 | nginx → wrong port (3000 vs 3010) | Set `proxy_pass` to `127.0.0.1:3010` |
+| `curl :3010` = 200, public fails | nginx or firewall only | Fix nginx; `ufw allow 80,443` |
+| PM2 online, curl fails | build missing / wrong cwd | `npm run build`, start from app root |
+| Favicons / images 404 | standalone assets not copied | `npm run build` runs `postbuild` copy; or use `next start` as in ecosystem |
+| SSH / ping timeout | VPS network / firewall / IP change | Hostinger panel → restart VPS / check IP |
+
+## Optional: standalone mode
+
+`next.config` has `output: "standalone"`. Prefer the **ecosystem `next start`** flow above on this multi-app VPS unless you intentionally run from `.next/standalone`.
+
+If you do use standalone:
 
 ```bash
-gsutil cors set storage-cors.json gs://makemylesson-44088.firebasestorage.app
-gsutil cors get gs://makemylesson-44088.firebasestorage.app
+npm run build   # postbuild copies public + static
+cd .next/standalone
+PORT=3010 HOSTNAME=127.0.0.1 node server.js
 ```
-
-Apex and `www` are distinct origins; both need listing. Legacy hosts only need listing while they still serve the app — after they become redirects, the page origin is already `makemylesson.ai`.
 
 ## Post-cutover checks
 
-1. `https://makemylesson.ai` loads; `/app/*` redirects to `/*`; the legacy `.app` / `.com` hosts 301 here
-2. Firebase Auth authorized domains include `makemylesson.ai` and `www.makemylesson.ai`
-3. PayPal return URL: `https://makemylesson.ai/subscription`
-4. Storage CORS allows `https://makemylesson.ai` (and `www`), otherwise PPTX/PDF exports drop their images
-5. PWA manifest + service worker under `/manifest.webmanifest` and `/sw.js`
-6. Optional FCM: `/firebase-messaging-sw.js` reachable; VAPID key in env
-
-Marketing and app share this host (route group `(marketing)`). Leave Flutter mobile builds unchanged.
+1. `https://makemylesson.ai` loads
+2. `curl -I http://127.0.0.1:3010` → 200
+3. Firebase Auth authorized domains include your live host
+4. `/favicon.ico` and `/icons/icon-192.png` return 200

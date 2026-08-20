@@ -75,7 +75,7 @@ function FaqRow({ item, isOpen, onToggle }) {
   const paragraphs = item.a.split(/\n\n+/).filter(Boolean)
 
   return (
-    <div className="overflow-hidden rounded-full bg-white">
+    <div className="overflow-hidden rounded-2xl bg-white">
       <h3 className="m-0 text-[13px] font-medium leading-snug text-[#1A1E3A] sm:text-[14px]">
         <button
           type="button"
@@ -104,7 +104,7 @@ function FaqRow({ item, isOpen, onToggle }) {
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="space-y-2.5 rounded-b-[24px] bg-white px-5 pb-4 text-[13px] leading-relaxed text-black">
+            <div className="space-y-2.5 px-5 pb-4 pt-0 text-[13px] leading-relaxed text-black">
               {paragraphs.map((p, i) => (
                 <p key={i} className="whitespace-pre-wrap">
                   {p.trim()}
@@ -214,10 +214,10 @@ export default function FaqPage() {
               </p>
               <h1
                 id="faq-hero-heading"
-                className="max-w-[12ch] text-[clamp(1.85rem,4vw,3.1rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] sm:max-w-[16ch] md:max-w-[18ch] lg:max-w-[20ch] xl:max-w-[22ch] 2xl:max-w-[26ch]"
+                className="max-w-[22ch] text-[clamp(1.85rem,4vw,3.1rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] sm:max-w-[26ch] md:max-w-[28ch] lg:max-w-[22ch] xl:max-w-[26ch]"
               >
-                Ask us anything. We&apos;ve probably heard it in a{' '}
-                <span className="pricing-hero-underline relative inline-block whitespace-nowrap">
+                Ask us anything. We&apos;ve probably heard it in a{" "}
+                <span className="pricing-hero-underline relative inline-block">
                   staffroom.
                 </span>
               </h1>

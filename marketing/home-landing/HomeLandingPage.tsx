@@ -1,6 +1,4 @@
-import HeroPhoneCarousel from "@marketing/home-landing/HeroPhoneCarousel";
-import HeroStageCluster from "@marketing/home-landing/HeroStageCluster";
-import HeroBackdrop from "@marketing/home-landing/HeroBackdrop";
+import HomeHeroSection from "@marketing/home-landing/HomeHeroSection";
 import BeforeAfterSection from "@marketing/home-landing/BeforeAfterSection";
 import MeetAylaSection from "@marketing/home-landing/MeetAylaSection";
 import CurriculumCoverageSection from "@marketing/home-landing/CurriculumCoverageSection";
@@ -139,43 +137,7 @@ function TrustIcon({ name }: { name: (typeof TRUST_INDICATORS)[number]["icon"] }
 export default function HomeLandingPage() {
   return (
     <>
-      <main className="mml-mkt-hero">
-        <HeroBackdrop />
-        <div className="mml-mkt-hero-inner">
-          <h1 className="mml-mkt-title">
-            <span className="mml-mkt-title-line">From Plan to Classroom</span>
-            <span className="mml-mkt-title-accent">
-              in 4 Simple Steps.
-              <svg
-                className="mml-mkt-title-underline"
-                viewBox="0 0 280 14"
-                fill="none"
-                aria-hidden
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M4 8.2c18-1.6 36 2.4 54 1.2 22-1.4 41-3.2 64-1.6 19 1.3 38 3.8 57 1.1 16-2.1 33-4.4 51-1.8 12 1.7 28 3.2 46 1.4"
-                  stroke="currentColor"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  opacity="0.85"
-                />
-                <path
-                  d="M7 10.4c21 1.1 39-1.8 61-0.6 24 1.4 47 3.1 71 0.8 18-1.7 35-2.9 54-0.4 16 2.1 31 1.6 48-0.8"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  opacity="0.55"
-                />
-              </svg>
-            </span>
-          </h1>
-
-          <HeroStageCluster>
-            <HeroPhoneCarousel />
-          </HeroStageCluster>
-        </div>
-      </main>
+      <HomeHeroSection />
 
       <section className="mml-trust" aria-label="Trust indicators">
         <div className="mml-trust-inner">
