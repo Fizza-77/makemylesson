@@ -31,7 +31,7 @@ export default function MarketingChrome({
       >
         <Navbar theme="home" />
         <LandingScrollHandler />
-        <div className="pt-16">{children}</div>
+        <div>{children}</div>
         <Footer />
         <CookieConsent />
         <AylaMarketingChat />

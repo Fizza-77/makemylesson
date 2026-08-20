@@ -135,6 +135,7 @@ export function AccessPlanCard({
   plan,
   onCheckout = undefined,
   checkoutLoading = false,
+  short = false,
 }) {
   const ctaLabel = checkoutLoading ? 'Redirecting…' : plan.cta
   const isFree = !plan.wasPrice
@@ -170,6 +171,7 @@ export function AccessPlanCard({
         'mml-pr-card',
         `mml-pr-card--${plan.tone}`,
         plan.popular && 'mml-pr-card--popular',
+        short && 'mml-pr-card--short',
       )}
     >
       {plan.popular ? <span className="mml-pr-badge">Most popular</span> : null}
@@ -204,30 +206,34 @@ export function AccessPlanCard({
           {plan.priceNote ? <p className="mml-pr-price-note">{plan.priceNote}</p> : null}
         </div>
 
-        {plan.includedTitle ? (
-          <p className="mml-pr-included">{plan.includedTitle}</p>
-        ) : null}
+        {short ? null : (
+          <>
+            {plan.includedTitle ? (
+              <p className="mml-pr-included">{plan.includedTitle}</p>
+            ) : null}
 
-        {renderFeatures(shownFeatures)}
+            {renderFeatures(shownFeatures)}
 
-        {/* `details` avoids turning the whole marketing section into a client
-            component just to toggle a list. */}
-        {hiddenFeatures.length ? (
-          <details className="mml-pr-details">
-            <summary className="mml-pr-summary">
-              <span>{hiddenFeatures.length} more included</span>
-              <ChevronDown className="mml-pr-summary-chevron" size={14} strokeWidth={3} />
-            </summary>
-            {renderFeatures(hiddenFeatures, true)}
-          </details>
-        ) : null}
+            {/* `details` avoids turning the whole marketing section into a client
+                component just to toggle a list. */}
+            {hiddenFeatures.length ? (
+              <details className="mml-pr-details">
+                <summary className="mml-pr-summary">
+                  <span>{hiddenFeatures.length} more included</span>
+                  <ChevronDown className="mml-pr-summary-chevron" size={14} strokeWidth={3} />
+                </summary>
+                {renderFeatures(hiddenFeatures, true)}
+              </details>
+            ) : null}
 
-        {plan.spreadNote ? (
-          <p className="mml-pr-spread">
-            <CalendarDays size={15} strokeWidth={2.2} aria-hidden />
-            <span>{plan.spreadNote}</span>
-          </p>
-        ) : null}
+            {plan.spreadNote ? (
+              <p className="mml-pr-spread">
+                <CalendarDays size={15} strokeWidth={2.2} aria-hidden />
+                <span>{plan.spreadNote}</span>
+              </p>
+            ) : null}
+          </>
+        )}
 
         {/* Wrapper keeps the button bottom-aligned across cards of unequal height. */}
         <div className="mml-pr-cta-wrap">
@@ -248,7 +254,8 @@ export function AccessPlanCard({
         </div>
       </div>
 
-      <p className="mml-pr-foot">Affordable education for all</p>
+      {short ? null : <p className="mml-pr-foot">Affordable education for all</p>}
     </article>
   )
 }
+

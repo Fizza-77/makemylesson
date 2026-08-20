@@ -10,11 +10,11 @@ import { scrollToTop } from '@marketing/lib/homeScroll'
 import { Menu, X } from 'lucide-react'
 import { MarketingHomeLink } from '@/components/common/MarketingHomeLink'
 
-const NAV_GUTTER = 'px-4 sm:px-6 md:px-8 xl:px-8 2xl:px-10'
+const NAV_GUTTER = 'px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8 2xl:px-10'
 
 const NAV_CONTAINER =
-  `site-nav-container mx-auto flex w-full min-w-0 max-w-[1600px] items-center gap-3 ${NAV_GUTTER}`
-const NAV_BAR = 'site-nav-bar flex h-16 min-h-16 w-full items-center'
+  `site-nav-container mx-auto flex w-full min-w-0 max-w-[1600px] items-center gap-2 lg:gap-3 ${NAV_GUTTER}`
+const NAV_BAR = 'site-nav-bar flex h-16 min-h-16 w-full items-center max-[1279px]:h-14 max-[1279px]:min-h-14 max-[1100px]:h-[3.25rem] max-[1100px]:min-h-[3.25rem]'
 const NAV_LINK = 'site-nav-link shrink-0 no-underline'
 const NAV_DESKTOP =
   'site-nav-desktop hidden min-w-0 flex-1 items-center justify-center min-[901px]:flex'
@@ -138,7 +138,8 @@ export default function Navbar({ theme = 'home' }) {
             Sign in
           </Link>
           <Link href={MML_APP.stage1} className="site-nav-cta">
-            Start Your First Lesson — Free
+            <span className="site-nav-cta-full">Start Your First Lesson — Free</span>
+            <span className="site-nav-cta-short">Start Free Lesson</span>
           </Link>
           <button
             type="button"
@@ -147,7 +148,7 @@ export default function Navbar({ theme = 'home' }) {
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
           >
-            {mobileOpen ? <X size={22} strokeWidth={2} /> : <Menu size={22} strokeWidth={2} />}
+            {mobileOpen ? <X size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
           </button>
         </div>
       </div>

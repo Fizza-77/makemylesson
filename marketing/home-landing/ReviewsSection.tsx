@@ -276,42 +276,6 @@ const REVIEW_SLIDES: Review[][] = [
       stars: "navy",
       avatar: "teal",
     },
-    {
-      quote:
-        "Cut my prep for a double period from an evening to a coffee break, then I spent the time on the hard students.",
-      name: "Omar Y.",
-      initials: "OY",
-      role: "Secondary Maths",
-      tone: "teal",
-      pin: "navy",
-      tilt: "right",
-      stars: "white",
-      avatar: "navy",
-    },
-    {
-      quote:
-        "The activity sheet and answer key coming together is the quiet win. No more mismatched versions floating around.",
-      name: "Grace V.",
-      initials: "GV",
-      role: "Elementary",
-      tone: "navy",
-      pin: "cyan",
-      tilt: "left",
-      stars: "cyan",
-      avatar: "cyan",
-    },
-    {
-      quote:
-        "Still wouldn't hit generate and walk into class cold — but as a first draft, it's better than a blank Word doc.",
-      name: "Alex J.",
-      initials: "AJ",
-      role: "Supply Teacher",
-      tone: "navy",
-      pin: "cyan",
-      tilt: "right",
-      stars: "white",
-      avatar: "teal",
-    },
   ],
 ];
 

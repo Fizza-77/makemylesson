@@ -1,45 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
-
+import HeroPhoneCarousel from "@marketing/home-landing/HeroPhoneCarousel";
+import HeroStageCluster from "@marketing/home-landing/HeroStageCluster";
+import HeroBackdrop from "@marketing/home-landing/HeroBackdrop";
 import BeforeAfterSection from "@marketing/home-landing/BeforeAfterSection";
 import MeetAylaSection from "@marketing/home-landing/MeetAylaSection";
 import CurriculumCoverageSection from "@marketing/home-landing/CurriculumCoverageSection";
 import ReviewsSection from "@marketing/home-landing/ReviewsSection";
 import SisterPlatformsSection from "@marketing/home-landing/SisterPlatformsSection";
 import PricingSection from "@marketing/home-landing/PricingSection";
-import SectionLink from "@marketing/components/SectionLink";
-import { MML_APP } from "@marketing/lib/appUrls";
-
-const STAGES = [
-  {
-    num: "1",
-    name: "Lesson Plan",
-    desc: "Tell us your topic, grade, subject, and duration. We'll build a structured, curriculum-aligned plan.",
-    iconSrc: "/plan.svg",
-    href: MML_APP.stage1,
-  },
-  {
-    num: "2",
-    name: "Presentation",
-    desc: "Get slide-by-slide content with speaker notes and beautiful visuals.",
-    iconSrc: "/present.svg",
-    href: MML_APP.stage2,
-  },
-  {
-    num: "3",
-    name: "Classroom Activity",
-    desc: "Engage students with ready-to-use activities, worksheets, and group tasks.",
-    iconSrc: "/activity.svg",
-    href: MML_APP.stage3,
-  },
-  {
-    num: "4",
-    name: "Assessment",
-    desc: "Create assessments with answer keys and marking guides. Any stage. Any order. You're in control.",
-    iconSrc: "/assess.svg",
-    href: MML_APP.stage4,
-  },
-] as const;
 
 const TRUST_INDICATORS = [
   {
@@ -169,130 +136,44 @@ function TrustIcon({ name }: { name: (typeof TRUST_INDICATORS)[number]["icon"] }
   }
 }
 
-function StageUnderline() {
-  return (
-    <svg
-      className="mml-mkt-title-underline"
-      viewBox="0 0 320 18"
-      fill="none"
-      aria-hidden
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M3 11c42 6 88 7 132 4 46-3 92-8 140-5 12 .8 28 2.5 40 4"
-        stroke="currentColor"
-        strokeWidth="7"
-        strokeLinecap="round"
-        opacity="0.95"
-      />
-      <path
-        d="M8 13c48 3 96 2 144-1 40-2.5 82-5 128-2"
-        stroke="currentColor"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        opacity="0.7"
-      />
-    </svg>
-  );
-}
-
-function StageArrow() {
-  return (
-    <svg
-      className="mml-mkt-arrow-img"
-      width="28"
-      height="31"
-      viewBox="0 0 40 44"
-      fill="none"
-      aria-hidden
-    >
-      <path
-        d="M2 24C12 19 24 27 33 21M27 17L34 21L29 27"
-        stroke="currentColor"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export default function HomeLandingPage() {
   return (
     <>
       <main className="mml-mkt-hero">
+        <HeroBackdrop />
         <div className="mml-mkt-hero-inner">
-          <div className="mml-mkt-laptop">
-            <div className="mml-mkt-screen">
-              <div className="mml-mkt-hero-top">
-                <div className="mml-mkt-hero-copy">
-                  <h1 className="mml-mkt-title">
-                    <span className="mml-mkt-title-line">From plan to classroom in</span>
-                    <span className="mml-mkt-title-accent">
-                      4 simple steps
-                      <StageUnderline />
-                    </span>
-                  </h1>
+          <h1 className="mml-mkt-title">
+            <span className="mml-mkt-title-line">From Plan to Classroom</span>
+            <span className="mml-mkt-title-accent">
+              in 4 Simple Steps.
+              <svg
+                className="mml-mkt-title-underline"
+                viewBox="0 0 280 14"
+                fill="none"
+                aria-hidden
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M4 8.2c18-1.6 36 2.4 54 1.2 22-1.4 41-3.2 64-1.6 19 1.3 38 3.8 57 1.1 16-2.1 33-4.4 51-1.8 12 1.7 28 3.2 46 1.4"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  opacity="0.85"
+                />
+                <path
+                  d="M7 10.4c21 1.1 39-1.8 61-0.6 24 1.4 47 3.1 71 0.8 18-1.7 35-2.9 54-0.4 16 2.1 31 1.6 48-0.8"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  opacity="0.55"
+                />
+              </svg>
+            </span>
+          </h1>
 
-                  <p className="mml-mkt-sub">
-                    <span className="mml-mkt-sub-line">
-                      Plan, present, assess and teach a full lesson pack in minutes,
-                      aligned to your curriculum.
-                    </span>
-                    <span className="mml-mkt-sub-line">
-                      Slides, worksheets, quizzes and teaching plans, all from one
-                      topic.
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              <div className="mml-mkt-stages">
-                {STAGES.map(({ num, name, desc, iconSrc, href }, index) => (
-                  <div key={num} className="mml-mkt-stage-slot">
-                    {index > 0 ? (
-                      <span className="mml-mkt-arrow" aria-hidden>
-                        <StageArrow />
-                      </span>
-                    ) : null}
-                    <Link href={href} className="mml-mkt-stage">
-                      <span className="mml-mkt-stage-label">Step {num}</span>
-                      <Image
-                        src={iconSrc}
-                        alt=""
-                        width={44}
-                        height={44}
-                        className="mml-mkt-stage-icon"
-                        aria-hidden
-                      />
-                      <h2 className="mml-mkt-stage-name">{name}</h2>
-                      <p className="mml-mkt-stage-desc">{desc}</p>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mml-mkt-laptop-base" aria-hidden />
-          </div>
-
-          <div className="mml-mkt-ctas">
-            <Link href={MML_APP.stage1} className="mml-mkt-cta-primary">
-              Start Your First Lesson — Free
-              <span aria-hidden>→</span>
-            </Link>
-            <SectionLink
-              sectionId="sample-lesson"
-              href="/"
-              className="mml-mkt-cta-secondary"
-            >
-              <span className="mml-mkt-cta-icon" aria-hidden>
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
-                  <path d="M2 1.2v7.6L8.5 5 2 1.2z" />
-                </svg>
-              </span>
-              See a Sample Lesson
-            </SectionLink>
-          </div>
+          <HeroStageCluster>
+            <HeroPhoneCarousel />
+          </HeroStageCluster>
         </div>
       </main>
 

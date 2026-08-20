@@ -7,6 +7,8 @@ import {
   FileCheck,
 } from "lucide-react";
 
+import BeforeAfterBackdrop from "@marketing/home-landing/BeforeAfterBackdrop";
+
 const BEFORE_ROWS = [
   {
     title: "Lesson plan · Word",
@@ -95,7 +97,7 @@ function UntilNowUnderline() {
         y1="9"
         x2="196"
         y2="9"
-        stroke="#ffffff"
+        stroke="var(--mml-cyan)"
         strokeWidth="8"
         strokeLinecap="round"
       />
@@ -110,6 +112,7 @@ export default function BeforeAfterSection() {
       id="sample-lesson"
       aria-labelledby="mml-ba-heading"
     >
+      <BeforeAfterBackdrop />
       <div className="mml-ba-inner">
         <div className="mml-ba-badge">
           <span className="mml-ba-badge-icon" aria-hidden>
