@@ -1,9 +1,9 @@
 import TermsOfServicePage from '@marketing/components/legal/TermsOfServicePage'
 
 export const metadata = {
-  title: 'Terms of Service | Make My Lesson',
+  title: { absolute: 'Terms of Service | Make My Lesson' },
   description:
-    'Terms of Service for Make My Lesson — eligibility, accounts, AI content, credits, liability, and contact for Qismat Ventures W.L.L.',
+    'Review the terms governing Make My Lesson accounts, AI-generated teaching materials, subscriptions, acceptable use, intellectual property and liability.',
   alternates: { canonical: '/terms-of-service' },
   robots: { index: true, follow: true },
 }

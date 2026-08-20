@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/service-learning */
 
 const serviceLearningContent = {
-  metaTitle: 'Service Learning: Lesson Plans That Connect Curriculum to Community',
+  metaTitle: 'Service Learning Lesson Plans for Teachers',
   metaDescription:
-    'Service learning combines academic learning with meaningful community service. Make My Lesson helps Australian teachers build curriculum-aligned service learning lesson plans quickly.',
+    'Build service learning lesson plans that connect curriculum goals with community projects, meaningful action and structured student reflection.',
   quickAnswer:
     'Service learning combines academic learning with meaningful community service, helping students apply curriculum content to real-world needs. Make My Lesson helps Australian teachers build service learning lesson plans quickly, with every project aligned to the curriculum.',
   sections: [

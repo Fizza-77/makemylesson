@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/general-teacher-led */
 
 const generalTeacherLedContent = {
-  metaTitle: 'Teacher-Led Instruction: Lesson Plans Built for Direct, Explicit Teaching',
+  metaTitle: 'Teacher-Led Instruction Lesson Plans',
   metaDescription:
-    'Teacher-led instruction is structured teaching where the teacher directs learning through direct instruction and explicit modelling. Make My Lesson helps Australian teachers build curriculum-aligned teacher-led lesson plans quickly.',
+    'Create teacher-led instruction lesson plans with explicit modelling, guided practice and independent work, aligned to Australian Curriculum requirements.',
   quickAnswer:
     'Teacher-led instruction is a structured teaching approach where the teacher directs learning through direct instruction and explicit modelling. Make My Lesson helps Australian teachers build teacher-led instruction lesson plans quickly, without sacrificing curriculum alignment.',
   sections: [

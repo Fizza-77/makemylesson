@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/kinesthetic-learning */
 
 const kinestheticLearningContent = {
-  metaTitle: 'Kinesthetic Learning: Lesson Plans Built Around Movement',
+  metaTitle: 'Kinesthetic Learning Lesson Plans',
   metaDescription:
-    'Kinesthetic learning uses physical movement and hands-on tasks to help students learn. Make My Lesson helps Australian teachers build curriculum-aligned kinesthetic learning lesson plans quickly.',
+    'Create kinesthetic learning lesson plans with movement, hands-on activities and tactile tasks that keep students active and curriculum focused.',
   quickAnswer:
     'Kinesthetic learning uses physical movement and hands-on tasks to help students learn, particularly benefiting kinesthetic learners who struggle with purely passive instruction. Make My Lesson helps Australian teachers build kinesthetic learning lesson plans quickly, with every activity aligned to the curriculum.',
   sections: [

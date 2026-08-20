@@ -1,9 +1,9 @@
 import RefundPaymentsPolicyPage from '@marketing/components/legal/RefundPaymentsPolicyPage'
 
 export const metadata = {
-  title: 'Refund & Payments Policy | Make My Lesson',
+  title: { absolute: 'Refund and Payments Policy | Make My Lesson' },
   description:
-    'Refund and payments policy for Make My Lesson — web, Apple, Google, credits, school plans, disputes, and Qismat Ventures W.L.L contact.',
+    'Review Make My Lesson payment, subscription, credit and refund terms, including billing responsibilities, eligibility and how to request support.',
   alternates: { canonical: '/refund-payments-policy' },
   robots: { index: true, follow: true },
 }

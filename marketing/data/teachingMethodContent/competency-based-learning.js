@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/competency-based-learning */
 
 const competencyBasedLearningContent = {
-  metaTitle: 'Competency-Based Learning: Lesson Plans Built Around Mastery',
+  metaTitle: 'Competency-Based Learning Lesson Plans',
   metaDescription:
-    'Competency-based learning lets students progress once they demonstrate mastery of a skill, rather than moving on based on time spent. Make My Lesson helps Australian teachers build curriculum-aligned competency based lesson plans quickly.',
+    'Build competency-based learning lesson plans with clear skills, mastery checks, evidence of learning and progression tied to curriculum outcomes.',
   quickAnswer:
     'Competency-based learning lets students progress once they demonstrate mastery of a skill, rather than moving on based on time spent. Make My Lesson helps Australian teachers build competency based lesson plans quickly, with every assessment aligned to the curriculum.',
   sections: [

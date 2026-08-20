@@ -8,13 +8,12 @@ import {
 } from '@marketing/lib/siteUrl'
 
 /** Homepage technical SEO — title ≤60 chars.*/
-const homeTitle = 'Make My Lesson — AI Lesson Planner for Teachers'
+const homeTitle = 'Online AI Lesson Planner for Teachers | Make My Lesson'
 
 const homeMetaDescription =
-  'Generate complete, curriculum-aligned teaching packs in minutes. Lesson plan, presentation, activity and assessment — built for your exact curriculum. 71 routes. Free to try.'
+  'Plan complete, curriculum-aligned lessons in minutes with AI. Create lesson plans, slides, activities and assessments in one connected teaching pack.'
 
-const homeOgTwitterDescription =
-  'Generate complete, curriculum-aligned teaching packs in minutes. Lesson plan, presentation, activity and assessment — built for your exact curriculum.'
+const homeOgTwitterDescription = homeMetaDescription
 
 const homeCanonical = `${SITE_URL.replace(/\/$/, '')}/`
 const siteOrigin = SITE_URL.replace(/\/$/, '')
@@ -24,7 +23,9 @@ const softwareApplicationDescription =
   'AI-powered lesson planning platform for teachers. Generates complete, curriculum-aligned teaching packs including lesson plan, classroom presentation, student activity and summative assessment. Supports 71 curriculum routes across Australia, United Kingdom, Canada, International Baccalaureate and United States.'
 
 export const metadata = {
-  title: homeTitle,
+  title: {
+    absolute: homeTitle,
+  },
   description: homeMetaDescription,
   keywords: [
     'AI lesson planner',

@@ -1,9 +1,9 @@
 import DisclaimerPage from '@marketing/components/legal/DisclaimerPage'
 
 export const metadata = {
-  title: 'Disclaimer | Make My Lesson',
+  title: { absolute: 'Educational and AI Disclaimer | Make My Lesson' },
   description:
-    'Disclaimer for Make My Lesson — AI content, assessments, liability, third-party services, and contact for Qismat Ventures W.L.L.',
+    'Read the Make My Lesson disclaimer covering AI-generated educational content, curriculum accuracy, professional teacher review and platform limitations.',
   alternates: { canonical: '/disclaimer' },
   robots: { index: true, follow: true },
 }

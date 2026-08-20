@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/mindfulness-sel */
 
 const mindfulnessSelContent = {
-  metaTitle: 'Mindfulness & SEL: Lesson Plans That Build Emotional Skills',
+  metaTitle: 'Mindfulness and SEL Lesson Plans',
   metaDescription:
-    'SEL teaches students to recognise and manage emotions, build relationships, and make responsible decisions. Make My Lesson helps Australian teachers build curriculum-aligned SEL lesson plans and mindfulness activities quickly.',
+    'Build SEL lesson plans and mindfulness activities that support self-awareness, emotional regulation, relationships and responsible decision-making.',
   quickAnswer:
     'SEL, or social emotional learning, teaches students to recognise and manage emotions, build relationships, and make responsible decisions. Make My Lesson helps Australian teachers build SEL lesson plans quickly, with every mindfulness activity aligned to the curriculum.',
   sections: [

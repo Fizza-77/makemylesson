@@ -17,9 +17,9 @@ const contactPageJsonLd = {
 }
 
 export const metadata = {
-  title: 'Contact Us — Support for Teachers | Make My Lesson',
+  title: { absolute: 'Contact Make My Lesson: Teacher and School Support' },
   description:
-    'Contact Make My Lesson for support with AI lesson planning, curriculum-aligned teaching packs, billing, school plans, and partnerships. We reply within 1–2 business days.',
+    'Contact Make My Lesson for help with accounts, billing, school plans, technical support or platform questions. Our support team is ready to assist.',
   keywords: [
     'Make My Lesson contact',
     'AI lesson planner support',
@@ -29,9 +29,9 @@ export const metadata = {
   alternates: { canonical: '/contact' },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Contact Make My Lesson',
+    title: 'Contact Make My Lesson: Teacher and School Support',
     description:
-      'Get help with lesson planning, exports, billing, and school plans. Message our team or email support@makemylesson.ai.',
+      'Contact Make My Lesson for help with accounts, billing, school plans, technical support or platform questions. Our support team is ready to assist.',
     url: '/contact',
     type: 'website',
   },

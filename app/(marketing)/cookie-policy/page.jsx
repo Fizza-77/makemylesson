@@ -1,9 +1,9 @@
 import CookiePolicyPage from '@marketing/components/legal/CookiePolicyPage'
 
 export const metadata = {
-  title: 'Cookie Policy | Make My Lesson',
+  title: { absolute: 'Cookie Policy | Make My Lesson' },
   description:
-    'Cookie Policy for Make My Lesson — cookies, Firebase, analytics, payment providers, and controls. Operated by Qismat Ventures W.L.L.',
+    'Learn how Make My Lesson uses essential, preference and analytics cookies, why they are used, and how you can manage cookie choices in your browser.',
   alternates: { canonical: '/cookie-policy' },
   robots: { index: true, follow: true },
 }

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
   const canonical = `${SITE_URL}${getFeaturePath(feature.slug)}`
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords: [
       feature.label,

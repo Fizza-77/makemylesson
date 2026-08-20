@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/collaborative-learning */
 
 const collaborativeLearningContent = {
-  metaTitle: 'Collaborative Learning: Lesson Plans Built Around Group Work',
+  metaTitle: 'Collaborative Learning Lesson Plans',
   metaDescription:
-    'Collaborative learning has students work together in groups to solve problems and build understanding collectively. Make My Lesson helps Australian teachers build curriculum-aligned collaborative learning lesson plans quickly.',
+    'Create collaborative learning lesson plans with purposeful group roles, shared tasks, peer discussion and accountability built into every stage.',
   quickAnswer:
     'Collaborative learning has students work together in groups to solve problems, share ideas, and build understanding collectively. Make My Lesson helps Australian teachers build collaborative learning lesson plans quickly, with every collaborative activity aligned to the curriculum.',
   sections: [
