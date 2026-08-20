@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/spaced-learning */
 
 const spacedLearningContent = {
-  metaTitle: 'Spaced Learning: Lesson Plans Built Around Spaced Practice',
+  metaTitle: 'Spaced Learning Lesson Plans for Teachers',
   metaDescription:
-    'Spaced learning revisits content at increasing intervals to strengthen long-term memory. Make My Lesson helps Australian teachers build curriculum-aligned spaced learning lesson plans with retrieval practice quickly.',
+    'Plan spaced learning lessons using short teaching bursts, spaced practice and retrieval activities that help students revisit and retain key content.',
   quickAnswer:
     'Spaced learning revisits content at increasing intervals over time, strengthening long-term memory more effectively than single, intensive study sessions. Make My Lesson helps Australian teachers build spaced learning lesson plans quickly, with every retrieval practice activity aligned to the curriculum.',
   sections: [

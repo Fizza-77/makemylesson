@@ -11,20 +11,12 @@ import {
 } from '@marketing/lib/siteUrl'
 
 export async function generateMetadata() {
-  let indexData
-  try {
-    indexData = await getBlogIndexDataForMakeMyLesson()
-  } catch {
-    indexData = { seo: null }
-  }
-  const seo = indexData?.seo
-  const title = seo?.title || 'Blog — Make My Lesson'
+  const title = 'Lesson Planning Blog for Teachers | Make My Lesson'
   const description =
-    seo?.description ||
-    'Teaching ideas, lesson planning tips, and product updates from Make My Lesson — AI lesson planner for teachers.'
+    'Explore practical guides for teachers on lesson planning, teaching methods, classroom activities, assessment, education technology and workload.'
 
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: { canonical: `${SITE_URL}/blog` },
     openGraph: {

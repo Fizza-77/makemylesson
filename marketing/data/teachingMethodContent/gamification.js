@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/gamification */
 
 const gamificationContent = {
-  metaTitle: 'Gamification: Lesson Plans That Turn Learning Into a Game',
+  metaTitle: 'Gamification Lesson Plans for Teachers',
   metaDescription:
-    'Gamification applies game elements like points, levels, and challenges to classroom learning to boost engagement. Make My Lesson helps Australian teachers build curriculum-aligned gamified lesson plans quickly.',
+    'Build gamified lesson plans with points, challenges, feedback and classroom activities that increase engagement while keeping learning goals clear.',
   quickAnswer:
     'Gamification applies game elements like points, levels, and challenges to classroom learning to boost engagement. Make My Lesson helps Australian teachers build gamified lesson plans quickly, with every gamification activity aligned to the curriculum.',
   sections: [

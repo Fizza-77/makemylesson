@@ -1,9 +1,9 @@
 import PricingPage from '@marketing/views/PricingPage'
 
 export const metadata = {
-  title: 'Pricing — AI Lesson Planner & Teaching Pack Plans | Make My Lesson',
+  title: { absolute: 'AI Lesson Planner Pricing and Plans | Make My Lesson' },
   description:
-    'Pricing for the AI lesson planner and teaching pack generator: free credits, monthly and annual plans, add-on credits, school and department seats—reduce lesson planning cost per teacher.',
+    'Compare Make My Lesson plans for individual teachers, departments and schools. Review credits, included teaching tools, exports and billing options.',
   keywords: [
     'AI lesson planner pricing',
     'lesson planning app subscription',

@@ -7,9 +7,9 @@ import { SITE_URL } from '@marketing/lib/siteUrl'
 const faqCanonical = `${SITE_URL.replace(/\/$/, '')}/faq`
 
 export const metadata = {
-  title: 'Frequently Asked Questions — Make My Lesson',
+  title: { absolute: 'Make My Lesson FAQs: Features, Pricing and Support' },
   description:
-    'Everything you need to know about Make My Lesson — how it works, which curriculas are supported, free credits, stages, and how to get started.',
+    'Find answers about Make My Lesson, its four teaching stages, curriculum coverage, Ayla, credits, exports, school plans, privacy and classroom use.',
   alternates: { canonical: faqCanonical },
   robots: { index: true, follow: true },
 }

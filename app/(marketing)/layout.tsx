@@ -31,11 +31,11 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "Make My Lesson — AI Lesson Planner for Teachers",
+    default: "Online AI Lesson Planner for Teachers",
     template: "%s | Make My Lesson",
   },
   description:
-    "Generate complete, curriculum-aligned teaching packs in minutes. Lesson plan, presentation, activity and assessment — built for your exact curriculum.",
+    "Plan complete, curriculum-aligned lessons in minutes with AI. Create lesson plans, slides, activities and assessments in one connected teaching pack.",
   icons: {
     icon: [{ url: "/logo.png", type: "image/png" }],
     shortcut: "/logo.png",

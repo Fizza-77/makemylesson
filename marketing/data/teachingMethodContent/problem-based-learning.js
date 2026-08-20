@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/problem-based-learning */
 
 const problemBasedLearningContent = {
-  metaTitle: 'Problem-Based Learning: Lesson Plans Built Around Real Problems',
+  metaTitle: 'Problem-Based Learning Lesson Plans',
   metaDescription:
-    'Problem-based learning has students solve real or realistic problems to drive learning and build problem solving skills. Make My Lesson helps Australian teachers build curriculum-aligned problem based learning lesson plans quickly.',
+    'Create problem-based learning lesson plans around authentic challenges, investigation, collaboration and evidence-based solutions for your students.',
   quickAnswer:
     'Problem-based learning has students solve a real or realistic problem to drive their learning, building both subject knowledge and problem solving skills. Make My Lesson helps Australian teachers build problem based learning lesson plans quickly, with every problem aligned to the curriculum.',
   sections: [

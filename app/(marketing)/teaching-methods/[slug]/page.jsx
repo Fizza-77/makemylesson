@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
   const canonical = `${SITE_URL}${TEACHING_METHODS_BASE}/${method.slug}`
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords: [
       method.label,

@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/inquiry-based-learning */
 
 const inquiryBasedLearningContent = {
-  metaTitle: 'Inquiry Based Learning: Lesson Plans That Start With Student Questions',
+  metaTitle: 'Inquiry Based Learning Lesson Plans',
   metaDescription:
-    'Inquiry based learning starts with a question or problem and lets students investigate to build understanding. Make My Lesson helps Australian teachers build curriculum-aligned inquiry based learning lesson plans quickly.',
+    'Create inquiry based learning lesson plans with driving questions, investigation, evidence and reflection, aligned to your curriculum and year level.',
   quickAnswer:
     'Inquiry based learning starts with a question or problem and lets students investigate to build their own understanding. Make My Lesson helps Australian teachers build inquiry based learning lesson plans quickly, with every inquiry lesson aligned to the curriculum.',
   sections: [

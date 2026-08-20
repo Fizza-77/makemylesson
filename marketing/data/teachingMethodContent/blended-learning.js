@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/blended-learning */
 
 const blendedLearningContent = {
-  metaTitle: 'Blended Learning: Lesson Plans That Combine Online and Classroom Teaching',
+  metaTitle: 'Blended Learning Lesson Plans for Teachers',
   metaDescription:
-    'Blended learning combines face-to-face teaching with online learning in a connected lesson sequence. Make My Lesson helps Australian teachers build curriculum-aligned blended learning lesson plans quickly.',
+    'Create blended learning lesson plans that connect online and face-to-face teaching, with purposeful activities, differentiation and assessment.',
   quickAnswer:
     'Blended learning combines face-to-face teaching with online learning components in a single, connected lesson sequence. Make My Lesson helps Australian teachers build blended learning lesson plans quickly, with every blended classroom learning activity aligned to the curriculum.',
   sections: [

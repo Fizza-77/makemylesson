@@ -1,9 +1,9 @@
 import PrivacyPolicyPage from '@marketing/components/legal/PrivacyPolicyPage'
 
 export const metadata = {
-  title: 'Privacy Policy | Make My Lesson',
+  title: { absolute: 'Privacy Policy for Make My Lesson Users' },
   description:
-    'Web Privacy Policy for Make My Lesson — data collection, Firebase, cookies, retention, user rights, and Qismat Ventures W.L.L contact.',
+    'Read how Make My Lesson collects, uses, stores and protects account, generated-content and technical data, including your privacy rights and choices.',
   alternates: { canonical: '/privacy-policy' },
   robots: { index: true, follow: true },
 }

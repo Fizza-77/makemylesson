@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/experiential-learning */
 
 const experientialLearningContent = {
-  metaTitle: 'Experiential Learning: Lesson Plans Built Around Learning by Doing',
+  metaTitle: 'Experiential Learning Lesson Plans',
   metaDescription:
-    'Experiential learning has students learn through direct, hands-on experience rather than passive instruction. Make My Lesson helps Australian teachers build curriculum-aligned experiential learning lesson plans quickly.',
+    'Create experiential learning lesson plans with hands-on tasks, reflection and real-world application, tailored to your subject and year level.',
   quickAnswer:
     'Experiential learning has students learn through direct, hands-on experience rather than passive instruction. Make My Lesson helps Australian teachers build experiential learning lesson plans quickly, with every hands-on activity aligned to the curriculum.',
   sections: [

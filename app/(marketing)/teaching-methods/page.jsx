@@ -6,9 +6,9 @@ import {
 } from '@marketing/lib/teachingMethodsJsonLd'
 
 export const metadata = {
-  title: 'Teaching Methods — Pedagogical Approaches for Lesson Planning | Make My Lesson',
+  title: { absolute: 'Teaching Methods for Lesson Planning | Make My Lesson' },
   description:
-    'Explore sixteen teaching methods supported by Make My Lesson — structured delivery, inquiry-based learning, engagement strategies, and learner-centred approaches for teachers.',
+    'Explore 16 teaching methods that reshape lesson plans, slides, activities and assessments. Compare approaches and choose the best fit for your class.',
   keywords: [
     'teaching methods',
     'pedagogical approaches',

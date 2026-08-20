@@ -3,7 +3,7 @@
 const lessonPlanGeneratorContent = {
   metaTitle: 'AI Lesson Plan Generator for Teachers',
   metaDescription:
-    "Make My Lesson is an AI lesson plan generator that helps teachers create curriculum-aligned lesson plans in minutes instead of hours. It's built for Australian classrooms and aligns automatically with the Australian Curriculum.",
+    'Generate curriculum-aligned lesson plans with objectives, timings, differentiation and Bloom’s balance. Build a classroom-ready plan in under 30 seconds.',
   sections: [
     {
       heading: 'Plan Lessons Faster With an AI Lesson Planner Built for Teachers',

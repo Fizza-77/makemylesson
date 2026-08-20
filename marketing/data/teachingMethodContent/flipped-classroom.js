@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/flipped-classroom */
 
 const flippedClassroomContent = {
-  metaTitle: 'Flipped Classroom: Lesson Plans for the Inverted Classroom Model',
+  metaTitle: 'Flipped Classroom Lesson Plans for Teachers',
   metaDescription:
-    'A flipped classroom moves direct instruction outside class, often through pre-class video, so class time focuses on practice and discussion. Make My Lesson helps Australian teachers build curriculum-aligned flipped classroom lesson plans quickly.',
+    'Build flipped classroom lesson plans with pre-class content and structured in-class activities for application, discussion and teacher support.',
   quickAnswer:
     'A flipped classroom moves direct instruction outside the classroom, often through pre-class video, so class time is used for practice and discussion. Make My Lesson helps Australian teachers build flipped classroom lesson plans quickly, with the inverted classroom model fully curriculum-aligned.',
   sections: [

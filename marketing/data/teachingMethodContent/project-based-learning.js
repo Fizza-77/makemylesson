@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/project-based-learning */
 
 const projectBasedLearningContent = {
-  metaTitle: 'Project Based Learning: Lesson Plans That Build Real-World Skills',
+  metaTitle: 'Project Based Learning Lesson Plans',
   metaDescription:
-    'Project based learning engages students in extended, real-world projects that build deep understanding over time. Make My Lesson helps Australian teachers build curriculum-aligned PBL lesson plans quickly.',
+    'Build project based learning lesson plans with authentic tasks, milestones, student voice and assessment, aligned to meaningful curriculum outcomes.',
   quickAnswer:
     'Project based learning, often called PBL, engages students in extended, real-world projects that build deep understanding over time. Make My Lesson helps Australian teachers build project based learning lesson plans quickly, with every PBL project aligned to the curriculum.',
   sections: [

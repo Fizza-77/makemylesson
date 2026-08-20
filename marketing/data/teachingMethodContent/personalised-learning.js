@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/personalised-learning */
 
 const personalisedLearningContent = {
-  metaTitle: 'Personalised Learning: Lesson Plans Built Around Individual Student Needs',
+  metaTitle: 'Personalised Learning Lesson Plans',
   metaDescription:
-    'Personalised learning tailors content, pace, and support to each student\'s needs rather than one approach for the whole class. Make My Lesson helps Australian teachers build curriculum-aligned personalised learning lesson plans quickly.',
+    'Create personalised learning lesson plans with flexible pathways, tiered activities and support for different student needs, pace and readiness.',
   quickAnswer:
     'Personalised learning tailors content, pace, and support to each student\'s individual needs rather than using a single approach for the whole class. Make My Lesson helps Australian teachers build personalised learning lesson plans quickly, with every activity aligned to the curriculum.',
   sections: [

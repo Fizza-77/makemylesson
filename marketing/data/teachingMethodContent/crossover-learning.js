@@ -1,9 +1,9 @@
 /** Full page content for /teaching-methods/crossover-learning */
 
 const crossoverLearningContent = {
-  metaTitle: 'Crossover Learning: Lesson Plans That Connect Classroom and Real-World Learning',
+  metaTitle: 'Crossover Learning Lesson Plans',
   metaDescription:
-    'Crossover learning connects formal classroom instruction with informal, real-world learning experiences. Make My Lesson helps Australian teachers build curriculum-aligned crossover learning lesson plans quickly.',
+    'Connect classroom content with real-world and informal learning through crossover activities, reflection and curriculum-aligned lesson plans.',
   quickAnswer:
     'Crossover learning connects formal classroom instruction with informal, real-world learning experiences to deepen understanding. Make My Lesson helps Australian teachers build crossover learning lesson plans quickly, with every activity aligned to the curriculum.',
   sections: [
