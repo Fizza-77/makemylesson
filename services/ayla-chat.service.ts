@@ -1,4 +1,3 @@
-import { callFunction } from "@/firebase/functions";
 import {
   AYLA_FAQ_ENTRIES,
   buildAylaFaqTextFromEntries,
@@ -66,6 +65,7 @@ export async function sendAylaMessage(params: {
       text: message.text,
     }));
 
+    const { callFunction } = await import("@/firebase/functions");
     const data = await callFunction<
       {
         systemInstruction: string;

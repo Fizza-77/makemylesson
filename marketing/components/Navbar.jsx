@@ -9,6 +9,14 @@ import SectionLink from '@marketing/components/SectionLink'
 import { scrollToTop } from '@marketing/lib/homeScroll'
 import { Menu, X } from 'lucide-react'
 import { MarketingHomeLink } from '@/components/common/MarketingHomeLink'
+import {
+  FeaturesDesktopMenu,
+  FeaturesMobileMenu,
+} from '@marketing/components/FeaturesNavMenu'
+import {
+  TeachingMethodsDesktopMenu,
+  TeachingMethodsMobileMenu,
+} from '@marketing/components/TeachingMethodsMegaMenu'
 
 const NAV_GUTTER = 'px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8 2xl:px-10'
 
@@ -29,7 +37,6 @@ function useNavLinks() {
         label: 'Features',
         matchPrefix: '/features',
       },
-      { href: '/teaching-methods', label: 'Teaching Methods' },
       { href: '/pricing', label: 'Pricing' },
       { href: '/faq', label: 'FAQs' },
       { href: '/blog', label: 'Blog' },
@@ -128,7 +135,16 @@ export default function Navbar({ theme = 'home' }) {
         <div className={NAV_DESKTOP}>
           <div className="site-nav-links" role="list">
             {navLinks.map((item) => (
-              <NavLink key={item.label} item={item} pathname={pathname} className={NAV_LINK} />
+              <React.Fragment key={item.label}>
+                {item.label === 'Features' ? (
+                  <>
+                    <FeaturesDesktopMenu pathname={pathname} linkClassName={NAV_LINK} />
+                    <TeachingMethodsDesktopMenu pathname={pathname} linkClassName={NAV_LINK} />
+                  </>
+                ) : (
+                  <NavLink item={item} pathname={pathname} className={NAV_LINK} />
+                )}
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -161,13 +177,29 @@ export default function Navbar({ theme = 'home' }) {
       >
         <div className={cn(NAV_CONTAINER, 'flex flex-col gap-0.5 py-3')}>
           {navLinks.map((item) => (
-            <NavLink
-              key={item.label}
-              item={item}
-              pathname={pathname}
-              className={NAV_MENU_LINK}
-              onClick={() => setMobileOpen(false)}
-            />
+            <React.Fragment key={item.label}>
+              {item.label === 'Features' ? (
+                <>
+                  <FeaturesMobileMenu
+                    pathname={pathname}
+                    linkClassName={NAV_MENU_LINK}
+                    onNavigate={() => setMobileOpen(false)}
+                  />
+                  <TeachingMethodsMobileMenu
+                    pathname={pathname}
+                    linkClassName={NAV_MENU_LINK}
+                    onNavigate={() => setMobileOpen(false)}
+                  />
+                </>
+              ) : (
+                <NavLink
+                  item={item}
+                  pathname={pathname}
+                  className={NAV_MENU_LINK}
+                  onClick={() => setMobileOpen(false)}
+                />
+              )}
+            </React.Fragment>
           ))}
           <div className="site-nav-drawer-cta">
             <Link

@@ -1,5 +1,4 @@
 import HomeHeroSection from "@marketing/home-landing/HomeHeroSection";
-import BeforeAfterSection from "@marketing/home-landing/BeforeAfterSection";
 import MeetAylaSection from "@marketing/home-landing/MeetAylaSection";
 import CurriculumCoverageSection from "@marketing/home-landing/CurriculumCoverageSection";
 import ReviewsSection from "@marketing/home-landing/ReviewsSection";
@@ -166,7 +165,6 @@ export default function HomeLandingPage() {
         </div>
       </section>
 
-      <BeforeAfterSection />
       <MeetAylaSection />
       <div className="mml-band-gap" aria-hidden />
       <CurriculumCoverageSection />

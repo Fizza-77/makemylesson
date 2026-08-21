@@ -1,30 +1,22 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Inter, Manrope, Poppins } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 
 import MarketingChrome from "@marketing/components/MarketingChrome";
 
 import "../marketing-globals.css";
-import "@marketing/home-landing/marketing-page.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   adjustFontFallback: true,
 });
 
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins",
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
 });
@@ -49,7 +41,7 @@ export const metadata: Metadata = {
 };
 
 export default function MarketingLayout({ children }: { children: ReactNode }) {
-  const fontVars = `${inter.variable} ${manrope.variable} ${poppins.variable} ${inter.className}`;
+  const fontVars = `${inter.variable} ${manrope.variable} ${inter.className}`;
 
   return (
     <MarketingChrome

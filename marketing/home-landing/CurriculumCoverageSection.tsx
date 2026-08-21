@@ -64,7 +64,7 @@ const CARDS: CurriculumCard[] = [
     title: "United States",
     range: "Kindergarten to College Admissions",
     tone: "white",
-    flag: "/Flags/US-flag.svg",
+    flag: "/Flags/us-flag.webp",
     flagAlt: "United States flag",
     structure: "/US.svg",
     structureClass: "mml-cc-structure--us",
@@ -79,7 +79,7 @@ const CARDS: CurriculumCard[] = [
     title: "International Baccalaureate",
     range: "Primary to Diploma Programme",
     tone: "white",
-    flag: "/Flags/US-flag.svg",
+    flag: "/Flags/us-flag.webp",
     flagAlt: "United States flag",
     structure: "/IB.svg",
     structureClass: "mml-cc-structure--ib",
@@ -94,7 +94,7 @@ const CARDS: CurriculumCard[] = [
     title: "Australia",
     range: "Primary to Senior Secondary",
     tone: "white",
-    flag: "/Flags/Aus-flag.svg",
+    flag: "/Flags/aus-flag.webp",
     flagAlt: "Australia flag",
     structure: "/Australia.svg",
     structureClass: "mml-cc-structure--au",
@@ -117,7 +117,7 @@ const CARDS: CurriculumCard[] = [
     title: "Canada",
     range: "Primary to High School Graduation",
     tone: "white",
-    flag: "/Flags/Canada-flag.svg",
+    flag: "/Flags/canada-flag.webp",
     flagAlt: "Canada flag",
     structure: "/Canada.svg",
     structureClass: "mml-cc-structure--ca",
@@ -233,6 +233,8 @@ export default function CurriculumCoverageSection() {
                     className="mml-cc-flag"
                     width={48}
                     height={32}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
 

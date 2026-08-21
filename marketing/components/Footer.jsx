@@ -309,11 +309,13 @@ function SiteFooter() {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fmakemylesson.ai%2Fsmartlink"
+                      src="/qr-smartlink.png"
                       alt="QR code linking to Make My Lesson app"
                       width={80}
                       height={80}
                       className="h-full w-full object-contain"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </a>
                   <p className="max-w-[92px] text-center text-[9px] leading-snug text-white/80">

@@ -51,7 +51,7 @@ function TypingDots() {
 
 export default function MeetAylaSection() {
   return (
-    <section className="mml-ayla" aria-labelledby="mml-ayla-heading">
+    <section className="mml-ayla" id="ayla" aria-labelledby="mml-ayla-heading">
       <div className="mml-ayla-card">
         <div className="mml-ayla-left">
           <p className="mml-ayla-label">MEET AYLA</p>

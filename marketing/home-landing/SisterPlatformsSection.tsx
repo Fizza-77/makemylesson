@@ -1,69 +1,37 @@
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
 
 const PLATFORMS = [
   {
     key: "studiely",
     tone: "mint" as const,
-    title: "Studiely — For",
-    subtitle: "Students",
+    title: "Studiely — For Students",
     badge: "Start studying smarter",
-    paragraphs: [
-      "An AI-powered study platform built for students across the same curriculum systems Make My Lesson serves.",
-      "Where Make My Lesson supports the teacher preparing the lesson, Studiely supports the student on the other side of it.",
-    ],
-    cta: "Visit Studiely",
+    description:
+      "AI-powered study support for students across the same curriculum systems as Make My Lesson.",
     href: "https://studiely.com",
     logo: "/studiely-logo.jpeg",
   },
   {
     key: "linguatude",
     tone: "navy" as const,
-    title: "Linguatude — For",
-    subtitle: "English Test Preparation",
+    title: "Linguatude — For English Test Preparation",
     badge: "IELTS, TOEFL, PTE AND CAMBRIDGE",
-    paragraphs: [
-      "Built for learners whose next university place, immigration step or career opportunity depends on achieving a target English score.",
-      "Where Studiely supports curriculum study, Linguatude supports the test that opens the next door.",
-    ],
-    cta: "Visit Linguatude",
+    description:
+      "English test preparation for learners pursuing university, immigration or career goals.",
     href: "https://linguatude.com",
     logo: "/linguatude.jpeg",
   },
   {
     key: "worksheeta",
     tone: "mint" as const,
-    title: "Worksheeta — For",
-    subtitle: "Teachers",
+    title: "Worksheeta — For Teachers",
     badge: "AI-POWERED WORKSHEETS",
-    paragraphs: [
-      "Creates ready-to-print practice worksheets, classroom activities and answer keys from a single topic — differentiated for the learners in front of you.",
-      "Worksheeta is our sister platform built for teachers who need classroom-ready worksheets fast. Where Make My Lesson delivers the complete teaching pack, Worksheeta focuses on the practice materials students use in class and at home.",
-    ],
-    cta: "Visit Worksheeta",
+    description:
+      "Create differentiated, ready-to-print worksheets and answer keys from a single topic.",
     href: "https://worksheeta.com",
     logo: "/worksheeta.jpeg",
   },
 ] as const;
-
-function CornerArrow({ tone }: { tone: "mint" | "navy" }) {
-  return (
-    <svg
-      className={`mml-sp-corner-arrow mml-sp-corner-arrow--${tone}`}
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden
-    >
-      <path
-        d="M7 17L17 7M17 7H9M17 7V15"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export default function SisterPlatformsSection() {
   return (
@@ -85,35 +53,37 @@ export default function SisterPlatformsSection() {
             rel="noopener noreferrer"
             className={`mml-sp-card mml-sp-card--${platform.tone}`}
           >
-            <span className="mml-sp-card-top">
-              <span className="mml-sp-logo">
-                <Image
-                  src={platform.logo}
-                  alt=""
-                  width={48}
-                  height={48}
-                  className="mml-sp-logo-img"
-                />
-              </span>
-              <CornerArrow tone={platform.tone} />
+            <span className="mml-sp-logo">
+              <Image
+                src={platform.logo}
+                alt=""
+                width={40}
+                height={40}
+                className="mml-sp-logo-img"
+              />
             </span>
 
-            <h3 className="mml-sp-name">
-              <span className="mml-sp-name-title">{platform.title}</span>
-              <span className="mml-sp-name-sub">{platform.subtitle}</span>
-            </h3>
-
+            <h3 className="mml-sp-name">{platform.title}</h3>
             <span className="mml-sp-badge">{platform.badge}</span>
-
-            <div className="mml-sp-body">
-              {platform.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
+            <p className="mml-sp-body">{platform.description}</p>
 
             <span className="mml-sp-cta">
-              {platform.cta}
-              <ExternalLink size={14} strokeWidth={2.2} aria-hidden />
+              Read More
+              <svg
+                width={16}
+                height={16}
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M7 17L17 7M17 7H9M17 7V15"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </span>
           </a>
         ))}

@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import type { ReactNode } from "react";
 
-import { AppProviders } from "@/components/providers/AppProviders";
-import { ProfileRouteGuard } from "@/components/auth/ProfileRouteGuard";
 import { APP_ORIGIN } from "@/lib/urls";
-
-import "./globals.css";
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_ORIGIN),
@@ -56,13 +46,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full">
-      <body
-        className={`${manrope.className} min-h-full bg-[#F5F6FA] text-[#1A1C30] antialiased`}
-      >
-        <AppProviders>
-          <ProfileRouteGuard>{children}</ProfileRouteGuard>
-        </AppProviders>
-      </body>
+      <body className="min-h-full antialiased">{children}</body>
     </html>
   );
 }

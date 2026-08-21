@@ -70,8 +70,9 @@ export function ToastHost() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-[100] flex flex-col items-center gap-2 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 md:pb-6"
+      role="region"
       aria-label="Notifications"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-[100] flex flex-col items-center gap-2 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 md:pb-6"
     >
       {/* Sit above mobile bottom nav */}
       <div className="mb-16 flex w-full max-w-md flex-col items-stretch gap-2 md:mb-0">

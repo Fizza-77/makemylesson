@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
@@ -15,13 +15,20 @@ const NAV_LINK = 'site-nav-link shrink-0 no-underline'
 const NAV_MENU_LINK = 'site-nav-link block no-underline'
 const HOVER_CLOSE_DELAY_MS = 120
 
+function getDropdownPanelLeft(trigger) {
+  if (!trigger) return 0
+  const rect = trigger.getBoundingClientRect()
+  return rect.left + rect.width / 2
+}
+
 function isTeachingMethodsActive(pathname) {
-  return pathname === TEACHING_METHODS_BASE || pathname.startsWith(`${TEACHING_METHODS_BASE}/`)
+  return pathname.startsWith(`${TEACHING_METHODS_BASE}/`)
 }
 
 export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK }) {
   const [open, setOpen] = useState(false)
   const [portalTarget, setPortalTarget] = useState(null)
+  const [panelLeft, setPanelLeft] = useState(0)
   const menuId = useId()
   const rootRef = useRef(null)
   const closeTimerRef = useRef(null)
@@ -49,10 +56,27 @@ export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK 
     setOpen(true)
   }, [clearCloseTimer])
 
+  const updatePanelPosition = useCallback(() => {
+    setPanelLeft(getDropdownPanelLeft(rootRef.current))
+  }, [])
+
   useEffect(() => {
     setPortalTarget(document.getElementById('site-nav'))
     return () => clearCloseTimer()
   }, [clearCloseTimer])
+
+  useLayoutEffect(() => {
+    if (!open) return undefined
+
+    updatePanelPosition()
+
+    window.addEventListener('resize', updatePanelPosition)
+    window.addEventListener('scroll', updatePanelPosition, true)
+    return () => {
+      window.removeEventListener('resize', updatePanelPosition)
+      window.removeEventListener('scroll', updatePanelPosition, true)
+    }
+  }, [open, updatePanelPosition])
 
   useEffect(() => {
     if (!open) return undefined
@@ -79,6 +103,7 @@ export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK 
     <div
       id={menuId}
       className={cn('site-nav-mega-panel', open && 'site-nav-mega-panel--open')}
+      style={{ left: panelLeft }}
       role="region"
       aria-label="Teaching methods"
       aria-hidden={!open}
@@ -114,7 +139,7 @@ export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK 
     <>
       <div
         ref={rootRef}
-        className="site-nav-mega"
+        className="site-nav-dropdown site-nav-mega"
         onMouseEnter={openMenu}
         onMouseLeave={scheduleClose}
       >
@@ -122,7 +147,7 @@ export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK 
           type="button"
           className={cn(
             linkClassName,
-            'site-nav-mega-trigger inline-flex items-center gap-1 border-none bg-transparent font-[inherit]',
+            'site-nav-dropdown-trigger site-nav-mega-trigger inline-flex items-center gap-1 border-none bg-transparent font-[inherit]',
             (active || open) && 'site-nav-link--active',
           )}
           aria-expanded={open}
@@ -134,7 +159,10 @@ export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK 
           <ChevronDown
             size={14}
             strokeWidth={2.25}
-            className={cn('site-nav-mega-chevron transition-transform', open && 'rotate-180')}
+            className={cn(
+              'site-nav-dropdown-chevron site-nav-mega-chevron transition-transform',
+              open && 'rotate-180',
+            )}
             aria-hidden
           />
         </button>
@@ -150,12 +178,12 @@ export function TeachingMethodsMobileMenu({ pathname, linkClassName = NAV_MENU_L
   const active = isTeachingMethodsActive(pathname)
 
   return (
-    <div className="site-nav-mobile-mega">
+    <div className="site-nav-mobile-dropdown site-nav-mobile-mega">
       <button
         type="button"
         className={cn(
           linkClassName,
-          'site-nav-mobile-mega-trigger flex w-full items-center border-none bg-transparent font-[inherit]',
+          'site-nav-mobile-dropdown-trigger site-nav-mobile-mega-trigger flex w-full items-center border-none bg-transparent font-[inherit]',
           (active || expanded) && 'site-nav-link--active',
         )}
         aria-expanded={expanded}
@@ -166,7 +194,7 @@ export function TeachingMethodsMobileMenu({ pathname, linkClassName = NAV_MENU_L
           size={16}
           strokeWidth={2.25}
           className={cn(
-            'site-nav-mobile-mega-chevron shrink-0 transition-transform',
+            'site-nav-mobile-dropdown-chevron site-nav-mobile-mega-chevron shrink-0 transition-transform',
             expanded && 'site-nav-mobile-mega-chevron--open',
           )}
           aria-hidden
@@ -180,13 +208,6 @@ export function TeachingMethodsMobileMenu({ pathname, linkClassName = NAV_MENU_L
         )}
         aria-hidden={!expanded}
       >
-        <Link
-          href={TEACHING_METHODS_BASE}
-          className="site-nav-mobile-mega-overview"
-          onClick={onNavigate}
-        >
-          Overview
-        </Link>
         {TEACHING_METHOD_COLUMNS.map((column) => (
           <div key={column.id} className="site-nav-mobile-mega-col">
             <p className="site-nav-mobile-mega-col-heading">{column.heading}</p>

@@ -17,8 +17,12 @@ export default function FeatureSectionImage({
         alt={`${feature.label} feature illustration`}
         fill
         className={imageClassName}
-        sizes="(max-width: 768px) 100vw, 42vw"
+        sizes="(max-width: 768px) 100vw, 440px"
         priority
+        loading="eager"
+        fetchPriority="high"
+        quality={70}
+        decoding="async"
       />
     </div>
   )

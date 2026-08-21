@@ -1,13 +1,34 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import AylaMarketingChat from "@marketing/components/AylaMarketingChat";
 import CookieConsent from "@marketing/components/CookieConsent";
 import Footer from "@marketing/components/Footer";
 import LandingScrollHandler from "@marketing/components/LandingScrollHandler";
 import Navbar from "@marketing/components/Navbar";
+
+const AylaMarketingChat = dynamic(() => import("@marketing/components/AylaMarketingChat"), {
+  ssr: false,
+  loading: () => null,
+});
+
+function DeferredAylaChat() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const idle = window.requestIdleCallback?.(() => setReady(true), { timeout: 4000 });
+    const fallback = window.setTimeout(() => setReady(true), 4000);
+    return () => {
+      if (idle !== undefined) window.cancelIdleCallback(idle);
+      window.clearTimeout(fallback);
+    };
+  }, []);
+
+  return ready ? <AylaMarketingChat /> : null;
+}
 
 type MarketingChromeProps = {
   children: ReactNode;
@@ -34,7 +55,7 @@ export default function MarketingChrome({
         <div>{children}</div>
         <Footer />
         <CookieConsent />
-        <AylaMarketingChat />
+        <DeferredAylaChat />
       </div>
     );
   }
@@ -45,7 +66,7 @@ export default function MarketingChrome({
       <main className="main-content flex min-h-0 flex-1 flex-col pt-16">{children}</main>
       <Footer />
       <CookieConsent />
-      <AylaMarketingChat />
+      <DeferredAylaChat />
     </div>
   );
 }

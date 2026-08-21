@@ -66,7 +66,7 @@ export default function HomeHeroSection() {
               </svg>
             </Link>
             <SectionLink
-              sectionId="sample-lesson"
+              sectionId="ayla"
               href="/"
               className="mml-mkt-hero-cta-secondary"
             >
@@ -79,7 +79,7 @@ export default function HomeHeroSection() {
           <div className="mml-mkt-hero-mockups">
             <div className="mml-mkt-hero-mockups-glow" />
             <div className="mml-mkt-hero-mockups-ring" />
-            {HERO_MOCKUPS.map(({ src, className }) => (
+            {HERO_MOCKUPS.map(({ src, className }, index) => (
               <div key={src} className={`mml-mkt-hero-phone ${className}`}>
                 <div className="mml-mkt-hero-phone-notch" />
                 <div className="mml-mkt-hero-phone-screen">
@@ -89,10 +89,11 @@ export default function HomeHeroSection() {
                     width={390}
                     height={844}
                     className="mml-mkt-hero-phone-img"
-                    sizes="(max-width: 960px) 42vw, 220px"
-                    priority
-                    loading="eager"
-                    fetchPriority="high"
+                    sizes="(max-width: 960px) 160px, 220px"
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                    quality={70}
                   />
                 </div>
               </div>

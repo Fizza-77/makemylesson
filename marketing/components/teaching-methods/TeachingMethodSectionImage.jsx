@@ -25,6 +25,8 @@ export default function TeachingMethodSectionImage({
       ? `${method.label ?? method.title} section illustration`
       : `${method.label ?? method.title} teaching method illustration`
 
+  const isHero = imageKey === 'hero'
+
   return (
     <div className={cn(className)}>
       <Image
@@ -32,8 +34,12 @@ export default function TeachingMethodSectionImage({
         alt={alt}
         fill
         className={imageClassName}
-        sizes={imageKey === 'section' ? '(max-width: 900px) 100vw, 320px' : '(max-width: 768px) 100vw, 42vw'}
-        priority={imageKey === 'hero'}
+        sizes={isHero ? '(max-width: 768px) 100vw, 440px' : '(max-width: 900px) 100vw, 320px'}
+        priority={isHero}
+        loading={isHero ? 'eager' : 'lazy'}
+        fetchPriority={isHero ? 'high' : 'auto'}
+        quality={isHero ? 70 : 80}
+        decoding="async"
       />
     </div>
   )
