@@ -28,7 +28,9 @@ export function AuthGlassShell({
     <div
       className={cn(
         "flex h-dvh max-h-dvh flex-col justify-center overflow-hidden bg-gradient-to-br from-[#1A2138] via-[#1E2235] to-[#28C2C0]/30",
-        wide ? "p-1.5 lg:h-auto lg:min-h-screen lg:max-h-none lg:p-[0.5in]" : "px-4 py-6 sm:py-8",
+        wide
+          ? "p-1.5 lg:h-auto lg:min-h-screen lg:max-h-none lg:p-[0.5in]"
+          : "overflow-y-auto px-4 py-6 sm:py-8",
         shellClassName,
       )}
     >
@@ -37,7 +39,7 @@ export function AuthGlassShell({
           "mx-auto flex w-full min-h-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/95 shadow-xl backdrop-blur sm:rounded-3xl",
           wide
             ? "max-w-none p-2.5 lg:overflow-visible lg:p-10 xl:p-12"
-            : "max-w-md p-8",
+            : "max-w-md overflow-visible p-8",
           className,
         )}
       >

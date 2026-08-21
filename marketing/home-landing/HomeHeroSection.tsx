@@ -1,105 +1,203 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import HeroBackdrop from "@marketing/home-landing/HeroBackdrop";
 import SectionLink from "@marketing/components/SectionLink";
 import { MML_APP } from "@marketing/lib/appUrls";
 
-const HERO_MOCKUPS = [
+const CURRICULUMS = [
   {
-    src: "/mockups/mockup1.jpeg",
-    className: "mml-mkt-hero-phone--primary",
-    alt: "Make My Lesson mobile app showing an AI-generated lesson plan",
+    id: "aus",
+    label: "AUS",
+    flag: "/Flags/aus-flag.webp",
+    alt: "Australia flag",
   },
   {
-    src: "/mockups/mockup2.jpeg",
-    className: "mml-mkt-hero-phone--secondary",
-    alt: "Make My Lesson mobile app showing a classroom presentation",
+    id: "uk",
+    label: "UK",
+    flag: "/Flags/UK-flag.svg",
+    alt: "United Kingdom flag",
+  },
+  {
+    id: "ca",
+    label: "Canada",
+    flag: "/Flags/canada-flag.webp",
+    alt: "Canada flag",
+  },
+  {
+    id: "ib",
+    label: "IB",
+    flag: "/Flags/us-flag.webp",
+    alt: "United States flag",
+  },
+  {
+    id: "us",
+    label: "US / AP",
+    flag: "/Flags/us-flag.webp",
+    alt: "United States flag",
   },
 ] as const;
+
+const STEPS = [
+  {
+    title: "Lesson Plan",
+    copy: "Tell us your topic, grade, subject, and duration. We'll build a structured, curriculum-aligned plan.",
+  },
+  {
+    title: "Presentation",
+    copy: "Get slide-by-slide content with speaker notes and beautiful visuals.",
+  },
+  {
+    title: "Classroom Activity",
+    copy: "Engage students with ready-to-use activities, worksheets, and group tasks.",
+  },
+  {
+    title: "Assessment",
+    copy: "Create assessments with answer keys and marking guides. Any stage. Any order. You're in control.",
+  },
+] as const;
+
+const PERKS = [
+  "5 Free Lesson Plans",
+  "Save 5 hrs on lesson prep",
+  "No card required",
+] as const;
+
+function CheckIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <circle cx="8" cy="8" r="7.25" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M4.7 8.15 6.85 10.2 11.3 5.8"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function StepArrow() {
+  return (
+    <svg
+      className="mml-mkt-hero-step-arrow"
+      viewBox="0 0 18 18"
+      fill="none"
+      aria-hidden
+    >
+      <path
+        d="M6 3.5 12.5 9 6 14.5"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export default function HomeHeroSection() {
   return (
     <main className="mml-mkt-hero" id="hero">
       <div className="mml-mkt-hero-grid-bg" aria-hidden />
       <div className="mml-mkt-hero-glow" aria-hidden />
-      <HeroBackdrop />
 
-      <div className="mml-mkt-hero-inner mml-mkt-hero-split">
-        <div className="mml-mkt-hero-copy-col">
-          <p className="mml-mkt-hero-eyebrow">
-            <span className="mml-mkt-hero-eyebrow-dot" aria-hidden />
-            AI lesson planner for teachers
-          </p>
+      <div className="mml-mkt-hero-inner">
+        <div className="mml-mkt-hero-split">
+          <div className="mml-mkt-hero-copy-col">
+            <div className="mml-mkt-hero-cta-stack">
+              <div className="mml-mkt-hero-heading">
+                <p className="mml-mkt-hero-kicker">
+                  For teachers · 5 curriculum families · 16 teaching methods
+                </p>
 
-          <h1 className="mml-mkt-hero-title">
-            <span className="mml-mkt-hero-title-line">The AI Lesson Planner</span>
-            <span className="mml-mkt-hero-title-line">and Lesson Plan Generator</span>
-            <span className="mml-mkt-hero-title-line mml-mkt-hero-title-line--accent">
-              for Curriculum-Aligned Teaching Packs
-            </span>
-          </h1>
-
-          <p className="mml-mkt-hero-lead">
-            Your curriculum, your output. Select your route, enter your topic, and
-            get a standards-based, classroom-ready pack with lesson plan, AI
-            presentation, classroom activity, and summative assessment with mark
-            scheme <strong>in minutes, not hours.</strong> Save 2–3 hours per
-            lesson and cut lesson preparation time.
-          </p>
-
-          <div className="mml-mkt-hero-ctas">
-            <Link href={MML_APP.stage1} className="mml-mkt-hero-cta-primary">
-              Build Your First Teaching Pack Free
-              <svg
-                width={16}
-                height={16}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-                aria-hidden
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 12h14M12 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
-            <SectionLink
-              sectionId="ayla"
-              href="/"
-              className="mml-mkt-hero-cta-secondary"
-            >
-              See How It Works ↓
-            </SectionLink>
-          </div>
-        </div>
-
-        <div className="mml-mkt-hero-visual-col" aria-hidden>
-          <div className="mml-mkt-hero-mockups">
-            <div className="mml-mkt-hero-mockups-glow" />
-            <div className="mml-mkt-hero-mockups-ring" />
-            {HERO_MOCKUPS.map(({ src, className, alt }, index) => (
-              <div key={src} className={`mml-mkt-hero-phone ${className}`}>
-                <div className="mml-mkt-hero-phone-notch" />
-                <div className="mml-mkt-hero-phone-screen">
-                  <Image
-                    src={src}
-                    alt={alt}
-                    width={390}
-                    height={844}
-                    className="mml-mkt-hero-phone-img"
-                    sizes="(max-width: 960px) 160px, 220px"
-                    priority={index === 0}
-                    loading={index === 0 ? "eager" : "lazy"}
-                    fetchPriority={index === 0 ? "high" : "auto"}
-                    quality={70}
-                  />
-                </div>
+                <h1 className="mml-mkt-hero-title">
+                  Plan, <span className="mml-mkt-hero-title-mark">Teach</span>, Assess.
+                </h1>
               </div>
-            ))}
+
+              <div className="mml-mkt-hero-body">
+                <p className="mml-mkt-hero-lead">
+                  Create a complete, curriculum-aligned teaching pack from lesson plan
+                  to slides, activities and assessment in{" "}
+                  <strong className="mml-mkt-hero-lead-accent">around 10 minutes.</strong>
+                </p>
+
+                <div className="mml-mkt-hero-ctas">
+                <a href={MML_APP.stage1} className="mml-mkt-hero-cta-primary">
+                  Create Your First Lesson — Free
+                </a>
+                <Link
+                  href="/features/lesson-plan-generator"
+                  className="mml-mkt-hero-cta-secondary"
+                >
+                  See a Sample Teaching Pack
+                </Link>
+              </div>
+
+              <ul className="mml-mkt-hero-perks">
+                {PERKS.map((perk) => (
+                  <li key={perk}>
+                    <span className="mml-mkt-hero-perk-icon">
+                      <CheckIcon />
+                    </span>
+                    {perk}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mml-mkt-hero-flags" aria-label="Curriculum families">
+                {CURRICULUMS.map((item) => (
+                  <SectionLink
+                    key={item.id}
+                    sectionId="curriculum"
+                    href="/"
+                    className="mml-mkt-hero-flag"
+                  >
+                    <Image
+                      src={item.flag}
+                      alt={item.alt}
+                      width={22}
+                      height={16}
+                      className="mml-mkt-hero-flag-img"
+                    />
+                    <span>{item.label}</span>
+                  </SectionLink>
+                ))}
+              </div>
+
+              <div className="mml-mkt-hero-steps-wrap">
+                <p className="mml-mkt-hero-steps-heading">
+                  From Plan to Classroom in <span>4 Simple Steps.</span>
+                </p>
+                <ol className="mml-mkt-hero-steps">
+                  {STEPS.map((step, index) => (
+                    <li key={step.title} className="mml-mkt-hero-step">
+                      {index > 0 ? <StepArrow /> : null}
+                      <article>
+                        <span className="mml-mkt-hero-step-num">{index + 1}</span>
+                        <h2>{step.title}</h2>
+                        <p>{step.copy}</p>
+                      </article>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mml-mkt-hero-visual-col">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/Hero Visual Stage.svg"
+              alt="Overlapping teaching pack documents: lesson plan, slides, classroom activity, test paper, answer key, and mark scheme for an ecosystems lesson."
+              className="mml-mkt-hero-stage-svg"
+              width={859}
+              height={630}
+              decoding="async"
+              fetchPriority="high"
+            />
           </div>
         </div>
       </div>

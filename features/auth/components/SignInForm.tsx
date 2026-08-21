@@ -157,6 +157,17 @@ export function SignInForm() {
     <AuthGlassShell
       title="Welcome back"
       subtitle="Sign in to your Make My Lesson account"
+      headerAction={
+        <p className="text-sm text-[#666666]">
+          Don&apos;t have an account?{" "}
+          <Link
+            href={ROUTES.signUp}
+            className="font-semibold text-[#28C2C0] hover:underline"
+          >
+            Sign up
+          </Link>
+        </p>
+      }
     >
       <form
         className="space-y-4"
@@ -250,12 +261,12 @@ export function SignInForm() {
       </div>
 
       <p className="mt-6 text-center text-sm text-[#666666]">
-        New to Make My Lesson?{" "}
+        Don&apos;t have an account?{" "}
         <Link
           href={ROUTES.signUp}
           className="font-semibold text-[#28C2C0] hover:underline"
         >
-          Create an account
+          Sign up
         </Link>
       </p>
       <p className="mt-3 text-center">

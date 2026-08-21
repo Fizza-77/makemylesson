@@ -20,7 +20,7 @@ import Container from '@marketing/components/layout/Container'
 import { getFeaturePath } from '@marketing/data/features'
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from '@marketing/lib/appUrls'
 
-const TEAL = '#35BEBC'
+const TEAL = '#159F9B'
 
 const SITEMAP_LINKS = [
   { href: '/', label: 'Home', Icon: Home },
@@ -157,7 +157,7 @@ function ExternalTextLink({ href, children }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="font-semibold text-[#35BEBC] underline underline-offset-2 transition-opacity hover:opacity-90"
+      className="font-semibold text-[#159F9B] underline underline-offset-2 transition-opacity hover:opacity-90"
     >
       {children}
     </a>
@@ -168,7 +168,7 @@ function SiteFooter() {
   return (
     <>
       <div className="h-[1cm] bg-white" aria-hidden />
-      <footer className="mml-site-footer mt-auto w-full min-w-0 bg-[#1A1E3A] text-white">
+      <footer className="mml-site-footer mt-auto w-full min-w-0 bg-[#273746] text-white">
         <Container className="py-8 sm:py-9 lg:py-10">
           {/* Top: Brand | Sitemap | Follow | Download */}
           <div className="mml-site-footer-grid grid gap-8 lg:grid-cols-[minmax(11.5rem,0.85fr)_minmax(0,2.55fr)_auto_minmax(0,1.2fr)] lg:items-start lg:gap-0">
@@ -246,7 +246,7 @@ function SiteFooter() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border text-white transition hover:bg-[#35BEBC] hover:text-[#1A1E3A]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border text-white transition hover:bg-[#159F9B] hover:text-[#273746]"
                     style={{ borderColor: TEAL }}
                   >
                     <Icon />
@@ -341,7 +341,7 @@ function SiteFooter() {
                   ) : null}
                   <Link
                     href={item.href}
-                    className="text-[12px] font-medium text-white/85 no-underline transition-colors hover:text-[#35BEBC] sm:text-[13px]"
+                    className="text-[12px] font-medium text-white/85 no-underline transition-colors hover:text-[#159F9B] sm:text-[13px]"
                   >
                     {item.label}
                   </Link>

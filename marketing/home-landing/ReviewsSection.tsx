@@ -281,7 +281,7 @@ const REVIEW_SLIDES: Review[][] = [
 
 function Stars({ color }: { color: Review["stars"] }) {
   const fill =
-    color === "cyan" ? "#35bebc" : color === "white" ? "#ffffff" : "#1a1e3a";
+    color === "cyan" ? "#159f9b" : color === "white" ? "#ffffff" : "#0e294c";
 
   return (
     <div className="mml-rv-stars" aria-label="5 out of 5 stars">

@@ -13,7 +13,7 @@ function RoutesUnderline() {
     >
       <path
         d="M4 5h192"
-        stroke="#35bebc"
+        stroke="var(--mml-cyan)"
         strokeWidth="7"
         strokeLinecap="round"
       />

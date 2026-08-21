@@ -64,7 +64,7 @@ export default function MarketingChrome({
     return (
       <div
         className={`mml-chrome mml-chrome--home ${homeClassName}`}
-        style={{ background: "#1a1e3a", minHeight: "100vh" }}
+        style={{ background: "#e6ecee", minHeight: "100vh" }}
       >
         <Navbar theme="home" />
         <LandingScrollHandler />
