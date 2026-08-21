@@ -1,4 +1,8 @@
 import { DEFAULT_OG_IMAGE_PATH, SITE_URL } from '@marketing/lib/siteUrl'
+import {
+  organizationRef,
+  websiteRef,
+} from '@marketing/lib/organizationSchema'
 
 export function buildBlogPostingJsonLd(blog) {
   const url = `${SITE_URL}/blog/${blog.slug}`
@@ -17,6 +21,8 @@ export function buildBlogPostingJsonLd(blog) {
       '@type': 'WebPage',
       '@id': url,
     },
+    isPartOf: websiteRef(),
+    publisher: organizationRef(),
   }
 
   if (description) jsonLd.description = description
@@ -39,6 +45,8 @@ export function buildBlogPostingJsonLd(blog) {
       '@type': 'Person',
       name: author,
     }
+  } else {
+    jsonLd.author = organizationRef()
   }
 
   return jsonLd

@@ -168,10 +168,10 @@ function SiteFooter() {
   return (
     <>
       <div className="h-[1cm] bg-white" aria-hidden />
-      <footer className="mt-auto w-full min-w-0 bg-[#1A1E3A] text-white">
+      <footer className="mml-site-footer mt-auto w-full min-w-0 bg-[#1A1E3A] text-white">
         <Container className="py-8 sm:py-9 lg:py-10">
           {/* Top: Brand | Sitemap | Follow | Download */}
-          <div className="grid gap-8 lg:grid-cols-[minmax(11.5rem,0.85fr)_minmax(0,2.55fr)_auto_minmax(0,1.2fr)] lg:items-start lg:gap-0">
+          <div className="mml-site-footer-grid grid gap-8 lg:grid-cols-[minmax(11.5rem,0.85fr)_minmax(0,2.55fr)_auto_minmax(0,1.2fr)] lg:items-start lg:gap-0">
             {/* Brand */}
             <div className="min-w-0 lg:pr-4 lg:border-r lg:border-white/15">
               <Link
@@ -199,7 +199,7 @@ function SiteFooter() {
                 Sitemap
               </p>
               <nav aria-label="Sitemap">
-                <ul className="flex w-full flex-nowrap items-stretch overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <ul className="mml-site-footer-sitemap flex w-full flex-nowrap items-stretch overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {SITEMAP_LINKS.map(({ href, label, Icon }, index) => {
                     const isLast = index === SITEMAP_LINKS.length - 1
                     return (
@@ -331,7 +331,7 @@ function SiteFooter() {
             aria-label="Legal documents"
             className="mt-8 border-t border-white/15 pt-5 sm:mt-9 sm:pt-5"
           >
-            <ul className="flex flex-wrap items-center justify-center gap-x-0 gap-y-2">
+            <ul className="mml-site-footer-legal flex flex-wrap items-center justify-center gap-x-0 gap-y-2">
               {LEGAL_DOCS_ROW.map((item, index) => (
                 <li key={item.href} className="inline-flex items-center">
                   {index > 0 ? (

@@ -1,4 +1,8 @@
 import { TEACHING_METHODS_BASE } from '@marketing/data/teachingMethods'
+import {
+  organizationRef,
+  websiteRef,
+} from '@marketing/lib/organizationSchema'
 import { SITE_URL } from '@marketing/lib/siteUrl'
 
 export function buildTeachingMethodsHubBreadcrumbSchema() {
@@ -33,11 +37,14 @@ export function buildTeachingMethodsHubItemListSchema(columns) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
+    '@id': `${SITE_URL}${TEACHING_METHODS_BASE}#itemlist`,
     name: 'Teaching Methods',
     description:
       'Pedagogical approaches supported by Make My Lesson — from structured delivery to learner-centred and inquiry-based methods.',
     url: `${SITE_URL}${TEACHING_METHODS_BASE}`,
     numberOfItems: items.length,
+    isPartOf: websiteRef(),
+    publisher: organizationRef(),
     itemListElement: items.map((item, index) => ({
       ...item,
       position: index + 1,
@@ -77,13 +84,15 @@ export function buildTeachingMethodWebPageSchema(method) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
+    '@id': `${url}#webpage`,
     name: method.label,
     description: method.description,
     url,
-    isPartOf: {
-      '@type': 'WebSite',
-      name: 'Make My Lesson',
-      url: SITE_URL,
+    isPartOf: websiteRef(),
+    publisher: organizationRef(),
+    about: {
+      '@type': 'Thing',
+      name: method.label,
     },
   }
 }
@@ -98,7 +107,10 @@ export function buildTeachingMethodFaqJsonLd(faq, pageUrl) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
     url: pageUrl,
+    isPartOf: websiteRef(),
+    publisher: organizationRef(),
     mainEntity: faq.map((item) => ({
       '@type': 'Question',
       name: item.q ?? item.question ?? '',

@@ -16,11 +16,6 @@ const homeMetaDescription =
 const homeOgTwitterDescription = homeMetaDescription
 
 const homeCanonical = `${SITE_URL.replace(/\/$/, '')}/`
-const siteOrigin = SITE_URL.replace(/\/$/, '')
-
-/** Rich result copy for SoftwareApplication JSON-LD (distinct from meta description). */
-const softwareApplicationDescription =
-  'AI-powered lesson planning platform for teachers. Generates complete, curriculum-aligned teaching packs including lesson plan, classroom presentation, student activity and summative assessment. Supports 71 curriculum routes across Australia, United Kingdom, Canada, International Baccalaureate and United States.'
 
 export const metadata = {
   title: {
@@ -81,51 +76,8 @@ export const metadata = {
   },
 }
 
-const websiteJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Make My Lesson',
-  url: homeCanonical,
-  description: homeMetaDescription,
-  publisher: {
-    '@type': 'Organization',
-    name: 'Qismat Ventures W.L.L',
-    url: SITE_URL,
-  },
-}
-
-const softwareJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'Make My Lesson',
-  applicationCategory: 'EducationApplication',
-  operatingSystem: 'Web, iOS, Android',
-  description: softwareApplicationDescription,
-  url: siteOrigin,
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-    description: '5 free generation credits on signup. No credit card required.',
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'Make My Lesson',
-    url: siteOrigin,
-    logo: `${siteOrigin}/logo.png`,
-  },
-}
-
 export default function HomePage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([websiteJsonLd, softwareJsonLd]),
-        }}
-      />
-      <HomeLandingPage />
-    </>
-  )
+  // Organization / Brand / WebSite / SoftwareApplication JSON-LD is injected
+  // once via the marketing layout (`buildCoreOrganizationGraph`).
+  return <HomeLandingPage />
 }

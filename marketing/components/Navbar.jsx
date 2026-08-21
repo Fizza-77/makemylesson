@@ -9,6 +9,7 @@ import SectionLink from '@marketing/components/SectionLink'
 import { scrollToTop } from '@marketing/lib/homeScroll'
 import { Menu, X } from 'lucide-react'
 import { MarketingHomeLink } from '@/components/common/MarketingHomeLink'
+import BrandMark from '@marketing/components/BrandMark'
 import {
   FeaturesDesktopMenu,
   FeaturesMobileMenu,
@@ -117,7 +118,7 @@ export default function Navbar({ theme = 'home' }) {
       <div className={cn(NAV_CONTAINER, NAV_BAR)}>
         <MarketingHomeLink
           className={cn(
-            'site-nav-brand flex shrink-0 items-center no-underline',
+            'site-nav-brand flex shrink-0 items-center gap-2 no-underline',
             pathname === '/' && 'site-nav-brand--active',
           )}
           aria-label="Make My Lesson home"
@@ -129,6 +130,7 @@ export default function Navbar({ theme = 'home' }) {
             }
           }}
         >
+          <BrandMark className="site-nav-brand-mark h-7 w-7 shrink-0 object-contain" />
           <span className="site-nav-brand-text font-sans">Make My Lesson</span>
         </MarketingHomeLink>
 

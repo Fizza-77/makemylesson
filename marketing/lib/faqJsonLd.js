@@ -1,3 +1,8 @@
+import {
+  organizationRef,
+  websiteRef,
+} from '@marketing/lib/organizationSchema'
+
 /**
  * Build FAQPage JSON-LD for Google rich results.
  * @param {{ id: number; q: string; a: string }[]} items
@@ -21,7 +26,10 @@ export function buildFaqJsonLd(items, schemaIds, pageUrl) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
     url: pageUrl,
+    isPartOf: websiteRef(),
+    publisher: organizationRef(),
     mainEntity,
   }
 }

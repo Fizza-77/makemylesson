@@ -9,8 +9,8 @@
   --color-mml-teal-dark: #4ba8c4;
   --color-mml-teal-light: #b5e8f4;
   --color-mml-text: #f0f6ff;
-  --color-mml-text-secondary: #ffffff;
-  --color-mml-muted: #ffffff;
+  --color-mml-text-secondary: #94a3b8;
+  --color-mml-muted: #64748b;
   --color-mml-sky: #38bdf8;
   --color-mml-green: #4ade80;
   --color-mml-purple: #a78bfa;
@@ -166,7 +166,7 @@
 }
 
 #site-nav .site-nav-bar {
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Landing: navy navbar */
@@ -277,7 +277,7 @@
 }
 
 #site-nav .site-nav-desktop {
-  overflow: hidden;
+  overflow: visible;
   min-width: 0;
 }
 
@@ -548,6 +548,68 @@
 #site-nav .site-nav-drawer {
   border-top: 1px solid rgba(125, 211, 232, 0.1);
   background: rgba(13, 22, 38, 0.98);
+}
+
+/* Desktop: never show the mobile drawer/toggle (do not rely only on Tailwind) */
+@media (min-width: 901px) {
+  #site-nav .site-nav-drawer,
+  #site-nav .site-nav-toggle {
+    display: none !important;
+  }
+
+  #site-nav .site-nav-desktop {
+    display: flex !important;
+  }
+}
+
+/* Site footer — keep readable even if utility generation lags */
+.mml-site-footer {
+  background: #1a1e3a;
+  color: #ffffff;
+}
+
+.mml-site-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mml-site-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mml-site-footer .mml-site-footer-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .mml-site-footer .mml-site-footer-grid {
+    grid-template-columns: minmax(11.5rem, 0.85fr) minmax(0, 2.55fr) auto minmax(0, 1.2fr);
+    align-items: start;
+    gap: 0;
+  }
+}
+
+.mml-site-footer .mml-site-footer-sitemap {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mml-site-footer .mml-site-footer-sitemap > li {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.mml-site-footer .mml-site-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 #site-nav.site-nav--light .site-nav-drawer {
@@ -1023,7 +1085,11 @@
   outline-offset: 4px;
 }
 
-/* Teaching Methods mega-menu */
+/* Teaching Methods mega-menu — centered under trigger */
+#site-nav .site-nav-mega {
+  position: relative;
+}
+
 #site-nav .site-nav-mega-trigger {
   cursor: pointer;
 }
@@ -1033,12 +1099,12 @@
 }
 
 #site-nav .site-nav-mega-panel {
-  position: fixed;
-  top: var(--site-nav-height);
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 50%;
   z-index: 1200;
   width: max-content;
   max-width: min(72rem, calc(100vw - 1.5rem));
-  padding-top: 0.5rem;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;

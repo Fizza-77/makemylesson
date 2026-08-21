@@ -1,11 +1,14 @@
 import { notFound } from 'next/navigation'
 import FeaturesPage from '@marketing/views/FeaturesPage'
+import JsonLd from '@marketing/components/JsonLd'
 import {
   FEATURE_ITEMS,
+  FEATURES_BASE,
   getFeatureBySlug,
   getFeaturePath,
 } from '@marketing/data/features'
 import { getFeatureContent } from '@marketing/data/featureContent'
+import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 import { SITE_URL } from '@marketing/lib/siteUrl'
 
 export function generateStaticParams() {
@@ -59,5 +62,27 @@ export default async function FeatureStageRoutePage({ params }) {
   const feature = getFeatureBySlug(slug)
   if (!feature) notFound()
 
-  return <FeaturesPage stageSlug={feature.slug} />
+  const content = getFeatureContent(slug)
+  const name = content?.metaTitle ?? feature.title
+  const description = content?.metaDescription ?? feature.description
+  const path = getFeaturePath(feature.slug)
+
+  const pageJsonLd = buildPageJsonLd({
+    name,
+    description,
+    path,
+    aboutSoftware: true,
+    crumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'Features', path: FEATURES_BASE },
+      { name: feature.label, path },
+    ],
+  })
+
+  return (
+    <>
+      <JsonLd data={pageJsonLd} />
+      <FeaturesPage stageSlug={feature.slug} />
+    </>
+  )
 }

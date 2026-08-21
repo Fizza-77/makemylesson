@@ -2,6 +2,11 @@
  * Parse `blogs.faq_schema` from Supabase into per-post FAQPage JSON-LD.
  */
 
+import {
+  organizationRef,
+  websiteRef,
+} from '@marketing/lib/organizationSchema'
+
 function normalizeAnswerText(value) {
   if (value == null) return ''
   if (typeof value === 'string') {
@@ -86,6 +91,9 @@ function normalizeFaqPageJsonLd(schema, pageUrl) {
   const next = { ...schema }
   if (!next['@context']) next['@context'] = 'https://schema.org'
   if (!next.url) next.url = pageUrl
+  if (!next['@id']) next['@id'] = `${pageUrl}#faq`
+  next.isPartOf = websiteRef()
+  next.publisher = organizationRef()
 
   if (Array.isArray(next.mainEntity)) {
     next.mainEntity = next.mainEntity
@@ -142,7 +150,10 @@ export function buildBlogFaqJsonLd(raw, pageUrl) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
     url: pageUrl,
+    isPartOf: websiteRef(),
+    publisher: organizationRef(),
     mainEntity: items.map(({ question, answer }) => ({
       '@type': 'Question',
       name: question,

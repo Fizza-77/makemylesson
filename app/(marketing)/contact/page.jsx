@@ -1,19 +1,21 @@
 import ContactPage from '@marketing/views/ContactPage'
 import { SITE_URL } from '@marketing/lib/siteUrl'
+import {
+  organizationRef,
+  websiteRef,
+} from '@marketing/lib/organizationSchema'
 
 const contactPageJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
+  '@id': `${SITE_URL}/contact#webpage`,
   name: 'Contact Make My Lesson',
   description:
     'Contact Make My Lesson support for help with AI lesson planning, curriculum-aligned teaching packs, billing, and school plans.',
   url: `${SITE_URL}/contact`,
-  mainEntity: {
-    '@type': 'Organization',
-    name: 'Make My Lesson',
-    email: 'support@makemylesson.ai',
-    url: SITE_URL,
-  },
+  isPartOf: websiteRef(),
+  publisher: organizationRef(),
+  mainEntity: organizationRef(),
 }
 
 export const metadata = {
