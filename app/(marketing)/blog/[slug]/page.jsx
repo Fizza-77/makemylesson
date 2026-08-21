@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { PageShell } from '@marketing/components/layout/Container'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { notFound } from 'next/navigation'
 import { getBlogBySlugForMakeMyLesson } from '@marketing/lib/blogs'
 import { buildBlogFaqJsonLd } from '@marketing/lib/blogFaqSchema'
@@ -77,12 +78,7 @@ export default async function BlogPostPage({ params }) {
     const breadcrumbSchema = buildBreadcrumbSchema('Coming soon', '/blog/coming-soon')
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(breadcrumbSchema),
-          }}
-        />
+        <MarketingPageJsonLd data={breadcrumbSchema} />
         <PageShell
           variant="blogArticle"
           className="!bg-white border-t-transparent text-[#1A1E3A]"
@@ -124,26 +120,7 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd),
-        }}
-      />
-      {faqJsonLd && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqJsonLd),
-          }}
-        />
-      )}
+      <MarketingPageJsonLd data={[breadcrumbSchema, jsonLd, faqJsonLd].filter(Boolean)} />
       <PageShell
         variant="blogArticle"
         className="!bg-white border-t-transparent text-[#1A1E3A]"
@@ -174,7 +151,11 @@ export default async function BlogPostPage({ params }) {
           {blog.cover_image_url && (
             <div className="mb-8 overflow-hidden rounded-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={blog.cover_image_url} alt="" className="h-auto w-full object-cover" />
+              <img
+                src={blog.cover_image_url}
+                alt={blog.title || 'Blog article cover image'}
+                className="h-auto w-full object-cover"
+              />
             </div>
           )}
           {blog.category && (

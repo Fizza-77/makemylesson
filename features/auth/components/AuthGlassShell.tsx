@@ -12,6 +12,7 @@ export function AuthGlassShell({
   wide,
   title,
   subtitle,
+  headerAction,
 }: {
   children: ReactNode;
   className?: string;
@@ -20,6 +21,8 @@ export function AuthGlassShell({
   wide?: boolean;
   title?: string;
   subtitle?: string;
+  /** Optional action shown in the header (e.g. Sign in link on signup). */
+  headerAction?: ReactNode;
 }) {
   return (
     <div
@@ -67,11 +70,14 @@ export function AuthGlassShell({
                   {subtitle}
                 </p>
               ) : null}
-              {title ? (
-                <h1 className="shrink-0 text-xs font-bold text-[#1A1C30] lg:text-2xl">
-                  {title}
-                </h1>
-              ) : null}
+              <div className="flex shrink-0 flex-col items-end gap-1 sm:flex-row sm:items-center sm:gap-4">
+                {headerAction}
+                {title ? (
+                  <h1 className="shrink-0 text-xs font-bold text-[#1A1C30] lg:text-2xl">
+                    {title}
+                  </h1>
+                ) : null}
+              </div>
             </>
           ) : (
             <>
@@ -90,10 +96,13 @@ export function AuthGlassShell({
               {subtitle ? (
                 <p className="mt-2 text-sm text-[#666666]">{subtitle}</p>
               ) : null}
+              {headerAction ? (
+                <div className="mt-3">{headerAction}</div>
+              ) : null}
             </>
           )}
         </div>
-        <div className="min-h-0 flex-1 overflow-hidden lg:overflow-visible">{children}</div>
+        <div className="min-h-0 flex-1 overflow-y-auto lg:overflow-visible">{children}</div>
       </div>
     </div>
   );

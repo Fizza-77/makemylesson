@@ -32,6 +32,7 @@ export function buildBreadcrumbSchema(crumbs) {
  *   path: string,
  *   type?: string,
  *   aboutSoftware?: boolean,
+ *   mainEntityOrganization?: boolean,
  * }} opts
  */
 export function buildWebPageSchema({
@@ -40,6 +41,7 @@ export function buildWebPageSchema({
   path,
   type = 'WebPage',
   aboutSoftware = false,
+  mainEntityOrganization = false,
 }) {
   const url = `${SITE_ORIGIN}${path}`
   const schema = {
@@ -57,11 +59,23 @@ export function buildWebPageSchema({
     schema.about = softwareRef()
   }
 
+  if (mainEntityOrganization) {
+    schema.mainEntity = organizationRef()
+  }
+
   return schema
 }
 
 /** Convenience: breadcrumb + webpage as a JSON-LD array (no duplicated entities). */
-export function buildPageJsonLd({ name, description, path, crumbs, type, aboutSoftware }) {
+export function buildPageJsonLd({
+  name,
+  description,
+  path,
+  crumbs,
+  type,
+  aboutSoftware,
+  mainEntityOrganization,
+}) {
   const breadcrumb = buildBreadcrumbSchema(
     crumbs ?? [
       { name: 'Home', path: '/' },
@@ -74,6 +88,7 @@ export function buildPageJsonLd({ name, description, path, crumbs, type, aboutSo
     path,
     type,
     aboutSoftware,
+    mainEntityOrganization,
   })
   return [breadcrumb, webpage]
 }

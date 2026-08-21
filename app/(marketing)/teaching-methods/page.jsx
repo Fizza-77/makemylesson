@@ -1,7 +1,9 @@
 import TeachingMethodsHubPage from '@marketing/views/TeachingMethodsHubPage'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { TEACHING_METHOD_COLUMNS } from '@marketing/data/teachingMethods'
 import {
   buildTeachingMethodsHubBreadcrumbSchema,
+  buildTeachingMethodsHubCollectionPageSchema,
   buildTeachingMethodsHubItemListSchema,
 } from '@marketing/lib/teachingMethodsJsonLd'
 
@@ -22,18 +24,14 @@ export const metadata = {
 }
 
 export default function TeachingMethodsHubRoutePage() {
-  const breadcrumbSchema = buildTeachingMethodsHubBreadcrumbSchema()
-  const itemListSchema = buildTeachingMethodsHubItemListSchema(TEACHING_METHOD_COLUMNS)
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      <MarketingPageJsonLd
+        data={[
+          buildTeachingMethodsHubBreadcrumbSchema(),
+          buildTeachingMethodsHubCollectionPageSchema(),
+          buildTeachingMethodsHubItemListSchema(TEACHING_METHOD_COLUMNS),
+        ]}
       />
       <TeachingMethodsHubPage />
     </>

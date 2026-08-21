@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import TeachingMethodPage from '@marketing/views/TeachingMethodPage'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import {
   ALL_TEACHING_METHODS,
   TEACHING_METHODS_BASE,
@@ -81,20 +82,7 @@ export default async function TeachingMethodRoutePage({ params }) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
-      />
-      {faqJsonLd && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-        />
-      )}
+      <MarketingPageJsonLd data={[breadcrumbSchema, webPageSchema, faqJsonLd].filter(Boolean)} />
       <TeachingMethodPage method={method} content={content} />
     </>
   )

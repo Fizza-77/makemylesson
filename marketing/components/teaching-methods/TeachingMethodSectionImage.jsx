@@ -34,11 +34,15 @@ export default function TeachingMethodSectionImage({
         alt={alt}
         fill
         className={imageClassName}
-        sizes={isHero ? '(max-width: 768px) 100vw, 440px' : '(max-width: 900px) 100vw, 320px'}
+        sizes={
+          isHero
+            ? '(max-width: 768px) min(100vw, 440px), 380px'
+            : '(max-width: 900px) min(100vw, 320px), 280px'
+        }
         priority={isHero}
         loading={isHero ? 'eager' : 'lazy'}
         fetchPriority={isHero ? 'high' : 'auto'}
-        quality={isHero ? 70 : 80}
+        quality={isHero ? 60 : 75}
         decoding="async"
       />
     </div>

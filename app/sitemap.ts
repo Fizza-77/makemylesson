@@ -2,19 +2,10 @@ import type { MetadataRoute } from "next";
 
 import { APP_ORIGIN, ROUTES } from "@/lib/urls";
 
+/** Public marketing URLs only — never login, signup, library, or stages. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = APP_ORIGIN;
-  const paths = [
-    "/",
-    ROUTES.pricing,
-    ROUTES.signIn,
-    ROUTES.signUp,
-    ROUTES.library,
-    ROUTES.stage1,
-    ROUTES.stage2,
-    ROUTES.stage3,
-    ROUTES.stage4,
-  ] as const;
+  const paths = ["/", ROUTES.pricing] as const;
   return paths.map((path) => ({
     url: `${base}${path === "/" ? "" : path}`,
     lastModified: new Date(),

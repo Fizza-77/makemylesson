@@ -1,22 +1,11 @@
 import ContactPage from '@marketing/views/ContactPage'
-import { SITE_URL } from '@marketing/lib/siteUrl'
-import {
-  organizationRef,
-  websiteRef,
-} from '@marketing/lib/organizationSchema'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
+import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
-const contactPageJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ContactPage',
-  '@id': `${SITE_URL}/contact#webpage`,
-  name: 'Contact Make My Lesson',
-  description:
-    'Contact Make My Lesson support for help with AI lesson planning, curriculum-aligned teaching packs, billing, and school plans.',
-  url: `${SITE_URL}/contact`,
-  isPartOf: websiteRef(),
-  publisher: organizationRef(),
-  mainEntity: organizationRef(),
-}
+const PAGE_NAME = 'Contact Make My Lesson'
+const PAGE_DESCRIPTION =
+  'Contact Make My Lesson support for help with AI lesson planning, curriculum-aligned teaching packs, billing, and school plans.'
+const PAGE_PATH = '/contact'
 
 export const metadata = {
   title: { absolute: 'Contact Make My Lesson: Teacher and School Support' },
@@ -28,13 +17,13 @@ export const metadata = {
     'teacher lesson planning help',
     'school plan inquiry',
   ],
-  alternates: { canonical: '/contact' },
+  alternates: { canonical: PAGE_PATH },
   robots: { index: true, follow: true },
   openGraph: {
     title: 'Contact Make My Lesson: Teacher and School Support',
     description:
       'Contact Make My Lesson for help with accounts, billing, school plans, technical support or platform questions. Our support team is ready to assist.',
-    url: '/contact',
+    url: PAGE_PATH,
     type: 'website',
   },
 }
@@ -42,9 +31,14 @@ export const metadata = {
 export default function ContactRoutePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
+      <MarketingPageJsonLd
+        data={buildPageJsonLd({
+          name: PAGE_NAME,
+          description: PAGE_DESCRIPTION,
+          path: PAGE_PATH,
+          type: 'ContactPage',
+          mainEntityOrganization: true,
+        })}
       />
       <ContactPage />
     </>

@@ -37,7 +37,7 @@ export default function ProfilePage() {
           <div className="card p-5">
             <div className="mb-5 flex items-center gap-2.5 rounded-mml-sm bg-mml-navy px-3.5 py-2.5">
               <div className="flex h-7 w-7 shrink-0 overflow-hidden rounded-full border border-mml-teal/40 bg-mml-navy-mid">
-                <AylaIcon width={28} height={28} alt="" className="h-full w-full" />
+                <AylaIcon width={28} height={28} alt="Ayla" className="h-full w-full" />
               </div>
               <div>
                 <p className="text-[0.8rem] font-bold text-white">Ayla</p>

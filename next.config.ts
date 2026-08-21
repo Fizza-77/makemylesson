@@ -21,8 +21,14 @@ const nextConfig: NextConfig = {
   output: "standalone",
   reactStrictMode: true,
   turbopack: {},
+  experimental: {
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
   images: {
-    qualities: [70, 75, 80],
+    qualities: [60, 70, 75, 80],
+    // Prefer widths that match TM hero (~380px CSS × 2 DPR ≈ 760)
+    imageSizes: [32, 48, 64, 96, 128, 256, 384, 440],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     remotePatterns: [
       {
         protocol: "https",

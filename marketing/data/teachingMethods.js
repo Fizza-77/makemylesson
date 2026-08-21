@@ -26,7 +26,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'blended-learning',
         label: 'Blended Learning',
-        heroImage: 'Blended Learning.png',
+        heroImage: 'Blended Learning.jpeg',
         sectionImage: 'Blended Learning.png',
         description:
           'Combine face-to-face teaching with online learning in a connected lesson sequence — build blended learning lesson plans aligned to the Australian Curriculum.',
@@ -34,7 +34,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'spaced-learning',
         label: 'Spaced Learning',
-        heroImage: 'Spaced Learning.png',
+        heroImage: 'Spaced Learning.jpeg',
         sectionImage: 'Spaced Learning.png',
         description:
           'Revisit content at increasing intervals with retrieval practice — build curriculum-aligned spaced learning lesson plans with Make My Lesson.',
@@ -48,7 +48,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'inquiry-based-learning',
         label: 'Inquiry-Based Learning',
-        heroImage: 'Inquiry Based Learning.png',
+        heroImage: 'Inquiry Based Learning.jpeg',
         sectionImage: 'Inquiry Based Learning (3).png',
         description:
           'Start with student questions and guide investigation toward understanding — build curriculum-aligned inquiry based learning lesson plans with Make My Lesson.',
@@ -56,7 +56,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'project-based-learning',
         label: 'Project-Based Learning',
-        heroImage: 'Project Based Learning.png',
+        heroImage: 'Project Based Learning.jpeg',
         sectionImage: 'Project-Based Learning.png',
         description:
           'Engage students in extended, real-world PBL projects with driving questions, milestones, and assessment — build curriculum-aligned project based learning lesson plans.',
@@ -64,7 +64,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'problem-based-learning',
         label: 'Problem-Based Learning',
-        heroImage: 'Problem-Based Learning.png',
+        heroImage: 'Problem-Based Learning.jpeg',
         sectionImage: 'Problem-Based Learning (2).png',
         description:
           'Solve real, complex problems to drive learning and build critical thinking — build curriculum-aligned problem based learning lesson plans with Make My Lesson.',
@@ -72,7 +72,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'service-learning',
         label: 'Service Learning',
-        heroImage: 'Service Learning.png',
+        heroImage: 'Service Learning.jpeg',
         sectionImage: 'Service Learning.png',
         description:
           'Connect curriculum to meaningful community service with structured reflection — build curriculum-aligned service learning lesson plans with Make My Lesson.',
@@ -86,7 +86,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'collaborative-learning',
         label: 'Collaborative Learning',
-        heroImage: 'Collaborative Learning.png',
+        heroImage: 'Collaborative Learning.jpeg',
         sectionImage: 'Collaborative Learning.png',
         description:
           'Structure group work with defined roles and accountability — build curriculum-aligned collaborative learning lesson plans with Make My Lesson.',
@@ -94,7 +94,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'gamification',
         label: 'Gamification',
-        heroImage: 'Gamification.png',
+        heroImage: 'Gamification.jpeg',
         sectionImage: 'Gamification.png',
         description:
           'Apply points, levels, and challenges to boost classroom engagement — build gamified lesson plans aligned to the Australian Curriculum with Make My Lesson.',
@@ -102,7 +102,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'kinesthetic-learning',
         label: 'Kinesthetic Learning',
-        heroImage: 'Kinesthetic Learning.png',
+        heroImage: 'Kinesthetic Learning.jpeg',
         sectionImage: 'Kinesthetic Learning.png',
         description:
           'Use movement and hands-on tasks to deepen learning — build curriculum-aligned kinesthetic learning lesson plans with Make My Lesson.',
@@ -110,7 +110,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'crossover-learning',
         label: 'Crossover Learning',
-        heroImage: 'Crossover Learning.png',
+        heroImage: 'Crossover Learning.jpeg',
         sectionImage: 'Crossover Learning.png',
         description:
           'Connect classroom instruction with informal, real-world learning — build curriculum-aligned crossover learning lesson plans with Make My Lesson.',
@@ -124,7 +124,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'personalised-learning',
         label: 'Personalised Learning',
-        heroImage: 'Personalised Learning.png',
+        heroImage: 'Personalised Learning.jpeg',
         sectionImage: 'Personalised Learning.png',
         description:
           'Tailor pace, content, and support to individual student needs — build curriculum-aligned personalised learning lesson plans with tiered tasks and differentiation.',
@@ -132,7 +132,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'competency-based-learning',
         label: 'Competency-Based Learning',
-        heroImage: 'Competency-Based Learning.png',
+        heroImage: 'Competency-Based Learning.jpeg',
         sectionImage: 'Competency-Based Learning.png',
         description:
           'Let students progress on demonstrated mastery, not time spent — build curriculum-aligned competency based lesson plans with clear criteria and assessment checkpoints.',
@@ -140,7 +140,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'experiential-learning',
         label: 'Experiential Learning',
-        heroImage: 'Experiential Learning.png',
+        heroImage: 'Experiential Learning.jpeg',
         sectionImage: 'Experiential Learning.png',
         description:
           'Learn by doing with hands-on activities and structured reflection — build curriculum-aligned experiential learning lesson plans with Make My Lesson.',
@@ -148,7 +148,7 @@ export const TEACHING_METHOD_COLUMNS = [
       {
         slug: 'mindfulness-sel',
         label: 'Mindfulness & SEL',
-        heroImage: 'Mindfulness & SEL.png',
+        heroImage: 'Mindfulness & SEL.jpeg',
         sectionImage: 'Mindfulness & SEL.png',
         description:
           'Build emotional skills with SEL lesson plans and classroom mindfulness activities — age-appropriate strategies aligned to Australian curriculum frameworks.',

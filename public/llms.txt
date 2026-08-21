@@ -1,0 +1,51 @@
+# Make My Lesson
+
+> Make My Lesson is an AI lesson-planning platform for teachers. It helps create curriculum-aligned lesson plans, slide decks, classroom activities, and assessments. This file lists important public pages only (no login, signup, or in-app dashboard URLs).
+
+Canonical public site: https://www.makemylesson.ai
+Contact: hello@makemylesson.ai
+
+## Product
+
+- [Home](https://www.makemylesson.ai/): Product overview and how Make My Lesson works
+- [Pricing](https://www.makemylesson.ai/pricing): Plans, pricing, and school quotes
+- [FAQs](https://www.makemylesson.ai/faq): Common questions about the product
+- [Contact](https://www.makemylesson.ai/contact): Contact and support
+- [Blog](https://www.makemylesson.ai/blog): Teaching guides and product updates
+
+## Features
+
+- [AI Lesson Plan Generator](https://www.makemylesson.ai/features/lesson-plan-generator): Curriculum-aligned lesson plans
+- [AI Presentation Maker](https://www.makemylesson.ai/features/presentation-maker): Classroom-ready slide decks
+- [AI Classroom Activities](https://www.makemylesson.ai/features/classroom-activities): Engaging classroom activities
+- [AI Test Generator](https://www.makemylesson.ai/features/test-generator): Quizzes and assessments
+
+## Teaching Methods
+
+- [Teaching Methods](https://www.makemylesson.ai/teaching-methods): Hub of supported teaching approaches
+- [General (Teacher-Led)](https://www.makemylesson.ai/teaching-methods/general-teacher-led): Direct, structured instruction
+- [Flipped Classroom](https://www.makemylesson.ai/teaching-methods/flipped-classroom): Pre-class instruction, in-class practice
+- [Blended Learning](https://www.makemylesson.ai/teaching-methods/blended-learning): Face-to-face plus online learning
+- [Spaced Learning](https://www.makemylesson.ai/teaching-methods/spaced-learning): Retrieval practice over time
+- [Inquiry-Based Learning](https://www.makemylesson.ai/teaching-methods/inquiry-based-learning): Student questions drive investigation
+- [Project-Based Learning](https://www.makemylesson.ai/teaching-methods/project-based-learning): Extended real-world projects
+- [Problem-Based Learning](https://www.makemylesson.ai/teaching-methods/problem-based-learning): Learning through complex problems
+- [Service Learning](https://www.makemylesson.ai/teaching-methods/service-learning): Curriculum linked to community service
+- [Collaborative Learning](https://www.makemylesson.ai/teaching-methods/collaborative-learning): Structured group work
+- [Gamification](https://www.makemylesson.ai/teaching-methods/gamification): Points, levels, and challenges
+- [Kinesthetic Learning](https://www.makemylesson.ai/teaching-methods/kinesthetic-learning): Movement and hands-on tasks
+- [Crossover Learning](https://www.makemylesson.ai/teaching-methods/crossover-learning): Classroom plus informal learning
+- [Personalised Learning](https://www.makemylesson.ai/teaching-methods/personalised-learning): Pace and support tailored to students
+- [Competency-Based Learning](https://www.makemylesson.ai/teaching-methods/competency-based-learning): Progress by demonstrated mastery
+- [Experiential Learning](https://www.makemylesson.ai/teaching-methods/experiential-learning): Learn by doing with reflection
+- [Mindfulness & SEL](https://www.makemylesson.ai/teaching-methods/mindfulness-sel): Social-emotional learning strategies
+
+## Legal
+
+- [Privacy Policy](https://www.makemylesson.ai/privacy-policy)
+- [Terms of Service](https://www.makemylesson.ai/terms-of-service)
+- [Acceptable Use Policy](https://www.makemylesson.ai/acceptable-use-policy)
+- [Cookie Policy](https://www.makemylesson.ai/cookie-policy)
+- [Disclaimer](https://www.makemylesson.ai/disclaimer)
+- [Refund & Payments Policy](https://www.makemylesson.ai/refund-payments-policy)
+- [Account & Data Deletion](https://www.makemylesson.ai/account-data-deletion)

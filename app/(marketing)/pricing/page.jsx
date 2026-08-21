@@ -1,6 +1,9 @@
 import PricingPage from '@marketing/views/PricingPage'
-import JsonLd from '@marketing/components/JsonLd'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
+import { buildPricingOffersJsonLd } from '@marketing/lib/pricingJsonLd'
+
+import '@marketing/styles/marketing-pricing.css'
 
 const PAGE_NAME = 'AI Lesson Planner Pricing and Plans'
 const PAGE_DESCRIPTION =
@@ -23,13 +26,16 @@ export const metadata = {
 export default function PricingRoutePage() {
   return (
     <>
-      <JsonLd
-        data={buildPageJsonLd({
-          name: PAGE_NAME,
-          description: PAGE_DESCRIPTION,
-          path: PAGE_PATH,
-          aboutSoftware: true,
-        })}
+      <MarketingPageJsonLd
+        data={[
+          ...buildPageJsonLd({
+            name: PAGE_NAME,
+            description: PAGE_DESCRIPTION,
+            path: PAGE_PATH,
+            aboutSoftware: true,
+          }),
+          buildPricingOffersJsonLd(),
+        ]}
       />
       <PricingPage />
     </>

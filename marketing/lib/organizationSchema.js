@@ -101,6 +101,7 @@ export function buildSoftwareNode() {
     publisher: organizationRef(),
     offers: {
       '@type': 'Offer',
+      '@id': `${SITE_ORIGIN}/#offer-free`,
       name: 'Free plan',
       price: '0',
       priceCurrency: 'USD',

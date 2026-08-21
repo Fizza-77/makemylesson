@@ -1,5 +1,5 @@
 import PrivacyPolicyPage from '@marketing/components/legal/PrivacyPolicyPage'
-import JsonLd from '@marketing/components/JsonLd'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
 const PAGE_NAME = 'Privacy Policy for Make My Lesson Users'
@@ -17,7 +17,7 @@ export const metadata = {
 export default function PrivacyPolicyRoutePage() {
   return (
     <>
-      <JsonLd
+      <MarketingPageJsonLd
         data={buildPageJsonLd({
           name: PAGE_NAME,
           description: PAGE_DESCRIPTION,

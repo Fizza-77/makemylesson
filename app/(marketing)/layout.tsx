@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter, Manrope } from "next/font/google";
 
-import JsonLd from "@marketing/components/JsonLd";
 import MarketingChrome from "@marketing/components/MarketingChrome";
-import { buildCoreOrganizationGraph } from "@marketing/lib/organizationSchema";
 
 import "../marketing-globals.css";
 
@@ -47,14 +45,11 @@ export default function MarketingLayout({ children }: { children: ReactNode }) {
   const fontVars = `${inter.variable} ${manrope.variable} ${inter.className}`;
 
   return (
-    <>
-      <JsonLd data={buildCoreOrganizationGraph()} />
-      <MarketingChrome
-        siteClassName={`${fontVars} flex min-h-screen flex-col bg-white font-sans text-[#1a1e3a] antialiased`}
-        homeClassName={`${fontVars} mml-marketing-page`}
-      >
-        {children}
-      </MarketingChrome>
-    </>
+    <MarketingChrome
+      siteClassName={`${fontVars} flex min-h-screen flex-col bg-white font-sans text-[#1a1e3a] antialiased`}
+      homeClassName={`${fontVars} mml-marketing-page`}
+    >
+      {children}
+    </MarketingChrome>
   );
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import '@marketing/styles/marketing-ayla.css'
+
 import Image from 'next/image'
 import { FormEvent, useEffect, useId, useRef, useState } from 'react'
 import { MessageCircle, Minus, Send, X } from 'lucide-react'
@@ -106,7 +108,7 @@ export default function AylaMarketingChat() {
             <div className="mml-ayla-widget-identity">
               <Image
                 src="/ayla.svg"
-                alt=""
+                alt="Ayla"
                 width={40}
                 height={40}
                 className="mml-ayla-widget-avatar"
@@ -221,7 +223,7 @@ export default function AylaMarketingChat() {
           <>
             <Image
               src="/ayla.svg"
-              alt=""
+              alt="Ayla"
               width={96}
               height={96}
               className="mml-ayla-fab-avatar"

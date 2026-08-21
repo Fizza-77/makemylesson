@@ -1,7 +1,9 @@
 import FaqPage from '@marketing/components/faq/FaqPage'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { faqItems } from '@marketing/data/faqItems'
 import { FAQ_SCHEMA_IDS } from '@marketing/data/faqMeta'
 import { buildFaqJsonLd } from '@marketing/lib/faqJsonLd'
+import { buildBreadcrumbSchema } from '@marketing/lib/pageSchema'
 import { SITE_URL } from '@marketing/lib/siteUrl'
 
 const faqCanonical = `${SITE_URL.replace(/\/$/, '')}/faq`
@@ -15,14 +17,15 @@ export const metadata = {
 }
 
 export default function FaqRoutePage() {
-  const jsonLd = buildFaqJsonLd(faqItems, FAQ_SCHEMA_IDS, faqCanonical)
+  const breadcrumb = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'FAQ', path: '/faq' },
+  ])
+  const faqJsonLd = buildFaqJsonLd(faqItems, FAQ_SCHEMA_IDS, faqCanonical)
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <MarketingPageJsonLd data={[breadcrumb, faqJsonLd]} />
       <FaqPage />
     </>
   )

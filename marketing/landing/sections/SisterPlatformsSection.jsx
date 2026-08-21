@@ -24,7 +24,7 @@ const PLATFORMS = [
     name: 'Linguatude',
     tagline: 'AI English Test Preparation',
     url: 'https://linguatude.com',
-    logo: '/logo-linguatude.jpg',
+    logo: '/linguatude-logo.png',
     description: [
       'An AI-powered English test preparation platform for IELTS, TOEFL iBT, PTE Academic, Cambridge B1 Preliminary, and Cambridge B2 First.',
       'Where Make My Lesson supports the teacher planning the lesson, Linguatude supports the learner whose next opportunity depends on passing a high-stakes English test.',
@@ -47,7 +47,7 @@ function PlatformCard({ platform, delay = 0 }) {
           <div className="sister-card-logo-wrap">
             <Image
               src={platform.logo}
-              alt=""
+              alt={`${platform.name} logo`}
               width={72}
               height={72}
               className="sister-card-logo"

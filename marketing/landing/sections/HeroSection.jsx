@@ -7,10 +7,12 @@ const HERO_MOCKUPS = [
   {
     src: '/mockups/makemylesson-mockup.jpeg',
     className: 'hero-mockup-phone--primary',
+    alt: 'Make My Lesson mobile app showing an AI-generated lesson plan',
   },
   {
     src: '/mockups/makemylesson-mockup2.jpeg',
     className: 'hero-mockup-phone--secondary',
+    alt: 'Make My Lesson mobile app showing a classroom presentation',
   },
 ]
 
@@ -61,13 +63,13 @@ export default function HeroSection() {
                 <div className="hero-mockups" aria-hidden>
                   <div className="hero-mockups-glow" />
                   <div className="hero-mockups-ring" />
-                  {HERO_MOCKUPS.map(({ src, className }) => (
+                  {HERO_MOCKUPS.map(({ src, className, alt }) => (
                     <div key={src} className={`hero-mockup-phone ${className}`}>
                       <div className="hero-mockup-notch" />
                       <div className="hero-mockup-screen">
                         <Image
                           src={src}
-                          alt=""
+                          alt={alt}
                           width={390}
                           height={844}
                           className="hero-mockup-img"

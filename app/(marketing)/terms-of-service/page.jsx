@@ -1,5 +1,5 @@
 import TermsOfServicePage from '@marketing/components/legal/TermsOfServicePage'
-import JsonLd from '@marketing/components/JsonLd'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
 const PAGE_NAME = 'Terms of Service'
@@ -17,7 +17,7 @@ export const metadata = {
 export default function TermsOfServiceRoutePage() {
   return (
     <>
-      <JsonLd
+      <MarketingPageJsonLd
         data={buildPageJsonLd({
           name: PAGE_NAME,
           description: PAGE_DESCRIPTION,

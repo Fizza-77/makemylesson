@@ -5,29 +5,40 @@ import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import CookieConsent from "@marketing/components/CookieConsent";
 import Footer from "@marketing/components/Footer";
 import LandingScrollHandler from "@marketing/components/LandingScrollHandler";
 import Navbar from "@marketing/components/Navbar";
+
+const CookieConsent = dynamic(() => import("@marketing/components/CookieConsent"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const AylaMarketingChat = dynamic(() => import("@marketing/components/AylaMarketingChat"), {
   ssr: false,
   loading: () => null,
 });
 
-function DeferredAylaChat() {
+function DeferredChromeWidgets({ includeAyla }: { includeAyla: boolean }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const idle = window.requestIdleCallback?.(() => setReady(true), { timeout: 4000 });
-    const fallback = window.setTimeout(() => setReady(true), 4000);
+    const idle = window.requestIdleCallback?.(() => setReady(true), { timeout: 3500 });
+    const fallback = window.setTimeout(() => setReady(true), 3500);
     return () => {
       if (idle !== undefined) window.cancelIdleCallback(idle);
       window.clearTimeout(fallback);
     };
   }, []);
 
-  return ready ? <AylaMarketingChat /> : null;
+  if (!ready) return null;
+
+  return (
+    <>
+      <CookieConsent />
+      {includeAyla ? <AylaMarketingChat /> : null}
+    </>
+  );
 }
 
 type MarketingChromeProps = {
@@ -43,6 +54,11 @@ export default function MarketingChrome({
 }: MarketingChromeProps) {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const includeAyla =
+    isHome ||
+    pathname.startsWith("/features") ||
+    pathname.startsWith("/pricing") ||
+    pathname === "/contact";
 
   if (isHome) {
     return (
@@ -54,8 +70,7 @@ export default function MarketingChrome({
         <LandingScrollHandler />
         <div>{children}</div>
         <Footer />
-        <CookieConsent />
-        <DeferredAylaChat />
+        <DeferredChromeWidgets includeAyla />
       </div>
     );
   }
@@ -65,8 +80,7 @@ export default function MarketingChrome({
       <Navbar theme="site" />
       <main className="main-content flex min-h-0 flex-1 flex-col pt-16">{children}</main>
       <Footer />
-      <CookieConsent />
-      <DeferredAylaChat />
+      <DeferredChromeWidgets includeAyla={includeAyla} />
     </div>
   );
 }

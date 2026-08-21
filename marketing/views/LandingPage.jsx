@@ -1,5 +1,7 @@
 'use client'
 
+import '@marketing/styles/legacy-landing-page.css'
+
 import { useLayoutEffect, useState } from 'react'
 import { cn } from '@marketing/lib/cn'
 import AylaIcon from '@marketing/components/AylaIcon'
@@ -53,7 +55,7 @@ export default function LandingPage() {
         aria-label="Open Ayla or help"
         title="Ayla"
       >
-        <AylaIcon alt="" className="landing-fab-ayla h-full w-full" priority={false} />
+        <AylaIcon alt="Ayla" className="landing-fab-ayla h-full w-full" priority={false} />
       </a>
     </div>
   )

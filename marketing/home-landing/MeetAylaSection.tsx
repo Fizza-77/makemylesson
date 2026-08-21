@@ -90,7 +90,7 @@ export default function MeetAylaSection() {
               <div className="mml-ayla-chat-avatar-wrap">
                 <Image
                   src={AYLA_AVATAR}
-                  alt=""
+                  alt="Ayla avatar"
                   width={44}
                   height={44}
                   className="mml-ayla-chat-avatar"

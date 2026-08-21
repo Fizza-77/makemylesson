@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import FeaturesPage from '@marketing/views/FeaturesPage'
-import JsonLd from '@marketing/components/JsonLd'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import {
   FEATURE_ITEMS,
   FEATURES_BASE,
@@ -81,7 +81,7 @@ export default async function FeatureStageRoutePage({ params }) {
 
   return (
     <>
-      <JsonLd data={pageJsonLd} />
+      <MarketingPageJsonLd data={pageJsonLd} />
       <FeaturesPage stageSlug={feature.slug} />
     </>
   )

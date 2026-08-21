@@ -1,16 +1,21 @@
 'use client'
 
 import { BookOpen, Compass, GraduationCap, Lightbulb, Sparkles, Target } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import { useInView } from '@marketing/landing/hooks'
 import { cn } from '@marketing/lib/cn'
 import { getCardDisplayParts } from '@marketing/lib/teachingMethodCard'
-import BuilderInteractiveLayout from '@marketing/components/teaching-methods/BuilderInteractiveLayout'
 import TeachingMethodSectionImage from '@marketing/components/teaching-methods/TeachingMethodSectionImage'
 import {
   getCompareBand,
   getSectionLayout,
   sectionAnchorId,
 } from '@marketing/lib/teachingMethodLayout'
+
+const BuilderInteractiveLayout = dynamic(
+  () => import('@marketing/components/teaching-methods/BuilderInteractiveLayout'),
+  { ssr: false, loading: () => null },
+)
 
 const CARD_ICONS = [Lightbulb, BookOpen, Target, Compass, Sparkles, GraduationCap]
 

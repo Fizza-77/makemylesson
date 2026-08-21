@@ -1,9 +1,11 @@
-import { TEACHING_METHODS_BASE } from '@marketing/data/teachingMethods'
+import { TEACHING_METHODS_BASE, getTeachingMethodPath } from '@marketing/data/teachingMethods'
 import {
   organizationRef,
   websiteRef,
 } from '@marketing/lib/organizationSchema'
 import { SITE_URL } from '@marketing/lib/siteUrl'
+
+const HUB_URL = `${SITE_URL.replace(/\/$/, '')}${TEACHING_METHODS_BASE}`
 
 export function buildTeachingMethodsHubBreadcrumbSchema() {
   return {
@@ -14,41 +16,58 @@ export function buildTeachingMethodsHubBreadcrumbSchema() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: `${SITE_URL}/`,
+        item: `${SITE_URL.replace(/\/$/, '')}/`,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Teaching Methods',
-        item: `${SITE_URL}${TEACHING_METHODS_BASE}`,
+        item: HUB_URL,
       },
     ],
   }
 }
 
 export function buildTeachingMethodsHubItemListSchema(columns) {
-  const items = columns.flatMap((col) =>
-    col.methods.map((method) => ({
-      '@type': 'ListItem',
-      name: method.label,
-    })),
-  )
+  const methods = columns.flatMap((col) => col.methods)
 
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    '@id': `${SITE_URL}${TEACHING_METHODS_BASE}#itemlist`,
+    '@id': `${HUB_URL}#itemlist`,
     name: 'Teaching Methods',
     description:
       'Pedagogical approaches supported by Make My Lesson — from structured delivery to learner-centred and inquiry-based methods.',
-    url: `${SITE_URL}${TEACHING_METHODS_BASE}`,
-    numberOfItems: items.length,
+    url: HUB_URL,
+    numberOfItems: methods.length,
     isPartOf: websiteRef(),
     publisher: organizationRef(),
-    itemListElement: items.map((item, index) => ({
-      ...item,
-      position: index + 1,
-    })),
+    itemListElement: methods.map((method, index) => {
+      const path = getTeachingMethodPath(method.slug)
+      const itemUrl = `${SITE_URL.replace(/\/$/, '')}${path}`
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: method.label,
+        url: itemUrl,
+        item: itemUrl,
+      }
+    }),
+  }
+}
+
+export function buildTeachingMethodsHubCollectionPageSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${HUB_URL}#webpage`,
+    name: 'Teaching Methods for Lesson Planning',
+    description:
+      'Explore 16 teaching methods that reshape lesson plans, slides, activities and assessments. Compare approaches and choose the best fit for your class.',
+    url: HUB_URL,
+    isPartOf: websiteRef(),
+    publisher: organizationRef(),
+    mainEntity: { '@id': `${HUB_URL}#itemlist` },
   }
 }
 

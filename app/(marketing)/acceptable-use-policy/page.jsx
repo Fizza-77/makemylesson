@@ -1,5 +1,5 @@
 import AcceptableUsePolicyPage from '@marketing/components/legal/AcceptableUsePolicyPage'
-import JsonLd from '@marketing/components/JsonLd'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
 const PAGE_NAME = 'Acceptable Use Policy'
@@ -17,7 +17,7 @@ export const metadata = {
 export default function AcceptableUsePolicyRoutePage() {
   return (
     <>
-      <JsonLd
+      <MarketingPageJsonLd
         data={buildPageJsonLd({
           name: PAGE_NAME,
           description: PAGE_DESCRIPTION,

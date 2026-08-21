@@ -1,4 +1,5 @@
 import HomeLandingPage from '@marketing/home-landing/HomeLandingPage'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import {
   DEFAULT_OG_IMAGE_ALT,
   DEFAULT_OG_IMAGE_HEIGHT,
@@ -77,7 +78,10 @@ export const metadata = {
 }
 
 export default function HomePage() {
-  // Organization / Brand / WebSite / SoftwareApplication JSON-LD is injected
-  // once via the marketing layout (`buildCoreOrganizationGraph`).
-  return <HomeLandingPage />
+  return (
+    <>
+      <MarketingPageJsonLd />
+      <HomeLandingPage />
+    </>
+  )
 }

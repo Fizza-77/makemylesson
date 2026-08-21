@@ -1,5 +1,5 @@
 import AccountDataDeletionPage from '@marketing/components/legal/AccountDataDeletionPage'
-import JsonLd from '@marketing/components/JsonLd'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
 const PAGE_NAME = 'Delete Your Account and Data'
@@ -17,7 +17,7 @@ export const metadata = {
 export default function AccountDataDeletionRoutePage() {
   return (
     <>
-      <JsonLd
+      <MarketingPageJsonLd
         data={buildPageJsonLd({
           name: PAGE_NAME,
           description: PAGE_DESCRIPTION,

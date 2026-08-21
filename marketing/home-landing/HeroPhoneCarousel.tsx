@@ -5,9 +5,18 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const SCREENS = [
-  "/mockups/mockup1.jpeg",
-  "/mockups/mockup2.jpeg",
-  "/mockups/mockup3.jpeg",
+  {
+    src: "/mockups/mockup1.jpeg",
+    alt: "Make My Lesson app — lesson plan stage on mobile",
+  },
+  {
+    src: "/mockups/mockup2.jpeg",
+    alt: "Make My Lesson app — presentation stage on mobile",
+  },
+  {
+    src: "/mockups/mockup3.jpeg",
+    alt: "Make My Lesson app — classroom activity stage on mobile",
+  },
 ] as const;
 
 const HOLD_MS = 4000;
@@ -48,14 +57,22 @@ const outgoing = {
   zIndex: 3,
 };
 
-function PhoneScreen({ src, fetchPriority = "auto" }: { src: string; fetchPriority?: "high" | "low" | "auto" }) {
+function PhoneScreen({
+  src,
+  alt,
+  fetchPriority = "auto",
+}: {
+  src: string;
+  alt: string;
+  fetchPriority?: "high" | "low" | "auto";
+}) {
   return (
     <>
       <span className="mml-mkt-phone-notch" aria-hidden />
       <div className="mml-mkt-phone-screen">
         <Image
           src={src}
-          alt=""
+          alt={alt}
           width={390}
           height={844}
           className="mml-mkt-phone-img"
@@ -79,16 +96,16 @@ export default function HeroPhoneCarousel() {
     return () => window.clearInterval(id);
   }, [reduceMotion]);
 
-  const src = SCREENS[index];
+  const screen = SCREENS[index];
 
   return (
     <div className="mml-mkt-phones">
-      <div className="sr-only" aria-hidden>
-        {SCREENS.map((screen, i) => (
+      <div className="sr-only">
+        {SCREENS.map((item, i) => (
           <Image
-            key={screen}
-            src={screen}
-            alt=""
+            key={item.src}
+            src={item.src}
+            alt={item.alt}
             width={390}
             height={844}
             loading="eager"
@@ -101,12 +118,16 @@ export default function HeroPhoneCarousel() {
 
       <div className="mml-mkt-phone-stage">
         <div className="mml-mkt-phone mml-mkt-phone--sizer" aria-hidden>
-          <PhoneScreen src={SCREENS[0]} fetchPriority="high" />
+          <PhoneScreen
+            src={SCREENS[0].src}
+            alt={SCREENS[0].alt}
+            fetchPriority="high"
+          />
         </div>
 
         <AnimatePresence initial={false}>
           <motion.div
-            key={src}
+            key={screen.src}
             className="mml-mkt-phone mml-mkt-phone--layer"
             initial={reduceMotion ? { opacity: 0 } : incoming}
             animate={reduceMotion ? { opacity: 1 } : rest}
@@ -117,7 +138,11 @@ export default function HeroPhoneCarousel() {
                 : { duration: TRANSITION_S, ease: EASE }
             }
           >
-            <PhoneScreen src={src} fetchPriority={src === SCREENS[0] ? "high" : "auto"} />
+            <PhoneScreen
+              src={screen.src}
+              alt={screen.alt}
+              fetchPriority={screen.src === SCREENS[0].src ? "high" : "auto"}
+            />
           </motion.div>
         </AnimatePresence>
       </div>

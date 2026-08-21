@@ -313,8 +313,7 @@ function ReviewCard({ review }: { review: Review }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={review.pin === "cyan" ? "/cyan-pin.svg" : "/navy-pin.svg"}
-        alt=""
-        aria-hidden
+        alt="Decorative review pin"
         className={`mml-rv-pin mml-rv-pin--${review.tilt}`}
         width={44}
         height={61}

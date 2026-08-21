@@ -19,7 +19,7 @@ const PLATFORMS = [
     description:
       "English test preparation for learners pursuing university, immigration or career goals.",
     href: "https://linguatude.com",
-    logo: "/linguatude.jpeg",
+    logo: "/linguatude-logo.png",
   },
   {
     key: "worksheeta",
@@ -56,7 +56,7 @@ export default function SisterPlatformsSection() {
             <span className="mml-sp-logo">
               <Image
                 src={platform.logo}
-                alt=""
+                alt={`${platform.title} logo`}
                 width={40}
                 height={40}
                 className="mml-sp-logo-img"

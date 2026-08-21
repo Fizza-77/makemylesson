@@ -6,9 +6,9 @@ const AYLA_SRC = '/ayla.svg'
 
 /**
  * Ayla mark from `/public/ayla.svg` (circular artwork — shown as-is).
- * Use `alt=""` when the UI already names “Ayla” (decorative).
+ * Default `alt` is “Ayla”. Pass a custom string when needed.
  */
-export default function AylaIcon({ className = '', width = 28, height = 28, alt = '', priority = false }) {
+export default function AylaIcon({ className = '', width = 28, height = 28, alt = 'Ayla', priority = false }) {
   const fillsParent =
     typeof className === 'string' && /\bh-full\b/.test(className) && /\bw-full\b/.test(className)
 

@@ -1,8 +1,9 @@
 'use client'
 
+import '@marketing/styles/cookie-consent.css'
+
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
 
 const STORAGE_KEY = 'mml-cookie-consent'
 const CONSENT_VERSION = '1'
@@ -54,149 +55,133 @@ export default function CookieConsent() {
   const handleEssentialOnly = () => dismiss('essential')
   const handleSavePrefs = () => dismiss(analyticsOn ? 'all' : 'essential')
 
-  if (!mounted) return null
+  if (!mounted || !visible) return null
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          role="dialog"
-          aria-labelledby="cookie-consent-title"
-          aria-describedby="cookie-consent-desc"
-          aria-live="polite"
-          className="cookie-consent-root"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 16 }}
-          transition={{ duration: 0.22, ease: 'easeOut' }}
-        >
-          <div className="cookie-consent-card">
-            <div className="cookie-consent-inner">
-              <div className="cookie-consent-copy">
-                <p className="cookie-consent-eyebrow">Cookies</p>
-                <h2 id="cookie-consent-title" className="cookie-consent-title">
-                  We use cookies
-                </h2>
-                <p id="cookie-consent-desc" className="cookie-consent-text">
-                  Essential cookies keep Make My Lesson working. Optional analytics help us improve the
-                  product — never for ads.
-                </p>
+    <div
+      role="dialog"
+      aria-labelledby="cookie-consent-title"
+      aria-describedby="cookie-consent-desc"
+      aria-live="polite"
+      className="cookie-consent-root"
+    >
+      <div className="cookie-consent-card">
+        <div className="cookie-consent-inner">
+          <div className="cookie-consent-copy">
+            <p className="cookie-consent-eyebrow">Cookies</p>
+            <h2 id="cookie-consent-title" className="cookie-consent-title">
+              We use cookies
+            </h2>
+            <p id="cookie-consent-desc" className="cookie-consent-text">
+              Essential cookies keep Make My Lesson working. Optional analytics help us improve the
+              product — never for ads.
+            </p>
 
-                <AnimatePresence mode="wait">
-                  {showPrefs ? (
-                    <motion.div
-                      key="prefs"
-                      className="cookie-consent-prefs"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                    >
-                      <label className="cookie-consent-toggle cookie-consent-toggle--locked">
-                        <span className="cookie-consent-toggle-info">
-                          <span className="cookie-consent-toggle-name">Essential</span>
-                          <span className="cookie-consent-toggle-hint">
-                            Login, security &amp; preferences
-                          </span>
-                        </span>
-                        <span className="cookie-consent-switch cookie-consent-switch--on" aria-hidden>
-                          <span className="cookie-consent-switch-knob" />
-                        </span>
-                        <span className="sr-only">Always on</span>
-                      </label>
+            {showPrefs ? (
+              <div className="cookie-consent-prefs">
+                <label className="cookie-consent-toggle cookie-consent-toggle--locked">
+                  <span className="cookie-consent-toggle-info">
+                    <span className="cookie-consent-toggle-name">Essential</span>
+                    <span className="cookie-consent-toggle-hint">
+                      Login, security &amp; preferences
+                    </span>
+                  </span>
+                  <span className="cookie-consent-switch cookie-consent-switch--on" aria-hidden>
+                    <span className="cookie-consent-switch-knob" />
+                  </span>
+                  <span className="sr-only">Always on</span>
+                </label>
 
-                      <div className="cookie-consent-toggle">
-                        <span className="cookie-consent-toggle-info">
-                          <span className="cookie-consent-toggle-name">Analytics</span>
-                          <span className="cookie-consent-toggle-hint">
-                            Anonymous usage to improve the app
-                          </span>
-                        </span>
-                        <button
-                          type="button"
-                          role="switch"
-                          aria-checked={analyticsOn}
-                          aria-label="Enable analytics cookies"
-                          className={`cookie-consent-switch ${analyticsOn ? 'cookie-consent-switch--on' : ''}`}
-                          onClick={() => setAnalyticsOn((v) => !v)}
-                        >
-                          <span className="cookie-consent-switch-knob" />
-                        </button>
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-
-                <div className="cookie-consent-actions">
-                  {!showPrefs ? (
-                    <>
-                      <button
-                        type="button"
-                        className="cookie-consent-btn cookie-consent-btn--primary"
-                        onClick={handleAcceptAll}
-                      >
-                        Accept all
-                      </button>
-                      <button
-                        type="button"
-                        className="cookie-consent-btn cookie-consent-btn--ghost"
-                        onClick={handleEssentialOnly}
-                      >
-                        Essential only
-                      </button>
-                      <button
-                        type="button"
-                        className="cookie-consent-btn cookie-consent-btn--link"
-                        onClick={() => setShowPrefs(true)}
-                      >
-                        Customize
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        type="button"
-                        className="cookie-consent-btn cookie-consent-btn--primary"
-                        onClick={handleSavePrefs}
-                      >
-                        Save preferences
-                      </button>
-                      <button
-                        type="button"
-                        className="cookie-consent-btn cookie-consent-btn--ghost"
-                        onClick={() => setShowPrefs(false)}
-                      >
-                        Back
-                      </button>
-                    </>
-                  )}
+                <div className="cookie-consent-toggle">
+                  <span className="cookie-consent-toggle-info">
+                    <span className="cookie-consent-toggle-name">Analytics</span>
+                    <span className="cookie-consent-toggle-hint">
+                      Anonymous usage to improve the app
+                    </span>
+                  </span>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={analyticsOn}
+                    aria-label="Enable analytics cookies"
+                    className={`cookie-consent-switch ${analyticsOn ? 'cookie-consent-switch--on' : ''}`}
+                    onClick={() => setAnalyticsOn((v) => !v)}
+                  >
+                    <span className="cookie-consent-switch-knob" />
+                  </button>
                 </div>
-
-                <p className="cookie-consent-legal">
-                  <Link href="/cookie-policy">Cookie Policy</Link>
-                  <span aria-hidden> · </span>
-                  <Link href="/privacy-policy">Privacy Policy</Link>
-                </p>
               </div>
+            ) : null}
+
+            <div className="cookie-consent-actions">
+              {!showPrefs ? (
+                <>
+                  <button
+                    type="button"
+                    className="cookie-consent-btn cookie-consent-btn--primary"
+                    onClick={handleAcceptAll}
+                  >
+                    Accept all
+                  </button>
+                  <button
+                    type="button"
+                    className="cookie-consent-btn cookie-consent-btn--ghost"
+                    onClick={handleEssentialOnly}
+                  >
+                    Essential only
+                  </button>
+                  <button
+                    type="button"
+                    className="cookie-consent-btn cookie-consent-btn--link"
+                    onClick={() => setShowPrefs(true)}
+                  >
+                    Customize
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className="cookie-consent-btn cookie-consent-btn--primary"
+                    onClick={handleSavePrefs}
+                  >
+                    Save preferences
+                  </button>
+                  <button
+                    type="button"
+                    className="cookie-consent-btn cookie-consent-btn--ghost"
+                    onClick={() => setShowPrefs(false)}
+                  >
+                    Back
+                  </button>
+                </>
+              )}
             </div>
 
-            <button
-              type="button"
-              className="cookie-consent-close"
-              onClick={handleEssentialOnly}
-              aria-label="Dismiss and accept essential cookies only"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path
-                  d="M2 2l10 10M12 2L2 12"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
+            <p className="cookie-consent-legal">
+              <Link href="/cookie-policy">Cookie Policy</Link>
+              <span aria-hidden> · </span>
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </p>
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        </div>
+
+        <button
+          type="button"
+          className="cookie-consent-close"
+          onClick={handleEssentialOnly}
+          aria-label="Dismiss and accept essential cookies only"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+            <path
+              d="M2 2l10 10M12 2L2 12"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
   )
 }

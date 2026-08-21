@@ -9,10 +9,12 @@ const HERO_MOCKUPS = [
   {
     src: "/mockups/mockup1.jpeg",
     className: "mml-mkt-hero-phone--primary",
+    alt: "Make My Lesson mobile app showing an AI-generated lesson plan",
   },
   {
     src: "/mockups/mockup2.jpeg",
     className: "mml-mkt-hero-phone--secondary",
+    alt: "Make My Lesson mobile app showing a classroom presentation",
   },
 ] as const;
 
@@ -79,13 +81,13 @@ export default function HomeHeroSection() {
           <div className="mml-mkt-hero-mockups">
             <div className="mml-mkt-hero-mockups-glow" />
             <div className="mml-mkt-hero-mockups-ring" />
-            {HERO_MOCKUPS.map(({ src, className }, index) => (
+            {HERO_MOCKUPS.map(({ src, className, alt }, index) => (
               <div key={src} className={`mml-mkt-hero-phone ${className}`}>
                 <div className="mml-mkt-hero-phone-notch" />
                 <div className="mml-mkt-hero-phone-screen">
                   <Image
                     src={src}
-                    alt=""
+                    alt={alt}
                     width={390}
                     height={844}
                     className="mml-mkt-hero-phone-img"

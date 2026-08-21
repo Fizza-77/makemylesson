@@ -336,7 +336,7 @@ export default function LibraryPage() {
               <div className="overflow-hidden rounded-2xl border border-white/10 bg-mml-navy-card shadow-sm">
                 <div className="flex items-center gap-2.5 border-b border-white/10 bg-mml-navy-mid px-4 py-3">
                   <div className="relative flex h-[30px] w-[30px] shrink-0 overflow-hidden rounded-full border border-mml-teal/25 bg-mml-navy-mid">
-                    <AylaIcon width={30} height={30} alt="" className="h-full w-full" />
+                    <AylaIcon width={30} height={30} alt="Ayla" className="h-full w-full" />
                     <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full border-2 border-mml-navy-mid bg-green-500" />
                   </div>
                   <div>

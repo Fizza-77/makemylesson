@@ -1,5 +1,5 @@
 import CookiePolicyPage from '@marketing/components/legal/CookiePolicyPage'
-import JsonLd from '@marketing/components/JsonLd'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
 const PAGE_NAME = 'Cookie Policy'
@@ -17,7 +17,7 @@ export const metadata = {
 export default function CookiePolicyRoutePage() {
   return (
     <>
-      <JsonLd
+      <MarketingPageJsonLd
         data={buildPageJsonLd({
           name: PAGE_NAME,
           description: PAGE_DESCRIPTION,

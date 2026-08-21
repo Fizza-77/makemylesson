@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Container, { PageShell } from '@marketing/components/layout/Container'
+import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { getBlogIndexDataForMakeMyLesson } from '@marketing/lib/blogs'
-import { buildBreadcrumbSchema } from '@marketing/lib/blogJsonLd'
+import { buildBlogHubJsonLd, buildBreadcrumbSchema } from '@marketing/lib/blogJsonLd'
 import {
   DEFAULT_OG_IMAGE_ALT,
   DEFAULT_OG_IMAGE_HEIGHT,
@@ -77,6 +78,7 @@ export default async function BlogPage({ searchParams }) {
 
   const { posts, categories, seo } = indexData
   const breadcrumbSchema = buildBreadcrumbSchema('Blog', '/blog')
+  const hubJsonLd = buildBlogHubJsonLd(posts)
 
   const params = await searchParams
   const rawCategory = params?.category
@@ -108,12 +110,7 @@ export default async function BlogPage({ searchParams }) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
-      />
+      <MarketingPageJsonLd data={[breadcrumbSchema, ...hubJsonLd]} />
       <PageShell
         className="!bg-white border-t-transparent text-[#1A1E3A]"
         contentClassName="pb-24 !pt-2"
@@ -194,7 +191,7 @@ export default async function BlogPage({ searchParams }) {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={post.cover_image_url}
-                        alt=""
+                        alt={post.title || 'Blog article cover image'}
                         className="h-40 w-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
                       />
                     </div>

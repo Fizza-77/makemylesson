@@ -110,7 +110,7 @@ export default function AssessmentHowItWorks() {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src="/evaporation.svg"
-                        alt=""
+                        alt="Illustration of evaporation for a sample assessment question"
                         className="h-11 w-full object-contain object-right-bottom sm:h-[4.5rem]"
                       />
                     </div>

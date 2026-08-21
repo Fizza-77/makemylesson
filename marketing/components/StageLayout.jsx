@@ -19,7 +19,7 @@ export default function StageLayout({ children, currentStage }) {
         <div className={cn(containerClass, 'flex flex-wrap items-center gap-4 py-3 md:gap-5 max-md:gap-2.5 max-md:py-2.5')}>
           <div className="flex shrink-0 items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.04] px-3.5 py-2">
             <div className="flex h-7 w-7 shrink-0 overflow-hidden rounded-full border border-mml-teal/30 bg-mml-navy-mid ring-1 ring-white/5">
-              <AylaIcon width={28} height={28} alt="" className="h-full w-full" />
+              <AylaIcon width={28} height={28} alt="Ayla" className="h-full w-full" />
             </div>
             <div>
               <p className="text-xs font-semibold text-white">Ayla</p>

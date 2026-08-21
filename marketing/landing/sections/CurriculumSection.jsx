@@ -68,10 +68,10 @@ export default function CurriculumSection() {
               delay={i * 55}
               className={`curr-card curr-${r.key}${r.wide ? ' curr-wide' : ''}`}
             >
-              <span className="curr-flag" aria-hidden>
+              <span className="curr-flag">
                 <Image
                   src={r.flagSrc}
-                  alt=""
+                  alt={`${r.heading.split(':')[0]} flag`}
                   width={44}
                   height={30}
                   className="curr-flag-img"

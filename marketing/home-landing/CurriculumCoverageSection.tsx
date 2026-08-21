@@ -220,8 +220,7 @@ export default function CurriculumCoverageSection() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={card.structure}
-                  alt=""
-                  aria-hidden
+                  alt={`${card.title} curriculum routes illustration`}
                   className={`mml-cc-structure ${card.structureClass}`}
                 />
 

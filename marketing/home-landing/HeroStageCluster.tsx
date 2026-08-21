@@ -38,8 +38,7 @@ function StageCard({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={art}
-                alt=""
-                aria-hidden
+                alt={`${title} stage icon`}
                 className="mml-hero-stage-icon"
                 width={56}
                 height={56}
