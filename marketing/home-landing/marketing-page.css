@@ -422,14 +422,24 @@
   min-width: 0;
 }
 
-.mml-mkt-hero-step article {
+.mml-mkt-hero-step-link {
   position: relative;
+  display: block;
   height: 100%;
   padding: 1.15rem 0.45rem 0.7rem;
   border: 2px solid var(--mml-cyan);
   border-radius: 14px;
   background: var(--mml-white);
+  color: inherit;
   text-align: center;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.mml-mkt-hero-step-link:hover {
+  border-color: var(--mml-navy-deep);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--mml-navy-deep) 12%, transparent);
+  transform: translateY(-1px);
 }
 
 .mml-mkt-hero-step-num {
@@ -614,6 +624,33 @@
     white-space: normal;
   }
 
+  .mml-mkt-hero-cta-stack {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .mml-mkt-hero-cta-stack .mml-mkt-hero-body {
+    width: auto;
+    min-width: 0;
+  }
+
+  .mml-mkt-hero-ctas {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .mml-mkt-hero-cta-primary,
+  .mml-mkt-hero-cta-secondary {
+    flex: 1 1 12rem;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .mml-mkt-hero-flags {
+    flex-wrap: wrap;
+  }
+
   .mml-mkt-hero-glow {
     top: auto;
     bottom: -4rem;
@@ -628,11 +665,18 @@
     gap: 1.15rem 0.65rem;
   }
 
+  .mml-mkt-hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .mml-mkt-hero-cta-primary,
   .mml-mkt-hero-cta-secondary {
-    padding-left: 0.7rem;
-    padding-right: 0.7rem;
-    font-size: 0.78rem;
+    width: 100%;
+    flex: 1 1 auto;
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+    font-size: 0.88rem;
   }
 }
 

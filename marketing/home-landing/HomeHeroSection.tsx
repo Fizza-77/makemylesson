@@ -40,18 +40,22 @@ const CURRICULUMS = [
 const STEPS = [
   {
     title: "Lesson Plan",
+    href: MML_APP.stage1,
     copy: "Tell us your topic, grade, subject, and duration. We'll build a structured, curriculum-aligned plan.",
   },
   {
     title: "Presentation",
+    href: MML_APP.stage2,
     copy: "Get slide-by-slide content with speaker notes and beautiful visuals.",
   },
   {
     title: "Classroom Activity",
+    href: MML_APP.stage3,
     copy: "Engage students with ready-to-use activities, worksheets, and group tasks.",
   },
   {
     title: "Assessment",
+    href: MML_APP.stage4,
     copy: "Create assessments with answer keys and marking guides. Any stage. Any order. You're in control.",
   },
 ] as const;
@@ -174,11 +178,11 @@ export default function HomeHeroSection() {
                   {STEPS.map((step, index) => (
                     <li key={step.title} className="mml-mkt-hero-step">
                       {index > 0 ? <StepArrow /> : null}
-                      <article>
+                      <a href={step.href} className="mml-mkt-hero-step-link">
                         <span className="mml-mkt-hero-step-num">{index + 1}</span>
                         <h2>{step.title}</h2>
                         <p>{step.copy}</p>
-                      </article>
+                      </a>
                     </li>
                   ))}
                 </ol>
