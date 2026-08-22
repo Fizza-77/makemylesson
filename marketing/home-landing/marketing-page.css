@@ -1964,8 +1964,8 @@
   padding: 0 1.1rem 0.85rem;
   font-size: 0.62rem;
   line-height: 1.45;
-  font-weight: 500;
-  color: #94a3b8;
+  font-weight: 700;
+  color: #000000;
   text-align: center;
 }
 
@@ -4130,6 +4130,14 @@
   color: #ffffff;
 }
 
+.mml-sp-head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  min-width: 0;
+}
+
 .mml-sp-logo {
   display: inline-flex;
   align-items: center;
@@ -4150,9 +4158,11 @@
 }
 
 .mml-sp-name {
-  margin: 1.15rem 0 0;
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
   font-family: var(--font-manrope), Manrope, sans-serif;
-  font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.28rem);
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.02em;
@@ -4167,7 +4177,7 @@
 }
 
 .mml-sp-badge {
-  margin-top: 0.85rem;
+  margin-top: 0.55rem;
   display: inline-flex;
   align-items: center;
   max-width: 100%;
@@ -4191,8 +4201,7 @@
 }
 
 .mml-sp-body {
-  margin: 0.9rem 0 0;
-  flex: 1;
+  margin: 0.55rem 0 0;
   font-size: 0.95rem;
   line-height: 1.55;
 }
@@ -4206,7 +4215,7 @@
 }
 
 .mml-sp-cta {
-  margin-top: 1.35rem;
+  margin-top: 0.75rem;
   align-self: flex-end;
   display: inline-flex;
   align-items: center;
@@ -4231,8 +4240,8 @@
   }
 
   .mml-sp-card {
-    min-height: 22rem;
-    padding: 1.85rem 1.8rem 1.5rem;
+    min-height: 0;
+    padding: 1.5rem 1.6rem 1.25rem;
   }
 }
 
@@ -4254,7 +4263,8 @@
 
   .mml-sp-card {
     border-radius: 1.35rem;
-    min-height: 18rem;
+    min-height: 0;
+    padding: 1.35rem 1.35rem 1.15rem;
   }
 }
 
@@ -4375,13 +4385,14 @@
   width: 100%;
   max-width: 58rem;
   display: flex;
-  align-items: flex-start;
-  gap: 0.7rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 0.85rem 1.1rem;
   border-radius: 18px;
   border: 1px solid rgba(53, 190, 188, 0.45);
   background: #ffffff;
-  text-align: left;
+  text-align: center;
   box-sizing: border-box;
 }
 
@@ -4389,8 +4400,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.65rem;
-  height: 1.65rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 0.4rem;
+  vertical-align: -0.22em;
   flex-shrink: 0;
   border-radius: 9999px;
   background: #159f9b;
@@ -4400,9 +4413,12 @@
 .mml-pr-banner-lines {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.15rem;
+  width: 100%;
   font-size: 0.85rem;
   line-height: 1.45;
+  text-align: center;
   color: var(--mml-navy);
   opacity: 0.85;
 }
@@ -4782,14 +4798,21 @@
 }
 
 .mml-pr-foot {
-  margin: 0;
-  padding: 0.7rem 0.75rem;
-  border-top: 1px solid #eaeff3;
+  margin: 0.75rem auto 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  max-width: calc(100% - 1.5rem);
+  padding: 0.38rem 0.85rem;
+  border: none;
+  border-radius: 9999px;
+  background: #0e294c;
   font-size: 0.6rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #8a93a3;
+  color: #ffffff;
 }
 
 .mml-pr-note {
@@ -5451,11 +5474,12 @@
 
 @media (min-width: 1200px) {
   .mml-mkt-hero {
-    padding-bottom: 0.5rem;
+    min-height: 100dvh;
+    padding-bottom: 1.15in;
   }
 
   .mml-trust {
-    margin-top: -0.25rem;
+    margin-top: 0;
   }
 }
 

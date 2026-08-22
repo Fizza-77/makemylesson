@@ -51,10 +51,10 @@ const TRUST_INDICATORS = [
   },
   {
     key: "teachers",
-    title: "50K+ Teachers",
+    title: "1K+ Teachers",
     tone: "green" as const,
     icon: "people" as const,
-    description: "Trusted by 50K+ teachers worldwide.",
+    description: "Trusted by 1K+ teachers worldwide.",
   },
   {
     key: "rating",

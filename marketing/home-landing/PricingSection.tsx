@@ -34,11 +34,11 @@ export default function PricingSection() {
         </p>
 
         <div className="mml-pr-banner">
-          <span className="mml-pr-banner-icon" aria-hidden>
-            <Info size={17} strokeWidth={2.4} />
-          </span>
           <span className="mml-pr-banner-lines">
             <strong>
+              <span className="mml-pr-banner-icon" aria-hidden>
+                <Info size={17} strokeWidth={2.4} />
+              </span>
               Every new account receives 5 free generation credits — no credit
               card required.
             </strong>

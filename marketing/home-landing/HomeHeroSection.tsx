@@ -62,8 +62,8 @@ const STEPS = [
 
 const PERKS = [
   "5 Free Lesson Plans",
-  "Save 5 hrs on lesson prep",
-  "No card required",
+  "Save 5 Hrs on Lesson Prep",
+  "No Card Required",
 ] as const;
 
 function CheckIcon() {

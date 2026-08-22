@@ -53,17 +53,18 @@ export default function SisterPlatformsSection() {
             rel="noopener noreferrer"
             className={`mml-sp-card mml-sp-card--${platform.tone}`}
           >
-            <span className="mml-sp-logo">
-              <Image
-                src={platform.logo}
-                alt={`${platform.title} logo`}
-                width={40}
-                height={40}
-                className="mml-sp-logo-img"
-              />
+            <span className="mml-sp-head">
+              <span className="mml-sp-logo">
+                <Image
+                  src={platform.logo}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="mml-sp-logo-img"
+                />
+              </span>
+              <h3 className="mml-sp-name">{platform.title}</h3>
             </span>
-
-            <h3 className="mml-sp-name">{platform.title}</h3>
             <span className="mml-sp-badge">{platform.badge}</span>
             <p className="mml-sp-body">{platform.description}</p>
 

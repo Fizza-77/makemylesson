@@ -167,11 +167,11 @@ function ExternalTextLink({ href, children }) {
 function SiteFooter() {
   return (
     <>
-      <div className="h-[1cm] bg-white" aria-hidden />
+      <div className="h-[0.55cm] bg-white" aria-hidden />
       <footer className="mml-site-footer mt-auto w-full min-w-0 bg-[#273746] text-white">
-        <Container className="py-8 sm:py-9 lg:py-10">
+        <Container className="py-5 sm:py-6 lg:py-7">
           {/* Top: Brand | Sitemap | Follow | Download */}
-          <div className="mml-site-footer-grid grid gap-8 lg:grid-cols-[minmax(11.5rem,0.85fr)_minmax(0,2.55fr)_auto_minmax(0,1.2fr)] lg:items-start lg:gap-0">
+          <div className="mml-site-footer-grid grid gap-6 lg:grid-cols-[minmax(11.5rem,0.85fr)_minmax(0,2.55fr)_auto_minmax(0,1.2fr)] lg:items-start lg:gap-0">
             {/* Brand */}
             <div className="min-w-0 lg:pr-4 lg:border-r lg:border-white/15">
               <Link
@@ -184,7 +184,7 @@ function SiteFooter() {
                   Make My Lesson
                 </span>
               </Link>
-              <p className="mt-3 text-[12px] leading-relaxed text-white/75 sm:text-[13px]">
+              <p className="mt-2 text-[12px] leading-relaxed text-white/75 sm:text-[13px]">
                 AI-powered lesson planning for teachers across Australia, United Kingdom, Canada,
                 International Baccalaureate and United States.
               </p>
@@ -193,7 +193,7 @@ function SiteFooter() {
             {/* Sitemap */}
             <div className="min-w-0 lg:border-r lg:border-white/15">
               <p
-                className="mb-3 text-center text-[13px] font-semibold tracking-tight"
+                className="mb-2 text-center text-[13px] font-semibold tracking-tight"
                 style={{ color: TEAL }}
               >
                 Sitemap
@@ -233,7 +233,7 @@ function SiteFooter() {
             {/* Follow us */}
             <div className="min-w-0 lg:px-5 lg:border-r lg:border-white/15">
               <p
-                className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.14em]"
+                className="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.14em]"
                 style={{ color: TEAL }}
               >
                 Follow Us
@@ -329,7 +329,7 @@ function SiteFooter() {
           {/* Legal docs */}
           <nav
             aria-label="Legal documents"
-            className="mt-8 border-t border-white/15 pt-5 sm:mt-9 sm:pt-5"
+            className="mt-5 border-t border-white/15 pt-3.5 sm:mt-6 sm:pt-4"
           >
             <ul className="mml-site-footer-legal flex flex-wrap items-center justify-center gap-x-0 gap-y-2">
               {LEGAL_DOCS_ROW.map((item, index) => (
@@ -351,7 +351,7 @@ function SiteFooter() {
           </nav>
 
           {/* Company blurb */}
-          <div className="mt-5 border-t border-white/15 pt-5 sm:mt-6 sm:pt-5">
+          <div className="mt-3.5 border-t border-white/15 pt-3.5 sm:mt-4 sm:pt-4">
             <p className="text-center text-[11px] leading-relaxed text-white/70 sm:text-[12px]">
               Make My Lesson is a product of Skyen Solutions, a trade name of Qismat Ventures W.L.L.
               (CR 190698-1) — located at Office 501, Building 1025, Road 3621, Block 436, Al Seef,
@@ -369,7 +369,7 @@ function SiteFooter() {
           </div>
 
           {/* Bottom bar */}
-          <div className="mt-5 flex flex-col items-center gap-3 border-t border-white/15 pt-5 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-5">
+          <div className="mt-3.5 flex flex-col items-center gap-2 border-t border-white/15 pt-3.5 sm:mt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-4">
             <p className="flex items-center gap-2 text-center text-[12px] leading-snug text-white/75 sm:text-left sm:text-[13px]">
               <Heart
                 size={14}
