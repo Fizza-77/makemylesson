@@ -36,7 +36,7 @@ const MESSAGES = [
   },
 ] as const;
 
-const AYLA_IMAGE = "/ChatGPT Image Aug 5, 2026, 11_22_18 AM 1.svg";
+const AYLA_IMAGE = "/ayla-img.svg";
 const AYLA_AVATAR = "/Group 7.svg";
 
 function TypingDots() {
@@ -73,13 +73,14 @@ export default function MeetAylaSection() {
           </ul>
 
           <div className="mml-ayla-character">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={AYLA_IMAGE}
               alt="Ayla, AI teaching assistant"
               width={376}
               height={376}
               className="mml-ayla-character-img"
-              priority={false}
+              decoding="async"
             />
           </div>
         </div>
