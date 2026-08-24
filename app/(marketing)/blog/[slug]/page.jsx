@@ -20,7 +20,7 @@ async function loadPost(slug) {
 }
 
 export async function generateMetadata({ params }) {
-  const slug = params?.slug
+  const { slug } = await params
   if (!slug) return { title: 'Blog Post' }
 
   const result = await loadPost(slug)
@@ -69,7 +69,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogPostPage({ params }) {
-  const slug = params?.slug
+  const { slug } = await params
   if (!slug) notFound()
 
   const result = await loadPost(slug)
