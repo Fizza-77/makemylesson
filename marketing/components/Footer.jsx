@@ -301,7 +301,7 @@ function SiteFooter() {
 
                 <div className="flex shrink-0 flex-col items-center gap-1">
                   <a
-                    href="https://makemylesson.ai/smartlink"
+                    href="/smartlink"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex h-[92px] w-[92px] shrink-0 items-center justify-center overflow-hidden rounded-md bg-white p-1.5"
