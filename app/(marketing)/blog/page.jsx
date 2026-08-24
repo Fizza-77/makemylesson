@@ -115,12 +115,28 @@ export default async function BlogPage({ searchParams }) {
         className="!bg-white border-t-transparent text-[#1A1E3A]"
         contentClassName="pb-24 !pt-2"
       >
-        <header className="relative overflow-hidden rounded-[28px] bg-[#aae4e3] px-5 py-10 text-center sm:rounded-[36px] sm:px-8 sm:py-12">
-          <div
-            className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#35BEBC]/45"
+        <header className="blog-hub-hero">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/svgs/blog-left.webp"
+            alt=""
+            width={900}
+            height={600}
+            className="blog-hub-hero-art blog-hub-hero-art--left"
+            decoding="async"
             aria-hidden
           />
-          <div className="relative z-[1]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/svgs/blog-right.webp"
+            alt=""
+            width={900}
+            height={600}
+            className="blog-hub-hero-art blog-hub-hero-art--right"
+            decoding="async"
+            aria-hidden
+          />
+          <div className="blog-hub-hero-copy">
             <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#35BEBC]" aria-hidden />
               Blog

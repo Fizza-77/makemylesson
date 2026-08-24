@@ -3,6 +3,104 @@
  * (navy #1A1E3A, cyan #35BEBC / #AAE4E3)
  */
 
+.blog-hub-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #aae4e3;
+  padding: 2.5rem 1.25rem;
+  text-align: center;
+}
+
+.blog-hub-hero-art {
+  display: none;
+  position: absolute;
+  bottom: -6%;
+  height: 108%;
+  width: auto;
+  max-width: 42%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.blog-hub-hero-art--left {
+  left: -1.25rem;
+  object-position: left bottom;
+}
+
+.blog-hub-hero-art--right {
+  right: -1.25rem;
+  object-position: right bottom;
+}
+
+.blog-hub-hero-copy {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 640px) {
+  .blog-hub-hero {
+    border-radius: 36px;
+    padding: 3rem 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .blog-hub-hero {
+    min-height: 15.5rem;
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .blog-hub-hero-art {
+    display: block;
+  }
+
+  .blog-hub-hero-copy {
+    padding-left: 22%;
+    padding-right: 22%;
+  }
+}
+
+@media (min-width: 1100px) {
+  .blog-hub-hero {
+    min-height: 17.75rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .blog-hub-hero-art {
+    max-width: 38%;
+    height: 112%;
+    bottom: -8%;
+  }
+
+  .blog-hub-hero-art--left {
+    left: -0.5rem;
+  }
+
+  .blog-hub-hero-art--right {
+    right: -0.5rem;
+  }
+
+  .blog-hub-hero-copy {
+    padding-left: 26%;
+    padding-right: 26%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .blog-hub-hero {
+    min-height: 19.5rem;
+  }
+
+  .blog-hub-hero-art {
+    max-width: 34%;
+    height: 118%;
+  }
+}
+
 .blog-article-header {
   border-bottom: 1px solid rgba(26, 30, 58, 0.1);
   padding-bottom: 2rem;
