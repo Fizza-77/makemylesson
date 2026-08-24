@@ -1,3 +1,5 @@
+import '@marketing/styles/blog-article.css'
+
 /**
  * Blog segment: always server-render on each request with live Supabase data.
  * No static pages, no ISR, no default fetch cache for this subtree.

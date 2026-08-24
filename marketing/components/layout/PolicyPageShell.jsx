@@ -1,3 +1,5 @@
+import '@marketing/styles/legal-prose.css'
+
 import Container from '@marketing/components/layout/Container'
 import { pageShellClass, sectionYClass } from '@marketing/components/layout/Container'
 import { cn } from '@marketing/lib/cn'

@@ -1,6 +1,7 @@
 'use client'
 
 import '@marketing/styles/legacy-landing-page.css'
+import '@marketing/styles/large-screens.css'
 
 import { useLayoutEffect, useState } from 'react'
 import { cn } from '@marketing/lib/cn'

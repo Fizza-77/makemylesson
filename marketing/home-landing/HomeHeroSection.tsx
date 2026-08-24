@@ -194,7 +194,9 @@ export default function HomeHeroSection() {
           <div className="mml-mkt-hero-visual-col">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/Hero Visual Stage.svg"
+              src="/hero-visual-stage.webp"
+              srcSet="/hero-visual-stage-sm.webp 860w, /hero-visual-stage.webp 1718w"
+              sizes="(max-width: 1199px) min(100vw, 44rem), 50vw"
               alt="Overlapping teaching pack documents: lesson plan, slides, classroom activity, test paper, answer key, and mark scheme for an ecosystems lesson."
               className="mml-mkt-hero-stage-svg"
               width={859}

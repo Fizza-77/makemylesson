@@ -22,10 +22,6 @@
   --shadow-teal: 0 0 30px rgba(56, 189, 248, 0.22);
 }
 
-@import '../marketing/styles/large-screens.css';
-@import '../marketing/styles/blog-article.css';
-@import '../marketing/styles/legal-prose.css';
-
 @layer base {
   :root {
     --teal: #7dd3e8;

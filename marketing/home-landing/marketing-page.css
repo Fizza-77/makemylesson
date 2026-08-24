@@ -3310,7 +3310,9 @@
 }
 
 .mml-cc-grid {
-  margin-top: 2.25rem;
+  list-style: none;
+  margin: 2.25rem 0 0;
+  padding: 0;
   width: 100%;
   max-width: min(1200px, 100%);
   display: grid;
@@ -5122,6 +5124,18 @@
   min-height: 2.4rem;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
+}
+
+.mml-ayla .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .mml-ayla-typing {

@@ -36,7 +36,7 @@ const MESSAGES = [
   },
 ] as const;
 
-const AYLA_IMAGE = "/ayla-img.svg";
+const AYLA_IMAGE = "/ayla-character.webp";
 const AYLA_AVATAR = "/Group 7.svg";
 
 function TypingDots() {
@@ -80,6 +80,7 @@ export default function MeetAylaSection() {
               width={376}
               height={376}
               className="mml-ayla-character-img"
+              loading="lazy"
               decoding="async"
             />
           </div>
@@ -95,6 +96,7 @@ export default function MeetAylaSection() {
                   width={44}
                   height={44}
                   className="mml-ayla-chat-avatar"
+                  loading="lazy"
                 />
                 <span className="mml-ayla-chat-online" aria-hidden />
               </div>
@@ -120,9 +122,10 @@ export default function MeetAylaSection() {
 
               <div
                 className="mml-ayla-msg mml-ayla-msg--bot mml-ayla-msg--typing"
+                role="status"
                 aria-live="polite"
-                aria-label="Ayla is typing"
               >
+                <span className="sr-only">Ayla is typing</span>
                 <TypingDots />
               </div>
             </div>

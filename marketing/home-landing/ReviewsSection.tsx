@@ -306,10 +306,7 @@ function Stars({ color }: { color: Review["stars"] }) {
 
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <article
-      className={`mml-rv-card mml-rv-card--${review.tone}`}
-      role="listitem"
-    >
+    <article className={`mml-rv-card mml-rv-card--${review.tone}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={review.pin === "cyan" ? "/cyan-pin.svg" : "/navy-pin.svg"}
@@ -372,7 +369,6 @@ export default function ReviewsSection() {
                 <div
                   key={slideIndex}
                   className="mml-rv-slide"
-                  role="list"
                   aria-hidden={page !== slideIndex}
                   aria-label={`Reviews page ${slideIndex + 1}`}
                 >

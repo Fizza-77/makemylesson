@@ -199,7 +199,7 @@ export default function CurriculumCoverageSection() {
           progression instead of generic labels on basic templates.
         </p>
 
-        <div className="mml-cc-grid" role="list">
+        <ul className="mml-cc-grid">
           {CARDS.map((card) => {
             const previewCount = card.previewCount ?? card.items.length;
             const isExpanded = Boolean(expanded[card.id]);
@@ -210,18 +210,19 @@ export default function CurriculumCoverageSection() {
             const extraItems = canExpand ? card.items.slice(previewCount) : [];
 
             return (
-              <article
+              <li
                 key={card.id}
                 className={`mml-cc-card mml-cc-card--${card.id} mml-cc-card--${card.tone}${
                   isExpanded ? " mml-cc-card--expanded" : ""
                 }`}
-                role="listitem"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={card.structure}
                   alt={`${card.title} curriculum routes illustration`}
                   className={`mml-cc-structure ${card.structureClass}`}
+                  loading="lazy"
+                  decoding="async"
                 />
 
                 <div className="mml-cc-card-top">
@@ -267,10 +268,10 @@ export default function CurriculumCoverageSection() {
                     </button>
                   ) : null}
                 </div>
-              </article>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

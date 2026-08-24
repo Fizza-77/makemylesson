@@ -9,7 +9,7 @@ const PLATFORMS = [
     description:
       "AI-powered study support for students across the same curriculum systems as Make My Lesson.",
     href: "https://studiely.com",
-    logo: "/studiely-logo.jpeg",
+    logo: "/studiely-logo.webp",
   },
   {
     key: "linguatude",
@@ -19,7 +19,7 @@ const PLATFORMS = [
     description:
       "English test preparation for learners pursuing university, immigration or career goals.",
     href: "https://linguatude.com",
-    logo: "/linguatude-logo.png",
+    logo: "/linguatude-logo.webp",
   },
   {
     key: "worksheeta",
@@ -29,7 +29,7 @@ const PLATFORMS = [
     description:
       "Create differentiated, ready-to-print worksheets and answer keys from a single topic.",
     href: "https://worksheeta.com",
-    logo: "/worksheeta.jpeg",
+    logo: "/worksheeta.webp",
   },
 ] as const;
 
@@ -61,6 +61,7 @@ export default function SisterPlatformsSection() {
                   width={40}
                   height={40}
                   className="mml-sp-logo-img"
+                  loading="lazy"
                 />
               </span>
               <h3 className="mml-sp-name">{platform.title}</h3>

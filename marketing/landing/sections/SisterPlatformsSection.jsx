@@ -24,7 +24,7 @@ const PLATFORMS = [
     name: 'Linguatude',
     tagline: 'AI English Test Preparation',
     url: 'https://linguatude.com',
-    logo: '/linguatude-logo.png',
+    logo: '/linguatude-logo.webp',
     description: [
       'An AI-powered English test preparation platform for IELTS, TOEFL iBT, PTE Academic, Cambridge B1 Preliminary, and Cambridge B2 First.',
       'Where Make My Lesson supports the teacher planning the lesson, Linguatude supports the learner whose next opportunity depends on passing a high-stakes English test.',
