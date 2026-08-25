@@ -1,7 +1,9 @@
 import { jsPDF } from "jspdf";
 
 import { structureWorksheetMarkdown } from "@/lib/format-worksheet-markdown";
-import { PDF_INK, PDF_MUTED, PdfWriter } from "@/services/pdf-writer";
+import type { ExportPersonalization } from "@/services/export-personalization.service";
+import { drawLessonPlanStyleCover } from "@/services/pdf-branding";
+import { PdfWriter } from "@/services/pdf-writer";
 
 /** Shared helpers for Stage 1–4 client exports (mirrors Flutter DocumentExportCoreService). */
 
@@ -39,49 +41,23 @@ export type WorksheetPdfInput = {
   subject: string;
   body: string;
   schoolName?: string | null;
+  preparedBy?: string | null;
+  personalization?: ExportPersonalization | null;
 };
 
 const WORKSHEET_MARGIN = 48;
 
 function drawWorksheetHeader(w: PdfWriter, input: WorksheetPdfInput): void {
-  const { doc } = w;
-  const school = input.schoolName?.trim();
-
-  if (school) {
-    w.paragraph(school, { size: 10, color: PDF_MUTED, after: 6 });
-  }
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(18);
-  doc.setTextColor(PDF_INK);
-  const titleLines = doc.splitTextToSize(
-    input.title.trim() || "Worksheet",
-    w.maxWidth,
-  ) as string[];
-  for (const line of titleLines) {
-    w.ensure(22);
-    doc.text(line, w.margin, w.y);
-    w.gap(22);
-  }
-  w.gap(2);
-
-  w.paragraph(input.subtitle.trim() || "Document", {
-    size: 12,
-    color: PDF_MUTED,
-    after: 4,
+  drawLessonPlanStyleCover(w, {
+    eyebrow: input.subtitle.trim() || "Worksheet",
+    title: input.title.trim() || "Worksheet",
+    personalization: input.personalization,
+    schoolName: input.schoolName,
+    preparedBy: input.preparedBy,
+    subject: input.subject,
+    grade: input.grade,
+    curriculumRoute: input.curriculumRoute,
   });
-
-  for (const line of [
-    `Curriculum: ${input.curriculumRoute}`,
-    `Grade: ${input.grade}`,
-    `Subject: ${input.subject}`,
-  ]) {
-    w.paragraph(line, { size: 10, color: PDF_MUTED, after: 0 });
-  }
-
-  w.gap(6);
-  w.rule();
-  w.gap(16);
 }
 
 /**

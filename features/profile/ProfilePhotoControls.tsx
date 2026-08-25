@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper, { type Area } from "react-easy-crop";
 
 import { Button } from "@/components/ui/Button";
@@ -20,12 +20,18 @@ import {
 } from "@/services/user-account.service";
 import { toast } from "@/store/toast-store";
 
-type Step = "closed" | "options" | "avatars" | "crop";
+type Step = "closed" | "options" | "avatars" | "camera" | "crop";
 
 export function ProfilePhotoControls({ account }: { account: UserAccountView }) {
   const fileRef = useRef<HTMLInputElement>(null);
+  const cameraFileRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+
   const [step, setStep] = useState<Step>("closed");
   const [busy, setBusy] = useState(false);
+  const [cameraBusy, setCameraBusy] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
   const [cropSrc, setCropSrc] = useState<string | null>(null);
   const [cropFileName, setCropFileName] = useState("profile.jpg");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -35,13 +41,78 @@ export function ProfilePhotoControls({ account }: { account: UserAccountView }) 
   const hasPhoto = Boolean(account.profilePhotoUrl?.trim());
   const seeds = avatarSeedsForUser(account.uid);
 
+  const stopCamera = useCallback(() => {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    if (videoRef.current) videoRef.current.srcObject = null;
+  }, []);
+
   const closeAll = useCallback(() => {
+    stopCamera();
     setStep("closed");
     setCropSrc(null);
     setCrop({ x: 0, y: 0 });
     setZoom(1);
     setCroppedAreaPixels(null);
-  }, []);
+    setCameraError(null);
+  }, [stopCamera]);
+
+  useEffect(() => {
+    return () => stopCamera();
+  }, [stopCamera]);
+
+  useEffect(() => {
+    if (step !== "camera") {
+      stopCamera();
+      return;
+    }
+
+    let cancelled = false;
+    setCameraBusy(true);
+    setCameraError(null);
+
+    void (async () => {
+      try {
+        if (!navigator.mediaDevices?.getUserMedia) {
+          throw new Error("Camera is not supported in this browser.");
+        }
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: {
+            facingMode: { ideal: "user" },
+            width: { ideal: 1280 },
+            height: { ideal: 1280 },
+          },
+        });
+        if (cancelled) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+        streamRef.current = stream;
+        const video = videoRef.current;
+        if (video) {
+          video.srcObject = stream;
+          await video.play().catch(() => null);
+        }
+      } catch (e) {
+        if (cancelled) return;
+        const message =
+          e instanceof DOMException && e.name === "NotAllowedError"
+            ? "Camera permission was denied."
+            : e instanceof Error
+              ? e.message
+              : "Could not open the camera.";
+        setCameraError(message);
+      } finally {
+        if (!cancelled) setCameraBusy(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+      stopCamera();
+    };
+  }, [step, stopCamera]);
 
   async function uploadCroppedBlob(blob: Blob, fileName: string) {
     setBusy(true);
@@ -58,10 +129,61 @@ export function ProfilePhotoControls({ account }: { account: UserAccountView }) 
 
   function onFileChosen(file: File | null) {
     if (!file) return;
-    setCropFileName(file.name);
+    stopCamera();
+    setCropFileName(file.name || "profile.jpg");
     const url = URL.createObjectURL(file);
     setCropSrc(url);
     setStep("crop");
+  }
+
+  function openCamera() {
+    setCameraError(null);
+    // Prefer live preview when getUserMedia exists; otherwise use capture input.
+    if (typeof navigator !== "undefined" && navigator.mediaDevices?.getUserMedia) {
+      setStep("camera");
+      return;
+    }
+    cameraFileRef.current?.click();
+  }
+
+  function snapPhoto() {
+    const video = videoRef.current;
+    if (!video || !video.videoWidth) {
+      toast.error("Camera is not ready yet.");
+      return;
+    }
+    const size = Math.min(video.videoWidth, video.videoHeight);
+    const sx = (video.videoWidth - size) / 2;
+    const sy = (video.videoHeight - size) / 2;
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      toast.error("Could not capture photo.");
+      return;
+    }
+    // Mirror selfie preview so the saved crop matches what the user saw.
+    ctx.translate(size, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(video, sx, sy, size, size, 0, 0, size, size);
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) {
+          toast.error("Could not capture photo.");
+          return;
+        }
+        stopCamera();
+        setCropFileName("camera-photo.jpg");
+        setCropSrc(URL.createObjectURL(blob));
+        setCrop({ x: 0, y: 0 });
+        setZoom(1);
+        setCroppedAreaPixels(null);
+        setStep("crop");
+      },
+      "image/jpeg",
+      0.92,
+    );
   }
 
   async function confirmCrop() {
@@ -141,10 +263,35 @@ export function ProfilePhotoControls({ account }: { account: UserAccountView }) 
           e.target.value = "";
         }}
       />
+      <input
+        ref={cameraFileRef}
+        type="file"
+        accept="image/*"
+        capture="user"
+        className="hidden"
+        onChange={(e) => {
+          onFileChosen(e.target.files?.[0] ?? null);
+          e.target.value = "";
+        }}
+      />
 
       {step === "options" ? (
         <ProfileDialogShell title="Profile photo" onClose={closeAll}>
           <ul className="divide-y divide-[#E5E7EB] rounded-xl border border-[#E5E7EB]">
+            <li>
+              <button
+                type="button"
+                className="flex w-full flex-col items-start px-4 py-3 text-left hover:bg-[#F9FAFB]"
+                onClick={openCamera}
+              >
+                <span className="text-sm font-medium text-[#1A1C30]">
+                  Take photo
+                </span>
+                <span className="text-xs text-[#666666]">
+                  Use your camera, then crop to a square
+                </span>
+              </button>
+            </li>
             <li>
               <button
                 type="button"
@@ -212,6 +359,64 @@ export function ProfilePhotoControls({ account }: { account: UserAccountView }) 
             <Button variant="ghost" onClick={closeAll}>
               Cancel
             </Button>
+          </div>
+        </ProfileDialogShell>
+      ) : null}
+
+      {step === "camera" ? (
+        <ProfileDialogShell
+          title="Take photo"
+          onClose={() => {
+            stopCamera();
+            setStep("options");
+          }}
+        >
+          <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[#0F172A]">
+            {cameraBusy ? (
+              <p className="absolute inset-0 flex items-center justify-center text-sm text-white/80">
+                Starting camera…
+              </p>
+            ) : null}
+            {cameraError ? (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
+                <p className="text-sm text-white/90">{cameraError}</p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="border-white/30 bg-white/10 text-white hover:bg-white/20"
+                  onClick={() => cameraFileRef.current?.click()}
+                >
+                  Use device camera / gallery
+                </Button>
+              </div>
+            ) : (
+              <video
+                ref={videoRef}
+                playsInline
+                muted
+                autoPlay
+                className="size-full object-cover [transform:scaleX(-1)]"
+              />
+            )}
+          </div>
+          <div className="mt-4 flex flex-wrap justify-end gap-2">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                stopCamera();
+                setStep("options");
+              }}
+            >
+              Back
+            </Button>
+            {!cameraError ? (
+              <Button
+                onClick={snapPhoto}
+                disabled={cameraBusy || busy}
+              >
+                Capture
+              </Button>
+            ) : null}
           </div>
         </ProfileDialogShell>
       ) : null}

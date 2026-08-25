@@ -7,6 +7,7 @@ import {
   sanitizeFileName,
   shareBlobFile,
 } from "@/services/document-export-core";
+import type { ExportPersonalization } from "@/services/export-personalization.service";
 
 export type Stage3ExportInput = {
   topic: string;
@@ -17,6 +18,8 @@ export type Stage3ExportInput = {
   studentActivityText: string;
   teacherAnswerKeyText: string;
   schoolName?: string | null;
+  preparedBy?: string | null;
+  personalization?: ExportPersonalization | null;
 };
 
 function fileName(topic: string, suffix: string, ext: string): string {
@@ -35,7 +38,9 @@ function studentPdf(input: Stage3ExportInput) {
     grade: input.grade,
     subject: input.subject,
     body: input.studentActivityText,
-    schoolName: input.schoolName,
+    schoolName: input.personalization?.schoolName ?? input.schoolName,
+    preparedBy: input.personalization?.teacherName ?? input.preparedBy,
+    personalization: input.personalization,
   });
 }
 
@@ -47,7 +52,9 @@ function answerKeyPdf(input: Stage3ExportInput) {
     grade: input.grade,
     subject: input.subject,
     body: input.teacherAnswerKeyText,
-    schoolName: input.schoolName,
+    schoolName: input.personalization?.schoolName ?? input.schoolName,
+    preparedBy: input.personalization?.teacherName ?? input.preparedBy,
+    personalization: input.personalization,
   });
 }
 

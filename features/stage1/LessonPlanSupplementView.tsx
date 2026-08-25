@@ -1,5 +1,6 @@
 "use client";
 
+import { LESSON_PLAN_SECTION_HEADING } from "@/components/common/MarkdownContentView";
 import { buildLessonPlanSupplement } from "@/lib/lesson-plan-supplement";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +31,7 @@ export function LessonPlanSupplementView({
   return (
     <div className={cn("flex flex-col gap-5", className)}>
       <Section heading={successCriteria.heading}>
-        <ul className="flex flex-col gap-1.5">
+        <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
           {successCriteria.items.map((item) => (
             <li key={item} className="flex items-start gap-2">
               <span
@@ -46,13 +47,13 @@ export function LessonPlanSupplementView({
       </Section>
 
       <Section heading={curriculumAlignment.heading}>
-        <p className="text-[13px] leading-relaxed text-[#4A5568]">
+        <p className="m-0 text-[13px] leading-relaxed text-[#1A1C30]">
           {curriculumAlignment.body}
         </p>
       </Section>
 
       <Section heading={learningResources.heading}>
-        <ul className="flex flex-col gap-1">
+        <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
           {learningResources.items.map((item) => (
             <li key={item} className="flex items-start gap-2">
               <span
@@ -93,7 +94,7 @@ export function LessonPlanSupplementView({
                     <td
                       key={`${row[0]}-${i}`}
                       className={cn(
-                        "border border-slate-200 px-2.5 py-1.5 align-top text-[#1A1C30]",
+                        "border border-slate-200 px-2.5 py-1.5 align-top text-[13px] leading-relaxed text-[#1A1C30]",
                         i === 0 && "font-semibold",
                       )}
                     >
@@ -111,10 +112,12 @@ export function LessonPlanSupplementView({
         <p className="mb-2 text-[12px] leading-relaxed text-[#64748B] italic">
           {teacherReflection.note}
         </p>
-        <ul className="flex flex-col gap-2.5">
+        <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
           {teacherReflection.questions.map((q) => (
             <li key={q}>
-              <p className="text-[13px] font-semibold text-[#1A1C30]">{q}</p>
+              <p className="m-0 text-[13px] font-semibold leading-relaxed text-[#1A1C30]">
+                {q}
+              </p>
               <span
                 className="mt-1 block h-px w-full bg-slate-200"
                 aria-hidden
@@ -135,8 +138,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section>
-      <h3 className="mb-2 text-[15px] font-extrabold tracking-tight text-[#151B35]">
+    <section className="flex flex-col">
+      <h3 className={LESSON_PLAN_SECTION_HEADING}>
         {heading}
       </h3>
       {children}

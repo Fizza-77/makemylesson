@@ -26,6 +26,10 @@ import {
   getTopLevelCurriculums,
 } from "@/services/curriculum.service";
 import {
+  resolveExportPersonalization,
+  type ExportPersonalization,
+} from "@/services/export-personalization.service";
+import {
   downloadLessonPlanPdf,
   printLessonPlanPdf,
   shareLessonPlanPdf,
@@ -90,16 +94,15 @@ export function Stage1View() {
 
     if (requireSignIn()) return;
     if (blockIfNoCredits()) return;
-    if (
-      !(await confirmGeneration(1, {
-        grade: draft.grade,
-        pathway: draft.pathwayDisplayName,
-        topic: draft.topic,
-      }))
-    )
-      return;
+    const clarified = await confirmGeneration(1, {
+      grade: draft.grade,
+      pathway: draft.pathwayDisplayName,
+      topic: draft.topic,
+      subject: draft.subject,
+    });
+    if (!clarified) return;
     try {
-      const result = await draft.generate();
+      const result = await draft.generate(clarified.answers);
       if (user?.uid) {
         await refreshAccountFromServer(user.uid).catch(() => null);
       }
@@ -135,7 +138,7 @@ export function Stage1View() {
     }
   }
 
-  function pdfInput() {
+  function pdfInput(personalization?: ExportPersonalization | null) {
     return {
       topic: draft.topic,
       curriculumRoute: draft.mappedCurriculumName ?? draft.curriculumLabel,
@@ -143,22 +146,30 @@ export function Stage1View() {
       subject: draft.subject,
       content: draft.generatedSummary,
       schoolName:
-        account?.useSchoolNameInAi && account.schoolName?.trim()
+        personalization?.schoolName ??
+        (account?.useSchoolNameInAi && account.schoolName?.trim()
           ? account.schoolName.trim()
-          : null,
-      preparedBy: account?.displayName?.trim() || null,
+          : null),
+      preparedBy:
+        personalization?.teacherName ??
+        (account?.displayName?.trim() || null),
       teachingStrategy: draft.method,
       duration: draft.duration,
+      personalization: personalization ?? null,
     };
   }
 
-  function onDownloadPdf() {
+  async function withPersonalization() {
+    return resolveExportPersonalization(account);
+  }
+
+  async function onDownloadPdf() {
     if (!hasPlan) {
       toast.info("Generate a lesson plan first.");
       return;
     }
     try {
-      downloadLessonPlanPdf(pdfInput());
+      downloadLessonPlanPdf(pdfInput(await withPersonalization()));
       toast.success("PDF download started.");
     } catch (e) {
       toast.error(
@@ -169,13 +180,13 @@ export function Stage1View() {
     }
   }
 
-  function onPrintPdf() {
+  async function onPrintPdf() {
     if (!hasPlan) {
       toast.info("Generate a lesson plan first.");
       return;
     }
     try {
-      printLessonPlanPdf(pdfInput());
+      printLessonPlanPdf(pdfInput(await withPersonalization()));
     } catch (e) {
       toast.error(
         e instanceof Error ? e.message : "Could not open print dialog.",
@@ -191,7 +202,9 @@ export function Stage1View() {
       return;
     }
     try {
-      const result = await shareLessonPlanPdf(pdfInput());
+      const result = await shareLessonPlanPdf(
+        pdfInput(await withPersonalization()),
+      );
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
     } catch (e) {
@@ -216,7 +229,7 @@ export function Stage1View() {
     <div className="flex w-full min-w-0 flex-col gap-6">
       <GenerationBusyOverlay
         active={isGenerating}
-        title="Generating your lesson plan"
+        stage={1}
         progress={draft.progress}
         status={
           draft.phase === "saving"
@@ -225,6 +238,9 @@ export function Stage1View() {
               ? `Generating… ${draft.phase}`
               : undefined
         }
+        tags={[draft.grade, draft.subject, draft.topic, draft.method].filter(
+          Boolean,
+        )}
       />
       <Stage1Hero />
       <StageProgressNav currentStage={1} />

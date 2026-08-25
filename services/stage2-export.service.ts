@@ -4,6 +4,8 @@ import PptxGenJS from "pptxgenjs";
 
 import { stage2ThemeById, type Stage2SlideTheme } from "@/data/stage2-themes";
 import { structureQuestionAnswerMarkdown } from "@/lib/format-worksheet-markdown";
+import type { ExportPersonalization } from "@/services/export-personalization.service";
+import { drawLessonPlanStyleCover, drawPersonalizationAvatars } from "@/services/pdf-branding";
 import { PDF_INK, PDF_MUTED, PdfWriter } from "@/services/pdf-writer";
 import type { Stage2Slide } from "@/types/stage2";
 
@@ -16,6 +18,7 @@ export type Stage2ExportInput = {
   themeId: string;
   schoolName?: string | null;
   teacherName?: string | null;
+  personalization?: ExportPersonalization | null;
 };
 
 function safeTopic(topic: string): string {
@@ -48,6 +51,20 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
   const n = Number.parseInt(full, 16);
   if (!Number.isFinite(n)) return { r: 26, g: 33, b: 62 };
   return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
+
+/** Blend two RGB colours (t = 0 → a, t = 1 → b). Avoids jsPDF GState opacity bugs. */
+function mixRgb(
+  a: { r: number; g: number; b: number },
+  b: { r: number; g: number; b: number },
+  t: number,
+): { r: number; g: number; b: number } {
+  const k = Math.min(1, Math.max(0, t));
+  return {
+    r: Math.round(a.r + (b.r - a.r) * k),
+    g: Math.round(a.g + (b.g - a.g) * k),
+    b: Math.round(a.b + (b.b - a.b) * k),
+  };
 }
 
 function hexColor(color: string): string {
@@ -176,18 +193,34 @@ function paintPdfBackground(
   doc.setFillColor(back.r, back.g, back.b);
   doc.rect(0, 0, w, h, "F");
 
-  const gState = doc.GState({ opacity: 0.16 });
-  doc.saveGraphicsState();
-  doc.setGState(gState);
-  doc.setFillColor(accent.r, accent.g, accent.b);
+  // Decorative orbs — mix into the background instead of GState opacity
+  // (opacity can leak and wash out later shapes in some jsPDF builds).
+  const orbA = mixRgb(back, accent, 0.22);
+  const orbB = mixRgb(back, accent2, 0.18);
+  doc.setFillColor(orbA.r, orbA.g, orbA.b);
   doc.circle(w - 48, 36, 110, "F");
-  doc.setFillColor(accent2.r, accent2.g, accent2.b);
+  doc.setFillColor(orbB.r, orbB.g, orbB.b);
   doc.circle(70, h + 18, 95, "F");
-  doc.restoreGraphicsState();
 
   doc.setFillColor(accent.r, accent.g, accent.b);
   doc.rect(0, 0, 10, h, "F");
   doc.rect(0, h - 8, w, 8, "F");
+}
+
+function resolvedSchoolName(input: Stage2ExportInput): string {
+  return (
+    input.personalization?.schoolName?.trim() ||
+    input.schoolName?.trim() ||
+    ""
+  );
+}
+
+function resolvedTeacherName(input: Stage2ExportInput): string {
+  return (
+    input.personalization?.teacherName?.trim() ||
+    input.teacherName?.trim() ||
+    ""
+  );
 }
 
 function addPdfCover(
@@ -210,18 +243,29 @@ function addPdfCover(
   doc.setFontSize(10);
   doc.text("COVER SLIDE", 40, 42);
 
-  const school = input.schoolName?.trim();
+  // Avatars share the COVER SLIDE row, right-aligned.
+  drawPersonalizationAvatars(doc, input.personalization, {
+    right: pageW - 40,
+    y: 24,
+    diameter: 36,
+  });
+
+  const textTop = 62;
+
+  const school = resolvedSchoolName(input);
   if (school) {
     doc.setTextColor(titleRgb.r, titleRgb.g, titleRgb.b);
     doc.setFontSize(13);
-    doc.text(school, 40, 62);
+    doc.text(school, 40, textTop);
   }
-  const teacher = input.teacherName?.trim();
+  const teacher = resolvedTeacherName(input);
   if (teacher) {
     doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
-    doc.text(`Prepared by: ${teacher}`, pageW - 40, 62, { align: "right" });
+    doc.text(`Prepared by: ${teacher}`, pageW - 40, textTop, {
+      align: "right",
+    });
   }
 
   doc.setFillColor(accentRgb.r, accentRgb.g, accentRgb.b);
@@ -279,7 +323,11 @@ async function addPdfContentSlide(
   const mutedRgb = hexToRgb(theme.mutedColor);
   const accentRgb = hexToRgb(theme.accentPrimary);
   const accent2Rgb = hexToRgb(theme.accentSecondary);
-  const panelRgb = hexToRgb(theme.overlayPanelColor);
+  const backRgb = hexToRgb(theme.backgroundGradient[1] ?? theme.accentPrimary);
+  // Match Flutter `_pdfBullet`: accent-tinted card + border (not overlayPanel,
+  // which often equals the slide background and makes boxes invisible).
+  const cardFill = mixRgb(backRgb, accentRgb, theme.isLight ? 0.1 : 0.2);
+  const cardBorder = mixRgb(backRgb, accentRgb, theme.isLight ? 0.4 : 0.55);
 
   doc.setTextColor(mutedRgb.r, mutedRgb.g, mutedRgb.b);
   doc.setFont("helvetica", "bold");
@@ -299,8 +347,11 @@ async function addPdfContentSlide(
   const hasImage = Boolean(imageData);
   const textMaxW = hasImage ? pageW * 0.52 : pageW - 72;
 
+  // Accent bar (Flutter `_pdfAccentBar`)
   doc.setFillColor(accentRgb.r, accentRgb.g, accentRgb.b);
-  doc.roundedRect(36, 44, 48, 6, 3, 3, "F");
+  doc.roundedRect(36, 44, 64, 5, 2.5, 2.5, "F");
+  doc.setFillColor(accent2Rgb.r, accent2Rgb.g, accent2Rgb.b);
+  doc.roundedRect(68, 44, 32, 5, 2.5, 2.5, "F");
 
   doc.setTextColor(titleRgb.r, titleRgb.g, titleRgb.b);
   doc.setFont("helvetica", "bold");
@@ -311,49 +362,69 @@ async function addPdfContentSlide(
   ) as string[];
   let y = 68;
   doc.text(titleLines.slice(0, 2), 36, y);
-  y += titleLines.slice(0, 2).length * 24 + 10;
+  y += titleLines.slice(0, 2).length * 24 + 12;
 
   const bullets = slideBullets(slide);
-  const remaining = pageH - 48 - y;
-  const cardH = Math.min(64, Math.max(42, remaining / Math.max(bullets.length, 1) - 8));
+  const bottomLimit = pageH - 40;
+  const gap = 9;
 
   for (let i = 0; i < bullets.length; i++) {
     const bullet = bullets[i]!;
     const { label, rest } = splitBullet(bullet);
-    const iconFill = i % 2 === 0 ? theme.accentPrimary : theme.accentSecondary;
-    const icon = hexToRgb(iconFill);
-    if (y + cardH > pageH - 36) break;
+    const textX = 56;
+    const textW = textMaxW - 40;
+    const padY = 10;
+    const lineH = 13;
 
-    doc.setFillColor(panelRgb.r, panelRgb.g, panelRgb.b);
-    doc.roundedRect(36, y, textMaxW, cardH, 8, 8, "F");
-    doc.setFillColor(icon.r, icon.g, icon.b);
-    doc.circle(56, y + cardH / 2, 11, "F");
-    if (isLightHex(iconFill)) doc.setTextColor(15, 23, 42);
-    else doc.setTextColor(255, 255, 255);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
-    doc.text(String(i + 1), 56, y + cardH / 2 + 4, { align: "center" });
+    let contentLines: string[] = [];
+    let contentH = padY * 2 + 14;
+    if (label) {
+      const restLines = (
+        doc.splitTextToSize(rest, textW) as string[]
+      ).slice(0, 2);
+      contentLines = restLines;
+      contentH = padY + 14 + (restLines.length ? 4 + restLines.length * lineH : 0) + padY;
+    } else {
+      contentLines = (doc.splitTextToSize(rest, textW) as string[]).slice(0, 3);
+      contentH = padY * 2 + Math.max(1, contentLines.length) * lineH;
+    }
+    const cardH = Math.max(36, Math.min(72, contentH));
+    if (y + cardH > bottomLimit) break;
 
-    const textX = 76;
-    const textW = textMaxW - 52;
+    // Card fill + stroke so boxes read on every theme
+    doc.setFillColor(cardFill.r, cardFill.g, cardFill.b);
+    doc.setDrawColor(cardBorder.r, cardBorder.g, cardBorder.b);
+    doc.setLineWidth(0.9);
+    doc.roundedRect(36, y, textMaxW, cardH, 10, 10, "FD");
+
+    // Dot bullet (Flutter style)
+    doc.setFillColor(accent2Rgb.r, accent2Rgb.g, accent2Rgb.b);
+    doc.circle(48, y + cardH / 2, 4, "F");
+
+    let textY = y + padY + 11;
     if (label) {
       doc.setTextColor(titleRgb.r, titleRgb.g, titleRgb.b);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
-      doc.text(label, textX, y + 18);
+      doc.text(label, textX, textY);
+      textY += 15;
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
       doc.setTextColor(bodyRgb.r, bodyRgb.g, bodyRgb.b);
-      const lines = doc.splitTextToSize(rest, textW) as string[];
-      doc.text(lines.slice(0, 2), textX, y + 34);
+      for (const line of contentLines) {
+        doc.text(line, textX, textY);
+        textY += lineH;
+      }
     } else {
       doc.setFont("helvetica", "normal");
       doc.setFontSize(11);
       doc.setTextColor(bodyRgb.r, bodyRgb.g, bodyRgb.b);
-      const lines = doc.splitTextToSize(rest, textW) as string[];
-      doc.text(lines.slice(0, 3), textX, y + 22);
+      for (const line of contentLines) {
+        doc.text(line, textX, textY);
+        textY += lineH;
+      }
     }
-    y += cardH + 8;
+    y += cardH + gap;
   }
 
   if (imageData) {
@@ -362,13 +433,24 @@ async function addPdfContentSlide(
       const imgH = pageH * 0.52;
       const imgX = pageW - imgW - 28;
       const imgY = 86;
-      doc.setFillColor(panelRgb.r, panelRgb.g, panelRgb.b);
-      doc.roundedRect(imgX - 8, imgY - 8, imgW + 16, imgH + 16, 12, 12, "F");
+      const frame = mixRgb(backRgb, accentRgb, 0.25);
+      doc.setFillColor(frame.r, frame.g, frame.b);
+      doc.setDrawColor(cardBorder.r, cardBorder.g, cardBorder.b);
+      doc.setLineWidth(0.8);
+      doc.roundedRect(imgX - 8, imgY - 8, imgW + 16, imgH + 16, 12, 12, "FD");
       const format = imageData.includes("image/png") ? "PNG" : "JPEG";
       doc.addImage(imageData, format, imgX, imgY, imgW, imgH);
     } catch {
       // Skip broken images — text slides still export.
     }
+  } else {
+    // Lightweight decor when no image (mirrors Flutter `_pdfSlideDecor`)
+    const decor = mixRgb(backRgb, accentRgb, 0.28);
+    doc.setFillColor(decor.r, decor.g, decor.b);
+    doc.circle(pageW - 56, 72, 28, "F");
+    doc.setDrawColor(cardBorder.r, cardBorder.g, cardBorder.b);
+    doc.setLineWidth(1.2);
+    doc.circle(58, pageH - 70, 22, "S");
   }
 
   doc.setFont("helvetica", "bold");
@@ -408,28 +490,16 @@ export async function buildStage2SpeakerNotesPdf(
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const w = new PdfWriter(doc, { margin: 48, contentTop: 48 });
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(18);
-  doc.setTextColor(PDF_INK);
-  const title = doc.splitTextToSize(
-    `${input.topic.trim() || "Presentation"} — Speaker notes`,
-    w.maxWidth,
-  ) as string[];
-  for (const line of title) {
-    w.ensure(22);
-    doc.text(line, w.margin, w.y);
-    w.gap(22);
-  }
-  w.gap(6);
-
-  for (const line of [
-    `Curriculum: ${input.curriculumRoute}`,
-    `Grade: ${input.grade}`,
-    `Subject: ${input.subject}`,
-  ]) {
-    w.paragraph(line, { size: 10, color: PDF_MUTED, after: 0 });
-  }
-  w.gap(10);
+  drawLessonPlanStyleCover(w, {
+    eyebrow: "Speaker Notes",
+    title: input.topic.trim() || "Presentation",
+    personalization: input.personalization,
+    schoolName: resolvedSchoolName(input) || input.schoolName,
+    preparedBy: resolvedTeacherName(input) || input.teacherName,
+    subject: input.subject,
+    grade: input.grade,
+    curriculumRoute: input.curriculumRoute,
+  });
 
   for (const slide of input.slides) {
     w.ensure(46);
@@ -558,11 +628,50 @@ export async function downloadStage2Pptx(input: Stage2ExportInput) {
     bold: true,
     color: mutedC,
   }));
-  const school = sanitizePptxText(input.schoolName ?? "");
+
+  // Same row as COVER SLIDE — logo/photo on the right.
+  const p = input.personalization;
+  const logo = p?.schoolLogoDataUrl;
+  const photo = p?.ownPictureDataUrl;
+  const imgSize = 0.5;
+  const imgY = 0.22;
+  let rightX = 12.5;
+  if (photo) {
+    rightX -= imgSize;
+    try {
+      cover.addImage({
+        data: photo,
+        x: rightX,
+        y: imgY,
+        w: imgSize,
+        h: imgSize,
+      });
+    } catch {
+      /* ignore bad image */
+    }
+    rightX -= 0.12;
+  }
+  if (logo) {
+    rightX -= imgSize;
+    try {
+      cover.addImage({
+        data: logo,
+        x: rightX,
+        y: imgY,
+        w: imgSize,
+        h: imgSize,
+      });
+    } catch {
+      /* ignore bad image */
+    }
+  }
+
+  const coverTextY = 0.64;
+  const school = sanitizePptxText(resolvedSchoolName(input));
   if (school) {
     cover.addText(school, pptxTextOpts({
       x: 0.5,
-      y: 0.64,
+      y: coverTextY,
       w: 7.2,
       h: 0.4,
       fontSize: 16,
@@ -570,11 +679,11 @@ export async function downloadStage2Pptx(input: Stage2ExportInput) {
       color: titleC,
     }));
   }
-  const teacher = sanitizePptxText(input.teacherName ?? "");
+  const teacher = sanitizePptxText(resolvedTeacherName(input));
   if (teacher) {
     cover.addText(`Prepared by: ${teacher}`, pptxTextOpts({
       x: 7.6,
-      y: 0.64,
+      y: coverTextY,
       w: 5.2,
       h: 0.4,
       fontSize: 14,

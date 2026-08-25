@@ -177,7 +177,7 @@
   z-index: 2;
   min-width: 0;
   text-align: left;
-  padding-top: 1.05rem;
+  padding-top: 0.35rem;
 }
 
 .mml-mkt-hero-heading {
@@ -186,7 +186,7 @@
 }
 
 .mml-mkt-hero-kicker {
-  margin: 0 0 1rem;
+  margin: 0 0 1.35rem;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -250,11 +250,11 @@
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  margin-top: 1.5rem;
+  margin-top: 1.85rem;
 }
 
 .mml-mkt-hero-ctas {
-  margin-top: 0;
+  margin-top: 0.35rem;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -272,12 +272,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.78rem 1.25rem;
+  padding: 0.9rem 1.35rem;
   border-radius: 12px;
   border: none;
   background: var(--mml-navy-deep);
   color: var(--mml-white);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   text-decoration: none;
   box-shadow: 0 8px 18px color-mix(in srgb, var(--mml-navy-deep) 18%, transparent);
@@ -293,12 +293,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.74rem 1.15rem;
+  padding: 0.86rem 1.25rem;
   border-radius: 12px;
   border: 1.5px solid var(--mml-navy-deep);
   background: var(--mml-white);
   color: var(--mml-navy-deep);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
   transition: background 0.15s ease, color 0.15s ease;
@@ -310,7 +310,7 @@
 
 .mml-mkt-hero-perks {
   list-style: none;
-  margin: 0;
+  margin: 0.35rem 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -322,7 +322,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: #000000;
 }
@@ -333,10 +333,10 @@
 }
 
 .mml-mkt-hero-flags {
-  margin-top: 0;
+  margin-top: 0.4rem;
   display: flex;
   flex-wrap: nowrap;
-  gap: 0.5rem;
+  gap: 0.55rem;
 }
 
 .mml-mkt-hero-flag {
@@ -344,13 +344,14 @@
   flex: 1 1 0;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  padding: 0.38rem 0.45rem;
-  border-radius: 10px;
+  gap: 0.5rem;
+  min-height: 2.55rem;
+  padding: 0.58rem 0.6rem;
+  border-radius: 11px;
   border: 1px solid color-mix(in srgb, var(--mml-navy) 12%, transparent);
   background: var(--mml-white);
   color: var(--mml-navy);
-  font-size: 0.78rem;
+  font-size: 0.92rem;
   font-weight: 700;
   text-decoration: none;
   box-shadow: 0 1px 2px rgba(16, 34, 60, 0.04);
@@ -362,8 +363,8 @@
 }
 
 .mml-mkt-hero-flag-img {
-  width: 1.2rem;
-  height: 0.85rem;
+  width: 1.6rem;
+  height: 1.15rem;
   object-fit: cover;
   border-radius: 2px;
 }
@@ -372,24 +373,24 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.2rem;
-  height: 0.85rem;
+  width: 1.6rem;
+  height: 1.15rem;
   border-radius: 2px;
   background: #0e294c;
   color: #fff;
-  font-size: 0.48rem;
+  font-size: 0.55rem;
   font-weight: 800;
   letter-spacing: 0.02em;
 }
 
 .mml-mkt-hero-steps-wrap {
-  margin-top: 0.15rem;
+  margin-top: 0.65rem;
   width: 100%;
 }
 
 .mml-mkt-hero-steps-heading {
-  margin: 0 0 0.9rem;
-  font-size: 1.05rem;
+  margin: 0 0 1.15rem;
+  font-size: 1.15rem;
   font-weight: 600;
   text-align: center;
   color: var(--mml-navy);
@@ -420,13 +421,15 @@
   position: relative;
   display: block;
   height: 100%;
-  padding: 1.15rem 0.45rem 0.7rem;
+  min-height: 7.1rem;
+  padding: 1.4rem 0.55rem 1rem;
   border: 2px solid var(--mml-cyan);
   border-radius: 14px;
   background: var(--mml-white);
   color: inherit;
   text-align: center;
   text-decoration: none;
+  box-sizing: border-box;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
@@ -457,16 +460,16 @@
 }
 
 .mml-mkt-hero-step h2 {
-  margin: 0 0 0.35rem;
-  font-size: 0.78rem;
+  margin: 0 0 0.4rem;
+  font-size: 0.86rem;
   font-weight: 800;
   color: var(--mml-navy-deep);
 }
 
 .mml-mkt-hero-step p {
   margin: 0;
-  font-size: 0.62rem;
-  line-height: 1.4;
+  font-size: 0.7rem;
+  line-height: 1.45;
   color: var(--mml-navy);
 }
 
@@ -522,7 +525,8 @@
     justify-content: flex-start;
     gap: 0;
     margin-left: -4rem;
-    padding-top: 0.85rem;
+    /* ~1cm under the nav before the kicker; rest of the stack keeps its gaps. */
+    padding-top: 1cm;
   }
 
   .mml-mkt-hero-cta-stack {
@@ -540,7 +544,7 @@
   }
 
   .mml-mkt-hero-body {
-    margin-top: 1.6rem;
+    margin-top: 2rem;
     gap: 0.9rem;
   }
 
@@ -555,16 +559,62 @@
 
   .mml-mkt-hero-lead {
     max-width: none;
+    font-size: clamp(1.05rem, 1.15vw, 1.2rem);
+    line-height: 1.55;
   }
 
   .mml-mkt-hero-ctas {
     width: 100%;
     justify-content: center;
+    margin-top: 0.45rem;
+  }
+
+  .mml-mkt-hero-perks {
+    margin-top: 0.4rem;
+  }
+
+  .mml-mkt-hero-perks li {
+    font-size: 0.9rem;
+  }
+
+  .mml-mkt-hero-flags {
+    margin-top: 0.45rem;
+  }
+
+  .mml-mkt-hero-steps-wrap {
+    margin-top: 0.7rem;
+  }
+
+  .mml-mkt-hero-steps-heading {
+    font-size: 1.18rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .mml-mkt-hero-step-link {
+    min-height: 7.5rem;
+    padding: 1.5rem 0.55rem 1.1rem;
+  }
+
+  .mml-mkt-hero-step h2 {
+    font-size: 0.9rem;
+  }
+
+  .mml-mkt-hero-step p {
+    font-size: 0.72rem;
   }
 
   .mml-mkt-hero-cta-primary,
   .mml-mkt-hero-cta-secondary {
     flex: 0 0 auto;
+    font-size: 1.04rem;
+  }
+
+  .mml-mkt-hero-cta-primary {
+    padding: 0.95rem 1.45rem;
+  }
+
+  .mml-mkt-hero-cta-secondary {
+    padding: 0.91rem 1.35rem;
   }
 
   .mml-mkt-hero-perks {
@@ -576,7 +626,7 @@
   }
 
   .mml-mkt-hero-stage-svg {
-    transform: translate(-72px, 0) scale(1.34);
+    transform: translate(-72px, -2.15rem) scale(1.34);
     transform-origin: left bottom;
   }
 }
@@ -592,7 +642,7 @@
   }
 
   .mml-mkt-hero-stage-svg {
-    transform: translate(-72px, 0) scale(1.36);
+    transform: translate(-72px, -2.15rem) scale(1.36);
   }
 }
 
@@ -1930,10 +1980,11 @@
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   padding: 0.35rem 0.5in 1.15rem;
-  background: var(--mml-paper);
+  background: #e7f7f6;
   box-sizing: border-box;
   position: relative;
   z-index: 3;
+  border-bottom: 1px solid color-mix(in srgb, #159f9b 22%, #c5e4e2);
 }
 
 .mml-trust-inner {
@@ -2160,12 +2211,13 @@
 }
 
 /* White break between adjacent navy / cyan / light-cyan bands */
-.mml-band-gap {
+.mml-band-gap,
+.mml-band-gap--white {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   height: 1cm;
-  background: var(--mml-paper);
+  background: #ffffff;
   box-sizing: border-box;
 }
 
@@ -3240,7 +3292,19 @@
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   padding: 1cm 1.25rem;
-  background: #dfe7e9;
+  background-color: #f8fcfc;
+  background-image:
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(49, 188, 187, 0.07) 0%,
+      rgba(49, 188, 187, 0) 50%
+    ),
+    radial-gradient(
+      circle at 82% 18%,
+      rgba(42, 169, 180, 0.07) 0%,
+      rgba(42, 169, 180, 0) 31%
+    ),
+    linear-gradient(180deg, #f4fbfc 0%, #f8fcfc 100%);
   color: #0e294c;
   box-sizing: border-box;
 }
@@ -3382,53 +3446,52 @@
   z-index: 0;
   pointer-events: none;
   user-select: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.mml-cc-card:hover .mml-cc-structure {
-  opacity: 0.9;
-}
-
-.mml-cc-card:hover .mml-cc-structure--ib {
-  opacity: 0.85;
+  opacity: 1;
+  object-fit: cover;
+  border-radius: 0.75rem;
 }
 
 .mml-cc-structure--uk {
-  right: 3.5rem;
-  bottom: 0.85rem;
-  height: 88%;
-  width: auto;
+  right: 0.85rem;
+  bottom: 0.65rem;
+  width: min(68%, 19.5rem);
+  height: auto;
+  aspect-ratio: 674 / 450;
 }
 
 .mml-cc-structure--us {
-  right: 1.75rem;
+  right: 1.25rem;
   top: 0.65rem;
   bottom: auto;
-  height: 5.5rem;
-  width: auto;
+  width: 5.75rem;
+  height: auto;
+  aspect-ratio: 182 / 274;
 }
 
 .mml-cc-structure--ib {
   right: 0.75rem;
   top: 0.55rem;
-  width: 6.25rem;
+  width: 5.5rem;
   height: auto;
+  aspect-ratio: 186 / 278;
 }
 
 .mml-cc-structure--au {
-  right: 0.35rem;
-  top: 0.55rem;
-  width: 8.5rem;
+  right: 0.55rem;
+  top: 0.45rem;
+  width: 11rem;
   height: auto;
+  aspect-ratio: 352 / 234;
+  z-index: 0;
 }
 
 .mml-cc-structure--ca {
-  right: 1.75rem;
-  top: 0.65rem;
+  right: 1rem;
+  top: 0.55rem;
   bottom: auto;
-  height: 5.5rem;
-  width: auto;
+  width: 7rem;
+  height: auto;
+  aspect-ratio: 270 / 338;
 }
 
 .mml-cc-card-top {
@@ -3454,10 +3517,49 @@
 }
 
 .mml-cc-card--us .mml-cc-card-body,
-.mml-cc-card--ib .mml-cc-card-body,
-.mml-cc-card--au .mml-cc-card-body,
-.mml-cc-card--ca .mml-cc-card-body {
+.mml-cc-card--ib .mml-cc-card-body {
   max-width: 17.5rem;
+}
+
+.mml-cc-card--ca .mml-cc-card-body {
+  max-width: none;
+  margin-top: 1.15rem;
+}
+
+.mml-cc-card--ca .mml-cc-card-title,
+.mml-cc-card--ca .mml-cc-card-range {
+  padding-right: 7.75rem;
+  box-sizing: border-box;
+}
+
+.mml-cc-card--au .mml-cc-card-body {
+  max-width: none;
+  margin-top: 1.15rem;
+  padding-right: 0;
+}
+
+/* Keep title/range clear of the Opera House art. */
+.mml-cc-card--au .mml-cc-card-title,
+.mml-cc-card--au .mml-cc-card-range {
+  padding-right: 11.5rem;
+  box-sizing: border-box;
+}
+
+/* Start the route list below the illustration so lines use full card width. */
+.mml-cc-card--au .mml-cc-list {
+  margin-top: 1.85rem;
+  max-width: 100%;
+}
+
+.mml-cc-card--au .mml-cc-list-item {
+  white-space: normal;
+  font-size: 0.86rem;
+  overflow-wrap: break-word;
+}
+
+.mml-cc-card--au .mml-cc-list-body {
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .mml-cc-card-title {
@@ -3640,6 +3742,47 @@
   .mml-cc-card--ca .mml-cc-card-body {
     max-width: none;
   }
+
+  .mml-cc-card--au .mml-cc-card-title,
+  .mml-cc-card--au .mml-cc-card-range {
+    padding-right: 7.5rem;
+  }
+
+  .mml-cc-card--au .mml-cc-list {
+    margin-top: 1.35rem;
+  }
+
+  .mml-cc-card--au .mml-cc-list-item {
+    white-space: normal;
+    font-size: 0.9rem;
+  }
+
+  .mml-cc-structure--au {
+    width: min(40%, 8.75rem);
+  }
+
+  /* UK: pin illustration top-right on tablet/mobile so list text stays readable. */
+  .mml-cc-structure--uk {
+    right: 0.65rem;
+    top: 0.55rem;
+    bottom: auto;
+    width: min(42%, 9.5rem);
+  }
+
+  .mml-cc-card--uk .mml-cc-card-body {
+    max-width: none;
+  }
+
+  .mml-cc-card--uk .mml-cc-card-title,
+  .mml-cc-card--uk .mml-cc-card-range {
+    padding-right: 10rem;
+    box-sizing: border-box;
+  }
+
+  .mml-cc-card--uk .mml-cc-list {
+    margin-top: 1.35rem;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
@@ -3665,9 +3808,28 @@
   .mml-cc-card--ca .mml-cc-card-body {
     max-width: none;
   }
-}
 
-/* —— Reviews —— */
+  .mml-cc-card--au .mml-cc-card-title,
+  .mml-cc-card--au .mml-cc-card-range {
+    padding-right: 6.5rem;
+  }
+
+  .mml-cc-structure--uk {
+    right: 0.55rem;
+    top: 0.45rem;
+    bottom: auto;
+    width: min(46%, 8.75rem);
+  }
+
+  .mml-cc-card--uk .mml-cc-card-title,
+  .mml-cc-card--uk .mml-cc-card-range {
+    padding-right: 8.5rem;
+  }
+
+  .mml-cc-card--uk .mml-cc-list {
+    margin-top: 1.15rem;
+  }
+}
 .mml-rv {
   width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -3760,7 +3922,7 @@
   margin-top: 2.25rem;
   width: 100%;
   max-width: min(1232px, 100%);
-  padding: 1.15rem 1.5rem 1.75rem;
+  padding: 1.15rem 1.85rem 2rem;
   border-radius: 1.25rem;
   background: #e8f4f4;
   box-sizing: border-box;
@@ -3771,6 +3933,16 @@
 .mml-rv-viewport {
   width: 100%;
   overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  /* Keep edge cards/shadows inside the clip box. */
+  padding-inline: 0.35rem;
+  box-sizing: border-box;
+}
+
+.mml-rv-viewport:active {
+  cursor: grabbing;
 }
 
 .mml-rv-track {
@@ -3787,8 +3959,8 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.75rem 1.15rem;
   box-sizing: border-box;
-  /* Room for push pins above the first row (and hover lift) */
-  padding-top: 2.35rem;
+  /* Room for push pins, hover lift, and side shadows. */
+  padding: 2.35rem 0.55rem 0.65rem;
 }
 
 .mml-rv-dots {
@@ -4016,22 +4188,24 @@
 
 @media (max-width: 900px) {
   .mml-rv-board {
-    padding: 2.1rem 1.1rem 1.4rem;
+    padding: 2.1rem 1.25rem 1.5rem;
   }
 
   .mml-rv-slide {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem 1rem;
+    padding-inline: 0.35rem;
   }
 }
 
 @media (max-width: 640px) {
   .mml-rv-board {
-    padding: 2rem 0.85rem 1.15rem;
+    padding: 2rem 1rem 1.25rem;
   }
 
   .mml-rv-slide {
     grid-template-columns: 1fr;
+    padding-inline: 0.25rem;
   }
 
   .mml-rv-pin {
@@ -4546,13 +4720,12 @@
   white-space: nowrap;
 }
 
-/* `space-between` spreads the leftover height of the shorter plans through the
-   whole card instead of pooling it in one gap above the button. */
+/* Keep top content packed so prices share one baseline; push CTA to the bottom. */
 .mml-pr-body {
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 1.45rem 1.15rem 1.5rem;
 }
 
@@ -4573,54 +4746,83 @@
 
 .mml-pr-name {
   margin: 0;
+  min-height: 1.45em;
   font-size: 1.15rem;
   font-weight: 700;
+  line-height: 1.25;
   color: #171a35;
 }
 
+/* Fixed rows: was → main price → discount/note — keeps amounts on one line. */
 .mml-pr-price-block {
-  margin-top: 0.9rem;
+  display: grid;
+  grid-template-rows: 1.35rem auto 2.1rem;
+  align-items: center;
+  justify-items: center;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.mml-pr-was-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.35rem;
+  width: 100%;
 }
 
 .mml-pr-was {
   display: block;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #7d8aa0;
   text-decoration: line-through;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .mml-pr-was-code {
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
 .mml-pr-price {
-  margin: 0.1rem 0 0;
+  margin: 0;
   display: flex;
   align-items: baseline;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.28rem;
   line-height: 1;
+  min-height: 2.7rem;
 }
 
 .mml-pr-price-main {
   font-family: var(--font-manrope), Manrope, sans-serif;
-  font-size: 2.7rem;
+  font-size: clamp(1.85rem, 2.1vw, 2.7rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #171a35;
+  white-space: nowrap;
 }
 
 .mml-pr-price-suffix {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #7d8aa0;
+  white-space: nowrap;
+}
+
+.mml-pr-price-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.1rem;
+  width: 100%;
 }
 
 .mml-pr-discount {
-  margin-top: 0.75rem;
+  margin-top: 0;
   display: inline-flex;
   align-items: center;
   padding: 0.3rem 0.75rem;
@@ -4633,10 +4835,10 @@
 }
 
 .mml-pr-price-note {
-  margin: 0.35rem 0 0;
-  font-size: 1rem;
+  margin: 0;
+  font-size: 0.95rem;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.25;
   color: #117f7c;
 }
 
@@ -4763,6 +4965,7 @@
 }
 
 .mml-pr-cta-wrap {
+  margin-top: auto;
   padding-top: 1.25rem;
 }
 
@@ -4867,11 +5070,15 @@
   }
 
   .mml-pr-price-main {
-    font-size: 2.9rem;
+    font-size: clamp(2rem, 2.2vw, 2.9rem);
   }
 
   .mml-pr-price-suffix {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+  }
+
+  .mml-pr-price {
+    min-height: 2.9rem;
   }
 
   .mml-pr-features li {
@@ -4990,9 +5197,9 @@
 
 .mml-ayla-character {
   position: absolute;
-  right: -3.5rem;
-  bottom: -1.25rem;
-  width: min(58%, 280px);
+  right: -1.25rem;
+  bottom: -0.35rem;
+  width: min(46%, 220px);
   pointer-events: none;
   z-index: 2;
 }
@@ -5001,6 +5208,8 @@
   display: block;
   width: 100%;
   height: auto;
+  object-fit: contain;
+  object-position: right bottom;
 }
 
 .mml-ayla-right {
@@ -5409,9 +5618,9 @@
   }
 
   .mml-ayla-character {
-    right: -4.5rem;
-    bottom: -1.5rem;
-    width: min(72%, 340px);
+    right: -1.75rem;
+    bottom: -0.5rem;
+    width: min(44%, 250px);
   }
 
   .mml-ayla-right {
@@ -5464,9 +5673,27 @@
     padding: 1.15rem 1.75rem;
   }
 
+  /*
+   * Fill the first screen so the trust/stats strip stays below the fold.
+   * Content keeps its natural height (no stretched step cards).
+   */
   .mml-mkt-hero {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: 100svh;
     padding-top: calc(4rem + 5px);
-    padding-bottom: 0.35rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .mml-mkt-hero-inner {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    /* Sit under the nav — keep the kicker/headline from floating mid-fold. */
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .mml-mkt-stats {
@@ -5488,8 +5715,9 @@
 
 @media (min-width: 1200px) {
   .mml-mkt-hero {
-    min-height: 0;
-    padding-bottom: 0.25rem;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-bottom: 1.5rem;
   }
 
   .mml-trust {

@@ -52,6 +52,8 @@ export type Stage3GenerateRequest = {
   stateOrProvince?: string | null;
   stage1RouteId?: string | null;
   stage2LibraryItemId?: string | null;
+  /** From the difficulty clarification question: easy | medium | hard. */
+  difficulty?: string;
 };
 
 export type Stage3GenerationStatus = {

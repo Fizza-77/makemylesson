@@ -182,15 +182,17 @@ export function AccessPlanCard({
       </header>
 
       <div className="mml-pr-body">
-        {/* The free plan's price line already reads "Free", so skip the label. */}
-        {plan.priceLabel ? null : <h3 className="mml-pr-name">{plan.name}</h3>}
+        <h3 className="mml-pr-name">{plan.name}</h3>
 
         <div className="mml-pr-price-block">
-          {plan.wasPrice ? (
-            <span className="mml-pr-was">
-              {plan.wasPrice} <span className="mml-pr-was-code">{plan.currencyCode}</span>
-            </span>
-          ) : null}
+          <div className="mml-pr-was-slot">
+            {plan.wasPrice ? (
+              <span className="mml-pr-was">
+                {plan.wasPrice}{' '}
+                <span className="mml-pr-was-code">{plan.currencyCode}</span>
+              </span>
+            ) : null}
+          </div>
 
           <p className="mml-pr-price">
             <span className="mml-pr-price-main">{plan.price}</span>
@@ -199,11 +201,14 @@ export function AccessPlanCard({
             )}
           </p>
 
-          {plan.discountLabel ? (
-            <span className="mml-pr-discount">{plan.discountLabel}</span>
-          ) : null}
-
-          {plan.priceNote ? <p className="mml-pr-price-note">{plan.priceNote}</p> : null}
+          <div className="mml-pr-price-meta">
+            {plan.discountLabel ? (
+              <span className="mml-pr-discount">{plan.discountLabel}</span>
+            ) : null}
+            {plan.priceNote ? (
+              <p className="mml-pr-price-note">{plan.priceNote}</p>
+            ) : null}
+          </div>
         </div>
 
         {short ? null : (

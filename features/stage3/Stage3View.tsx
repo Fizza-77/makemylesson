@@ -33,6 +33,7 @@ import {
   type Stage3DownloadActionId,
   type Stage3ExportInput,
 } from "@/services/stage3-export.service";
+import { resolveExportPersonalization } from "@/services/export-personalization.service";
 import {
   refreshAccountFromServer,
   syncAccountSubscription,
@@ -168,17 +169,19 @@ export function Stage3View() {
 
     if (requireSignIn()) return;
     if (blockIfNoCredits()) return;
-    if (
-      !(await confirmGeneration(3, {
-        grade: draft.grade,
-        pathway: draft.pathwayDisplayName,
-        topic: draft.topic,
-      }))
-    )
-      return;
+    const clarified = await confirmGeneration(3, {
+      grade: draft.grade,
+      pathway: draft.pathwayDisplayName,
+      topic: draft.topic,
+      subject: draft.subject,
+      isUploadSource: draft.sourceMode === "upload",
+      sourceText: draft.sourcePresentationText,
+      sourceFileName: draft.sourceFileName,
+    });
+    if (!clarified) return;
 
     try {
-      const result = await draft.generate();
+      const result = await draft.generate(clarified.answers);
       if (user?.uid) {
         await refreshAccountFromServer(user.uid).catch(() => null);
       }
@@ -212,7 +215,8 @@ export function Stage3View() {
     }
   }
 
-  function exportInput(): Stage3ExportInput {
+  async function exportInput(): Promise<Stage3ExportInput> {
+    const personalization = await resolveExportPersonalization(account);
     return {
       topic: draft.topic,
       curriculumRoute:
@@ -222,10 +226,9 @@ export function Stage3View() {
       activityTitle: draft.result?.activityTitle ?? draft.topic,
       studentActivityText: draft.result?.studentActivityText ?? "",
       teacherAnswerKeyText: draft.result?.teacherAnswerKeyText ?? "",
-      schoolName:
-        account?.useSchoolNameInAi && account.schoolName?.trim()
-          ? account.schoolName.trim()
-          : null,
+      schoolName: personalization.schoolName,
+      preparedBy: personalization.teacherName,
+      personalization,
     };
   }
 
@@ -237,7 +240,7 @@ export function Stage3View() {
     setExportMenuOpen(false);
     setExporting(true);
     try {
-      await runStage3DownloadAction(action, exportInput());
+      await runStage3DownloadAction(action, await exportInput());
       toast.success(
         `${STAGE3_DOWNLOAD_ACTIONS.find((a) => a.id === action)?.label ?? "Export"} ready.`,
       );
@@ -255,7 +258,7 @@ export function Stage3View() {
     }
     setExporting(true);
     try {
-      const result = await shareStage3WorksheetZip(exportInput());
+      const result = await shareStage3WorksheetZip(await exportInput());
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
     } catch (e) {
@@ -283,9 +286,10 @@ export function Stage3View() {
     <div className="flex w-full min-w-0 flex-col gap-6">
       <GenerationBusyOverlay
         active={draft.isGenerating}
-        title="Generating your classroom activity"
+        stage={3}
         progress={draft.progress}
         status={draft.status || undefined}
+        tags={[draft.topic].filter(Boolean)}
       />
       <Stage3Hero />
       <StageProgressNav currentStage={3} />

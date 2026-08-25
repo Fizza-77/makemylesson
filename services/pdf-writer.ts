@@ -57,6 +57,30 @@ export function stripInline(input: string): string {
     .join("");
 }
 
+/** True when a markdown line is a question stem that should render bold in PDFs. */
+export function looksLikeQuestion(text: string): boolean {
+  const trimmed = text.trim();
+  if (!trimmed) return false;
+  // Skip answer / marking labels
+  if (
+    /^\*{0,2}(?:answer|correct answer|marking|mark scheme|explanation|solution|rationale)\*{0,2}\s*:/i.test(
+      trimmed,
+    )
+  ) {
+    return false;
+  }
+  const plain = stripInline(trimmed).trim();
+  if (!plain) return false;
+  if (/\?\s*$/.test(plain)) return true;
+  if (/\?\s*[\(\[]\s*\d+\s*marks?\s*[\]\)]\s*$/i.test(plain)) return true;
+  if (/^(?:question|q)\s*\d+\b/i.test(plain)) return true;
+  // Fully bolded stems produced by worksheet structuring
+  if (/^\*\*[^*].+\*\*(?:\s*[\(\[]\s*\d+\s*marks?\s*[\]\)])?$/i.test(trimmed)) {
+    return true;
+  }
+  return false;
+}
+
 /**
  * Layout helper for jsPDF documents: keeps a cursor, handles page breaks, and
  * renders a markdown subset with real typographic hierarchy (bold headings,
@@ -479,16 +503,42 @@ export class PdfWriter {
 
       const bullet = /^[-*+]\s+(.*)$/.exec(line);
       if (bullet) {
-        this.bullet(bullet[1] ?? "", depth);
+        const text = bullet[1] ?? "";
+        if (looksLikeQuestion(text)) {
+          // Render as a bold paragraph-style bullet for question stems in lists
+          this.ensure(14);
+          this.doc.setFont("helvetica", "bold");
+          this.doc.setFontSize(10.5);
+          this.doc.setTextColor(PDF_INK);
+          const indent = this.margin + depth * 14;
+          this.doc.text(DEPTH_MARKERS[Math.min(depth, 2)]!, indent, this.y);
+          this.richText(parseRuns(text), {
+            x: indent + 12,
+            width: this.pageWidth - this.margin - indent - 12,
+            size: 10.5,
+            lineHeight: 14,
+            forceBold: true,
+          });
+          this.gap(2);
+        } else {
+          this.bullet(text, depth);
+        }
         continue;
       }
 
-      const ordered = /^(\d+)[.)]\s+(.*)$/.exec(line);
+      const ordered =
+        /^(\d+)[.)]\s+(.*)$/.exec(line) ||
+        /^Q[ \t]*(\d+)[.)]\s+(.*)$/i.exec(line);
       if (ordered) {
         const text = ordered[2] ?? "";
+        const question = looksLikeQuestion(text);
         // Top-level short numbered lines act as section headers in lesson plans.
-        const asHeader = depth === 0 && text.length <= 80;
-        this.orderedItem(ordered[1] ?? "", text, { depth, bold: asHeader });
+        const asHeader =
+          !question && depth === 0 && stripInline(text).length <= 80;
+        this.orderedItem(ordered[1] ?? "", text, {
+          depth,
+          bold: asHeader || question,
+        });
         continue;
       }
 
@@ -506,6 +556,12 @@ export class PdfWriter {
 
       if (/^[A-Z][^.!?]{0,60}:$/.test(stripInline(line))) {
         this.label(stripInline(line));
+        continue;
+      }
+
+      // Unnumbered question stems (common in worksheets / speaker notes)
+      if (looksLikeQuestion(line)) {
+        this.paragraph(line, { bold: true, after: 5 });
         continue;
       }
 

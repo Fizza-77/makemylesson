@@ -23,7 +23,7 @@ export default function StageLayout({ children, currentStage }) {
             </div>
             <div>
               <p className="text-xs font-semibold text-white">Ayla</p>
-              <p className="text-[10px] text-white">AI Teaching Assistant</p>
+              <p className="text-[10px] text-white">Teaching assistant</p>
             </div>
             <button type="button" className="btn-primary shrink-0 !px-3.5 !py-1.5 !text-xs">
               Ask Ayla

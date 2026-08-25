@@ -2,8 +2,9 @@ import { jsPDF } from "jspdf";
 
 import { structureQuestionAnswerMarkdown } from "@/lib/format-worksheet-markdown";
 import { buildLessonPlanSupplement } from "@/lib/lesson-plan-supplement";
+import type { ExportPersonalization } from "@/services/export-personalization.service";
+import { drawLessonPlanStyleCover } from "@/services/pdf-branding";
 import {
-  PDF_INK,
   PDF_MUTED,
   PDF_RULE,
   PdfWriter,
@@ -20,6 +21,8 @@ export type LessonPlanPdfInput = {
   preparedBy?: string | null;
   teachingStrategy?: string | null;
   duration?: string | null;
+  /** Profile toggles: school name / logo / own pic for the cover. */
+  personalization?: ExportPersonalization | null;
 };
 
 const MARGIN = 48;
@@ -31,83 +34,19 @@ function safeFilename(topic: string): string {
   return `lesson_plan_${safe}_${Date.now()}.pdf`;
 }
 
-function dash(value: string | null | undefined): string {
-  return (value ?? "").trim() || "-";
-}
-
-function formatToday(): string {
-  return new Date().toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
-
 function drawCover(w: PdfWriter, input: LessonPlanPdfInput): void {
-  const { doc } = w;
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor(PDF_MUTED);
-  doc.text("LESSON PLAN", MARGIN, w.y);
-  w.gap(20);
-
-  doc.setFontSize(20);
-  doc.setTextColor(PDF_INK);
-  for (const line of doc.splitTextToSize(
-    input.topic.trim() || "Lesson Plan",
-    w.maxWidth,
-  ) as string[]) {
-    w.ensure(24);
-    doc.text(line, MARGIN, w.y);
-    w.gap(24);
-  }
-  w.gap(10);
-
-  const meta: [string, string][] = [
-    ["SCHOOL", dash(input.schoolName)],
-    ["PREPARED BY", dash(input.preparedBy)],
-    ["SUBJECT", dash(input.subject)],
-    ["GRADE / YEAR", dash(input.grade)],
-    ["CURRICULUM", dash(input.curriculumRoute)],
-    ["TEACHING STRATEGY", dash(input.teachingStrategy)],
-    ["DURATION", dash(input.duration)],
-    ["DATE", formatToday()],
-  ];
-
-  const colWidth = w.maxWidth / 2;
-  for (let i = 0; i < meta.length; i += 2) {
-    const cells = meta.slice(i, i + 2).map(([label, value]) => {
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(10);
-      return {
-        label,
-        lines: doc.splitTextToSize(value, colWidth - 12) as string[],
-      };
-    });
-    const rowHeight =
-      11 + Math.max(...cells.map((c) => c.lines.length)) * 13 + 10;
-    w.ensure(rowHeight);
-    const rowTop = w.y;
-    cells.forEach((cell, col) => {
-      const x = MARGIN + col * colWidth;
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(7.5);
-      doc.setTextColor(PDF_MUTED);
-      doc.text(cell.label, x, rowTop);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(10);
-      doc.setTextColor(PDF_INK);
-      cell.lines.forEach((line, li) => {
-        doc.text(line, x, rowTop + 12 + li * 13);
-      });
-    });
-    w.y = rowTop + rowHeight;
-  }
-
-  w.gap(6);
-  w.rule();
-  w.gap(20);
+  drawLessonPlanStyleCover(w, {
+    eyebrow: "Lesson Plan",
+    title: input.topic.trim() || "Lesson Plan",
+    personalization: input.personalization,
+    schoolName: input.schoolName,
+    preparedBy: input.preparedBy,
+    subject: input.subject,
+    grade: input.grade,
+    curriculumRoute: input.curriculumRoute,
+    teachingStrategy: input.teachingStrategy ?? "",
+    duration: input.duration ?? "",
+  });
 }
 
 function drawSupplement(w: PdfWriter, input: LessonPlanPdfInput): void {

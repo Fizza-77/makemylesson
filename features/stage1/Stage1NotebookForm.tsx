@@ -8,6 +8,7 @@ import {
   useState,
   type CSSProperties,
 } from "react";
+import { createPortal } from "react-dom";
 
 import { cn } from "@/lib/utils";
 
@@ -185,6 +186,8 @@ function NotebookSelect({
   ariaLabel,
   placeholder = "Select…",
   stacked = false,
+  /** Center a wide menu on screen (escapes notebook overflow clipping). */
+  menuCenter = false,
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -194,17 +197,27 @@ function NotebookSelect({
   ariaLabel: string;
   placeholder?: string;
   stacked?: boolean;
+  menuCenter?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const listId = useId();
   const selected = options.find((o) => o.value === value);
   const label = selected?.label || placeholder;
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     function onDoc(e: MouseEvent) {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+      const target = e.target as Node;
+      if (rootRef.current?.contains(target)) return;
+      if (menuRef.current?.contains(target)) return;
+      setOpen(false);
     }
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setOpen(false);
@@ -216,6 +229,71 @@ function NotebookSelect({
       document.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  const optionButtons = options.map((opt) => {
+    const isActive = opt.value === value;
+    return (
+      <li key={opt.value || "__empty"} role="option" aria-selected={isActive}>
+        <button
+          type="button"
+          className={cn(
+            "flex w-full px-3 py-2.5 text-left font-semibold transition",
+            stacked || menuCenter ? "text-sm" : "text-[10px] sm:text-xs",
+            isActive
+              ? "bg-[#E8F8F7] text-[#151B35]"
+              : "text-[#151B35] hover:bg-[#F0FBFA]",
+          )}
+          onClick={() => {
+            onChange(opt.value);
+            setOpen(false);
+          }}
+        >
+          {opt.label}
+        </button>
+      </li>
+    );
+  });
+
+  const centeredMenu =
+    open && menuCenter && mounted
+      ? createPortal(
+          <div
+            className="fixed inset-0 z-[120] flex items-center justify-center p-4"
+            role="presentation"
+          >
+            <button
+              type="button"
+              aria-label="Close method list"
+              className="absolute inset-0 bg-[#0F172A]/35"
+              onClick={() => setOpen(false)}
+            />
+            <div
+              ref={menuRef}
+              className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-2xl ring-1 ring-[#28C2C0]/15"
+            >
+              <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
+                <p className="text-sm font-bold text-[#151B35]">{ariaLabel}</p>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg px-2 py-1 text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-[#151B35]"
+                >
+                  Close
+                </button>
+              </div>
+              <ul
+                id={listId}
+                role="listbox"
+                aria-label={ariaLabel}
+                className="theme-scroll max-h-[min(60vh,22rem)] overflow-y-auto py-1"
+              >
+                {optionButtons}
+              </ul>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
 
   return (
     <div
@@ -255,40 +333,16 @@ function NotebookSelect({
         <ChevronIcon open={open} />
       </button>
 
-      {open ? (
+      {centeredMenu}
+
+      {open && !menuCenter ? (
         <ul
           id={listId}
           role="listbox"
           aria-label={ariaLabel}
           className="absolute top-[calc(100%+4px)] right-0 left-0 z-50 max-h-40 overflow-y-auto rounded-xl border border-[#E5E7EB] bg-white py-1 shadow-lg ring-1 ring-[#28C2C0]/10"
         >
-          {options.map((opt) => {
-            const isActive = opt.value === value;
-            return (
-              <li
-                key={opt.value || "__empty"}
-                role="option"
-                aria-selected={isActive}
-              >
-                <button
-                  type="button"
-                  className={cn(
-                    "flex w-full px-3 py-2.5 text-left font-semibold transition",
-                    stacked ? "text-sm" : "text-[10px] sm:text-xs",
-                    isActive
-                      ? "bg-[#E8F8F7] text-[#151B35]"
-                      : "text-[#151B35] hover:bg-[#F0FBFA]",
-                  )}
-                  onClick={() => {
-                    onChange(opt.value);
-                    setOpen(false);
-                  }}
-                >
-                  {opt.label}
-                </button>
-              </li>
-            );
-          })}
+          {optionButtons}
         </ul>
       ) : null}
     </div>
@@ -657,6 +711,7 @@ function MobileLessonFieldsCard(props: Stage1NotebookFormProps) {
           <StackLabel>Method</StackLabel>
           <NotebookSelect
             stacked
+            menuCenter
             ariaLabel="Method"
             value={props.method}
             onChange={props.onMethod}
@@ -670,7 +725,7 @@ function MobileLessonFieldsCard(props: Stage1NotebookFormProps) {
               Your Plan Will Include
             </p>
             <p className="text-[10px] font-semibold text-[#128C89]">
-              AI generated
+              Generated
             </p>
           </div>
           <div className="space-y-2">
@@ -851,6 +906,7 @@ export function Stage1NotebookForm(props: Stage1NotebookFormProps) {
         value={props.method}
         onChange={props.onMethod}
         options={props.methods.map((m) => ({ value: m, label: m }))}
+        menuCenter
       />
 
       <p
@@ -863,7 +919,7 @@ export function Stage1NotebookForm(props: Stage1NotebookFormProps) {
         style={slotStyle(FIELD.includeAi)}
         className="pointer-events-none absolute z-10 text-right text-[9px] font-semibold text-[#128C89] sm:text-[10px]"
       >
-        AI generated
+        Generated
       </p>
 
       <PlanIncludeCard

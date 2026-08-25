@@ -27,19 +27,19 @@ export function AuthGlassShell({
   return (
     <div
       className={cn(
-        "flex h-dvh max-h-dvh flex-col justify-center overflow-hidden bg-gradient-to-br from-[#1A2138] via-[#1E2235] to-[#28C2C0]/30",
+        "flex min-h-dvh flex-col bg-gradient-to-br from-[#1A2138] via-[#1E2235] to-[#28C2C0]/30",
         wide
-          ? "p-1.5 lg:h-auto lg:min-h-screen lg:max-h-none lg:p-[0.5in]"
-          : "overflow-y-auto px-4 py-6 sm:py-8",
+          ? "justify-center p-1.5 lg:h-auto lg:min-h-screen lg:p-[0.5in]"
+          : "items-center justify-center px-4 py-8 sm:py-10",
         shellClassName,
       )}
     >
       <div
         className={cn(
-          "mx-auto flex w-full min-h-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/95 shadow-xl backdrop-blur sm:rounded-3xl",
+          "mx-auto flex w-full flex-col rounded-2xl border border-white/10 bg-white shadow-[0_24px_60px_-20px_rgba(15,23,42,0.45)] sm:rounded-3xl",
           wide
-            ? "max-w-none p-2.5 lg:overflow-visible lg:p-10 xl:p-12"
-            : "max-w-md overflow-visible p-8",
+            ? "max-w-none p-2.5 lg:p-10 xl:p-12"
+            : "max-w-[26rem] p-6 sm:p-8",
           className,
         )}
       >
@@ -47,7 +47,7 @@ export function AuthGlassShell({
           className={cn(
             wide
               ? "mb-1.5 flex shrink-0 flex-wrap items-center justify-between gap-x-2 gap-y-0.5 lg:mb-8 lg:justify-start lg:gap-x-6"
-              : "mb-6 flex flex-col items-center text-center",
+              : "mb-6 flex flex-col items-center text-center sm:mb-7",
           )}
         >
           {wide ? (
@@ -83,20 +83,31 @@ export function AuthGlassShell({
             </>
           ) : (
             <>
-              <Link href={ROUTES.stage1} className="mb-4">
+              <Link
+                href={ROUTES.stage1}
+                className="mb-4 inline-flex flex-col items-center gap-2.5 no-underline"
+              >
                 <Image
                   src="/logo.png"
                   alt="Make My Lesson"
-                  width={48}
-                  height={48}
-                  className="rounded-xl"
+                  width={52}
+                  height={52}
+                  className="rounded-xl shadow-sm"
+                  priority
                 />
+                <span className="text-sm font-bold tracking-tight text-[#1A1C30]">
+                  Make My Lesson
+                </span>
               </Link>
               {title ? (
-                <h1 className="text-2xl font-bold text-[#1A1C30]">{title}</h1>
+                <h1 className="text-[1.375rem] font-bold tracking-tight text-[#1A1C30] sm:text-2xl">
+                  {title}
+                </h1>
               ) : null}
               {subtitle ? (
-                <p className="mt-2 text-sm text-[#666666]">{subtitle}</p>
+                <p className="mt-1.5 max-w-sm text-sm leading-snug text-[#666666]">
+                  {subtitle}
+                </p>
               ) : null}
               {headerAction ? (
                 <div className="mt-3">{headerAction}</div>
@@ -104,7 +115,9 @@ export function AuthGlassShell({
             </>
           )}
         </div>
-        <div className="min-h-0 flex-1 overflow-y-auto lg:overflow-visible">{children}</div>
+        <div className={cn(wide && "min-h-0 flex-1 lg:overflow-visible")}>
+          {children}
+        </div>
       </div>
     </div>
   );

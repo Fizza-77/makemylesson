@@ -209,7 +209,7 @@ export function Stage4AssessmentReviewWall({
             Pinned assessment pack
           </p>
 
-          <div className="mt-4 grid gap-4 lg:grid-cols-2 lg:gap-5">
+          <div className="mt-4 grid items-stretch gap-4 lg:grid-cols-2 lg:gap-5">
             <PackSlot label="Student paper" contentClassName="mt-8 sm:mt-10">
               <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl bg-[#EEF2F5] shadow-sm">
                 <ReviewDocHeader
@@ -219,13 +219,19 @@ export function Stage4AssessmentReviewWall({
                   title={topicHeading}
                   onEdit={hasResult ? onEditStudent : undefined}
                 />
-                <div className="relative flex-1 px-4 py-8 sm:px-5 sm:py-10">
+                <div
+                  className={cn(
+                    "theme-scroll relative min-h-[14rem] max-h-[min(58vh,28rem)] flex-1 overflow-y-auto overscroll-contain px-4 py-5 sm:px-5 sm:py-6",
+                    !(hasResult && hasStudentContent) &&
+                      "flex flex-col items-center justify-center",
+                  )}
+                >
                   {hasResult && hasStudentContent ? (
                     <div className="text-left">
                       <Stage4AssessmentContentView result={result} />
                     </div>
                   ) : (
-                    <div className="flex min-h-[14rem] flex-col items-center justify-center text-center sm:min-h-[16rem]">
+                    <div className="flex flex-col items-center justify-center text-center">
                       <p className="text-sm font-bold text-[#151B35]">
                         {isGenerating
                           ? "Generating assessment…"
@@ -249,11 +255,17 @@ export function Stage4AssessmentReviewWall({
                   title={topicHeading}
                   onEdit={hasResult ? onEditMarkScheme : undefined}
                 />
-                <div className="relative flex-1 px-4 py-8 sm:px-5 sm:py-10">
+                <div
+                  className={cn(
+                    "theme-scroll relative min-h-[14rem] max-h-[min(58vh,28rem)] flex-1 overflow-y-auto overscroll-contain px-4 py-5 sm:px-5 sm:py-6",
+                    !(hasResult && schemeBody) &&
+                      "flex flex-col items-center justify-center",
+                  )}
+                >
                   {hasResult && schemeBody ? (
                     <WorksheetContentView content={schemeBody} />
                   ) : (
-                    <div className="flex min-h-[14rem] flex-col items-center justify-center text-center sm:min-h-[16rem]">
+                    <div className="flex flex-col items-center justify-center text-center">
                       <p className="text-sm font-bold text-[#151B35]">
                         {isGenerating
                           ? "Preparing mark scheme…"

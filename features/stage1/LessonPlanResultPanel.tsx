@@ -210,24 +210,22 @@ export function LessonPlanResultPanel({
                 className="min-h-[16rem] max-h-[min(70vh,36rem)]"
               />
             ) : (
-              <article className="min-h-[16rem] rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+              <article className="flex min-h-[16rem] flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
                 <LessonPlanContentView content={draft} />
                 <LessonPlanSupplementView
                   curriculumRoute={curriculumRoute ?? ""}
                   grade={grade ?? ""}
                   subject={subject ?? ""}
-                  className="mt-6 border-t border-slate-200 pt-5"
                 />
               </article>
             )
           ) : (
-            <article className="min-h-[16rem] rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+            <article className="flex min-h-[16rem] flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
               <LessonPlanContentView content={content} />
               <LessonPlanSupplementView
                 curriculumRoute={curriculumRoute ?? ""}
                 grade={grade ?? ""}
                 subject={subject ?? ""}
-                className="mt-6 border-t border-slate-200 pt-5"
               />
             </article>
           )
@@ -251,7 +249,7 @@ export function LessonPlanResultPanel({
               <h3 className="text-lg font-bold text-[#151B35] sm:text-xl">
                 {isGenerating
                   ? "Generating your lesson plan…"
-                  : "Generate with AI to see your lesson plan here."}
+                  : "Generate a lesson plan to see it here."}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-500">
                 Your plan will appear in this workspace after the lesson details

@@ -128,65 +128,65 @@ export default function HomeHeroSection() {
                 </p>
 
                 <div className="mml-mkt-hero-ctas">
-                <a href={MML_APP.stage1} className="mml-mkt-hero-cta-primary">
-                  Create Your First Lesson — Free
-                </a>
-                <Link
-                  href="/features/lesson-plan-generator"
-                  className="mml-mkt-hero-cta-secondary"
-                >
-                  See a Sample Teaching Pack
-                </Link>
-              </div>
-
-              <ul className="mml-mkt-hero-perks">
-                {PERKS.map((perk) => (
-                  <li key={perk}>
-                    <span className="mml-mkt-hero-perk-icon">
-                      <CheckIcon />
-                    </span>
-                    {perk}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mml-mkt-hero-flags" aria-label="Curriculum families">
-                {CURRICULUMS.map((item) => (
-                  <SectionLink
-                    key={item.id}
-                    sectionId="curriculum"
-                    href="/"
-                    className="mml-mkt-hero-flag"
+                  <a href={MML_APP.stage1} className="mml-mkt-hero-cta-primary">
+                    Create Your First Lesson — Free
+                  </a>
+                  <Link
+                    href="/features/lesson-plan-generator"
+                    className="mml-mkt-hero-cta-secondary"
                   >
+                    See a Sample Teaching Pack
+                  </Link>
+                </div>
+
+                <ul className="mml-mkt-hero-perks">
+                  {PERKS.map((perk) => (
+                    <li key={perk}>
+                      <span className="mml-mkt-hero-perk-icon">
+                        <CheckIcon />
+                      </span>
+                      {perk}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mml-mkt-hero-flags" aria-label="Curriculum families">
+                  {CURRICULUMS.map((item) => (
+                    <SectionLink
+                      key={item.id}
+                      sectionId="curriculum"
+                      href="/"
+                      className="mml-mkt-hero-flag"
+                    >
                     <Image
                       src={item.flag}
                       alt={item.alt}
-                      width={22}
-                      height={16}
+                      width={28}
+                      height={20}
                       className="mml-mkt-hero-flag-img"
                     />
-                    <span>{item.label}</span>
-                  </SectionLink>
-                ))}
-              </div>
-
-              <div className="mml-mkt-hero-steps-wrap">
-                <p className="mml-mkt-hero-steps-heading">
-                  From Plan to Classroom in <span>4 Simple Steps.</span>
-                </p>
-                <ol className="mml-mkt-hero-steps">
-                  {STEPS.map((step, index) => (
-                    <li key={step.title} className="mml-mkt-hero-step">
-                      {index > 0 ? <StepArrow /> : null}
-                      <a href={step.href} className="mml-mkt-hero-step-link">
-                        <span className="mml-mkt-hero-step-num">{index + 1}</span>
-                        <h2>{step.title}</h2>
-                        <p>{step.copy}</p>
-                      </a>
-                    </li>
+                      <span>{item.label}</span>
+                    </SectionLink>
                   ))}
-                </ol>
-              </div>
+                </div>
+
+                <div className="mml-mkt-hero-steps-wrap">
+                  <p className="mml-mkt-hero-steps-heading">
+                    From Plan to Classroom in <span>4 Simple Steps.</span>
+                  </p>
+                  <ol className="mml-mkt-hero-steps">
+                    {STEPS.map((step, index) => (
+                      <li key={step.title} className="mml-mkt-hero-step">
+                        {index > 0 ? <StepArrow /> : null}
+                        <a href={step.href} className="mml-mkt-hero-step-link">
+                          <span className="mml-mkt-hero-step-num">{index + 1}</span>
+                          <h2>{step.title}</h2>
+                          <p>{step.copy}</p>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
               </div>
             </div>
           </div>

@@ -1,6 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useCallback,
+  useRef,
+  useState,
+  type PointerEvent,
+  type WheelEvent,
+} from "react";
 
 type ReviewTone = "navy" | "teal" | "mint";
 type PinColor = "cyan" | "navy";
@@ -338,6 +344,59 @@ function ReviewCard({ review }: { review: Review }) {
 
 export default function ReviewsSection() {
   const [page, setPage] = useState(0);
+  const pageCount = REVIEW_SLIDES.length;
+  const swipeStartX = useRef<number | null>(null);
+  const swipeStartY = useRef<number | null>(null);
+  const wheelLock = useRef(false);
+
+  const goTo = useCallback(
+    (next: number) => {
+      setPage(Math.max(0, Math.min(pageCount - 1, next)));
+    },
+    [pageCount],
+  );
+
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    // Only primary button / touch; ignore mouse drag from hover interactions.
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    swipeStartX.current = e.clientX;
+    swipeStartY.current = e.clientY;
+  };
+
+  const onPointerUp = (e: PointerEvent<HTMLDivElement>) => {
+    if (swipeStartX.current == null || swipeStartY.current == null) return;
+    const dx = e.clientX - swipeStartX.current;
+    const dy = e.clientY - swipeStartY.current;
+    swipeStartX.current = null;
+    swipeStartY.current = null;
+
+    // Prefer horizontal swipes; ignore mostly-vertical scrolls.
+    if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.15) return;
+
+    // Right → left (negative dx) = next page; left → right = previous.
+    if (dx < 0) goTo(page + 1);
+    else goTo(page - 1);
+  };
+
+  const onPointerCancel = () => {
+    swipeStartX.current = null;
+    swipeStartY.current = null;
+  };
+
+  const onWheel = (e: WheelEvent<HTMLDivElement>) => {
+    // Trackpad / shift+wheel horizontal scroll flips pages.
+    const horizontal =
+      Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.shiftKey ? e.deltaY : 0;
+    if (Math.abs(horizontal) < 12 || wheelLock.current) return;
+
+    e.preventDefault();
+    wheelLock.current = true;
+    if (horizontal > 0) goTo(page + 1);
+    else goTo(page - 1);
+    window.setTimeout(() => {
+      wheelLock.current = false;
+    }, 420);
+  };
 
   return (
     <section className="mml-rv" id="reviews" aria-labelledby="mml-rv-heading">
@@ -360,7 +419,14 @@ export default function ReviewsSection() {
         </p>
 
         <div className="mml-rv-board">
-          <div className="mml-rv-viewport" aria-live="polite">
+          <div
+            className="mml-rv-viewport"
+            aria-live="polite"
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerCancel}
+            onWheel={onWheel}
+          >
             <div
               className="mml-rv-track"
               style={{ transform: `translateX(-${page * 100}%)` }}

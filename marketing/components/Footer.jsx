@@ -230,97 +230,100 @@ function SiteFooter() {
               </nav>
             </div>
 
-            {/* Follow us */}
-            <div className="min-w-0 lg:px-5 lg:border-r lg:border-white/15">
-              <p
-                className="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.14em]"
-                style={{ color: TEAL }}
-              >
-                Follow Us
-              </p>
-              <div className="mx-auto grid w-fit grid-cols-2 gap-2.5">
-                {SOCIAL_LINKS.map(({ key, href, label, Icon }) => (
-                  <a
-                    key={key}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border text-white transition hover:bg-[#159F9B] hover:text-[#273746]"
-                    style={{ borderColor: TEAL }}
-                  >
-                    <Icon />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Download the app */}
-            <div className="min-w-0 lg:pl-10">
-              <p
-                className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] lg:text-left"
-                style={{ color: TEAL }}
-              >
-                Download the App
-              </p>
-              <div className="flex flex-nowrap items-start gap-3">
-                <div className="flex min-w-0 flex-col gap-2">
-                  <a
-                    href={APP_STORE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-[42px] w-[138px] items-center gap-2 rounded-lg bg-black px-2.5 text-white no-underline ring-1 ring-white/25 transition hover:bg-black/90"
-                  >
-                    <AppleBadgeIcon />
-                    <span className="flex min-w-0 flex-col leading-none">
-                      <span className="text-[8px] font-medium tracking-wide text-white/85">
-                        Download on the
-                      </span>
-                      <span className="mt-0.5 text-[13px] font-semibold tracking-tight">
-                        App Store
-                      </span>
-                    </span>
-                  </a>
-                  <a
-                    href={GOOGLE_PLAY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-[42px] w-[138px] items-center gap-2 rounded-lg bg-black px-2.5 text-white no-underline ring-1 ring-white/25 transition hover:bg-black/90"
-                  >
-                    <GooglePlayBadgeIcon />
-                    <span className="flex min-w-0 flex-col leading-none">
-                      <span className="text-[8px] font-medium tracking-wide text-white/85">
-                        GET IT ON
-                      </span>
-                      <span className="mt-0.5 text-[13px] font-semibold tracking-tight">
-                        Google Play
-                      </span>
-                    </span>
-                  </a>
+            {/* Follow + Download — side-by-side on phone; separate grid cells on desktop */}
+            <div className="mml-site-footer-social-download flex items-start justify-between gap-3 sm:gap-4 lg:contents">
+              {/* Follow us */}
+              <div className="min-w-0 shrink-0 lg:px-5 lg:border-r lg:border-white/15">
+                <p
+                  className="mb-2 text-left text-[11px] font-semibold uppercase tracking-[0.14em] lg:text-center"
+                  style={{ color: TEAL }}
+                >
+                  Follow Us
+                </p>
+                <div className="grid w-fit grid-cols-2 gap-2.5 lg:mx-auto">
+                  {SOCIAL_LINKS.map(({ key, href, label, Icon }) => (
+                    <a
+                      key={key}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border text-white transition hover:bg-[#159F9B] hover:text-[#273746]"
+                      style={{ borderColor: TEAL }}
+                    >
+                      <Icon />
+                    </a>
+                  ))}
                 </div>
+              </div>
 
-                <div className="flex shrink-0 flex-col items-center gap-1">
-                  <a
-                    href="/smartlink"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-[92px] w-[92px] shrink-0 items-center justify-center overflow-hidden rounded-md bg-white p-1.5"
-                    aria-label="Scan QR code to download Make My Lesson"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/qr-smartlink.png"
-                      alt="QR code linking to Make My Lesson app"
-                      width={80}
-                      height={80}
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </a>
-                  <p className="max-w-[92px] text-center text-[9px] leading-snug text-white/80">
-                    Scan to download Make My Lesson
-                  </p>
+              {/* Download the app */}
+              <div className="min-w-0 lg:pl-10">
+                <p
+                  className="mb-2.5 text-right text-[11px] font-semibold uppercase tracking-[0.12em] lg:text-left"
+                  style={{ color: TEAL }}
+                >
+                  Download the App
+                </p>
+                <div className="flex flex-nowrap items-start justify-end gap-2.5 sm:gap-3 lg:justify-start">
+                  <div className="flex min-w-0 flex-col gap-2">
+                    <a
+                      href={APP_STORE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-[42px] w-[138px] items-center gap-2 rounded-lg bg-black px-2.5 text-white no-underline ring-1 ring-white/25 transition hover:bg-black/90"
+                    >
+                      <AppleBadgeIcon />
+                      <span className="flex min-w-0 flex-col leading-none">
+                        <span className="text-[8px] font-medium tracking-wide text-white/85">
+                          Download on the
+                        </span>
+                        <span className="mt-0.5 text-[13px] font-semibold tracking-tight">
+                          App Store
+                        </span>
+                      </span>
+                    </a>
+                    <a
+                      href={GOOGLE_PLAY_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-[42px] w-[138px] items-center gap-2 rounded-lg bg-black px-2.5 text-white no-underline ring-1 ring-white/25 transition hover:bg-black/90"
+                    >
+                      <GooglePlayBadgeIcon />
+                      <span className="flex min-w-0 flex-col leading-none">
+                        <span className="text-[8px] font-medium tracking-wide text-white/85">
+                          GET IT ON
+                        </span>
+                        <span className="mt-0.5 text-[13px] font-semibold tracking-tight">
+                          Google Play
+                        </span>
+                      </span>
+                    </a>
+                  </div>
+
+                  <div className="flex shrink-0 flex-col items-center gap-1">
+                    <a
+                      href="/smartlink"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-[92px] w-[92px] shrink-0 items-center justify-center overflow-hidden rounded-md bg-white p-1.5"
+                      aria-label="Scan QR code to download Make My Lesson"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/qr-smartlink.png"
+                        alt="QR code linking to Make My Lesson app"
+                        width={80}
+                        height={80}
+                        className="h-full w-full object-contain"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                    <p className="max-w-[92px] text-center text-[9px] leading-snug text-white/80">
+                      Scan to download Make My Lesson
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

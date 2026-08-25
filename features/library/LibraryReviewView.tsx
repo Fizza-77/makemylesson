@@ -21,6 +21,7 @@ import {
   downloadCompletePackZip,
   shareCompletePackZip,
 } from "@/services/complete-pack-export.service";
+import { resolveExportPersonalization } from "@/services/export-personalization.service";
 import {
   downloadLessonPlanPdf,
   printLessonPlanPdf,
@@ -86,14 +87,6 @@ function stageRouteForKind(kind: LibraryItem["kind"]): string | null {
     default:
       return null;
   }
-}
-
-function schoolNameFromAccount(
-  account: { useSchoolNameInAi?: boolean; schoolName?: string | null } | null,
-): string | null {
-  return account?.useSchoolNameInAi && account.schoolName?.trim()
-    ? account.schoolName.trim()
-    : null;
 }
 
 export function LibraryReviewView() {
@@ -247,8 +240,11 @@ export function LibraryReviewView() {
     );
   }
 
-  const schoolName = schoolNameFromAccount(account);
   const activeSlide = presentationSlides[slideIndex] ?? null;
+
+  async function branding() {
+    return resolveExportPersonalization(account);
+  }
 
   async function onSaveEdit(value: string) {
     if (!item) return;
@@ -318,17 +314,19 @@ export function LibraryReviewView() {
     }
   }
 
-  function onDownloadPdf() {
+  async function onDownloadPdf() {
     if (!item || item.kind !== "lessonPlan") return;
     try {
+      const personalization = await branding();
       downloadLessonPlanPdf({
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
         grade: item.grade,
         subject: item.subject,
         content: item.reviewBody,
-        schoolName,
-        preparedBy: account?.displayName?.trim() || null,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
       toast.success("PDF download started.");
     } catch (e) {
@@ -338,17 +336,19 @@ export function LibraryReviewView() {
     }
   }
 
-  function onPrintPdf() {
+  async function onPrintPdf() {
     if (!item || item.kind !== "lessonPlan") return;
     try {
+      const personalization = await branding();
       printLessonPlanPdf({
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
         grade: item.grade,
         subject: item.subject,
         content: item.reviewBody,
-        schoolName,
-        preparedBy: account?.displayName?.trim() || null,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Could not print.");
@@ -360,14 +360,16 @@ export function LibraryReviewView() {
   async function onShareLessonPlan() {
     if (!item || item.kind !== "lessonPlan") return;
     try {
+      const personalization = await branding();
       const result = await shareLessonPlanPdf({
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
         grade: item.grade,
         subject: item.subject,
         content: item.reviewBody,
-        schoolName,
-        preparedBy: account?.displayName?.trim() || null,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
@@ -386,6 +388,7 @@ export function LibraryReviewView() {
     setExportOpen(false);
     setExporting(true);
     try {
+      const personalization = await branding();
       await runStage2DownloadAction(action, {
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
@@ -393,7 +396,9 @@ export function LibraryReviewView() {
         subject: item.subject,
         slides: presentationSlides,
         themeId: presentationThemeId,
-        schoolName,
+        schoolName: personalization.schoolName,
+        teacherName: personalization.teacherName,
+        personalization,
       });
       toast.success("Export ready.");
     } catch (e) {
@@ -411,6 +416,7 @@ export function LibraryReviewView() {
     }
     setExporting(true);
     try {
+      const personalization = await branding();
       const result = await shareStage2Zip({
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
@@ -418,7 +424,9 @@ export function LibraryReviewView() {
         subject: item.subject,
         slides: presentationSlides,
         themeId: presentationThemeId,
-        schoolName,
+        schoolName: personalization.schoolName,
+        teacherName: personalization.teacherName,
+        personalization,
       });
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
@@ -434,6 +442,7 @@ export function LibraryReviewView() {
     setExportOpen(false);
     setExporting(true);
     try {
+      const personalization = await branding();
       await runStage3DownloadAction(action, {
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
@@ -442,7 +451,9 @@ export function LibraryReviewView() {
         activityTitle: activityResult?.activityTitle || item.topic,
         studentActivityText: item.reviewBody,
         teacherAnswerKeyText: item.teacherReviewBody ?? "",
-        schoolName,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
       toast.success("Export ready.");
     } catch (e) {
@@ -456,6 +467,7 @@ export function LibraryReviewView() {
     if (!item || item.kind !== "activity") return;
     setExporting(true);
     try {
+      const personalization = await branding();
       const result = await shareStage3WorksheetZip({
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
@@ -464,7 +476,9 @@ export function LibraryReviewView() {
         activityTitle: activityResult?.activityTitle || item.topic,
         studentActivityText: item.reviewBody,
         teacherAnswerKeyText: item.teacherReviewBody ?? "",
-        schoolName,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
@@ -480,6 +494,7 @@ export function LibraryReviewView() {
     setExportOpen(false);
     setExporting(true);
     try {
+      const personalization = await branding();
       await runStage4DownloadAction(action, {
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
@@ -491,7 +506,9 @@ export function LibraryReviewView() {
           item.topic,
         studentPaperText: item.reviewBody,
         markSchemeText: item.teacherReviewBody ?? "",
-        schoolName,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
       toast.success("Export ready.");
     } catch (e) {
@@ -505,6 +522,7 @@ export function LibraryReviewView() {
     if (!item || item.kind !== "assessment") return;
     setExporting(true);
     try {
+      const personalization = await branding();
       const result = await shareStage4QuizZip({
         topic: item.topic,
         curriculumRoute: item.curriculumRoute,
@@ -516,7 +534,9 @@ export function LibraryReviewView() {
           item.topic,
         studentPaperText: item.reviewBody,
         markSchemeText: item.teacherReviewBody ?? "",
-        schoolName,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
@@ -532,10 +552,13 @@ export function LibraryReviewView() {
     setExportOpen(false);
     setExporting(true);
     try {
+      const personalization = await branding();
       await downloadCompletePackZip({
         pack: item,
         members,
-        schoolName,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
       toast.success("Complete plan ZIP download started.");
     } catch (e) {
@@ -549,10 +572,13 @@ export function LibraryReviewView() {
     if (!item || item.kind !== "completePack" || !members) return;
     setExporting(true);
     try {
+      const personalization = await branding();
       const result = await shareCompletePackZip({
         pack: item,
         members,
-        schoolName,
+        schoolName: personalization.schoolName,
+        preparedBy: personalization.teacherName,
+        personalization,
       });
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
@@ -867,6 +893,7 @@ export function LibraryReviewView() {
               <LessonPlanContentView
                 content={item.reviewBody}
                 emptyPlaceholder="Complete pack overview."
+                lessonPlan={false}
                 className="prose prose-sm max-w-none text-[#666666] prose-p:my-0"
               />
             </p>
@@ -931,15 +958,14 @@ export function LibraryReviewView() {
             ) : null}
           </div>
         ) : item.kind === "lessonPlan" ? (
-          <>
+          <div className="flex flex-col gap-5">
             <LessonPlanContentView content={item.reviewBody} />
             <LessonPlanSupplementView
               curriculumRoute={item.curriculumRoute}
               grade={item.grade}
               subject={item.subject}
-              className="mt-6 border-t border-slate-200 pt-5"
             />
-          </>
+          </div>
         ) : item.kind === "presentation" ? (
           <div className="space-y-4">
             {hydratingSlides && !activeSlide ? (
@@ -1002,7 +1028,10 @@ export function LibraryReviewView() {
                     <h3 className="text-sm font-bold text-[#1A1C30]">
                       Speaker notes
                     </h3>
-                    <LessonPlanContentView content={activeSlide.speakerNotes} />
+                    <LessonPlanContentView
+                      content={activeSlide.speakerNotes}
+                      lessonPlan={false}
+                    />
                   </div>
                 ) : null}
               </>
@@ -1011,13 +1040,17 @@ export function LibraryReviewView() {
                 <LessonPlanContentView
                   content={item.reviewBody}
                   emptyPlaceholder="No slides saved for this presentation yet."
+                  lessonPlan={false}
                 />
                 {item.speakerNotes?.trim() ? (
                   <>
                     <h3 className="pt-2 text-sm font-bold text-[#1A1C30]">
                       Speaker notes
                     </h3>
-                    <LessonPlanContentView content={item.speakerNotes} />
+                    <LessonPlanContentView
+                      content={item.speakerNotes}
+                      lessonPlan={false}
+                    />
                   </>
                 ) : null}
               </div>
@@ -1096,6 +1129,7 @@ export function LibraryReviewView() {
           <LessonPlanContentView
             content={item.reviewBody}
             emptyPlaceholder="No content saved for this item yet."
+            lessonPlan={false}
           />
         )}
       </Card>

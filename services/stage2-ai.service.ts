@@ -4,6 +4,10 @@ import {
   type Stage2GenerateRequest,
   type Stage2GenerationStatus,
 } from "@/types/stage2";
+import {
+  clarificationAnswerToJson,
+  type ClarificationAnswer,
+} from "@/types/stage-clarification";
 
 const GENERATE_TIMEOUT_MS = 4 * 60 * 1000;
 const IMAGE_BATCH_TIMEOUT_MS = 5 * 60 * 1000;
@@ -13,31 +17,35 @@ const RETRY_IMAGE_TIMEOUT_MS = 2 * 60 * 1000;
 export async function generateStage2Presentation(
   request: Stage2GenerateRequest,
   jobId: string,
+  clarificationAnswers: ClarificationAnswer[] = [],
 ): Promise<Stage2GenerationStatus> {
+  const payload: Record<string, unknown> = {
+    curriculumFamily: request.curriculumFamily,
+    routeId: request.routeId,
+    pathwayProgram: request.pathwayProgram ?? null,
+    stateOrProvince: request.stateOrProvince ?? null,
+    gradeOrYear: request.gradeOrYear,
+    subject: request.subject,
+    topic: request.topic,
+    teachingMethod: request.teachingMethod,
+    lessonDuration: request.lessonDuration,
+    slideCount: request.slideCount,
+    presentationStyle: request.presentationStyle,
+    sourceType: request.sourceType,
+    sourceLessonText: request.sourceLessonText,
+    stage1LibraryItemId: request.stage1LibraryItemId ?? null,
+    jobId,
+  };
+  if (clarificationAnswers.length > 0) {
+    payload.clarificationAnswers = clarificationAnswers.map(
+      clarificationAnswerToJson,
+    );
+  }
+
   const data = await callFunction<
     Record<string, unknown>,
     Record<string, unknown>
-  >(
-    "generateStage2Presentation",
-    {
-      curriculumFamily: request.curriculumFamily,
-      routeId: request.routeId,
-      pathwayProgram: request.pathwayProgram ?? null,
-      stateOrProvince: request.stateOrProvince ?? null,
-      gradeOrYear: request.gradeOrYear,
-      subject: request.subject,
-      topic: request.topic,
-      teachingMethod: request.teachingMethod,
-      lessonDuration: request.lessonDuration,
-      slideCount: request.slideCount,
-      presentationStyle: request.presentationStyle,
-      sourceType: request.sourceType,
-      sourceLessonText: request.sourceLessonText,
-      stage1LibraryItemId: request.stage1LibraryItemId ?? null,
-      jobId,
-    },
-    { timeout: GENERATE_TIMEOUT_MS },
-  );
+  >("generateStage2Presentation", payload, { timeout: GENERATE_TIMEOUT_MS });
   return parseStage2Status(data);
 }
 

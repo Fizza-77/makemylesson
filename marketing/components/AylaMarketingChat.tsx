@@ -11,7 +11,7 @@ import { sendAylaMessage, type AylaChatMessage } from '@/services/ayla-chat.serv
 import { cn } from '@marketing/lib/cn'
 
 const WELCOME =
-  "Hi! I'm Ayla, your AI teaching assistant. Ask me about Make My Lesson, credits, curricula, or how the four stages work."
+  "Hi! I'm Ayla, your teaching assistant. Ask me about Make My Lesson, credits, curricula, or how the four stages work."
 
 const SUGGESTIONS = [
   'What is Make My Lesson?',
@@ -102,7 +102,7 @@ export default function AylaMarketingChat() {
           className="mml-ayla-widget-panel"
           role="dialog"
           aria-modal="false"
-          aria-label="Ayla AI teaching assistant chat"
+          aria-label="Ayla teaching assistant chat"
         >
           <header className="mml-ayla-widget-head">
             <div className="mml-ayla-widget-identity">
@@ -117,7 +117,7 @@ export default function AylaMarketingChat() {
                 <p className="mml-ayla-widget-name">Ayla</p>
                 <p className="mml-ayla-widget-role">
                   <span className="mml-ayla-widget-online" aria-hidden />
-                  AI teaching assistant
+                  Online
                 </p>
               </div>
             </div>

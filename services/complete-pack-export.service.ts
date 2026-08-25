@@ -6,6 +6,7 @@ import {
   sanitizeFileName,
   shareBlobFile,
 } from "@/services/document-export-core";
+import type { ExportPersonalization } from "@/services/export-personalization.service";
 import {
   buildStage2ZipBytes,
   type Stage2ExportInput,
@@ -45,8 +46,14 @@ export async function buildCompletePackZipBlob(params: {
   pack: LibraryItem;
   members: PlanBundleMembers;
   schoolName?: string | null;
+  preparedBy?: string | null;
+  personalization?: ExportPersonalization | null;
 }): Promise<Blob | null> {
-  const { pack, members, schoolName } = params;
+  const { pack, members, schoolName, preparedBy, personalization } = params;
+  const school =
+    personalization?.schoolName?.trim() || schoolName?.trim() || null;
+  const teacher =
+    personalization?.teacherName?.trim() || preparedBy?.trim() || null;
   const zip = new JSZip();
   let fileCount = 0;
 
@@ -58,7 +65,9 @@ export async function buildCompletePackZipBlob(params: {
       grade: pack.grade,
       subject: pack.subject,
       content: lesson.reviewBody,
-      schoolName,
+      schoolName: school,
+      preparedBy: teacher,
+      personalization,
     });
     zip.file("stage1_lesson_plan.pdf", pdf.output("arraybuffer"));
     fileCount++;
@@ -77,7 +86,9 @@ export async function buildCompletePackZipBlob(params: {
         subject: pack.subject,
         slides,
         themeId: presentation.presentationStyle || "classic_navy",
-        schoolName,
+        schoolName: school,
+        teacherName: teacher,
+        personalization,
       };
       const stage2Zip = await buildStage2ZipBytes(stage2Input);
       if (stage2Zip) {
@@ -100,7 +111,9 @@ export async function buildCompletePackZipBlob(params: {
       activityTitle: activityTitle(activity),
       studentActivityText: activity.reviewBody,
       teacherAnswerKeyText: activity.teacherReviewBody,
-      schoolName,
+      schoolName: school,
+      preparedBy: teacher,
+      personalization,
     });
     zip.file("stage3_worksheet.zip", stage3Zip);
     fileCount++;
@@ -119,7 +132,9 @@ export async function buildCompletePackZipBlob(params: {
       assessmentTitle: assessmentTitle(assessment),
       studentPaperText: assessment.reviewBody,
       markSchemeText: assessment.teacherReviewBody,
-      schoolName,
+      schoolName: school,
+      preparedBy: teacher,
+      personalization,
     });
     zip.file("stage4_quiz.zip", stage4Zip);
     fileCount++;
@@ -133,6 +148,8 @@ export async function downloadCompletePackZip(params: {
   pack: LibraryItem;
   members: PlanBundleMembers;
   schoolName?: string | null;
+  preparedBy?: string | null;
+  personalization?: ExportPersonalization | null;
 }) {
   const blob = await buildCompletePackZipBlob(params);
   if (!blob) {
@@ -150,6 +167,8 @@ export async function shareCompletePackZip(params: {
   pack: LibraryItem;
   members: PlanBundleMembers;
   schoolName?: string | null;
+  preparedBy?: string | null;
+  personalization?: ExportPersonalization | null;
 }) {
   const blob = await buildCompletePackZipBlob(params);
   if (!blob) {

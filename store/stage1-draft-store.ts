@@ -22,6 +22,7 @@ import {
   generateStage1LessonPlan,
   getStage1GenerationStatus,
 } from "@/services/stage1-ai.service";
+import type { ClarificationAnswer } from "@/types/stage-clarification";
 import {
   isSuccessfulTerminalStatus,
   isTerminalGenerationStatus,
@@ -75,7 +76,9 @@ type Stage1Store = Stage1DraftState & {
   recomputeMapping: () => void;
   canGenerate: () => boolean;
   hasUnsupportedMapping: () => boolean;
-  generate: () => Promise<{ savedToLibrary: boolean; saveError?: string }>;
+  generate: (
+    clarificationAnswers?: ClarificationAnswer[],
+  ) => Promise<{ savedToLibrary: boolean; saveError?: string }>;
   setGeneratedSummary: (content: string) => void;
   ensurePlanBundleId: () => string;
   saveCurrentPlanToLibrary: () => Promise<void>;
@@ -528,7 +531,7 @@ export const useStage1DraftStore = create<Stage1Store>((set, get) => ({
       // Keep planBundleId + linkedLibraryItemId so regenerate updates same journey.
     }),
 
-  generate: async () => {
+  generate: async (clarificationAnswers = []) => {
     const s = get();
     if (!get().canGenerate() || !s.mappedCurriculumId) {
       throw new Error(
@@ -639,7 +642,11 @@ export const useStage1DraftStore = create<Stage1Store>((set, get) => ({
     }, 2000);
 
     try {
-      const content = await generateStage1LessonPlan(selection, jobId);
+      const content = await generateStage1LessonPlan(
+        selection,
+        jobId,
+        clarificationAnswers,
+      );
       if (activeJobId !== jobId) return finalizeResult;
       await tryFinalize(content);
       return finalizeResult;

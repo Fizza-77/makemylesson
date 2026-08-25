@@ -10,6 +10,8 @@ export type Stage2CoverData = {
   curriculum: string;
   schoolName?: string | null;
   teacherName?: string | null;
+  schoolLogoUrl?: string | null;
+  ownPictureUrl?: string | null;
 };
 
 export function Stage2CoverCanvas({
@@ -28,6 +30,8 @@ export function Stage2CoverCanvas({
   const theme = stage2ThemeById(themeId);
   const school = data.schoolName?.trim() || "";
   const teacher = data.teacherName?.trim() || "";
+  const logo = data.schoolLogoUrl?.trim() || "";
+  const photo = data.ownPictureUrl?.trim() || "";
   const topic = data.topic.trim() || "Lesson presentation";
   const meta = [data.grade, data.subject, data.curriculum]
     .map((v) => v.trim())
@@ -71,6 +75,32 @@ export function Stage2CoverCanvas({
             >
               Cover slide
             </p>
+            {logo || photo ? (
+              <div className="mt-2 flex items-center gap-2">
+                {logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={logo}
+                    alt=""
+                    className="size-8 rounded-full object-cover sm:size-9"
+                    style={{
+                      border: `1px solid ${theme.isLight ? "#E5E7EB" : "rgba(255,255,255,0.2)"}`,
+                    }}
+                  />
+                ) : null}
+                {photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={photo}
+                    alt=""
+                    className="size-8 rounded-full object-cover sm:size-9"
+                    style={{
+                      border: `1px solid ${theme.isLight ? "#E5E7EB" : "rgba(255,255,255,0.2)"}`,
+                    }}
+                  />
+                ) : null}
+              </div>
+            ) : null}
             {school ? (
               <p
                 className="mt-1 truncate text-sm font-semibold sm:text-base"

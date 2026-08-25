@@ -74,7 +74,7 @@ export function Stage2SlideCanvas({
         </h3>
 
         <div className="flex min-h-0 flex-1 flex-col gap-3 sm:flex-row">
-          <ul className="min-w-0 flex-1 space-y-1.5 overflow-auto text-xs sm:text-sm">
+          <ul className="min-w-0 flex-1 space-y-1.5 overflow-y-auto text-xs [-ms-overflow-style:none] [scrollbar-width:none] sm:text-sm [&::-webkit-scrollbar]:hidden">
             {slide.slideContent
               .filter((l) => l.trim())
               .map((line, i) => (

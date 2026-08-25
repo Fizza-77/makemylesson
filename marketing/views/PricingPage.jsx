@@ -81,7 +81,7 @@ function PricingPageInner() {
         </div>
       ) : null}
 
-      <div className="pricing-section-inner">
+      <div className="pricing-section-inner pricing-hero-band">
       <div className="pricing-canvas relative overflow-hidden rounded-[32px] bg-[#aae4e3] sm:rounded-[40px]">
         <div
           className="pointer-events-none absolute -right-20 -top-10 h-64 w-64 rounded-full bg-[#35BEBC] sm:-top-14"
@@ -134,10 +134,10 @@ function PricingPageInner() {
         {/* Plans */}
         <section
           id="pricing-plans"
-          className="pricing-plans relative z-[1] px-3 pb-[1cm] pt-0 sm:px-5 md:px-6 lg:px-8"
+          className="pricing-plans relative z-[1] px-2 pb-[1cm] pt-0 sm:px-3 md:px-4"
           aria-label="Pricing plans"
         >
-          <div className="mml-pr-grid !mt-0">
+          <div className="mml-pr-grid pricing-hero-plans !mt-0">
             {localizedPlans.map((plan) => (
               <AccessPlanCard
                 key={plan.key}

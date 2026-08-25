@@ -1,6 +1,9 @@
 /**
  * One-shot extractor: Flutter curriculum_service.dart → JSON for Next.js Stage 1.
  * Run: node scripts/extract-stage1-curriculum.mjs
+ *
+ * Subjects/curricula are client-side catalogs in both apps (no Cloud Function).
+ * This keeps the web lesson-plan picker in sync with MakeMyLesson-1.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -9,9 +12,14 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dartPath = path.resolve(
   __dirname,
-  "../../MakeMyLesson/lib/services/curriculum_service.dart",
+  "../../MakeMyLesson-1/lib/services/curriculum_service.dart",
 );
 const outDir = path.resolve(__dirname, "../data");
+
+if (!fs.existsSync(dartPath)) {
+  console.error(`Flutter curriculum source not found:\n  ${dartPath}`);
+  process.exit(1);
+}
 
 const src = fs.readFileSync(dartPath, "utf8");
 
@@ -32,7 +40,7 @@ function parseSubjectInfos(block) {
   return subjects;
 }
 
-/** Extract List<SubjectInfo> _getXxx() { return [ ... ]; } helpers */
+/** Extract List<SubjectInfo> _getXxx() { return [ ... ]; } helpers (no args) */
 const subjectHelpers = {};
 {
   const helperRe =
@@ -43,12 +51,57 @@ const subjectHelpers = {};
   }
 }
 
+/**
+ * Parameterized helpers like _getAustralianSeniorSubjects(String state)
+ * and _getCanadianSeniorSubjects(String province) — keyed as "fnName:arg".
+ */
+const subjectHelpersByArg = {};
+{
+  const paramHelperRe =
+    /List<SubjectInfo>\s+(_get\w+)\s*\(\s*String\s+\w+\s*\)\s*\{([\s\S]*?)\n  \}/g;
+  let m;
+  while ((m = paramHelperRe.exec(src))) {
+    const fn = m[1];
+    const body = m[2];
+    // Walk case labels; support fall-through:
+    //   case 'bc':
+    //   case 'british columbia':
+    //     return [ ... ];
+    const pending = [];
+    const tokenRe =
+      /case\s+'((?:\\'|[^'])*)'\s*:|return\s*\[([\s\S]*?)\];/g;
+    let tm;
+    while ((tm = tokenRe.exec(body))) {
+      if (tm[1] != null) {
+        pending.push(tm[1].replace(/\\'/g, "'").toLowerCase());
+        continue;
+      }
+      if (tm[2] != null && pending.length > 0) {
+        const subjects = parseSubjectInfos(tm[2]);
+        for (const arg of pending) {
+          subjectHelpersByArg[`${fn}:${arg}`] = subjects;
+        }
+        pending.length = 0;
+      }
+    }
+  }
+}
+
 function resolveSubjects(expr, localVars) {
   const trimmed = expr.trim();
   if (trimmed === "[]" || trimmed === "const []") return [];
   if (localVars[trimmed]) return localVars[trimmed];
-  const call = trimmed.match(/^(_get\w+)\(\s*\)$/);
-  if (call && subjectHelpers[call[1]]) return subjectHelpers[call[1]];
+  const callNoArg = trimmed.match(/^(_get\w+)\(\s*\)$/);
+  if (callNoArg && subjectHelpers[callNoArg[1]]) {
+    return subjectHelpers[callNoArg[1]];
+  }
+  const callWithArg = trimmed.match(
+    /^(_get\w+)\(\s*'((?:\\'|[^'])*)'\s*\)$/,
+  );
+  if (callWithArg) {
+    const key = `${callWithArg[1]}:${callWithArg[2].replace(/\\'/g, "'").toLowerCase()}`;
+    if (subjectHelpersByArg[key]) return subjectHelpersByArg[key];
+  }
   if (trimmed.startsWith("[")) return parseSubjectInfos(trimmed);
   return [];
 }
@@ -95,10 +148,20 @@ function parseGradeInfos(gradesBlock, localVars) {
 
 function parsePathwayMethod(methodBody) {
   const localVars = {};
-  const assignRe = /(?:final|var)\s+(\w+)\s*=\s*(_get\w+)\(\s*\);/g;
+  // final x = _getFoo();  OR  final x = _getFoo('arg');
+  const assignRe =
+    /(?:final|var)\s+(\w+)\s*=\s*(_get\w+)\(\s*(?:'((?:\\'|[^'])*)')?\s*\);/g;
   let am;
   while ((am = assignRe.exec(methodBody))) {
-    localVars[am[1]] = subjectHelpers[am[2]] || [];
+    const varName = am[1];
+    const fn = am[2];
+    const arg = am[3];
+    if (arg != null) {
+      const key = `${fn}:${arg.replace(/\\'/g, "'").toLowerCase()}`;
+      localVars[varName] = subjectHelpersByArg[key] || [];
+    } else {
+      localVars[varName] = subjectHelpers[fn] || [];
+    }
   }
 
   const id = /id:\s*'((?:\\'|[^'])*)'/.exec(methodBody)?.[1];
@@ -187,11 +250,25 @@ const gradeCount = tree.reduce(
   (n, t) => n + t.pathways.reduce((m, p) => m + p.grades.length, 0),
   0,
 );
+let emptySubjectGrades = 0;
+let totalSubjects = 0;
+for (const top of tree) {
+  for (const p of top.pathways) {
+    for (const g of p.grades) {
+      const n = (g.subjects || []).length;
+      totalSubjects += n;
+      if (!n) emptySubjectGrades += 1;
+    }
+  }
+}
 console.log(
   `Extracted ${tree.length} top-levels, ${pathwayCount} pathways, ${gradeCount} grades, ${Object.keys(curriculumNames).length} curriculum names`,
 );
 console.log(
-  `Subject helpers: ${Object.keys(subjectHelpers).length}, pathway methods: ${Object.keys(pathwaysByMethod).length}`,
+  `Subject helpers: ${Object.keys(subjectHelpers).length}, parameterized: ${Object.keys(subjectHelpersByArg).length}, pathway methods: ${Object.keys(pathwaysByMethod).length}`,
+);
+console.log(
+  `Subjects listed: ${totalSubjects}; grades with empty subjects (incl. intentional EYFS/K): ${emptySubjectGrades}`,
 );
 console.log(`Wrote ${treePath}`);
 console.log(`Wrote ${namesPath}`);

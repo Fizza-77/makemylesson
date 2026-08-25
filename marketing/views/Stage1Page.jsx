@@ -127,7 +127,7 @@ export default function Stage1Page() {
               ) : (
                 <>
                   <Sparkles size={16} />
-                  Generate with AI
+                  Generate
                 </>
               )}
             </button>
@@ -149,7 +149,7 @@ export default function Stage1Page() {
               <div className="text-[40px] opacity-50">✨</div>
               <h3 className="text-[17px] text-white">Your Lesson Plan</h3>
               <p className="max-w-[280px] text-sm text-white">
-                Fill in the details and click &quot;Generate with AI&quot; to create your complete lesson plan.
+                Fill in the details and click &quot;Generate&quot; to create your complete lesson plan.
               </p>
             </div>
           ) : (

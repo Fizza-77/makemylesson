@@ -15,28 +15,39 @@
 .blog-hub-hero-art {
   display: none;
   position: absolute;
-  bottom: -6%;
-  height: 108%;
+  z-index: 0;
+  bottom: -4%;
+  height: 92%;
   width: auto;
-  max-width: 42%;
+  max-width: 30%;
   object-fit: contain;
   pointer-events: none;
   user-select: none;
 }
 
 .blog-hub-hero-art--left {
-  left: -1.25rem;
+  left: -1.5rem;
+  max-width: 30%;
   object-position: left bottom;
 }
 
 .blog-hub-hero-art--right {
-  right: -1.25rem;
+  right: -1.5rem;
+  max-width: 30%;
   object-position: right bottom;
 }
 
 .blog-hub-hero-copy {
   position: relative;
   z-index: 1;
+  margin-inline: auto;
+  width: 100%;
+  max-width: 40rem;
+  padding-inline: 1rem;
+}
+
+.blog-hub-hero-copy h1 {
+  white-space: normal;
 }
 
 @media (min-width: 640px) {
@@ -58,8 +69,12 @@
   }
 
   .blog-hub-hero-copy {
-    padding-left: 22%;
-    padding-right: 22%;
+    max-width: min(36rem, 46%);
+    padding-inline: 0.5rem;
+  }
+
+  .blog-hub-hero-copy h1 {
+    white-space: nowrap;
   }
 }
 
@@ -70,23 +85,14 @@
     padding-bottom: 3.5rem;
   }
 
-  .blog-hub-hero-art {
-    max-width: 38%;
-    height: 112%;
-    bottom: -8%;
-  }
-
-  .blog-hub-hero-art--left {
-    left: -0.5rem;
-  }
-
+  .blog-hub-hero-art--left,
   .blog-hub-hero-art--right {
-    right: -0.5rem;
+    max-width: 27%;
+    height: 88%;
   }
 
   .blog-hub-hero-copy {
-    padding-left: 26%;
-    padding-right: 26%;
+    max-width: min(40rem, 44%);
   }
 }
 
@@ -95,9 +101,14 @@
     min-height: 19.5rem;
   }
 
-  .blog-hub-hero-art {
-    max-width: 34%;
-    height: 118%;
+  .blog-hub-hero-art--left,
+  .blog-hub-hero-art--right {
+    max-width: 25%;
+    height: 90%;
+  }
+
+  .blog-hub-hero-copy {
+    max-width: min(42rem, 42%);
   }
 }
 

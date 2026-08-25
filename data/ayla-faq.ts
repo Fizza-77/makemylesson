@@ -48,7 +48,7 @@ export const AYLA_FAQ_ENTRIES: AylaFaqEntry[] = [
   {
     question: "Who is Ayla?",
     answer:
-      "Ayla is the built-in AI teaching assistant that helps teachers refine and adapt generated content at any stage.",
+      "Ayla is the built-in teaching assistant that helps teachers refine and adapt generated content at any stage.",
   },
   {
     question: "Does using Ayla consume credits?",

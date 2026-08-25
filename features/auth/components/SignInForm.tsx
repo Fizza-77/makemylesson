@@ -28,6 +28,30 @@ import { toastFirstFormError } from "@/lib/toast-form-errors";
 import { ROUTES } from "@/lib/urls";
 import { toast } from "@/store/toast-store";
 
+const fieldClass =
+  "rounded-xl px-3.5 py-3 text-sm sm:text-[15px]";
+const labelClass = "text-sm font-medium";
+const btnClass = "rounded-xl px-4 py-3 text-sm sm:text-[15px]";
+
+function GoogleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-[18px] shrink-0" aria-hidden>
+      <path
+        fill="#EA4335"
+        d="M12 10.2v3.9h5.5c-.2 1.3-1.6 3.8-5.5 3.8-3.3 0-6-2.7-6-6s2.7-6 6-6c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.8 3.1 14.6 2 12 2 6.5 2 2 6.5 2 12s4.5 10 10 10c5.8 0 9.6-4.1 9.6-9.8 0-.7-.1-1.2-.2-1.7H12z"
+      />
+    </svg>
+  );
+}
+
+function AppleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-[18px] shrink-0 fill-current" aria-hidden>
+      <path d="M16.7 12.6c0-2.1 1.7-3.1 1.8-3.2-1-1.4-2.5-1.6-3-1.7-1.3-.1-2.5.8-3.1.8-.6 0-1.6-.7-2.7-.7-1.4 0-2.7.8-3.4 2.1-1.5 2.5-.4 6.3 1 8.3.7 1 1.5 2.1 2.6 2.1 1 0 1.4-.7 2.7-.7s1.6.7 2.7.7c1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3-.1 0-2.1-.8-2.2-3.4zM14.5 5.8c.6-.7 1-1.7.9-2.7-1 .1-2.1.7-2.7 1.4-.6.6-1.1 1.7-1 2.6 1.1.1 2.1-.5 2.8-1.3z" />
+    </svg>
+  );
+}
+
 export function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -86,7 +110,6 @@ export function SignInForm() {
     } catch (e) {
       const message = mapFirebaseAuthError(e);
       if (isExpectedAuthCredentialError(e)) {
-        // Wrong password / unknown email — expected UX, not an app failure.
         authLog.warn("sign_in.email.rejected", {
           email: authLog.email(values.email),
           code:
@@ -153,21 +176,12 @@ export function SignInForm() {
     }
   }
 
+  const busy = isSubmitting || socialLoading !== null;
+
   return (
     <AuthGlassShell
       title="Welcome back"
-      subtitle="Sign in to your Make My Lesson account"
-      headerAction={
-        <p className="text-sm text-[#666666]">
-          Don&apos;t have an account?{" "}
-          <Link
-            href={ROUTES.signUp}
-            className="font-semibold text-[#28C2C0] hover:underline"
-          >
-            Sign up
-          </Link>
-        </p>
-      }
+      subtitle="Sign in to continue planning lessons"
     >
       <form
         className="space-y-4"
@@ -198,10 +212,13 @@ export function SignInForm() {
             </p>
           </div>
         ) : null}
+
         <Input
           label="Email"
           type="email"
           autoComplete="email"
+          labelClassName={labelClass}
+          className={fieldClass}
           error={errors.email?.message}
           {...register("email", {
             onChange: () => {
@@ -213,6 +230,8 @@ export function SignInForm() {
           label="Password"
           type="password"
           autoComplete="current-password"
+          labelClassName={labelClass}
+          className={fieldClass}
           error={errors.password?.message}
           {...register("password", {
             onChange: () => {
@@ -220,43 +239,56 @@ export function SignInForm() {
             },
           })}
         />
-        <div className="text-right">
+
+        <div className="-mt-1 text-right">
           <Link
             href={ROUTES.forgotPassword}
-            className="text-sm font-medium text-[#28C2C0] hover:underline"
+            className="text-sm font-semibold text-[#28C2C0] hover:underline"
           >
-            Forgot your password?
+            Forgot password?
           </Link>
         </div>
-        <Button type="submit" className="w-full" isLoading={isSubmitting}>
+
+        <Button
+          type="submit"
+          className={`w-full ${btnClass}`}
+          isLoading={isSubmitting}
+          disabled={busy}
+        >
           Sign in
         </Button>
       </form>
 
-      <div className="my-6 flex items-center gap-3">
+      <div className="my-5 flex items-center gap-3">
         <div className="h-px flex-1 bg-[#E5E7EB]" />
-        <span className="text-xs text-[#666666]">or</span>
+        <span className="text-xs font-medium tracking-wide text-[#94A3B8] uppercase">
+          or
+        </span>
         <div className="h-px flex-1 bg-[#E5E7EB]" />
       </div>
 
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
         <Button
           type="button"
           variant="outline"
-          className="w-full"
+          className={`w-full ${btnClass}`}
           onClick={onGoogle}
           isLoading={socialLoading === "google"}
+          disabled={busy}
         >
-          Continue with Google
+          {socialLoading === "google" ? null : <GoogleIcon />}
+          Google
         </Button>
         <Button
           type="button"
           variant="outline"
-          className="w-full"
+          className={`w-full ${btnClass}`}
           onClick={onApple}
           isLoading={socialLoading === "apple"}
+          disabled={busy}
         >
-          Continue with Apple
+          {socialLoading === "apple" ? null : <AppleIcon />}
+          Apple
         </Button>
       </div>
 
@@ -270,8 +302,11 @@ export function SignInForm() {
         </Link>
       </p>
       <p className="mt-3 text-center">
-        <Link href={ROUTES.stage1} className="text-sm text-[#666666] hover:underline">
-          Continue as Guest
+        <Link
+          href={ROUTES.stage1}
+          className="text-sm font-medium text-[#94A3B8] transition hover:text-[#1A1C30] hover:underline"
+        >
+          Continue as guest
         </Link>
       </p>
     </AuthGlassShell>

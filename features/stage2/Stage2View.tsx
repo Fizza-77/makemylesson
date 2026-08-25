@@ -44,6 +44,7 @@ import {
   type Stage2DownloadActionId,
   type Stage2ExportInput,
 } from "@/services/stage2-export.service";
+import { resolveExportPersonalization } from "@/services/export-personalization.service";
 import { pickAndParseStageSource } from "@/services/stage-source-parser.service";
 
 export function Stage2View() {
@@ -97,10 +98,22 @@ export function Stage2View() {
           ? account.schoolName.trim()
           : null,
       teacherName: account?.displayName?.trim() || null,
+      schoolLogoUrl:
+        account?.useSchoolLogoInAi && account.schoolLogoUrl?.trim()
+          ? account.schoolLogoUrl.trim()
+          : null,
+      ownPictureUrl:
+        account?.useOwnPicInAi && account.profilePhotoUrl?.trim()
+          ? account.profilePhotoUrl.trim()
+          : null,
     }),
     [
       account?.displayName,
+      account?.profilePhotoUrl,
+      account?.schoolLogoUrl,
       account?.schoolName,
+      account?.useOwnPicInAi,
+      account?.useSchoolLogoInAi,
       account?.useSchoolNameInAi,
       draft.curriculumLabel,
       draft.grade,
@@ -191,17 +204,19 @@ export function Stage2View() {
 
     if (requireSignIn()) return;
     if (blockIfNoCredits()) return;
-    if (
-      !(await confirmGeneration(2, {
-        grade: draft.grade,
-        pathway: draft.pathwayDisplayName,
-        topic: draft.topic,
-      }))
-    )
-      return;
+    const clarified = await confirmGeneration(2, {
+      grade: draft.grade,
+      pathway: draft.pathwayDisplayName,
+      topic: draft.topic,
+      subject: draft.subject,
+      isUploadSource: draft.sourceMode === "upload",
+      sourceText: draft.sourceLessonText,
+      sourceFileName: draft.sourceFileName,
+    });
+    if (!clarified) return;
 
     try {
-      const result = await draft.generate();
+      const result = await draft.generate(clarified.answers);
       if (user?.uid) {
         await refreshAccountFromServer(user.uid).catch(() => null);
       }
@@ -247,7 +262,8 @@ export function Stage2View() {
     }
   }
 
-  function exportInput(): Stage2ExportInput {
+  async function exportInput(): Promise<Stage2ExportInput> {
+    const personalization = await resolveExportPersonalization(account);
     return {
       topic: draft.presentationTitle || draft.topic || "Presentation",
       curriculumRoute:
@@ -256,11 +272,9 @@ export function Stage2View() {
       subject: draft.subject || "—",
       slides: draft.slides,
       themeId: draft.themeId,
-      schoolName:
-        account?.useSchoolNameInAi && account.schoolName?.trim()
-          ? account.schoolName.trim()
-          : null,
-      teacherName: account?.displayName?.trim() || null,
+      schoolName: personalization.schoolName,
+      teacherName: personalization.teacherName,
+      personalization,
     };
   }
 
@@ -272,7 +286,7 @@ export function Stage2View() {
     setExportMenuOpen(false);
     setExporting(true);
     try {
-      await runStage2DownloadAction(action, exportInput());
+      await runStage2DownloadAction(action, await exportInput());
       toast.success(
         STAGE2_DOWNLOAD_ACTIONS.find((a) => a.id === action)?.label
           ? `${STAGE2_DOWNLOAD_ACTIONS.find((a) => a.id === action)!.label} ready.`
@@ -292,7 +306,7 @@ export function Stage2View() {
     }
     setExporting(true);
     try {
-      const result = await shareStage2Zip(exportInput());
+      const result = await shareStage2Zip(await exportInput());
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
     } catch (e) {
@@ -320,9 +334,15 @@ export function Stage2View() {
     <div className="flex w-full min-w-0 flex-col gap-6">
       <GenerationBusyOverlay
         active={isGenerating}
-        title="Generating your presentation"
+        stage={2}
         progress={draft.progress}
         status={draft.status || undefined}
+        tags={[
+          draft.grade || stage1.grade,
+          draft.subject || stage1.subject,
+          draft.topic || stage1.topic,
+          stage1.method,
+        ].filter(Boolean)}
       />
       <Stage2Hero />
       <StageProgressNav currentStage={2} />

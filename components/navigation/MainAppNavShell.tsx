@@ -3,11 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { AYLA_PANEL_ID } from "@/lib/ayla-scroll";
 import { NotificationsPanel } from "@/features/notifications/NotificationsPanel";
-import { AylaMobileFab } from "@/components/common/AylaMobileFab";
+import { ProfileAvatarDisplay } from "@/features/profile/ProfileAvatarDisplay";
 import { MarketingHomeLink } from "@/components/common/MarketingHomeLink";
 import { OpenInAppDialog } from "@/components/common/OpenInAppDialog";
 import { PricingLink } from "@/components/common/PricingLink";
@@ -113,32 +112,10 @@ function initialsFromName(name: string): string {
   return `${parts[0]![0] ?? ""}${parts[1]![0] ?? ""}`.toUpperCase();
 }
 
-function isStageRoute(pathname: string): boolean {
-  return (
-    pathname.startsWith(ROUTES.stage1) ||
-    pathname.startsWith(ROUTES.stage2) ||
-    pathname.startsWith(ROUTES.stage3) ||
-    pathname.startsWith(ROUTES.stage4)
-  );
-}
-
-function hasInlineAylaPanel(pathname: string): boolean {
-  return isStageRoute(pathname) || pathname.startsWith(ROUTES.library);
-}
-
-function scrollAylaPanelIntoView() {
-  if (typeof document === "undefined") return;
-  const el = document.getElementById(AYLA_PANEL_ID);
-  if (!el) return;
-  el.scrollIntoView({ behavior: "smooth", block: "end" });
-}
-
 export function MainAppNavShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const current = activeTab(pathname);
   const isProfilePage = pathname.startsWith(ROUTES.profile);
-  const showAylaScrollFab = hasInlineAylaPanel(pathname);
-  const [isAylaVisible, setIsAylaVisible] = useState(false);
   const user = useAuthStore((s) => s.user);
   const profile = useAuthStore((s) => s.profile);
   const authReady = useAuthStore((s) => s.authReady);
@@ -177,41 +154,6 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
       `${window.location.pathname}${qs ? `?${qs}` : ""}${window.location.hash}`,
     );
   }, [pathname, openPanel]);
-
-  useEffect(() => {
-    if (!showAylaScrollFab) {
-      setIsAylaVisible(false);
-      return;
-    }
-
-    let observer: IntersectionObserver | null = null;
-    let retries = 0;
-
-    const attach = () => {
-      const panel = document.getElementById(AYLA_PANEL_ID);
-      if (!panel) {
-        if (retries < 20) {
-          retries += 1;
-          window.setTimeout(attach, 150);
-        }
-        return;
-      }
-
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          setIsAylaVisible(entry?.isIntersecting ?? false);
-        },
-        {
-          threshold: 0.2,
-          rootMargin: "0px 0px -20% 0px",
-        },
-      );
-      observer.observe(panel);
-    };
-
-    attach();
-    return () => observer?.disconnect();
-  }, [pathname, showAylaScrollFab]);
 
   return (
     <div
@@ -342,9 +284,17 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                   href={ROUTES.profile}
                   className="flex max-w-[10.5rem] items-center gap-2 rounded-lg border border-[#E5E7EB] bg-white py-1.5 pr-2.5 pl-1.5 hover:bg-[#F8FAFC]"
                 >
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#2DD4BF] text-[11px] font-bold text-[#0F172A]">
-                    {initialsFromName(displayName)}
-                  </span>
+                  {account ? (
+                    <ProfileAvatarDisplay
+                      account={account}
+                      sizeClass="size-8"
+                      className="bg-[#2DD4BF] text-[11px] font-bold text-[#0F172A]"
+                    />
+                  ) : (
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#2DD4BF] text-[11px] font-bold text-[#0F172A]">
+                      {initialsFromName(displayName)}
+                    </span>
+                  )}
                   <span className="hidden min-w-0 sm:block">
                     <span className="block truncate text-xs font-bold leading-tight whitespace-nowrap text-[#0F172A]">
                       {displayName}
@@ -369,34 +319,6 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
       </main>
 
       <NotificationsPanel />
-      {showAylaScrollFab && !isAylaVisible ? (
-        <div className="fixed right-4 bottom-[10.75rem] z-[44] flex flex-col items-center gap-1.5 md:bottom-6">
-          <span className="text-[11px] font-semibold text-[#0F172A] drop-shadow-[0_1px_6px_rgba(255,255,255,0.9)]">
-            Talk to Ayla?
-          </span>
-          <button
-            type="button"
-            onClick={scrollAylaPanelIntoView}
-            className="inline-flex size-12 items-center justify-center rounded-full bg-transparent text-[#151B35] shadow-[0_0_18px_rgba(21,27,53,0.22)] transition hover:text-[#0F172A]"
-            aria-label="Scroll to Ayla chat"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="size-7"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="M12 5v14" />
-              <path d="m6 13 6 6 6-6" />
-            </svg>
-          </button>
-        </div>
-      ) : null}
-      <AylaMobileFab />
       <OpenInAppDialog />
 
       <nav

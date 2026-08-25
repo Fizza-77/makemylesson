@@ -187,6 +187,7 @@ function boldQuestionStems(text: string): string {
     expectStem = false;
 
     // Already emphasized, a table row, a quote, or an option / marking bullet.
+    // (PDF renderer also force-bolds question lines even without full ** wrapping.)
     if (
       trimmed.includes("**") ||
       trimmed.startsWith("|") ||

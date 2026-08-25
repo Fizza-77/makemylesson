@@ -641,6 +641,7 @@ export function PresentationResultPanel({
                       <LessonPlanContentView
                         content={activeSlide?.speakerNotes ?? ""}
                         emptyPlaceholder="No speaker notes for this slide."
+                        lessonPlan={false}
                         className="prose prose-sm max-w-none text-slate-500 prose-headings:my-1.5 prose-headings:text-sm prose-headings:font-bold prose-headings:text-[#151B35] prose-p:my-1 prose-p:text-xs prose-p:leading-relaxed sm:prose-p:text-sm prose-strong:font-bold prose-strong:text-[#151B35] prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-li:marker:text-[#28C2C0]"
                       />
                     )
@@ -709,6 +710,7 @@ export function PresentationResultPanel({
                         <LessonPlanContentView
                           content={activeSlide?.speakerNotes ?? ""}
                           emptyPlaceholder="No speaker notes for this slide."
+                          lessonPlan={false}
                           className="prose prose-sm max-w-none text-slate-500 prose-headings:my-1.5 prose-headings:text-sm prose-headings:font-bold prose-headings:text-[#151B35] prose-p:my-1 prose-p:text-xs prose-p:leading-relaxed sm:prose-p:text-sm prose-strong:font-bold prose-strong:text-[#151B35] prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-li:marker:text-[#28C2C0]"
                         />
                       )

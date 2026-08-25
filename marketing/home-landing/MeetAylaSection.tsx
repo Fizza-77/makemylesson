@@ -36,7 +36,7 @@ const MESSAGES = [
   },
 ] as const;
 
-const AYLA_IMAGE = "/ayla-character.webp";
+const AYLA_IMAGE = "/svgs/ayla.webp";
 const AYLA_AVATAR = "/Group 7.svg";
 
 function TypingDots() {
@@ -76,9 +76,9 @@ export default function MeetAylaSection() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={AYLA_IMAGE}
-              alt="Ayla, AI teaching assistant"
-              width={376}
-              height={376}
+              alt="Ayla, teaching assistant"
+              width={720}
+              height={1079}
               className="mml-ayla-character-img"
               loading="lazy"
               decoding="async"
@@ -102,7 +102,7 @@ export default function MeetAylaSection() {
               </div>
               <div>
                 <p className="mml-ayla-chat-name">Ayla</p>
-                <p className="mml-ayla-chat-role">AI TEACHING ASSISTANT</p>
+                <p className="mml-ayla-chat-role">TEACHING ASSISTANT</p>
               </div>
             </header>
 

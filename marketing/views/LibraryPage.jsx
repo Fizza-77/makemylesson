@@ -328,7 +328,7 @@ export default function LibraryPage() {
                     className="flex-[2] flex items-center justify-center gap-1.5 rounded-lg border-none bg-mml-teal py-2 font-sans text-[13px] font-semibold text-mml-navy transition-colors hover:bg-mml-teal-dark"
                     onClick={() => router.push('/lesson/stage1')}
                   >
-                    <Sparkles size={12} /> Generate with AI
+                    <Sparkles size={12} /> Generate
                   </button>
                 </div>
               </div>

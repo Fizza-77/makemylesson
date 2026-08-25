@@ -107,7 +107,7 @@ export default function AylaSection() {
         <Reveal className="section-head ayla-section-head">
           <Label center>Meet Ayla</Label>
           <h2 className="ayla-head-title">
-            Your AI Teaching <em>Co-Pilot.</em>
+            Your Teaching <em>Co-Pilot.</em>
           </h2>
         </Reveal>
 
@@ -118,7 +118,7 @@ export default function AylaSection() {
                 <div className="ayla-chat-head">
                   <AylaHeaderAvatar />
                   <div>
-                    <div className="ayla-chat-name">Ayla - AI Teaching Assistant</div>
+                    <div className="ayla-chat-name">Ayla — Teaching Assistant</div>
                     <div className="ayla-chat-status">● Online · Always context-aware</div>
                   </div>
                   <span className="ayla-pro-badge">PRO</span>

@@ -10,7 +10,7 @@ export type AylaChatMessage = {
   text: string;
 };
 
-const SYSTEM_PROMPT = `You are Ayla, the Make My Lesson AI Teaching Assistant.
+const SYSTEM_PROMPT = `You are Ayla, the Make My Lesson teaching assistant.
 
 Primary rules:
 1) Use the provided FAQ text as the source of truth.

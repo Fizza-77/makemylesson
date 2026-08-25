@@ -43,6 +43,8 @@ export type Stage4GenerateRequest = {
   stage3LibraryItemId?: string | null;
   totalMarks?: number | null;
   numberOfItems: number;
+  /** From the difficulty clarification question: easy | medium | hard. */
+  difficulty?: string;
 };
 
 export type Stage4GenerationStatus = {

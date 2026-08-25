@@ -33,6 +33,7 @@ import {
   type Stage4DownloadActionId,
   type Stage4ExportInput,
 } from "@/services/stage4-export.service";
+import { resolveExportPersonalization } from "@/services/export-personalization.service";
 import {
   refreshAccountFromServer,
   syncAccountSubscription,
@@ -126,17 +127,19 @@ export function Stage4View() {
 
     if (requireSignIn()) return;
     if (blockIfNoCredits()) return;
-    if (
-      !(await confirmGeneration(4, {
-        grade: draft.grade,
-        pathway: draft.pathwayDisplayName,
-        topic: draft.topic,
-      }))
-    )
-      return;
+    const clarified = await confirmGeneration(4, {
+      grade: draft.grade,
+      pathway: draft.pathwayDisplayName,
+      topic: draft.topic,
+      subject: draft.subject,
+      isUploadSource: draft.sourceMode === "upload",
+      sourceText: draft.sourceAssessmentText,
+      sourceFileName: draft.sourceFileName,
+    });
+    if (!clarified) return;
 
     try {
-      const result = await draft.generate();
+      const result = await draft.generate(clarified.answers);
       if (user?.uid) {
         await refreshAccountFromServer(user.uid).catch(() => null);
       }
@@ -168,7 +171,8 @@ export function Stage4View() {
     }
   }
 
-  function exportInput(): Stage4ExportInput {
+  async function exportInput(): Promise<Stage4ExportInput> {
+    const personalization = await resolveExportPersonalization(account);
     return {
       topic: draft.topic,
       curriculumRoute:
@@ -181,10 +185,9 @@ export function Stage4View() {
         draft.topic,
       studentPaperText: draft.result?.studentAssessmentText ?? "",
       markSchemeText: draft.result?.teacherMarkSchemeText ?? "",
-      schoolName:
-        account?.useSchoolNameInAi && account.schoolName?.trim()
-          ? account.schoolName.trim()
-          : null,
+      schoolName: personalization.schoolName,
+      preparedBy: personalization.teacherName,
+      personalization,
     };
   }
 
@@ -196,7 +199,7 @@ export function Stage4View() {
     setExportMenuOpen(false);
     setExporting(true);
     try {
-      await runStage4DownloadAction(action, exportInput());
+      await runStage4DownloadAction(action, await exportInput());
       toast.success(
         `${STAGE4_DOWNLOAD_ACTIONS.find((a) => a.id === action)?.label ?? "Export"} ready.`,
       );
@@ -214,7 +217,7 @@ export function Stage4View() {
     }
     setExporting(true);
     try {
-      const result = await shareStage4QuizZip(exportInput());
+      const result = await shareStage4QuizZip(await exportInput());
       if (result.success) toast.success(result.message);
       else toast.info(result.message);
     } catch (e) {
@@ -242,9 +245,10 @@ export function Stage4View() {
     <div className="flex w-full min-w-0 flex-col gap-6">
       <GenerationBusyOverlay
         active={draft.isGenerating}
-        title="Generating your assessment"
+        stage={4}
         progress={draft.progress}
         status={draft.status || draft.phase || undefined}
+        tags={[draft.topic].filter(Boolean)}
       />
       <Stage4Hero />
       <StageProgressNav currentStage={4} />

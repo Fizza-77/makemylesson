@@ -24,6 +24,7 @@ import {
   startStage2ImageJobs,
 } from "@/services/stage2-ai.service";
 import { hydrateSlidesForLibrary } from "@/services/stage2-slide-storage.service";
+import type { ClarificationAnswer } from "@/types/stage-clarification";
 import {
   coerceStage2SlidesAfterTerminal,
   isStage2DeckReadyForSave,
@@ -141,7 +142,9 @@ type Stage2Store = Stage2DraftState & {
   canGenerate: () => boolean;
   hasUsableDeck: () => boolean;
   ensurePlanBundleId: () => string;
-  generate: () => Promise<{ savedToLibrary: boolean; saveError?: string }>;
+  generate: (
+    clarificationAnswers?: ClarificationAnswer[],
+  ) => Promise<{ savedToLibrary: boolean; saveError?: string }>;
   retryImage: (slideNumber: number) => Promise<void>;
   saveCurrentDeckToLibrary: () => Promise<void>;
   resetResult: () => void;
@@ -608,7 +611,7 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
     });
   },
 
-  generate: async () => {
+  generate: async (clarificationAnswers = []) => {
     const s = get();
     if (!get().canGenerate()) {
       throw new Error(
@@ -724,6 +727,7 @@ export const useStage2DraftStore = create<Stage2Store>((set, get) => ({
           stage1LibraryItemId: s.sourceLibraryItemId,
         },
         jobId,
+        clarificationAnswers,
       );
 
       if (activeJobId !== jobId) return { savedToLibrary: false };

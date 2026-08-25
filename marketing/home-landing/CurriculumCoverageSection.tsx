@@ -51,7 +51,7 @@ const CARDS: CurriculumCard[] = [
     tone: "navy",
     flag: "/UK.png",
     flagAlt: "United Kingdom flag",
-    structure: "/UK.svg",
+    structure: "/svgs/UK.webp",
     structureClass: "mml-cc-structure--uk",
     items: [
       "UK National Curriculum",
@@ -66,7 +66,7 @@ const CARDS: CurriculumCard[] = [
     tone: "white",
     flag: "/Flags/us-flag.webp",
     flagAlt: "United States flag",
-    structure: "/US.svg",
+    structure: "/svgs/US.webp",
     structureClass: "mml-cc-structure--us",
     items: [
       { title: "Foundational", detail: "Common Core State Standards" },
@@ -81,7 +81,7 @@ const CARDS: CurriculumCard[] = [
     tone: "white",
     flag: "/Flags/us-flag.webp",
     flagAlt: "United States flag",
-    structure: "/IB.svg",
+    structure: "/svgs/IB.webp",
     structureClass: "mml-cc-structure--ib",
     items: [
       "Primary Years Programme (PYP)",
@@ -96,7 +96,7 @@ const CARDS: CurriculumCard[] = [
     tone: "white",
     flag: "/Flags/aus-flag.webp",
     flagAlt: "Australia flag",
-    structure: "/Australia.svg",
+    structure: "/svgs/Australia.webp",
     structureClass: "mml-cc-structure--au",
     previewCount: 3,
     items: [
@@ -119,7 +119,7 @@ const CARDS: CurriculumCard[] = [
     tone: "white",
     flag: "/Flags/canada-flag.webp",
     flagAlt: "Canada flag",
-    structure: "/Canada.svg",
+    structure: "/svgs/Canada.webp",
     structureClass: "mml-cc-structure--ca",
     previewCount: 3,
     items: [

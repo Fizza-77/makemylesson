@@ -21,6 +21,10 @@ import {
   getStage4GenerationStatus,
 } from "@/services/stage4-ai.service";
 import {
+  difficultyFromAnswers,
+  type ClarificationAnswer,
+} from "@/types/stage-clarification";
+import {
   assessmentTypeForKind,
   clampStage4MarksToDuration,
   clampSummativeQuestionCount,
@@ -149,7 +153,9 @@ type Stage4Store = Stage4DraftState & {
   canGenerate: () => boolean;
   ensurePlanBundleId: () => string;
   durationMinutes: () => number;
-  generate: () => Promise<{ savedToLibrary: boolean; saveError?: string }>;
+  generate: (
+    clarificationAnswers?: ClarificationAnswer[],
+  ) => Promise<{ savedToLibrary: boolean; saveError?: string }>;
   saveCurrentToLibrary: () => Promise<void>;
   resetResult: () => void;
   resetAll: () => void;
@@ -628,7 +634,7 @@ export const useStage4DraftStore = create<Stage4Store>((set, get) => ({
     }
   },
 
-  generate: async () => {
+  generate: async (clarificationAnswers = []) => {
     const s = get();
     if (!get().canGenerate()) {
       if (!s.quizKind) {
@@ -769,8 +775,10 @@ export const useStage4DraftStore = create<Stage4Store>((set, get) => ({
             quizKind,
             s.questionCount,
           ),
+          difficulty: difficultyFromAnswers(clarificationAnswers),
         },
         jobId,
+        clarificationAnswers,
       );
 
       if (activeJobId !== jobId) return { savedToLibrary: false };

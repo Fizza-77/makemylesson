@@ -41,7 +41,7 @@ export default function ProfilePage() {
               </div>
               <div>
                 <p className="text-[0.8rem] font-bold text-white">Ayla</p>
-                <p className="text-[0.68rem] text-white">AI Teaching Assistant</p>
+                <p className="text-[0.68rem] text-white">Teaching assistant</p>
               </div>
               <button type="button" className="btn-primary ml-auto shrink-0 !px-3.5 !py-1.5 !text-xs">
                 Ask Ayla

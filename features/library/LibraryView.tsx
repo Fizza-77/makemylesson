@@ -525,7 +525,7 @@ export function LibraryView() {
           )}
         </div>
 
-        <div className="flex flex-col gap-5 lg:sticky lg:top-24">
+        <div className="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
           <LibraryMapCard counts={counts} onSelect={setTab} />
           <LibraryTipsCard />
           <AylaChatPanel

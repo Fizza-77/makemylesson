@@ -1,0 +1,129 @@
+.mml-logo-splash {
+  --mml-splash-navy: #202241;
+  --mml-splash-teal: #4fb0a5;
+  --mml-splash-gold: #e8be51;
+
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mml-splash-navy);
+  opacity: 1;
+  transition: opacity 0.45s ease;
+  pointer-events: auto;
+}
+
+.mml-logo-splash--exit {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mml-logo-splash-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mml-logo-splash-wrap {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.4vw, 2.125rem);
+  transform: scale(clamp(0.58, 0.42 + 0.4vw, 1));
+  transform-origin: center center;
+}
+
+.mml-logo-splash-icon-box {
+  position: relative;
+  width: 190px;
+  height: 216px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mml-logo-splash-ring {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1.5px solid var(--mml-splash-teal);
+  opacity: 0;
+  animation: mml-logo-ring-expand 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mml-logo-splash-ring--1 {
+  animation-delay: 0.4s;
+}
+
+.mml-logo-splash-ring--2 {
+  border-color: var(--mml-splash-gold);
+  animation-delay: 0.75s;
+}
+
+@keyframes mml-logo-ring-expand {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+.mml-logo-splash-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.88);
+  animation: mml-logo-icon-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1.25s forwards;
+}
+
+@keyframes mml-logo-icon-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.mml-logo-splash-wordmark {
+  height: clamp(120px, 18vh, 190px);
+  width: auto;
+  max-width: min(520px, 52vw);
+  object-fit: contain;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: mml-logo-text-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) 2.15s forwards;
+}
+
+@keyframes mml-logo-text-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mml-logo-splash-ring,
+  .mml-logo-splash-icon,
+  .mml-logo-splash-wordmark {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

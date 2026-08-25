@@ -109,17 +109,16 @@ export function LessonPlanEditDialog({
               {renderPreview ? (
                 renderPreview(value)
               ) : (
-                <>
+                <div className="flex flex-col gap-5">
                   <LessonPlanContentView content={value} />
                   {supplement ? (
                     <LessonPlanSupplementView
                       curriculumRoute={supplement.curriculumRoute}
                       grade={supplement.grade}
                       subject={supplement.subject}
-                      className="mt-6 border-t border-slate-200 pt-5"
                     />
                   ) : null}
-                </>
+                </div>
               )}
             </div>
           ) : (

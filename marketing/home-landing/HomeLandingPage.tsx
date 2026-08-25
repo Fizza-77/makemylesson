@@ -166,9 +166,9 @@ export default function HomeLandingPage() {
       </section>
 
       <MeetAylaSection />
-      <div className="mml-band-gap" aria-hidden />
+      <div className="mml-band-gap mml-band-gap--white" aria-hidden />
       <CurriculumCoverageSection />
-      <div className="mml-band-gap" aria-hidden />
+      <div className="mml-band-gap mml-band-gap--white" aria-hidden />
       <ReviewsSection />
       <SisterPlatformsSection />
       <PricingSection />

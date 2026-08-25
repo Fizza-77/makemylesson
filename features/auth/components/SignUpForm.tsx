@@ -177,17 +177,6 @@ export function SignUpForm() {
       wide
       title="Create your account"
       subtitle="Join thousands of teachers saving hours every week."
-      headerAction={
-        <p className="text-[11px] text-[#666666] lg:text-sm">
-          Already have an account?{" "}
-          <Link
-            href={ROUTES.signIn}
-            className="font-semibold text-[#28C2C0] hover:underline"
-          >
-            Sign in
-          </Link>
-        </p>
-      }
     >
       <div className="flex min-h-0 flex-1 flex-col">
       <form

@@ -10,21 +10,21 @@
         "grades": [
           {
             "gradeId": "nursery",
-            "displayName": "Nursery (Pre-K)",
+            "displayName": "Nursery — Age 3–4 (Pre-K) – EYFS",
             "ageRange": "3-4",
             "stage": "EYFS",
             "subjects": []
           },
           {
             "gradeId": "reception",
-            "displayName": "Reception (KG)",
+            "displayName": "Reception — Age 4–5 (KG) – EYFS",
             "ageRange": "4-5",
             "stage": "EYFS",
             "subjects": []
           },
           {
             "gradeId": "1",
-            "displayName": "Year 1 — KS1",
+            "displayName": "Year 1 — Age 5–6 (Grade 1) – KS1",
             "ageRange": "5-6",
             "stage": "KS1",
             "subjects": [
@@ -92,7 +92,7 @@
           },
           {
             "gradeId": "2",
-            "displayName": "Year 2 — KS1",
+            "displayName": "Year 2 — Age 6–7 (Grade 2) – KS1",
             "ageRange": "6-7",
             "stage": "KS1",
             "subjects": [
@@ -160,7 +160,7 @@
           },
           {
             "gradeId": "3",
-            "displayName": "Year 3 — KS2",
+            "displayName": "Year 3 — Age 7–8 (Grade 3) – KS2",
             "ageRange": "7-8",
             "stage": "KS2",
             "subjects": [
@@ -228,7 +228,7 @@
           },
           {
             "gradeId": "4",
-            "displayName": "Year 4 — KS2",
+            "displayName": "Year 4 — Age 8–9 (Grade 4) – KS2",
             "ageRange": "8-9",
             "stage": "KS2",
             "subjects": [
@@ -296,7 +296,7 @@
           },
           {
             "gradeId": "5",
-            "displayName": "Year 5 — KS2",
+            "displayName": "Year 5 — Age 9–10 (Grade 5) – KS2",
             "ageRange": "9-10",
             "stage": "KS2",
             "subjects": [
@@ -364,7 +364,7 @@
           },
           {
             "gradeId": "6",
-            "displayName": "Year 6 — KS2",
+            "displayName": "Year 6 — Age 10–11 (Grade 6) – KS2",
             "ageRange": "10-11",
             "stage": "KS2",
             "subjects": [
@@ -432,7 +432,7 @@
           },
           {
             "gradeId": "7",
-            "displayName": "Year 7 — KS3",
+            "displayName": "Year 7 — Age 11–12 (Grade 7) – KS3",
             "ageRange": "11-12",
             "stage": "KS3",
             "subjects": [
@@ -515,7 +515,7 @@
           },
           {
             "gradeId": "8",
-            "displayName": "Year 8 — KS3",
+            "displayName": "Year 8 — Age 12–13 (Grade 8) – KS3",
             "ageRange": "12-13",
             "stage": "KS3",
             "subjects": [
@@ -598,7 +598,7 @@
           },
           {
             "gradeId": "9",
-            "displayName": "Year 9 — KS3",
+            "displayName": "Year 9 — Age 13–14 (Grade 9) – KS3",
             "ageRange": "13-14",
             "stage": "KS3",
             "subjects": [
@@ -681,7 +681,7 @@
           },
           {
             "gradeId": "gcse",
-            "displayName": "GCSE — KS4",
+            "displayName": "GCSE — Age 14–16 (Grades 10–11) – KS4",
             "ageRange": "14-16",
             "stage": "GCSE",
             "subjects": [
@@ -744,7 +744,7 @@
           },
           {
             "gradeId": "as_level",
-            "displayName": "AS Level — KS5",
+            "displayName": "AS Level — Age 16–17 (Grade 12) – KS5",
             "ageRange": "16-17",
             "stage": "AS Level",
             "subjects": [
@@ -912,7 +912,7 @@
           },
           {
             "gradeId": "a_level",
-            "displayName": "A Level — KS5",
+            "displayName": "A Level — Age 17–18 (Grade 13) – KS5",
             "ageRange": "17-18",
             "stage": "A Level",
             "subjects": [
@@ -1067,21 +1067,21 @@
         "grades": [
           {
             "gradeId": "nursery",
-            "displayName": "Nursery",
+            "displayName": "Nursery — Age 3–4 (Pre-K) – Cambridge Early Years",
             "ageRange": "3-4",
             "stage": "Cambridge Early Years",
             "subjects": []
           },
           {
             "gradeId": "reception",
-            "displayName": "Reception",
+            "displayName": "Reception — Age 4–5 (KG) – Cambridge Early Years",
             "ageRange": "4-5",
             "stage": "Cambridge Early Years",
             "subjects": []
           },
           {
             "gradeId": "1",
-            "displayName": "Year 1 — Primary",
+            "displayName": "Year 1 — Age 5–6 (Grade 1) – Cambridge Primary",
             "ageRange": "5-6",
             "stage": "Cambridge Primary",
             "subjects": [
@@ -1149,7 +1149,7 @@
           },
           {
             "gradeId": "2",
-            "displayName": "Year 2 — Primary",
+            "displayName": "Year 2 — Age 6–7 (Grade 2) – Cambridge Primary",
             "ageRange": "6-7",
             "stage": "Cambridge Primary",
             "subjects": [
@@ -1217,7 +1217,7 @@
           },
           {
             "gradeId": "3",
-            "displayName": "Year 3 — Primary",
+            "displayName": "Year 3 — Age 7–8 (Grade 3) – Cambridge Primary",
             "ageRange": "7-8",
             "stage": "Cambridge Primary",
             "subjects": [
@@ -1285,7 +1285,7 @@
           },
           {
             "gradeId": "4",
-            "displayName": "Year 4 — Primary",
+            "displayName": "Year 4 — Age 8–9 (Grade 4) – Cambridge Primary",
             "ageRange": "8-9",
             "stage": "Cambridge Primary",
             "subjects": [
@@ -1353,7 +1353,7 @@
           },
           {
             "gradeId": "5",
-            "displayName": "Year 5 — Primary",
+            "displayName": "Year 5 — Age 9–10 (Grade 5) – Cambridge Primary",
             "ageRange": "9-10",
             "stage": "Cambridge Primary",
             "subjects": [
@@ -1421,7 +1421,7 @@
           },
           {
             "gradeId": "6",
-            "displayName": "Year 6 — Primary",
+            "displayName": "Year 6 — Age 10–11 (Grade 6) – Cambridge Primary",
             "ageRange": "10-11",
             "stage": "Cambridge Primary",
             "subjects": [
@@ -1489,7 +1489,7 @@
           },
           {
             "gradeId": "primary_checkpoint",
-            "displayName": "Primary Checkpoint",
+            "displayName": "Cambridge Primary Checkpoint — End of Grade 6",
             "ageRange": "10-11",
             "stage": "Cambridge Primary Checkpoint",
             "subjects": [
@@ -1557,7 +1557,7 @@
           },
           {
             "gradeId": "7",
-            "displayName": "Year 7 — Lower Secondary",
+            "displayName": "Year 7 — Age 11–12 (Grade 7) – Cambridge Lower Secondary",
             "ageRange": "11-12",
             "stage": "Cambridge Lower Secondary",
             "subjects": [
@@ -1640,7 +1640,7 @@
           },
           {
             "gradeId": "8",
-            "displayName": "Year 8 — Lower Secondary",
+            "displayName": "Year 8 — Age 12–13 (Grade 8) – Cambridge Lower Secondary",
             "ageRange": "12-13",
             "stage": "Cambridge Lower Secondary",
             "subjects": [
@@ -1723,7 +1723,7 @@
           },
           {
             "gradeId": "9",
-            "displayName": "Year 9 — Lower Secondary",
+            "displayName": "Year 9 — Age 13–14 (Grade 9) – Cambridge Lower Secondary",
             "ageRange": "13-14",
             "stage": "Cambridge Lower Secondary",
             "subjects": [
@@ -1806,7 +1806,7 @@
           },
           {
             "gradeId": "lower_secondary_checkpoint",
-            "displayName": "Lower Secondary Checkpoint",
+            "displayName": "Cambridge Lower Secondary Checkpoint — End of Grade 9",
             "ageRange": "13-14",
             "stage": "Cambridge Lower Secondary Checkpoint",
             "subjects": [
@@ -1889,7 +1889,7 @@
           },
           {
             "gradeId": "igcse",
-            "displayName": "IGCSE",
+            "displayName": "IGCSE — Age 14–16 (Grades 10–11) – Cambridge Upper Secondary",
             "ageRange": "14-16",
             "stage": "IGCSE",
             "subjects": [
@@ -1987,7 +1987,7 @@
           },
           {
             "gradeId": "as_level",
-            "displayName": "AS Level",
+            "displayName": "AS Level — Age 16–17 (Grade 12) – Cambridge Advanced",
             "ageRange": "16-17",
             "stage": "AS Level",
             "subjects": [
@@ -2155,7 +2155,7 @@
           },
           {
             "gradeId": "a_level",
-            "displayName": "A Level",
+            "displayName": "A Level — Age 17–18 (Grade 13) – Cambridge Advanced",
             "ageRange": "17-18",
             "stage": "A Level",
             "subjects": [
@@ -2310,21 +2310,21 @@
         "grades": [
           {
             "gradeId": "nursery",
-            "displayName": "Nursery — EYFS",
+            "displayName": "Nursery — Age 3–4 (Pre-K) – EYFS",
             "ageRange": "3-4",
             "stage": "EYFS",
             "subjects": []
           },
           {
             "gradeId": "reception",
-            "displayName": "Reception — EYFS",
+            "displayName": "Reception — Age 4–5 (KG) – EYFS",
             "ageRange": "4-5",
             "stage": "EYFS",
             "subjects": []
           },
           {
             "gradeId": "1",
-            "displayName": "Year 1 — KS1",
+            "displayName": "Year 1 — Age 5–6 (Grade 1) – KS1",
             "ageRange": "5-6",
             "stage": "KS1",
             "subjects": [
@@ -2392,7 +2392,7 @@
           },
           {
             "gradeId": "2",
-            "displayName": "Year 2 — KS1",
+            "displayName": "Year 2 — Age 6–7 (Grade 2) – KS1",
             "ageRange": "6-7",
             "stage": "KS1",
             "subjects": [
@@ -2460,7 +2460,7 @@
           },
           {
             "gradeId": "3",
-            "displayName": "Year 3 — KS2",
+            "displayName": "Year 3 — Age 7–8 (Grade 3) – KS2",
             "ageRange": "7-8",
             "stage": "KS2",
             "subjects": [
@@ -2528,7 +2528,7 @@
           },
           {
             "gradeId": "4",
-            "displayName": "Year 4 — KS2",
+            "displayName": "Year 4 — Age 8–9 (Grade 4) – KS2",
             "ageRange": "8-9",
             "stage": "KS2",
             "subjects": [
@@ -2596,7 +2596,7 @@
           },
           {
             "gradeId": "5",
-            "displayName": "Year 5 — KS2",
+            "displayName": "Year 5 — Age 9–10 (Grade 5) – KS2",
             "ageRange": "9-10",
             "stage": "KS2",
             "subjects": [
@@ -2664,7 +2664,7 @@
           },
           {
             "gradeId": "6",
-            "displayName": "Year 6 — KS2",
+            "displayName": "Year 6 — Age 10–11 (Grade 6) – KS2",
             "ageRange": "10-11",
             "stage": "KS2",
             "subjects": [
@@ -2732,7 +2732,7 @@
           },
           {
             "gradeId": "7",
-            "displayName": "Year 7 — KS3",
+            "displayName": "Year 7 — Age 11–12 (Grade 7) – KS3",
             "ageRange": "11-12",
             "stage": "KS3",
             "subjects": [
@@ -2815,7 +2815,7 @@
           },
           {
             "gradeId": "8",
-            "displayName": "Year 8 — KS3",
+            "displayName": "Year 8 — Age 12–13 (Grade 8) – KS3",
             "ageRange": "12-13",
             "stage": "KS3",
             "subjects": [
@@ -2898,7 +2898,7 @@
           },
           {
             "gradeId": "9",
-            "displayName": "Year 9 — KS3",
+            "displayName": "Year 9 — Age 13–14 (Grade 9) – KS3",
             "ageRange": "13-14",
             "stage": "KS3",
             "subjects": [
@@ -2981,7 +2981,7 @@
           },
           {
             "gradeId": "gcse_edexcel",
-            "displayName": "GCSE",
+            "displayName": "GCSE / International GCSE — Age 14–16 (Grades 10–11) – KS4",
             "ageRange": "14-16",
             "stage": "KS4",
             "subjects": [
@@ -3079,7 +3079,7 @@
           },
           {
             "gradeId": "as_level",
-            "displayName": "AS Level",
+            "displayName": "AS Level — Age 16–17 (Grade 12) – KS5",
             "ageRange": "16-17",
             "stage": "AS Level",
             "subjects": [
@@ -3217,7 +3217,7 @@
           },
           {
             "gradeId": "a_level",
-            "displayName": "A Level",
+            "displayName": "A Level — Age 17–18 (Grade 13) – KS5",
             "ageRange": "17-18",
             "stage": "A Level",
             "subjects": [
@@ -3368,14 +3368,14 @@
         "grades": [
           {
             "gradeId": "k",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (K) – Elementary School",
             "ageRange": "5-6",
             "stage": "Elementary School",
             "subjects": []
           },
           {
             "gradeId": "1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary School",
             "ageRange": "6-7",
             "stage": "Elementary School",
             "subjects": [
@@ -3433,7 +3433,7 @@
           },
           {
             "gradeId": "2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary School",
             "ageRange": "7-8",
             "stage": "Elementary School",
             "subjects": [
@@ -3491,7 +3491,7 @@
           },
           {
             "gradeId": "3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary School",
             "ageRange": "8-9",
             "stage": "Elementary School",
             "subjects": [
@@ -3549,7 +3549,7 @@
           },
           {
             "gradeId": "4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary School",
             "ageRange": "9-10",
             "stage": "Elementary School",
             "subjects": [
@@ -3607,7 +3607,7 @@
           },
           {
             "gradeId": "5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary School",
             "ageRange": "10-11",
             "stage": "Elementary School",
             "subjects": [
@@ -3665,7 +3665,7 @@
           },
           {
             "gradeId": "6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Middle School",
             "ageRange": "11-12",
             "stage": "Middle School",
             "subjects": [
@@ -3763,7 +3763,7 @@
           },
           {
             "gradeId": "7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -3861,7 +3861,7 @@
           },
           {
             "gradeId": "8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -3959,7 +3959,7 @@
           },
           {
             "gradeId": "9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – High School",
             "ageRange": "14-15",
             "stage": "High School",
             "subjects": [
@@ -4067,7 +4067,7 @@
           },
           {
             "gradeId": "10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – High School",
             "ageRange": "15-16",
             "stage": "High School",
             "subjects": [
@@ -4175,7 +4175,7 @@
           },
           {
             "gradeId": "11",
-            "displayName": "Grade 11",
+            "displayName": "Grade 11 — Age 16–17 – High School",
             "ageRange": "16-17",
             "stage": "High School",
             "subjects": [
@@ -4283,7 +4283,7 @@
           },
           {
             "gradeId": "12",
-            "displayName": "Grade 12",
+            "displayName": "Grade 12 — Age 17–18 – High School",
             "ageRange": "17-18",
             "stage": "High School",
             "subjects": [
@@ -4398,7 +4398,7 @@
         "grades": [
           {
             "gradeId": "9",
-            "displayName": "Grade 9 (AP Eligible)",
+            "displayName": "Grade 9 — Age 14–15 – High School (AP eligible)",
             "ageRange": "14-15",
             "stage": "High School (AP eligible)",
             "subjects": [
@@ -4516,7 +4516,7 @@
           },
           {
             "gradeId": "10",
-            "displayName": "Grade 10 (AP Eligible)",
+            "displayName": "Grade 10 — Age 15–16 – High School (AP eligible)",
             "ageRange": "15-16",
             "stage": "High School (AP eligible)",
             "subjects": [
@@ -4634,7 +4634,7 @@
           },
           {
             "gradeId": "11",
-            "displayName": "Grade 11 — AP",
+            "displayName": "Grade 11 — Age 16–17 – High School (AP)",
             "ageRange": "16-17",
             "stage": "High School (AP)",
             "subjects": [
@@ -4752,7 +4752,7 @@
           },
           {
             "gradeId": "12",
-            "displayName": "Grade 12 — AP",
+            "displayName": "Grade 12 — Age 17–18 – High School (AP)",
             "ageRange": "17-18",
             "stage": "High School (AP)",
             "subjects": [
@@ -4883,7 +4883,7 @@
         "grades": [
           {
             "gradeId": "1",
-            "displayName": "Grade 1 — PYP",
+            "displayName": "Grade 1 — Age 6–7 – PYP",
             "ageRange": "6-7",
             "stage": "PYP",
             "subjects": [
@@ -4951,7 +4951,7 @@
           },
           {
             "gradeId": "2",
-            "displayName": "Grade 2 — PYP",
+            "displayName": "Grade 2 — Age 7–8 – PYP",
             "ageRange": "7-8",
             "stage": "PYP",
             "subjects": [
@@ -5019,7 +5019,7 @@
           },
           {
             "gradeId": "3",
-            "displayName": "Grade 3 — PYP",
+            "displayName": "Grade 3 — Age 8–9 – PYP",
             "ageRange": "8-9",
             "stage": "PYP",
             "subjects": [
@@ -5087,7 +5087,7 @@
           },
           {
             "gradeId": "4",
-            "displayName": "Grade 4 — PYP",
+            "displayName": "Grade 4 — Age 9–10 – PYP",
             "ageRange": "9-10",
             "stage": "PYP",
             "subjects": [
@@ -5155,7 +5155,7 @@
           },
           {
             "gradeId": "5",
-            "displayName": "Grade 5 — PYP",
+            "displayName": "Grade 5 — Age 10–11 – PYP",
             "ageRange": "10-11",
             "stage": "PYP",
             "subjects": [
@@ -5230,7 +5230,7 @@
         "grades": [
           {
             "gradeId": "6",
-            "displayName": "Grade 6 — MYP",
+            "displayName": "Grade 6 — Age 11–12 – MYP",
             "ageRange": "11-12",
             "stage": "MYP",
             "subjects": [
@@ -5328,7 +5328,7 @@
           },
           {
             "gradeId": "7",
-            "displayName": "Grade 7 — MYP",
+            "displayName": "Grade 7 — Age 12–13 – MYP",
             "ageRange": "12-13",
             "stage": "MYP",
             "subjects": [
@@ -5426,7 +5426,7 @@
           },
           {
             "gradeId": "8",
-            "displayName": "Grade 8 — MYP",
+            "displayName": "Grade 8 — Age 13–14 – MYP",
             "ageRange": "13-14",
             "stage": "MYP",
             "subjects": [
@@ -5524,7 +5524,7 @@
           },
           {
             "gradeId": "9",
-            "displayName": "Grade 9 — MYP",
+            "displayName": "Grade 9 — Age 14–15 – MYP",
             "ageRange": "14-15",
             "stage": "MYP",
             "subjects": [
@@ -5622,7 +5622,7 @@
           },
           {
             "gradeId": "10",
-            "displayName": "Grade 10 — MYP",
+            "displayName": "Grade 10 — Age 15–16 – MYP",
             "ageRange": "15-16",
             "stage": "MYP",
             "subjects": [
@@ -5727,7 +5727,7 @@
         "grades": [
           {
             "gradeId": "11",
-            "displayName": "Grade 11 — DP1",
+            "displayName": "Grade 11 — Age 16–17 – IB Diploma (DP Year 1)",
             "ageRange": "16-17",
             "stage": "IB Diploma (DP Year 1)",
             "subjects": [
@@ -5890,7 +5890,7 @@
           },
           {
             "gradeId": "12",
-            "displayName": "Grade 12 — DP2",
+            "displayName": "Grade 12 — Age 17–18 – IB Diploma (DP Year 2)",
             "ageRange": "17-18",
             "stage": "IB Diploma (DP Year 2)",
             "subjects": [
@@ -6066,7 +6066,7 @@
         "grades": [
           {
             "gradeId": "foundation",
-            "displayName": "Foundation",
+            "displayName": "Foundation — Age 5–6 (Grade K / Prep) – Early Years",
             "ageRange": "5-6",
             "stage": "Early Years",
             "subjects": [
@@ -6139,7 +6139,7 @@
           },
           {
             "gradeId": "year_1",
-            "displayName": "Year 1",
+            "displayName": "Year 1 — Age 6–7 (Grade 1) – Primary",
             "ageRange": "6-7",
             "stage": "Primary",
             "subjects": [
@@ -6212,7 +6212,7 @@
           },
           {
             "gradeId": "year_2",
-            "displayName": "Year 2",
+            "displayName": "Year 2 — Age 7–8 (Grade 2) – Primary",
             "ageRange": "7-8",
             "stage": "Primary",
             "subjects": [
@@ -6285,7 +6285,7 @@
           },
           {
             "gradeId": "year_3",
-            "displayName": "Year 3",
+            "displayName": "Year 3 — Age 8–9 (Grade 3) – Primary",
             "ageRange": "8-9",
             "stage": "Primary",
             "subjects": [
@@ -6358,7 +6358,7 @@
           },
           {
             "gradeId": "year_4",
-            "displayName": "Year 4",
+            "displayName": "Year 4 — Age 9–10 (Grade 4) – Primary",
             "ageRange": "9-10",
             "stage": "Primary",
             "subjects": [
@@ -6431,7 +6431,7 @@
           },
           {
             "gradeId": "year_5",
-            "displayName": "Year 5",
+            "displayName": "Year 5 — Age 10–11 (Grade 5) – Primary",
             "ageRange": "10-11",
             "stage": "Primary",
             "subjects": [
@@ -6504,7 +6504,7 @@
           },
           {
             "gradeId": "year_6",
-            "displayName": "Year 6",
+            "displayName": "Year 6 — Age 11–12 (Grade 6) – Primary",
             "ageRange": "11-12",
             "stage": "Primary",
             "subjects": [
@@ -6577,7 +6577,7 @@
           },
           {
             "gradeId": "year_7",
-            "displayName": "Year 7",
+            "displayName": "Year 7 — Age 12–13 (Grade 7) – Secondary",
             "ageRange": "12-13",
             "stage": "Secondary",
             "subjects": [
@@ -6690,7 +6690,7 @@
           },
           {
             "gradeId": "year_8",
-            "displayName": "Year 8",
+            "displayName": "Year 8 — Age 13–14 (Grade 8) – Secondary",
             "ageRange": "13-14",
             "stage": "Secondary",
             "subjects": [
@@ -6803,7 +6803,7 @@
           },
           {
             "gradeId": "year_9",
-            "displayName": "Year 9",
+            "displayName": "Year 9 — Age 14–15 (Grade 9) – Secondary",
             "ageRange": "14-15",
             "stage": "Secondary",
             "subjects": [
@@ -6916,7 +6916,7 @@
           },
           {
             "gradeId": "year_10",
-            "displayName": "Year 10",
+            "displayName": "Year 10 — Age 15–16 (Grade 10) – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -7029,17 +7029,309 @@
           },
           {
             "gradeId": "year_11",
-            "displayName": "HSC (Years 11–12)",
+            "displayName": "Higher School Certificate (HSC) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "HSC",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Standard",
+                "code": null,
+                "displayName": "English Standard"
+              },
+              {
+                "name": "English Advanced",
+                "code": null,
+                "displayName": "English Advanced"
+              },
+              {
+                "name": "English Extension 1",
+                "code": null,
+                "displayName": "English Extension 1"
+              },
+              {
+                "name": "English Extension 2",
+                "code": null,
+                "displayName": "English Extension 2"
+              },
+              {
+                "name": "Mathematics Standard",
+                "code": null,
+                "displayName": "Mathematics Standard"
+              },
+              {
+                "name": "Mathematics Advanced",
+                "code": null,
+                "displayName": "Mathematics Advanced"
+              },
+              {
+                "name": "Mathematics Extension 1",
+                "code": null,
+                "displayName": "Mathematics Extension 1"
+              },
+              {
+                "name": "Mathematics Extension 2",
+                "code": null,
+                "displayName": "Mathematics Extension 2"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Earth & Environmental Science",
+                "code": null,
+                "displayName": "Earth & Environmental Science"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Ancient History",
+                "code": null,
+                "displayName": "Ancient History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Studies",
+                "code": null,
+                "displayName": "Business Studies"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Society & Culture",
+                "code": null,
+                "displayName": "Society & Culture"
+              },
+              {
+                "name": "Software Design & Development",
+                "code": null,
+                "displayName": "Software Design & Development"
+              },
+              {
+                "name": "Information Processes & Technology",
+                "code": null,
+                "displayName": "Information Processes & Technology"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "PDHPE",
+                "code": null,
+                "displayName": "PDHPE"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           },
           {
             "gradeId": "year_12",
-            "displayName": "HSC (Years 11–12)",
+            "displayName": "Higher School Certificate (HSC) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "HSC",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Standard",
+                "code": null,
+                "displayName": "English Standard"
+              },
+              {
+                "name": "English Advanced",
+                "code": null,
+                "displayName": "English Advanced"
+              },
+              {
+                "name": "English Extension 1",
+                "code": null,
+                "displayName": "English Extension 1"
+              },
+              {
+                "name": "English Extension 2",
+                "code": null,
+                "displayName": "English Extension 2"
+              },
+              {
+                "name": "Mathematics Standard",
+                "code": null,
+                "displayName": "Mathematics Standard"
+              },
+              {
+                "name": "Mathematics Advanced",
+                "code": null,
+                "displayName": "Mathematics Advanced"
+              },
+              {
+                "name": "Mathematics Extension 1",
+                "code": null,
+                "displayName": "Mathematics Extension 1"
+              },
+              {
+                "name": "Mathematics Extension 2",
+                "code": null,
+                "displayName": "Mathematics Extension 2"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Earth & Environmental Science",
+                "code": null,
+                "displayName": "Earth & Environmental Science"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Ancient History",
+                "code": null,
+                "displayName": "Ancient History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Studies",
+                "code": null,
+                "displayName": "Business Studies"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Society & Culture",
+                "code": null,
+                "displayName": "Society & Culture"
+              },
+              {
+                "name": "Software Design & Development",
+                "code": null,
+                "displayName": "Software Design & Development"
+              },
+              {
+                "name": "Information Processes & Technology",
+                "code": null,
+                "displayName": "Information Processes & Technology"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "PDHPE",
+                "code": null,
+                "displayName": "PDHPE"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           }
         ]
       },
@@ -7050,7 +7342,7 @@
         "grades": [
           {
             "gradeId": "foundation",
-            "displayName": "Foundation",
+            "displayName": "Foundation — Age 5–6 (Grade K / Prep) – Early Years",
             "ageRange": "5-6",
             "stage": "Early Years",
             "subjects": [
@@ -7123,7 +7415,7 @@
           },
           {
             "gradeId": "year_1",
-            "displayName": "Year 1",
+            "displayName": "Year 1 — Age 6–7 (Grade 1) – Primary",
             "ageRange": "6-7",
             "stage": "Primary",
             "subjects": [
@@ -7196,7 +7488,7 @@
           },
           {
             "gradeId": "year_2",
-            "displayName": "Year 2",
+            "displayName": "Year 2 — Age 7–8 (Grade 2) – Primary",
             "ageRange": "7-8",
             "stage": "Primary",
             "subjects": [
@@ -7269,7 +7561,7 @@
           },
           {
             "gradeId": "year_3",
-            "displayName": "Year 3",
+            "displayName": "Year 3 — Age 8–9 (Grade 3) – Primary",
             "ageRange": "8-9",
             "stage": "Primary",
             "subjects": [
@@ -7342,7 +7634,7 @@
           },
           {
             "gradeId": "year_4",
-            "displayName": "Year 4",
+            "displayName": "Year 4 — Age 9–10 (Grade 4) – Primary",
             "ageRange": "9-10",
             "stage": "Primary",
             "subjects": [
@@ -7415,7 +7707,7 @@
           },
           {
             "gradeId": "year_5",
-            "displayName": "Year 5",
+            "displayName": "Year 5 — Age 10–11 (Grade 5) – Primary",
             "ageRange": "10-11",
             "stage": "Primary",
             "subjects": [
@@ -7488,7 +7780,7 @@
           },
           {
             "gradeId": "year_6",
-            "displayName": "Year 6",
+            "displayName": "Year 6 — Age 11–12 (Grade 6) – Primary",
             "ageRange": "11-12",
             "stage": "Primary",
             "subjects": [
@@ -7561,7 +7853,7 @@
           },
           {
             "gradeId": "year_7",
-            "displayName": "Year 7",
+            "displayName": "Year 7 — Age 12–13 (Grade 7) – Secondary",
             "ageRange": "12-13",
             "stage": "Secondary",
             "subjects": [
@@ -7674,7 +7966,7 @@
           },
           {
             "gradeId": "year_8",
-            "displayName": "Year 8",
+            "displayName": "Year 8 — Age 13–14 (Grade 8) – Secondary",
             "ageRange": "13-14",
             "stage": "Secondary",
             "subjects": [
@@ -7787,7 +8079,7 @@
           },
           {
             "gradeId": "year_9",
-            "displayName": "Year 9",
+            "displayName": "Year 9 — Age 14–15 (Grade 9) – Secondary",
             "ageRange": "14-15",
             "stage": "Secondary",
             "subjects": [
@@ -7900,7 +8192,7 @@
           },
           {
             "gradeId": "year_10",
-            "displayName": "Year 10",
+            "displayName": "Year 10 — Age 15–16 (Grade 10) – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -8013,17 +8305,309 @@
           },
           {
             "gradeId": "year_11",
-            "displayName": "VCE (Years 11–12)",
+            "displayName": "Victorian Certificate of Education (VCE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "VCE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Language",
+                "code": null,
+                "displayName": "English Language"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "General Mathematics",
+                "code": null,
+                "displayName": "General Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Management",
+                "code": null,
+                "displayName": "Business Management"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Computing",
+                "code": null,
+                "displayName": "Computing"
+              },
+              {
+                "name": "Software Development",
+                "code": null,
+                "displayName": "Software Development"
+              },
+              {
+                "name": "Visual Communication Design",
+                "code": null,
+                "displayName": "Visual Communication Design"
+              },
+              {
+                "name": "Media",
+                "code": null,
+                "displayName": "Media"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health & Human Development",
+                "code": null,
+                "displayName": "Health & Human Development"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           },
           {
             "gradeId": "year_12",
-            "displayName": "VCE (Years 11–12)",
+            "displayName": "Victorian Certificate of Education (VCE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "VCE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Language",
+                "code": null,
+                "displayName": "English Language"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "General Mathematics",
+                "code": null,
+                "displayName": "General Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Management",
+                "code": null,
+                "displayName": "Business Management"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Computing",
+                "code": null,
+                "displayName": "Computing"
+              },
+              {
+                "name": "Software Development",
+                "code": null,
+                "displayName": "Software Development"
+              },
+              {
+                "name": "Visual Communication Design",
+                "code": null,
+                "displayName": "Visual Communication Design"
+              },
+              {
+                "name": "Media",
+                "code": null,
+                "displayName": "Media"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health & Human Development",
+                "code": null,
+                "displayName": "Health & Human Development"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           }
         ]
       },
@@ -8034,7 +8618,7 @@
         "grades": [
           {
             "gradeId": "foundation",
-            "displayName": "Foundation",
+            "displayName": "Foundation — Age 5–6 (Grade K / Prep) – Early Years",
             "ageRange": "5-6",
             "stage": "Early Years",
             "subjects": [
@@ -8107,7 +8691,7 @@
           },
           {
             "gradeId": "year_1",
-            "displayName": "Year 1",
+            "displayName": "Year 1 — Age 6–7 (Grade 1) – Primary",
             "ageRange": "6-7",
             "stage": "Primary",
             "subjects": [
@@ -8180,7 +8764,7 @@
           },
           {
             "gradeId": "year_2",
-            "displayName": "Year 2",
+            "displayName": "Year 2 — Age 7–8 (Grade 2) – Primary",
             "ageRange": "7-8",
             "stage": "Primary",
             "subjects": [
@@ -8253,7 +8837,7 @@
           },
           {
             "gradeId": "year_3",
-            "displayName": "Year 3",
+            "displayName": "Year 3 — Age 8–9 (Grade 3) – Primary",
             "ageRange": "8-9",
             "stage": "Primary",
             "subjects": [
@@ -8326,7 +8910,7 @@
           },
           {
             "gradeId": "year_4",
-            "displayName": "Year 4",
+            "displayName": "Year 4 — Age 9–10 (Grade 4) – Primary",
             "ageRange": "9-10",
             "stage": "Primary",
             "subjects": [
@@ -8399,7 +8983,7 @@
           },
           {
             "gradeId": "year_5",
-            "displayName": "Year 5",
+            "displayName": "Year 5 — Age 10–11 (Grade 5) – Primary",
             "ageRange": "10-11",
             "stage": "Primary",
             "subjects": [
@@ -8472,7 +9056,7 @@
           },
           {
             "gradeId": "year_6",
-            "displayName": "Year 6",
+            "displayName": "Year 6 — Age 11–12 (Grade 6) – Primary",
             "ageRange": "11-12",
             "stage": "Primary",
             "subjects": [
@@ -8545,7 +9129,7 @@
           },
           {
             "gradeId": "year_7",
-            "displayName": "Year 7",
+            "displayName": "Year 7 — Age 12–13 (Grade 7) – Secondary",
             "ageRange": "12-13",
             "stage": "Secondary",
             "subjects": [
@@ -8658,7 +9242,7 @@
           },
           {
             "gradeId": "year_8",
-            "displayName": "Year 8",
+            "displayName": "Year 8 — Age 13–14 (Grade 8) – Secondary",
             "ageRange": "13-14",
             "stage": "Secondary",
             "subjects": [
@@ -8771,7 +9355,7 @@
           },
           {
             "gradeId": "year_9",
-            "displayName": "Year 9",
+            "displayName": "Year 9 — Age 14–15 (Grade 9) – Secondary",
             "ageRange": "14-15",
             "stage": "Secondary",
             "subjects": [
@@ -8884,7 +9468,7 @@
           },
           {
             "gradeId": "year_10",
-            "displayName": "Year 10",
+            "displayName": "Year 10 — Age 15–16 (Grade 10) – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -8997,17 +9581,309 @@
           },
           {
             "gradeId": "year_11",
-            "displayName": "QCE (Years 11–12)",
+            "displayName": "Queensland Certificate of Education (QCE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "QCE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "General Mathematics",
+                "code": null,
+                "displayName": "General Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Earth & Environmental Science",
+                "code": null,
+                "displayName": "Earth & Environmental Science"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Ancient History",
+                "code": null,
+                "displayName": "Ancient History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business",
+                "code": null,
+                "displayName": "Business"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Digital Solutions",
+                "code": null,
+                "displayName": "Digital Solutions"
+              },
+              {
+                "name": "Information & Communication Technology",
+                "code": null,
+                "displayName": "Information & Communication Technology"
+              },
+              {
+                "name": "Visual Art",
+                "code": null,
+                "displayName": "Visual Art"
+              },
+              {
+                "name": "Media Arts",
+                "code": null,
+                "displayName": "Media Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           },
           {
             "gradeId": "year_12",
-            "displayName": "QCE (Years 11–12)",
+            "displayName": "Queensland Certificate of Education (QCE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "QCE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "General Mathematics",
+                "code": null,
+                "displayName": "General Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Earth & Environmental Science",
+                "code": null,
+                "displayName": "Earth & Environmental Science"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Ancient History",
+                "code": null,
+                "displayName": "Ancient History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business",
+                "code": null,
+                "displayName": "Business"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Digital Solutions",
+                "code": null,
+                "displayName": "Digital Solutions"
+              },
+              {
+                "name": "Information & Communication Technology",
+                "code": null,
+                "displayName": "Information & Communication Technology"
+              },
+              {
+                "name": "Visual Art",
+                "code": null,
+                "displayName": "Visual Art"
+              },
+              {
+                "name": "Media Arts",
+                "code": null,
+                "displayName": "Media Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           }
         ]
       },
@@ -9018,7 +9894,7 @@
         "grades": [
           {
             "gradeId": "foundation",
-            "displayName": "Foundation",
+            "displayName": "Foundation — Age 5–6 (Grade K / Prep) – Early Years",
             "ageRange": "5-6",
             "stage": "Early Years",
             "subjects": [
@@ -9091,7 +9967,7 @@
           },
           {
             "gradeId": "year_1",
-            "displayName": "Year 1",
+            "displayName": "Year 1 — Age 6–7 (Grade 1) – Primary",
             "ageRange": "6-7",
             "stage": "Primary",
             "subjects": [
@@ -9164,7 +10040,7 @@
           },
           {
             "gradeId": "year_2",
-            "displayName": "Year 2",
+            "displayName": "Year 2 — Age 7–8 (Grade 2) – Primary",
             "ageRange": "7-8",
             "stage": "Primary",
             "subjects": [
@@ -9237,7 +10113,7 @@
           },
           {
             "gradeId": "year_3",
-            "displayName": "Year 3",
+            "displayName": "Year 3 — Age 8–9 (Grade 3) – Primary",
             "ageRange": "8-9",
             "stage": "Primary",
             "subjects": [
@@ -9310,7 +10186,7 @@
           },
           {
             "gradeId": "year_4",
-            "displayName": "Year 4",
+            "displayName": "Year 4 — Age 9–10 (Grade 4) – Primary",
             "ageRange": "9-10",
             "stage": "Primary",
             "subjects": [
@@ -9383,7 +10259,7 @@
           },
           {
             "gradeId": "year_5",
-            "displayName": "Year 5",
+            "displayName": "Year 5 — Age 10–11 (Grade 5) – Primary",
             "ageRange": "10-11",
             "stage": "Primary",
             "subjects": [
@@ -9456,7 +10332,7 @@
           },
           {
             "gradeId": "year_6",
-            "displayName": "Year 6",
+            "displayName": "Year 6 — Age 11–12 (Grade 6) – Primary",
             "ageRange": "11-12",
             "stage": "Primary",
             "subjects": [
@@ -9529,7 +10405,7 @@
           },
           {
             "gradeId": "year_7",
-            "displayName": "Year 7",
+            "displayName": "Year 7 — Age 12–13 (Grade 7) – Secondary",
             "ageRange": "12-13",
             "stage": "Secondary",
             "subjects": [
@@ -9642,7 +10518,7 @@
           },
           {
             "gradeId": "year_8",
-            "displayName": "Year 8",
+            "displayName": "Year 8 — Age 13–14 (Grade 8) – Secondary",
             "ageRange": "13-14",
             "stage": "Secondary",
             "subjects": [
@@ -9755,7 +10631,7 @@
           },
           {
             "gradeId": "year_9",
-            "displayName": "Year 9",
+            "displayName": "Year 9 — Age 14–15 (Grade 9) – Secondary",
             "ageRange": "14-15",
             "stage": "Secondary",
             "subjects": [
@@ -9868,7 +10744,7 @@
           },
           {
             "gradeId": "year_10",
-            "displayName": "Year 10",
+            "displayName": "Year 10 — Age 15–16 (Grade 10) – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -9981,17 +10857,289 @@
           },
           {
             "gradeId": "year_11",
-            "displayName": "WACE (Years 11–12)",
+            "displayName": "Western Australian Certificate of Education (WACE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "WACE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "Literature",
+                "code": null,
+                "displayName": "Literature"
+              },
+              {
+                "name": "General Mathematics",
+                "code": null,
+                "displayName": "General Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Human Biology",
+                "code": null,
+                "displayName": "Human Biology"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Ancient History",
+                "code": null,
+                "displayName": "Ancient History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Management & Enterprise",
+                "code": null,
+                "displayName": "Business Management & Enterprise"
+              },
+              {
+                "name": "Politics & Law",
+                "code": null,
+                "displayName": "Politics & Law"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Applied Information Technology",
+                "code": null,
+                "displayName": "Applied Information Technology"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Media Production & Analysis",
+                "code": null,
+                "displayName": "Media Production & Analysis"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education Studies",
+                "code": null,
+                "displayName": "Physical Education Studies"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           },
           {
             "gradeId": "year_12",
-            "displayName": "WACE (Years 11–12)",
+            "displayName": "Western Australian Certificate of Education (WACE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "WACE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "Literature",
+                "code": null,
+                "displayName": "Literature"
+              },
+              {
+                "name": "General Mathematics",
+                "code": null,
+                "displayName": "General Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Human Biology",
+                "code": null,
+                "displayName": "Human Biology"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Ancient History",
+                "code": null,
+                "displayName": "Ancient History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Management & Enterprise",
+                "code": null,
+                "displayName": "Business Management & Enterprise"
+              },
+              {
+                "name": "Politics & Law",
+                "code": null,
+                "displayName": "Politics & Law"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Applied Information Technology",
+                "code": null,
+                "displayName": "Applied Information Technology"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Media Production & Analysis",
+                "code": null,
+                "displayName": "Media Production & Analysis"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education Studies",
+                "code": null,
+                "displayName": "Physical Education Studies"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           }
         ]
       },
@@ -10002,7 +11150,7 @@
         "grades": [
           {
             "gradeId": "foundation",
-            "displayName": "Foundation",
+            "displayName": "Foundation — Age 5–6 (Grade K / Prep) – Early Years",
             "ageRange": "5-6",
             "stage": "Early Years",
             "subjects": [
@@ -10075,7 +11223,7 @@
           },
           {
             "gradeId": "year_1",
-            "displayName": "Year 1",
+            "displayName": "Year 1 — Age 6–7 (Grade 1) – Primary",
             "ageRange": "6-7",
             "stage": "Primary",
             "subjects": [
@@ -10148,7 +11296,7 @@
           },
           {
             "gradeId": "year_2",
-            "displayName": "Year 2",
+            "displayName": "Year 2 — Age 7–8 (Grade 2) – Primary",
             "ageRange": "7-8",
             "stage": "Primary",
             "subjects": [
@@ -10221,7 +11369,7 @@
           },
           {
             "gradeId": "year_3",
-            "displayName": "Year 3",
+            "displayName": "Year 3 — Age 8–9 (Grade 3) – Primary",
             "ageRange": "8-9",
             "stage": "Primary",
             "subjects": [
@@ -10294,7 +11442,7 @@
           },
           {
             "gradeId": "year_4",
-            "displayName": "Year 4",
+            "displayName": "Year 4 — Age 9–10 (Grade 4) – Primary",
             "ageRange": "9-10",
             "stage": "Primary",
             "subjects": [
@@ -10367,7 +11515,7 @@
           },
           {
             "gradeId": "year_5",
-            "displayName": "Year 5",
+            "displayName": "Year 5 — Age 10–11 (Grade 5) – Primary",
             "ageRange": "10-11",
             "stage": "Primary",
             "subjects": [
@@ -10440,7 +11588,7 @@
           },
           {
             "gradeId": "year_6",
-            "displayName": "Year 6",
+            "displayName": "Year 6 — Age 11–12 (Grade 6) – Primary",
             "ageRange": "11-12",
             "stage": "Primary",
             "subjects": [
@@ -10513,7 +11661,7 @@
           },
           {
             "gradeId": "year_7",
-            "displayName": "Year 7",
+            "displayName": "Year 7 — Age 12–13 (Grade 7) – Secondary",
             "ageRange": "12-13",
             "stage": "Secondary",
             "subjects": [
@@ -10626,7 +11774,7 @@
           },
           {
             "gradeId": "year_8",
-            "displayName": "Year 8",
+            "displayName": "Year 8 — Age 13–14 (Grade 8) – Secondary",
             "ageRange": "13-14",
             "stage": "Secondary",
             "subjects": [
@@ -10739,7 +11887,7 @@
           },
           {
             "gradeId": "year_9",
-            "displayName": "Year 9",
+            "displayName": "Year 9 — Age 14–15 (Grade 9) – Secondary",
             "ageRange": "14-15",
             "stage": "Secondary",
             "subjects": [
@@ -10852,7 +12000,7 @@
           },
           {
             "gradeId": "year_10",
-            "displayName": "Year 10",
+            "displayName": "Year 10 — Age 15–16 (Grade 10) – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -10965,17 +12113,299 @@
           },
           {
             "gradeId": "year_11",
-            "displayName": "SACE (Years 11–12)",
+            "displayName": "South Australian Certificate of Education (SACE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "SACE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literary Studies",
+                "code": null,
+                "displayName": "English Literary Studies"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Scientific Studies",
+                "code": null,
+                "displayName": "Scientific Studies"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Innovation",
+                "code": null,
+                "displayName": "Business Innovation"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Information Processing & Publishing",
+                "code": null,
+                "displayName": "Information Processing & Publishing"
+              },
+              {
+                "name": "Digital Technologies",
+                "code": null,
+                "displayName": "Digital Technologies"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Creative Arts",
+                "code": null,
+                "displayName": "Creative Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           },
           {
             "gradeId": "year_12",
-            "displayName": "SACE (Years 11–12)",
+            "displayName": "South Australian Certificate of Education (SACE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "SACE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literary Studies",
+                "code": null,
+                "displayName": "English Literary Studies"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Scientific Studies",
+                "code": null,
+                "displayName": "Scientific Studies"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Innovation",
+                "code": null,
+                "displayName": "Business Innovation"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Information Processing & Publishing",
+                "code": null,
+                "displayName": "Information Processing & Publishing"
+              },
+              {
+                "name": "Digital Technologies",
+                "code": null,
+                "displayName": "Digital Technologies"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Creative Arts",
+                "code": null,
+                "displayName": "Creative Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           }
         ]
       },
@@ -10986,7 +12416,7 @@
         "grades": [
           {
             "gradeId": "foundation",
-            "displayName": "Foundation",
+            "displayName": "Foundation — Age 5–6 (Grade K / Prep) – Early Years",
             "ageRange": "5-6",
             "stage": "Early Years",
             "subjects": [
@@ -11059,7 +12489,7 @@
           },
           {
             "gradeId": "year_1",
-            "displayName": "Year 1",
+            "displayName": "Year 1 — Age 6–7 (Grade 1) – Primary",
             "ageRange": "6-7",
             "stage": "Primary",
             "subjects": [
@@ -11132,7 +12562,7 @@
           },
           {
             "gradeId": "year_2",
-            "displayName": "Year 2",
+            "displayName": "Year 2 — Age 7–8 (Grade 2) – Primary",
             "ageRange": "7-8",
             "stage": "Primary",
             "subjects": [
@@ -11205,7 +12635,7 @@
           },
           {
             "gradeId": "year_3",
-            "displayName": "Year 3",
+            "displayName": "Year 3 — Age 8–9 (Grade 3) – Primary",
             "ageRange": "8-9",
             "stage": "Primary",
             "subjects": [
@@ -11278,7 +12708,7 @@
           },
           {
             "gradeId": "year_4",
-            "displayName": "Year 4",
+            "displayName": "Year 4 — Age 9–10 (Grade 4) – Primary",
             "ageRange": "9-10",
             "stage": "Primary",
             "subjects": [
@@ -11351,7 +12781,7 @@
           },
           {
             "gradeId": "year_5",
-            "displayName": "Year 5",
+            "displayName": "Year 5 — Age 10–11 (Grade 5) – Primary",
             "ageRange": "10-11",
             "stage": "Primary",
             "subjects": [
@@ -11424,7 +12854,7 @@
           },
           {
             "gradeId": "year_6",
-            "displayName": "Year 6",
+            "displayName": "Year 6 — Age 11–12 (Grade 6) – Primary",
             "ageRange": "11-12",
             "stage": "Primary",
             "subjects": [
@@ -11497,7 +12927,7 @@
           },
           {
             "gradeId": "year_7",
-            "displayName": "Year 7",
+            "displayName": "Year 7 — Age 12–13 (Grade 7) – Secondary",
             "ageRange": "12-13",
             "stage": "Secondary",
             "subjects": [
@@ -11610,7 +13040,7 @@
           },
           {
             "gradeId": "year_8",
-            "displayName": "Year 8",
+            "displayName": "Year 8 — Age 13–14 (Grade 8) – Secondary",
             "ageRange": "13-14",
             "stage": "Secondary",
             "subjects": [
@@ -11723,7 +13153,7 @@
           },
           {
             "gradeId": "year_9",
-            "displayName": "Year 9",
+            "displayName": "Year 9 — Age 14–15 (Grade 9) – Secondary",
             "ageRange": "14-15",
             "stage": "Secondary",
             "subjects": [
@@ -11836,7 +13266,7 @@
           },
           {
             "gradeId": "year_10",
-            "displayName": "Year 10",
+            "displayName": "Year 10 — Age 15–16 (Grade 10) – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -11949,17 +13379,289 @@
           },
           {
             "gradeId": "year_11",
-            "displayName": "TCE (Years 11–12)",
+            "displayName": "Tasmanian Certificate of Education (TCE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "TCE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "General Mathematics",
+                "code": null,
+                "displayName": "General Mathematics"
+              },
+              {
+                "name": "Mathematics Methods",
+                "code": null,
+                "displayName": "Mathematics Methods"
+              },
+              {
+                "name": "Mathematics Specialised",
+                "code": null,
+                "displayName": "Mathematics Specialised"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Studies",
+                "code": null,
+                "displayName": "Business Studies"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Visual Art",
+                "code": null,
+                "displayName": "Visual Art"
+              },
+              {
+                "name": "Media Production",
+                "code": null,
+                "displayName": "Media Production"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           },
           {
             "gradeId": "year_12",
-            "displayName": "TCE (Years 11–12)",
+            "displayName": "Tasmanian Certificate of Education (TCE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "TCE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "General Mathematics",
+                "code": null,
+                "displayName": "General Mathematics"
+              },
+              {
+                "name": "Mathematics Methods",
+                "code": null,
+                "displayName": "Mathematics Methods"
+              },
+              {
+                "name": "Mathematics Specialised",
+                "code": null,
+                "displayName": "Mathematics Specialised"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Studies",
+                "code": null,
+                "displayName": "Business Studies"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Visual Art",
+                "code": null,
+                "displayName": "Visual Art"
+              },
+              {
+                "name": "Media Production",
+                "code": null,
+                "displayName": "Media Production"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           }
         ]
       },
@@ -11970,7 +13672,7 @@
         "grades": [
           {
             "gradeId": "foundation",
-            "displayName": "Foundation",
+            "displayName": "Foundation — Age 5–6 (Grade K / Prep) – Early Years",
             "ageRange": "5-6",
             "stage": "Early Years",
             "subjects": [
@@ -12043,7 +13745,7 @@
           },
           {
             "gradeId": "year_1",
-            "displayName": "Year 1",
+            "displayName": "Year 1 — Age 6–7 (Grade 1) – Primary",
             "ageRange": "6-7",
             "stage": "Primary",
             "subjects": [
@@ -12116,7 +13818,7 @@
           },
           {
             "gradeId": "year_2",
-            "displayName": "Year 2",
+            "displayName": "Year 2 — Age 7–8 (Grade 2) – Primary",
             "ageRange": "7-8",
             "stage": "Primary",
             "subjects": [
@@ -12189,7 +13891,7 @@
           },
           {
             "gradeId": "year_3",
-            "displayName": "Year 3",
+            "displayName": "Year 3 — Age 8–9 (Grade 3) – Primary",
             "ageRange": "8-9",
             "stage": "Primary",
             "subjects": [
@@ -12262,7 +13964,7 @@
           },
           {
             "gradeId": "year_4",
-            "displayName": "Year 4",
+            "displayName": "Year 4 — Age 9–10 (Grade 4) – Primary",
             "ageRange": "9-10",
             "stage": "Primary",
             "subjects": [
@@ -12335,7 +14037,7 @@
           },
           {
             "gradeId": "year_5",
-            "displayName": "Year 5",
+            "displayName": "Year 5 — Age 10–11 (Grade 5) – Primary",
             "ageRange": "10-11",
             "stage": "Primary",
             "subjects": [
@@ -12408,7 +14110,7 @@
           },
           {
             "gradeId": "year_6",
-            "displayName": "Year 6",
+            "displayName": "Year 6 — Age 11–12 (Grade 6) – Primary",
             "ageRange": "11-12",
             "stage": "Primary",
             "subjects": [
@@ -12481,7 +14183,7 @@
           },
           {
             "gradeId": "year_7",
-            "displayName": "Year 7",
+            "displayName": "Year 7 — Age 12–13 (Grade 7) – Secondary",
             "ageRange": "12-13",
             "stage": "Secondary",
             "subjects": [
@@ -12594,7 +14296,7 @@
           },
           {
             "gradeId": "year_8",
-            "displayName": "Year 8",
+            "displayName": "Year 8 — Age 13–14 (Grade 8) – Secondary",
             "ageRange": "13-14",
             "stage": "Secondary",
             "subjects": [
@@ -12707,7 +14409,7 @@
           },
           {
             "gradeId": "year_9",
-            "displayName": "Year 9",
+            "displayName": "Year 9 — Age 14–15 (Grade 9) – Secondary",
             "ageRange": "14-15",
             "stage": "Secondary",
             "subjects": [
@@ -12820,7 +14522,7 @@
           },
           {
             "gradeId": "year_10",
-            "displayName": "Year 10",
+            "displayName": "Year 10 — Age 15–16 (Grade 10) – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -12933,17 +14635,299 @@
           },
           {
             "gradeId": "year_11",
-            "displayName": "ACT Senior Secondary (Years 11–12)",
+            "displayName": "ACT Senior Secondary Certificate — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "ACT Senior Secondary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Studies",
+                "code": null,
+                "displayName": "Business Studies"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Media",
+                "code": null,
+                "displayName": "Media"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           },
           {
             "gradeId": "year_12",
-            "displayName": "ACT Senior Secondary (Years 11–12)",
+            "displayName": "ACT Senior Secondary Certificate — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "ACT Senior Secondary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Studies",
+                "code": null,
+                "displayName": "Business Studies"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Media",
+                "code": null,
+                "displayName": "Media"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           }
         ]
       },
@@ -12954,7 +14938,7 @@
         "grades": [
           {
             "gradeId": "foundation",
-            "displayName": "Foundation",
+            "displayName": "Foundation — Age 5–6 (Grade K / Prep) – Early Years",
             "ageRange": "5-6",
             "stage": "Early Years",
             "subjects": [
@@ -13027,7 +15011,7 @@
           },
           {
             "gradeId": "year_1",
-            "displayName": "Year 1",
+            "displayName": "Year 1 — Age 6–7 (Grade 1) – Primary",
             "ageRange": "6-7",
             "stage": "Primary",
             "subjects": [
@@ -13100,7 +15084,7 @@
           },
           {
             "gradeId": "year_2",
-            "displayName": "Year 2",
+            "displayName": "Year 2 — Age 7–8 (Grade 2) – Primary",
             "ageRange": "7-8",
             "stage": "Primary",
             "subjects": [
@@ -13173,7 +15157,7 @@
           },
           {
             "gradeId": "year_3",
-            "displayName": "Year 3",
+            "displayName": "Year 3 — Age 8–9 (Grade 3) – Primary",
             "ageRange": "8-9",
             "stage": "Primary",
             "subjects": [
@@ -13246,7 +15230,7 @@
           },
           {
             "gradeId": "year_4",
-            "displayName": "Year 4",
+            "displayName": "Year 4 — Age 9–10 (Grade 4) – Primary",
             "ageRange": "9-10",
             "stage": "Primary",
             "subjects": [
@@ -13319,7 +15303,7 @@
           },
           {
             "gradeId": "year_5",
-            "displayName": "Year 5",
+            "displayName": "Year 5 — Age 10–11 (Grade 5) – Primary",
             "ageRange": "10-11",
             "stage": "Primary",
             "subjects": [
@@ -13392,7 +15376,7 @@
           },
           {
             "gradeId": "year_6",
-            "displayName": "Year 6",
+            "displayName": "Year 6 — Age 11–12 (Grade 6) – Primary",
             "ageRange": "11-12",
             "stage": "Primary",
             "subjects": [
@@ -13465,7 +15449,7 @@
           },
           {
             "gradeId": "year_7",
-            "displayName": "Year 7",
+            "displayName": "Year 7 — Age 12–13 (Grade 7) – Secondary",
             "ageRange": "12-13",
             "stage": "Secondary",
             "subjects": [
@@ -13578,7 +15562,7 @@
           },
           {
             "gradeId": "year_8",
-            "displayName": "Year 8",
+            "displayName": "Year 8 — Age 13–14 (Grade 8) – Secondary",
             "ageRange": "13-14",
             "stage": "Secondary",
             "subjects": [
@@ -13691,7 +15675,7 @@
           },
           {
             "gradeId": "year_9",
-            "displayName": "Year 9",
+            "displayName": "Year 9 — Age 14–15 (Grade 9) – Secondary",
             "ageRange": "14-15",
             "stage": "Secondary",
             "subjects": [
@@ -13804,7 +15788,7 @@
           },
           {
             "gradeId": "year_10",
-            "displayName": "Year 10",
+            "displayName": "Year 10 — Age 15–16 (Grade 10) – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -13917,17 +15901,299 @@
           },
           {
             "gradeId": "year_11",
-            "displayName": "NTCET (Years 11–12)",
+            "displayName": "Northern Territory Certificate of Education and Training (NTCET / NTCE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "NTCET / NTCE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literary Studies",
+                "code": null,
+                "displayName": "English Literary Studies"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Innovation",
+                "code": null,
+                "displayName": "Business Innovation"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Digital Technologies",
+                "code": null,
+                "displayName": "Digital Technologies"
+              },
+              {
+                "name": "Information Processing",
+                "code": null,
+                "displayName": "Information Processing"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Creative Arts",
+                "code": null,
+                "displayName": "Creative Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           },
           {
             "gradeId": "year_12",
-            "displayName": "NTCET (Years 11–12)",
+            "displayName": "Northern Territory Certificate of Education and Training (NTCET / NTCE) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "NTCET / NTCE",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literary Studies",
+                "code": null,
+                "displayName": "English Literary Studies"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Mathematical Methods",
+                "code": null,
+                "displayName": "Mathematical Methods"
+              },
+              {
+                "name": "Specialist Mathematics",
+                "code": null,
+                "displayName": "Specialist Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Modern History",
+                "code": null,
+                "displayName": "Modern History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Innovation",
+                "code": null,
+                "displayName": "Business Innovation"
+              },
+              {
+                "name": "Legal Studies",
+                "code": null,
+                "displayName": "Legal Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Digital Technologies",
+                "code": null,
+                "displayName": "Digital Technologies"
+              },
+              {
+                "name": "Information Processing",
+                "code": null,
+                "displayName": "Information Processing"
+              },
+              {
+                "name": "Visual Arts",
+                "code": null,
+                "displayName": "Visual Arts"
+              },
+              {
+                "name": "Creative Arts",
+                "code": null,
+                "displayName": "Creative Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "Mandarin",
+                "code": null,
+                "displayName": "Mandarin"
+              }
+            ]
           }
         ]
       }
@@ -13944,14 +16210,14 @@
         "grades": [
           {
             "gradeId": "kindergarten",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
             "subjects": []
           },
           {
             "gradeId": "grade_1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary",
             "ageRange": "6-7",
             "stage": "Elementary",
             "subjects": [
@@ -14014,7 +16280,7 @@
           },
           {
             "gradeId": "grade_2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary",
             "ageRange": "7-8",
             "stage": "Elementary",
             "subjects": [
@@ -14077,7 +16343,7 @@
           },
           {
             "gradeId": "grade_3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary",
             "ageRange": "8-9",
             "stage": "Elementary",
             "subjects": [
@@ -14140,7 +16406,7 @@
           },
           {
             "gradeId": "grade_4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary",
             "ageRange": "9-10",
             "stage": "Elementary",
             "subjects": [
@@ -14203,7 +16469,7 @@
           },
           {
             "gradeId": "grade_5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary",
             "ageRange": "10-11",
             "stage": "Elementary",
             "subjects": [
@@ -14266,7 +16532,7 @@
           },
           {
             "gradeId": "grade_6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Elementary",
             "ageRange": "11-12",
             "stage": "Elementary",
             "subjects": [
@@ -14329,7 +16595,7 @@
           },
           {
             "gradeId": "grade_7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -14432,7 +16698,7 @@
           },
           {
             "gradeId": "grade_8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -14535,7 +16801,7 @@
           },
           {
             "gradeId": "grade_9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – Middle School",
             "ageRange": "14-15",
             "stage": "Middle School",
             "subjects": [
@@ -14638,7 +16904,7 @@
           },
           {
             "gradeId": "grade_10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -14741,10 +17007,146 @@
           },
           {
             "gradeId": "grade_11",
-            "displayName": "OSSD (Grades 11–12)",
+            "displayName": "Ontario Secondary School Diploma (OSSD) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "OSSD",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Advanced Functions",
+                "code": null,
+                "displayName": "Advanced Functions"
+              },
+              {
+                "name": "Calculus & Vectors",
+                "code": null,
+                "displayName": "Calculus & Vectors"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Canadian History",
+                "code": null,
+                "displayName": "Canadian History"
+              },
+              {
+                "name": "World History",
+                "code": null,
+                "displayName": "World History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Studies",
+                "code": null,
+                "displayName": "Business Studies"
+              },
+              {
+                "name": "Accounting",
+                "code": null,
+                "displayName": "Accounting"
+              },
+              {
+                "name": "Law",
+                "code": null,
+                "displayName": "Law"
+              },
+              {
+                "name": "Politics",
+                "code": null,
+                "displayName": "Politics"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Media Studies",
+                "code": null,
+                "displayName": "Media Studies"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              }
+            ]
           }
         ]
       },
@@ -14755,14 +17157,14 @@
         "grades": [
           {
             "gradeId": "kindergarten",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
             "subjects": []
           },
           {
             "gradeId": "grade_1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary",
             "ageRange": "6-7",
             "stage": "Elementary",
             "subjects": [
@@ -14825,7 +17227,7 @@
           },
           {
             "gradeId": "grade_2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary",
             "ageRange": "7-8",
             "stage": "Elementary",
             "subjects": [
@@ -14888,7 +17290,7 @@
           },
           {
             "gradeId": "grade_3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary",
             "ageRange": "8-9",
             "stage": "Elementary",
             "subjects": [
@@ -14951,7 +17353,7 @@
           },
           {
             "gradeId": "grade_4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary",
             "ageRange": "9-10",
             "stage": "Elementary",
             "subjects": [
@@ -15014,7 +17416,7 @@
           },
           {
             "gradeId": "grade_5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary",
             "ageRange": "10-11",
             "stage": "Elementary",
             "subjects": [
@@ -15077,7 +17479,7 @@
           },
           {
             "gradeId": "grade_6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Elementary",
             "ageRange": "11-12",
             "stage": "Elementary",
             "subjects": [
@@ -15140,7 +17542,7 @@
           },
           {
             "gradeId": "grade_7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -15243,7 +17645,7 @@
           },
           {
             "gradeId": "grade_8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -15346,7 +17748,7 @@
           },
           {
             "gradeId": "grade_9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – Middle School",
             "ageRange": "14-15",
             "stage": "Middle School",
             "subjects": [
@@ -15449,7 +17851,7 @@
           },
           {
             "gradeId": "grade_10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -15552,10 +17954,146 @@
           },
           {
             "gradeId": "grade_11",
-            "displayName": "BC Graduation (Grades 11–12)",
+            "displayName": "British Columbia Graduation Program (BC Dogwood) — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "BC Dogwood",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Studies",
+                "code": null,
+                "displayName": "English Studies"
+              },
+              {
+                "name": "Literary Studies",
+                "code": null,
+                "displayName": "Literary Studies"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Pre-Calculus",
+                "code": null,
+                "displayName": "Pre-Calculus"
+              },
+              {
+                "name": "Calculus",
+                "code": null,
+                "displayName": "Calculus"
+              },
+              {
+                "name": "Foundations of Mathematics",
+                "code": null,
+                "displayName": "Foundations of Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Canadian History",
+                "code": null,
+                "displayName": "Canadian History"
+              },
+              {
+                "name": "World History",
+                "code": null,
+                "displayName": "World History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Law Studies",
+                "code": null,
+                "displayName": "Law Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Digital Media",
+                "code": null,
+                "displayName": "Digital Media"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Media Arts",
+                "code": null,
+                "displayName": "Media Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Dance",
+                "code": null,
+                "displayName": "Dance"
+              },
+              {
+                "name": "Physical & Health Education",
+                "code": null,
+                "displayName": "Physical & Health Education"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              }
+            ]
           }
         ]
       },
@@ -15566,14 +18104,14 @@
         "grades": [
           {
             "gradeId": "kindergarten",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
             "subjects": []
           },
           {
             "gradeId": "grade_1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary",
             "ageRange": "6-7",
             "stage": "Elementary",
             "subjects": [
@@ -15636,7 +18174,7 @@
           },
           {
             "gradeId": "grade_2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary",
             "ageRange": "7-8",
             "stage": "Elementary",
             "subjects": [
@@ -15699,7 +18237,7 @@
           },
           {
             "gradeId": "grade_3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary",
             "ageRange": "8-9",
             "stage": "Elementary",
             "subjects": [
@@ -15762,7 +18300,7 @@
           },
           {
             "gradeId": "grade_4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary",
             "ageRange": "9-10",
             "stage": "Elementary",
             "subjects": [
@@ -15825,7 +18363,7 @@
           },
           {
             "gradeId": "grade_5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary",
             "ageRange": "10-11",
             "stage": "Elementary",
             "subjects": [
@@ -15888,7 +18426,7 @@
           },
           {
             "gradeId": "grade_6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Elementary",
             "ageRange": "11-12",
             "stage": "Elementary",
             "subjects": [
@@ -15951,7 +18489,7 @@
           },
           {
             "gradeId": "grade_7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -16054,7 +18592,7 @@
           },
           {
             "gradeId": "grade_8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -16157,7 +18695,7 @@
           },
           {
             "gradeId": "grade_9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – Middle School",
             "ageRange": "14-15",
             "stage": "Middle School",
             "subjects": [
@@ -16260,7 +18798,7 @@
           },
           {
             "gradeId": "grade_10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -16363,10 +18901,136 @@
           },
           {
             "gradeId": "grade_11",
-            "displayName": "Alberta Diploma (Grades 11–12)",
+            "displayName": "Alberta High School Diploma — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "Alberta Diploma",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Mathematics 30-1",
+                "code": null,
+                "displayName": "Mathematics 30-1"
+              },
+              {
+                "name": "Mathematics 30-2",
+                "code": null,
+                "displayName": "Mathematics 30-2"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Canadian History",
+                "code": null,
+                "displayName": "Canadian History"
+              },
+              {
+                "name": "World History",
+                "code": null,
+                "displayName": "World History"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Law",
+                "code": null,
+                "displayName": "Law"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Sociology",
+                "code": null,
+                "displayName": "Sociology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Media Studies",
+                "code": null,
+                "displayName": "Media Studies"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              }
+            ]
           }
         ]
       },
@@ -16377,14 +19041,14 @@
         "grades": [
           {
             "gradeId": "kindergarten",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
             "subjects": []
           },
           {
             "gradeId": "grade_1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary",
             "ageRange": "6-7",
             "stage": "Elementary",
             "subjects": [
@@ -16447,7 +19111,7 @@
           },
           {
             "gradeId": "grade_2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary",
             "ageRange": "7-8",
             "stage": "Elementary",
             "subjects": [
@@ -16510,7 +19174,7 @@
           },
           {
             "gradeId": "grade_3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary",
             "ageRange": "8-9",
             "stage": "Elementary",
             "subjects": [
@@ -16573,7 +19237,7 @@
           },
           {
             "gradeId": "grade_4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary",
             "ageRange": "9-10",
             "stage": "Elementary",
             "subjects": [
@@ -16636,7 +19300,7 @@
           },
           {
             "gradeId": "grade_5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary",
             "ageRange": "10-11",
             "stage": "Elementary",
             "subjects": [
@@ -16699,7 +19363,7 @@
           },
           {
             "gradeId": "grade_6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Elementary",
             "ageRange": "11-12",
             "stage": "Elementary",
             "subjects": [
@@ -16762,7 +19426,7 @@
           },
           {
             "gradeId": "grade_7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -16865,7 +19529,7 @@
           },
           {
             "gradeId": "grade_8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -16968,7 +19632,7 @@
           },
           {
             "gradeId": "grade_9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – Middle School",
             "ageRange": "14-15",
             "stage": "Middle School",
             "subjects": [
@@ -17071,7 +19735,7 @@
           },
           {
             "gradeId": "grade_10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -17174,10 +19838,116 @@
           },
           {
             "gradeId": "grade_11",
-            "displayName": "Quebec DES (Grades 11–12)",
+            "displayName": "Quebec High School Diploma (DES/Diplome d'etudes secondaires) - Age 16-18 (Grades 11-12)",
             "ageRange": "16-18",
             "stage": "DES",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History of Quebec & Canada",
+                "code": null,
+                "displayName": "History of Quebec & Canada"
+              },
+              {
+                "name": "World History",
+                "code": null,
+                "displayName": "World History"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Ethics & Religious Culture",
+                "code": null,
+                "displayName": "Ethics & Religious Culture"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Technology",
+                "code": null,
+                "displayName": "Technology"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Media Arts",
+                "code": null,
+                "displayName": "Media Arts"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French Language",
+                "code": null,
+                "displayName": "French Language"
+              }
+            ]
           }
         ]
       },
@@ -17188,14 +19958,14 @@
         "grades": [
           {
             "gradeId": "kindergarten",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
             "subjects": []
           },
           {
             "gradeId": "grade_1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary",
             "ageRange": "6-7",
             "stage": "Elementary",
             "subjects": [
@@ -17258,7 +20028,7 @@
           },
           {
             "gradeId": "grade_2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary",
             "ageRange": "7-8",
             "stage": "Elementary",
             "subjects": [
@@ -17321,7 +20091,7 @@
           },
           {
             "gradeId": "grade_3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary",
             "ageRange": "8-9",
             "stage": "Elementary",
             "subjects": [
@@ -17384,7 +20154,7 @@
           },
           {
             "gradeId": "grade_4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary",
             "ageRange": "9-10",
             "stage": "Elementary",
             "subjects": [
@@ -17447,7 +20217,7 @@
           },
           {
             "gradeId": "grade_5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary",
             "ageRange": "10-11",
             "stage": "Elementary",
             "subjects": [
@@ -17510,7 +20280,7 @@
           },
           {
             "gradeId": "grade_6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Elementary",
             "ageRange": "11-12",
             "stage": "Elementary",
             "subjects": [
@@ -17573,7 +20343,7 @@
           },
           {
             "gradeId": "grade_7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -17676,7 +20446,7 @@
           },
           {
             "gradeId": "grade_8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -17779,7 +20549,7 @@
           },
           {
             "gradeId": "grade_9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – Middle School",
             "ageRange": "14-15",
             "stage": "Middle School",
             "subjects": [
@@ -17882,7 +20652,7 @@
           },
           {
             "gradeId": "grade_10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -17985,10 +20755,131 @@
           },
           {
             "gradeId": "grade_11",
-            "displayName": "Manitoba Diploma (Grades 11–12)",
+            "displayName": "Manitoba High School Diploma — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "Manitoba Diploma",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Pre-Calculus Mathematics",
+                "code": null,
+                "displayName": "Pre-Calculus Mathematics"
+              },
+              {
+                "name": "Applied Mathematics",
+                "code": null,
+                "displayName": "Applied Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Canadian History",
+                "code": null,
+                "displayName": "Canadian History"
+              },
+              {
+                "name": "World History",
+                "code": null,
+                "displayName": "World History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Law",
+                "code": null,
+                "displayName": "Law"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Media Studies",
+                "code": null,
+                "displayName": "Media Studies"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              }
+            ]
           }
         ]
       },
@@ -17999,14 +20890,14 @@
         "grades": [
           {
             "gradeId": "kindergarten",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
             "subjects": []
           },
           {
             "gradeId": "grade_1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary",
             "ageRange": "6-7",
             "stage": "Elementary",
             "subjects": [
@@ -18069,7 +20960,7 @@
           },
           {
             "gradeId": "grade_2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary",
             "ageRange": "7-8",
             "stage": "Elementary",
             "subjects": [
@@ -18132,7 +21023,7 @@
           },
           {
             "gradeId": "grade_3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary",
             "ageRange": "8-9",
             "stage": "Elementary",
             "subjects": [
@@ -18195,7 +21086,7 @@
           },
           {
             "gradeId": "grade_4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary",
             "ageRange": "9-10",
             "stage": "Elementary",
             "subjects": [
@@ -18258,7 +21149,7 @@
           },
           {
             "gradeId": "grade_5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary",
             "ageRange": "10-11",
             "stage": "Elementary",
             "subjects": [
@@ -18321,7 +21212,7 @@
           },
           {
             "gradeId": "grade_6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Elementary",
             "ageRange": "11-12",
             "stage": "Elementary",
             "subjects": [
@@ -18384,7 +21275,7 @@
           },
           {
             "gradeId": "grade_7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -18487,7 +21378,7 @@
           },
           {
             "gradeId": "grade_8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -18590,7 +21481,7 @@
           },
           {
             "gradeId": "grade_9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – Middle School",
             "ageRange": "14-15",
             "stage": "Middle School",
             "subjects": [
@@ -18693,7 +21584,7 @@
           },
           {
             "gradeId": "grade_10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -18796,10 +21687,131 @@
           },
           {
             "gradeId": "grade_11",
-            "displayName": "Saskatchewan Diploma (Grades 11–12)",
+            "displayName": "Saskatchewan High School Diploma — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "Saskatchewan Diploma",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Foundations of Mathematics",
+                "code": null,
+                "displayName": "Foundations of Mathematics"
+              },
+              {
+                "name": "Pre-Calculus",
+                "code": null,
+                "displayName": "Pre-Calculus"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Canadian Studies",
+                "code": null,
+                "displayName": "Canadian Studies"
+              },
+              {
+                "name": "World History",
+                "code": null,
+                "displayName": "World History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Law Studies",
+                "code": null,
+                "displayName": "Law Studies"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Media Studies",
+                "code": null,
+                "displayName": "Media Studies"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              }
+            ]
           }
         ]
       },
@@ -18810,14 +21822,14 @@
         "grades": [
           {
             "gradeId": "kindergarten",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
             "subjects": []
           },
           {
             "gradeId": "grade_1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary",
             "ageRange": "6-7",
             "stage": "Elementary",
             "subjects": [
@@ -18880,7 +21892,7 @@
           },
           {
             "gradeId": "grade_2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary",
             "ageRange": "7-8",
             "stage": "Elementary",
             "subjects": [
@@ -18943,7 +21955,7 @@
           },
           {
             "gradeId": "grade_3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary",
             "ageRange": "8-9",
             "stage": "Elementary",
             "subjects": [
@@ -19006,7 +22018,7 @@
           },
           {
             "gradeId": "grade_4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary",
             "ageRange": "9-10",
             "stage": "Elementary",
             "subjects": [
@@ -19069,7 +22081,7 @@
           },
           {
             "gradeId": "grade_5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary",
             "ageRange": "10-11",
             "stage": "Elementary",
             "subjects": [
@@ -19132,7 +22144,7 @@
           },
           {
             "gradeId": "grade_6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Elementary",
             "ageRange": "11-12",
             "stage": "Elementary",
             "subjects": [
@@ -19195,7 +22207,7 @@
           },
           {
             "gradeId": "grade_7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -19298,7 +22310,7 @@
           },
           {
             "gradeId": "grade_8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -19401,7 +22413,7 @@
           },
           {
             "gradeId": "grade_9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – Middle School",
             "ageRange": "14-15",
             "stage": "Middle School",
             "subjects": [
@@ -19504,7 +22516,7 @@
           },
           {
             "gradeId": "grade_10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -19607,10 +22619,136 @@
           },
           {
             "gradeId": "grade_11",
-            "displayName": "Atlantic Diploma (Grades 11–12)",
+            "displayName": "Atlantic Provinces High School Diploma — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "Atlantic Diploma",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English",
+                "code": null,
+                "displayName": "English"
+              },
+              {
+                "name": "English Literature",
+                "code": null,
+                "displayName": "English Literature"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Pre-Calculus",
+                "code": null,
+                "displayName": "Pre-Calculus"
+              },
+              {
+                "name": "Calculus",
+                "code": null,
+                "displayName": "Calculus"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Canadian History",
+                "code": null,
+                "displayName": "Canadian History"
+              },
+              {
+                "name": "World History",
+                "code": null,
+                "displayName": "World History"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Business Studies",
+                "code": null,
+                "displayName": "Business Studies"
+              },
+              {
+                "name": "Law",
+                "code": null,
+                "displayName": "Law"
+              },
+              {
+                "name": "Psychology",
+                "code": null,
+                "displayName": "Psychology"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Media Studies",
+                "code": null,
+                "displayName": "Media Studies"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              }
+            ]
           }
         ]
       },
@@ -19621,14 +22759,14 @@
         "grades": [
           {
             "gradeId": "kindergarten",
-            "displayName": "Kindergarten",
+            "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
             "subjects": []
           },
           {
             "gradeId": "grade_1",
-            "displayName": "Grade 1",
+            "displayName": "Grade 1 — Age 6–7 – Elementary",
             "ageRange": "6-7",
             "stage": "Elementary",
             "subjects": [
@@ -19691,7 +22829,7 @@
           },
           {
             "gradeId": "grade_2",
-            "displayName": "Grade 2",
+            "displayName": "Grade 2 — Age 7–8 – Elementary",
             "ageRange": "7-8",
             "stage": "Elementary",
             "subjects": [
@@ -19754,7 +22892,7 @@
           },
           {
             "gradeId": "grade_3",
-            "displayName": "Grade 3",
+            "displayName": "Grade 3 — Age 8–9 – Elementary",
             "ageRange": "8-9",
             "stage": "Elementary",
             "subjects": [
@@ -19817,7 +22955,7 @@
           },
           {
             "gradeId": "grade_4",
-            "displayName": "Grade 4",
+            "displayName": "Grade 4 — Age 9–10 – Elementary",
             "ageRange": "9-10",
             "stage": "Elementary",
             "subjects": [
@@ -19880,7 +23018,7 @@
           },
           {
             "gradeId": "grade_5",
-            "displayName": "Grade 5",
+            "displayName": "Grade 5 — Age 10–11 – Elementary",
             "ageRange": "10-11",
             "stage": "Elementary",
             "subjects": [
@@ -19943,7 +23081,7 @@
           },
           {
             "gradeId": "grade_6",
-            "displayName": "Grade 6",
+            "displayName": "Grade 6 — Age 11–12 – Elementary",
             "ageRange": "11-12",
             "stage": "Elementary",
             "subjects": [
@@ -20006,7 +23144,7 @@
           },
           {
             "gradeId": "grade_7",
-            "displayName": "Grade 7",
+            "displayName": "Grade 7 — Age 12–13 – Middle School",
             "ageRange": "12-13",
             "stage": "Middle School",
             "subjects": [
@@ -20109,7 +23247,7 @@
           },
           {
             "gradeId": "grade_8",
-            "displayName": "Grade 8",
+            "displayName": "Grade 8 — Age 13–14 – Middle School",
             "ageRange": "13-14",
             "stage": "Middle School",
             "subjects": [
@@ -20212,7 +23350,7 @@
           },
           {
             "gradeId": "grade_9",
-            "displayName": "Grade 9",
+            "displayName": "Grade 9 — Age 14–15 – Middle School",
             "ageRange": "14-15",
             "stage": "Middle School",
             "subjects": [
@@ -20315,7 +23453,7 @@
           },
           {
             "gradeId": "grade_10",
-            "displayName": "Grade 10",
+            "displayName": "Grade 10 — Age 15–16 – Secondary",
             "ageRange": "15-16",
             "stage": "Secondary",
             "subjects": [
@@ -20418,10 +23556,116 @@
           },
           {
             "gradeId": "grade_11",
-            "displayName": "Territorial Diploma (Grades 11–12)",
+            "displayName": "Territorial High School Diploma — Age 16–18 (Grades 11–12)",
             "ageRange": "16-18",
             "stage": "Territorial Diploma",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Biology",
+                "code": null,
+                "displayName": "Biology"
+              },
+              {
+                "name": "Chemistry",
+                "code": null,
+                "displayName": "Chemistry"
+              },
+              {
+                "name": "Physics",
+                "code": null,
+                "displayName": "Physics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Environmental Science",
+                "code": null,
+                "displayName": "Environmental Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Canadian History",
+                "code": null,
+                "displayName": "Canadian History"
+              },
+              {
+                "name": "Indigenous Studies",
+                "code": null,
+                "displayName": "Indigenous Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "Economics",
+                "code": null,
+                "displayName": "Economics"
+              },
+              {
+                "name": "Computer Science",
+                "code": null,
+                "displayName": "Computer Science"
+              },
+              {
+                "name": "Information Technology",
+                "code": null,
+                "displayName": "Information Technology"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Media Studies",
+                "code": null,
+                "displayName": "Media Studies"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Drama",
+                "code": null,
+                "displayName": "Drama"
+              },
+              {
+                "name": "Physical Education",
+                "code": null,
+                "displayName": "Physical Education"
+              },
+              {
+                "name": "Health",
+                "code": null,
+                "displayName": "Health"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              }
+            ]
           }
         ]
       }

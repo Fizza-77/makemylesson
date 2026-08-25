@@ -20,6 +20,58 @@
   box-sizing: border-box;
 }
 
+/* Cyan hero canvas — 0.5in outside left/right of the card */
+.pricing-page-shell .pricing-hero-band {
+  padding-left: 0.5in;
+  padding-right: 0.5in;
+}
+
+/* Five plan cards in one row across the cyan hero */
+.pricing-page-shell .pricing-hero-plans.mml-pr-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .pricing-page-shell .pricing-hero-band {
+    padding-left: max(0.75rem, 0.35in);
+    padding-right: max(0.75rem, 0.35in);
+  }
+
+  .pricing-page-shell .pricing-hero-plans.mml-pr-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.65rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-bottom: 0.35rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .pricing-page-shell .pricing-hero-plans .mml-pr-card,
+  .pricing-page-shell .pricing-hero-plans > * {
+    flex: 0 0 min(11.5rem, 72vw);
+    width: min(11.5rem, 72vw);
+    max-width: min(11.5rem, 72vw);
+  }
+}
+
+@media (min-width: 1100px) {
+  .pricing-page-shell .pricing-hero-plans.mml-pr-grid {
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .pricing-page-shell .pricing-hero-plans.mml-pr-grid {
+    gap: 0.85rem;
+  }
+}
+
 .pricing-plan-fit-header {
   max-width: 42rem;
 }

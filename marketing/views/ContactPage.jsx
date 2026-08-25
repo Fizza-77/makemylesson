@@ -89,31 +89,46 @@ function ContactPageInner() {
             className="pointer-events-none absolute -bottom-24 -left-16 h-56 w-56 rounded-full bg-white/40"
             aria-hidden
           />
-          <div
-            className="pointer-events-none absolute -right-8 -top-10 h-72 w-72 rounded-full bg-[#35BEBC] sm:-right-6 sm:-top-12"
-            aria-hidden
-          />
 
-          <div className="relative z-[1] px-6 py-[1cm] text-center sm:px-8 lg:px-12 xl:px-14">
-            <p className="mb-4 flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1E9A98]">
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#35BEBC]">
-                <Mail className="h-3.5 w-3.5 text-white" aria-hidden strokeWidth={2.25} />
-              </span>
-              Contact us
-            </p>
+          <div className="relative z-[1] px-6 py-[1cm] sm:px-8 lg:px-12 xl:px-14">
+            <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(260px,0.88fr)] lg:gap-8 xl:gap-10">
+              <div className="min-w-0 text-left lg:-translate-y-6 xl:-translate-y-8">
+                <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1E3A]">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#35BEBC]">
+                    <Mail className="h-3.5 w-3.5 text-white" aria-hidden strokeWidth={2.25} />
+                  </span>
+                  Contact us
+                </p>
 
-            <h1
-              id="contact-hero-heading"
-              className="mx-auto max-w-[16ch] text-[clamp(1.85rem,4vw,3.1rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A] sm:max-w-[20ch] lg:max-w-[24ch] xl:max-w-none xl:whitespace-nowrap"
-            >
-              Marking to finish? We&apos;ll be quick.
-            </h1>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-black sm:max-w-2xl sm:text-base xl:max-w-3xl xl:text-[17px] 2xl:max-w-4xl">
-              Tell us who you are and we&apos;ll route your message to the right person — with an honest
-              idea of when you&apos;ll hear back.
-            </p>
+                <h1
+                  id="contact-hero-heading"
+                  className="font-[family-name:var(--font-manrope)] text-[clamp(1.85rem,4.2vw,3.15rem)] font-bold leading-[1.12] tracking-tight text-[#1A1E3A]"
+                >
+                  Marking to finish?
+                  <br />
+                  We&apos;ll be quick.
+                </h1>
+                <p className="mt-4 max-w-[34rem] text-[15px] leading-relaxed text-[#1A1E3A]/75 sm:text-base xl:text-[17px]">
+                  Tell us who you are and we&apos;ll route your message to the right person with an honest
+                  idea of when you&apos;ll hear back.
+                </p>
+              </div>
 
-            <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4 xl:gap-5 2xl:gap-6">
+              <div className="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:-translate-y-10 lg:mx-0 lg:max-w-none lg:justify-self-end xl:-translate-y-14">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/svgs/contact-hero.webp"
+                  alt=""
+                  width={960}
+                  height={640}
+                  className="h-auto w-full object-contain object-right"
+                  decoding="async"
+                  aria-hidden
+                />
+              </div>
+            </div>
+
+            <div className="mt-2 grid gap-3 sm:mt-3 sm:grid-cols-2 lg:-mt-2 lg:grid-cols-4 lg:gap-4 xl:-mt-4 xl:gap-5 2xl:gap-6">
               {INTENTS.map((intent) => {
                 const Icon = intent.Icon
                 const active = selectedSubject === intent.subject
@@ -127,7 +142,7 @@ function ContactPageInner() {
                       'min-w-0 rounded-[22px] p-4 text-left transition sm:rounded-[24px] sm:p-5 xl:rounded-[28px] xl:p-6 2xl:p-7',
                       navy
                         ? 'bg-[#1A1E3A] text-white hover:bg-[#242845]'
-                        : 'bg-[#EAF5F6] text-[#1A1E3A] hover:bg-white',
+                        : 'bg-[#f4f7f7] text-[#1A1E3A] hover:bg-white',
                       active && 'ring-2 ring-[#1A1E3A] ring-offset-2 ring-offset-[#ade5df]',
                     )}
                   >
@@ -147,7 +162,7 @@ function ContactPageInner() {
                     <p
                       className={cn(
                         'mt-3 text-[13px] leading-snug xl:text-[14px]',
-                        navy ? 'text-white' : 'text-black',
+                        navy ? 'text-white/90' : 'text-[#1A1E3A]/70',
                       )}
                     >
                       {intent.body}

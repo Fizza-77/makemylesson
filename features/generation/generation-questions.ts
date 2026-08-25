@@ -1,21 +1,22 @@
 /**
- * Copy for the pre-generation choice dialogs shown before every stage CTA.
+ * Template MCQs for the pre-generation clarification dialog.
+ * Wording and IDs match Flutter `stage_clarification_catalog.dart` so
+ * clarificationAnswers sent to Cloud Functions stay consistent with mobile.
  *
- * Wording is verbatim from the app, so treat it as content rather than code —
- * the recommended option is flagged per choice because it is not always first
- * (Stage 3 Q1 and Stage 4 Q2 recommend "Medium").
- *
- * Answers are display-only today: they gate generation but are not sent to the
- * Cloud Functions, so nothing downstream reads them yet.
+ * Upload sources for stages 2–4 may append at most one AI question from
+ * `clarifyStageSource`.
  */
+
+import type {
+  ClarificationOption,
+  ClarificationQuestion,
+} from "@/types/stage-clarification";
+import { OTHER_OPTION_ID } from "@/types/stage-clarification";
 
 export type GenerationStage = 1 | 2 | 3 | 4;
 
-export type GenerationChoice = {
-  id: string;
-  label: string;
-  recommended?: boolean;
-  /** Reveals a free-text field when picked. */
+/** UI-facing alias — same shape as ClarificationQuestion with freeText flags. */
+export type GenerationChoice = ClarificationOption & {
   freeText?: boolean;
 };
 
@@ -26,24 +27,48 @@ export type GenerationQuestion = {
 };
 
 const OTHER: GenerationChoice = {
-  id: "other",
+  id: OTHER_OPTION_ID,
   label: "Other (type your own)",
   freeText: true,
 };
 
 const DIFFICULTY_CHOICES: readonly GenerationChoice[] = [
-  { id: "easy", label: "Easy — gentler entry items for this grade" },
-  { id: "medium", label: "Medium — on-level for this grade", recommended: true },
-  { id: "hard", label: "Hard — more stretch and challenge" },
+  { id: "easy", label: "Easy - simpler questions for this year level" },
+  {
+    id: "medium",
+    label: "Medium - questions at the expected year level",
+    recommended: true,
+  },
+  {
+    id: "hard",
+    label: "Hard - challenging questions for deeper thinking",
+  },
   OTHER,
 ];
 
-// TODO: Stage 1 Question 1 is still missing its wording, so Stage 1 asks one
-// question for now. Adding it here is all that's needed — the dialog counts
-// questions per stage, so "Question 1 of 2" and the Next button follow.
 const STAGE_1: readonly GenerationQuestion[] = [
   {
-    id: "emphasis",
+    id: "grade_fit",
+    question: "Does the selected grade/year match the class you are teaching?",
+    choices: [
+      {
+        id: "exact",
+        label: "Yes — exact match for this class",
+        recommended: true,
+      },
+      {
+        id: "mixed",
+        label: "Mostly — mixed ages / mixed ability in one room",
+      },
+      {
+        id: "stretch",
+        label: "Close — I need slightly harder or easier stretch",
+      },
+      OTHER,
+    ],
+  },
+  {
+    id: "lesson_focus",
     question: "What should this lesson emphasize most?",
     choices: [
       {
@@ -85,7 +110,7 @@ const STAGE_2: readonly GenerationQuestion[] = [
     question: "What language level should the slides use for this lesson source?",
     choices: [
       {
-        id: "age_appropriate",
+        id: "age_fit",
         label: "Age-appropriate for the selected grade",
         recommended: true,
       },
@@ -103,23 +128,26 @@ const STAGE_3: readonly GenerationQuestion[] = [
   {
     id: "difficulty",
     question:
-      "Based on your selected slides/source, how difficult should this formative check be?",
+      "Based on your selected content, how difficult should this formative assessment be?",
     choices: DIFFICULTY_CHOICES,
   },
   {
     id: "item_feel",
-    question: "How should worksheet items feel for students?",
+    question: "What style of questions should the worksheet include?",
     choices: [
       {
-        id: "quick_checks",
-        label: "Quick checks with clear right answers",
+        id: "quick",
+        label: "Quick checks with clearly correct answers",
         recommended: true,
       },
       {
-        id: "explain",
-        label: "Short thinking / explain-your-choice items",
+        id: "thinking",
+        label: "Short-response and explain-your-choice questions",
       },
-      { id: "scenarios", label: "Real-world classroom scenarios" },
+      {
+        id: "real_world",
+        label: "Questions based on real-world scenarios",
+      },
       OTHER,
     ],
   },
@@ -128,25 +156,24 @@ const STAGE_3: readonly GenerationQuestion[] = [
 const STAGE_4: readonly GenerationQuestion[] = [
   {
     id: "formality",
-    question:
-      "Based on your selected formative source, how formal should this summative paper feel?",
+    question: "How formal should your summative assessment be?",
     choices: [
       {
         id: "classroom",
-        label: "Classroom learning check (clear and friendly)",
+        label: "Classroom check - clear & friendly.",
         recommended: true,
       },
-      { id: "exam_like", label: "More exam-like / formal tone" },
+      { id: "exam_like", label: "Exam-style - formal tone." },
       {
         id: "mixed",
-        label: "Mix of friendly stems with formal marking",
+        label: "Friendly question wording with formal marking.",
       },
       OTHER,
     ],
   },
   {
     id: "difficulty",
-    question: "How difficult should this summative paper be?",
+    question: "How difficult should your summative assessment be?",
     choices: DIFFICULTY_CHOICES,
   },
 ];
@@ -164,4 +191,27 @@ export const GENERATION_QUESTIONS: Record<
 export function recommendedChoiceId(question: GenerationQuestion): string {
   const recommended = question.choices.find((choice) => choice.recommended);
   return recommended?.id ?? question.choices[0]?.id ?? "";
+}
+
+/** Convert a cloud / model ClarificationQuestion into dialog UI shape. */
+export function toGenerationQuestion(
+  question: ClarificationQuestion,
+): GenerationQuestion {
+  const choices: GenerationChoice[] = question.options.map((opt) => ({
+    id: opt.id,
+    label: opt.label,
+    recommended: opt.recommended,
+  }));
+  const allowOther = question.allowOther !== false;
+  if (
+    allowOther &&
+    !choices.some((c) => c.id === OTHER_OPTION_ID)
+  ) {
+    choices.push({ ...OTHER });
+  }
+  return {
+    id: question.id,
+    question: question.prompt,
+    choices,
+  };
 }

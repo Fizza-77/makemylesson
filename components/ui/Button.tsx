@@ -33,7 +33,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading ? (
           <span
-            className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+            className={cn(
+              "size-4 animate-spin rounded-full border-2",
+              variant === "outline" || variant === "ghost"
+                ? "border-[#28C2C0]/25 border-t-[#28C2C0]"
+                : "border-white/30 border-t-white",
+            )}
             aria-hidden
           />
         ) : null}

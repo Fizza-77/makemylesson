@@ -281,16 +281,9 @@ export function AylaChatPanel({
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-bold text-white">Ayla</p>
-          <p
-            className={cn(
-              "truncate text-[11px] text-white/70",
-              isStage3 && "tracking-wide uppercase",
-            )}
-          >
-            {isAylaPage
-              ? "Your AI teaching assistant · Online"
-              : "Your AI teaching assistant"}
-          </p>
+          {isAylaPage && copy.showOnlineBadge ? (
+            <p className="truncate text-[11px] text-white/70">Online</p>
+          ) : null}
         </div>
         {isAylaPage ? (
           <button
@@ -396,34 +389,36 @@ export function AylaChatPanel({
           compact ? "px-3 py-2.5" : isAylaPage ? "px-4 py-3 sm:px-5" : "px-3 py-3 sm:px-4",
         )}
       >
-        <div
-          className={cn(
-            "flex flex-wrap gap-1.5",
-            isAylaPage ? "mb-3 justify-center gap-2" : compact ? "mb-2" : "mb-2.5",
-          )}
-        >
-          {copy.intents.map((intent) => (
-            <button
-              key={intent.label}
-              type="button"
-              disabled={isSending}
-              onClick={() => void onSend(intent.prompt)}
-              className={cn(
-                "rounded-full px-2.5 py-1 text-[11px] font-medium transition disabled:opacity-50",
-                useLibraryChips
-                  ? "border border-[#E5E7EB] bg-white px-3.5 py-2 text-sm font-semibold text-[#065F46] hover:border-[#CFE6E4] hover:bg-white"
-                  : useMintChips
-                    ? "border border-[#28C2C0]/40 bg-[#E8F8F8] font-semibold text-[#128C89] hover:border-[#28C2C0] hover:bg-[#D5F3F2]"
-                    : useOutlineChips
-                      ? "border border-[#28C2C0]/60 bg-white text-[#28C2C0] hover:border-[#28C2C0] hover:bg-[#E8F8F8]"
-                      : "border border-teal-200 bg-white text-teal-600 hover:border-teal-400 hover:bg-teal-50",
-                isAylaPage && "px-3.5 py-1.5 text-xs",
-              )}
-            >
-              {intent.label}
-            </button>
-          ))}
-        </div>
+        {messages.length === 0 ? (
+          <div
+            className={cn(
+              "flex flex-wrap gap-1.5",
+              isAylaPage ? "mb-3 justify-center gap-2" : compact ? "mb-2" : "mb-2.5",
+            )}
+          >
+            {copy.intents.map((intent) => (
+              <button
+                key={intent.label}
+                type="button"
+                disabled={isSending}
+                onClick={() => void onSend(intent.prompt)}
+                className={cn(
+                  "rounded-full px-2.5 py-1 text-[11px] font-medium transition disabled:opacity-50",
+                  useLibraryChips
+                    ? "border border-[#E5E7EB] bg-white px-3.5 py-2 text-sm font-semibold text-[#065F46] hover:border-[#CFE6E4] hover:bg-white"
+                    : useMintChips
+                      ? "border border-[#28C2C0]/40 bg-[#E8F8F8] font-semibold text-[#128C89] hover:border-[#28C2C0] hover:bg-[#D5F3F2]"
+                      : useOutlineChips
+                        ? "border border-[#28C2C0]/60 bg-white text-[#28C2C0] hover:border-[#28C2C0] hover:bg-[#E8F8F8]"
+                        : "border border-teal-200 bg-white text-teal-600 hover:border-teal-400 hover:bg-teal-50",
+                  isAylaPage && "px-3.5 py-1.5 text-xs",
+                )}
+              >
+                {intent.label}
+              </button>
+            ))}
+          </div>
+        ) : null}
 
         <form
           className="flex items-center gap-2"

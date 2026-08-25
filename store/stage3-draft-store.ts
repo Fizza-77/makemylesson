@@ -18,6 +18,11 @@ import {
   getStage3GenerationStatus,
 } from "@/services/stage3-ai.service";
 import {
+  clarificationAnswerToJson,
+  difficultyFromAnswers,
+  type ClarificationAnswer,
+} from "@/types/stage-clarification";
+import {
   activityFormatForKind,
   clampFormativeQuestionCount,
   defaultFormativeQuestionCount,
@@ -135,7 +140,9 @@ type Stage3Store = Stage3DraftState & {
   setTeacherAnswerKeyText: (text: string) => void;
   canGenerate: () => boolean;
   ensurePlanBundleId: () => string;
-  generate: () => Promise<{ savedToLibrary: boolean; saveError?: string }>;
+  generate: (
+    clarificationAnswers?: ClarificationAnswer[],
+  ) => Promise<{ savedToLibrary: boolean; saveError?: string }>;
   saveCurrentToLibrary: () => Promise<void>;
   resetResult: () => void;
   resetAll: () => void;
@@ -538,7 +545,7 @@ export const useStage3DraftStore = create<Stage3Store>((set, get) => ({
     }
   },
 
-  generate: async () => {
+  generate: async (clarificationAnswers = []) => {
     const s = get();
     if (!get().canGenerate()) {
       if (selectedTypes(s).length === 0) {
@@ -664,8 +671,10 @@ export const useStage3DraftStore = create<Stage3Store>((set, get) => ({
           teacherUploadedContextText:
             s.sourceMode === "upload" ? s.sourcePresentationText.trim() : "",
           stage2LibraryItemId: s.sourceLibraryItemId,
+          difficulty: difficultyFromAnswers(clarificationAnswers),
         },
         jobId,
+        clarificationAnswers,
       );
 
       if (activeJobId !== jobId) return { savedToLibrary: false };
