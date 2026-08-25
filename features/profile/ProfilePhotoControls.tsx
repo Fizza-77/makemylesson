@@ -73,7 +73,7 @@ export function ProfilePhotoControls({ account }: { account: UserAccountView }) 
 
     void (async () => {
       try {
-        if (!navigator.mediaDevices?.getUserMedia) {
+        if (typeof navigator.mediaDevices?.getUserMedia !== "function") {
           throw new Error("Camera is not supported in this browser.");
         }
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -139,7 +139,10 @@ export function ProfilePhotoControls({ account }: { account: UserAccountView }) 
   function openCamera() {
     setCameraError(null);
     // Prefer live preview when getUserMedia exists; otherwise use capture input.
-    if (typeof navigator !== "undefined" && navigator.mediaDevices?.getUserMedia) {
+    if (
+      typeof navigator !== "undefined" &&
+      typeof navigator.mediaDevices?.getUserMedia === "function"
+    ) {
       setStep("camera");
       return;
     }
