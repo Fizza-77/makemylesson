@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@marketing/lib/cn'
@@ -20,6 +21,7 @@ function isTeachingMethodsActive(pathname) {
 
 export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK }) {
   const [open, setOpen] = useState(false)
+  const [portalTarget, setPortalTarget] = useState(null)
   const menuId = useId()
   const rootRef = useRef(null)
   const closeTimerRef = useRef(null)
@@ -47,7 +49,10 @@ export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK 
     setOpen(true)
   }, [clearCloseTimer])
 
-  useEffect(() => () => clearCloseTimer(), [clearCloseTimer])
+  useEffect(() => {
+    setPortalTarget(document.getElementById('site-nav'))
+    return () => clearCloseTimer()
+  }, [clearCloseTimer])
 
   useEffect(() => {
     if (!open) return undefined
@@ -57,7 +62,9 @@ export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK 
     }
 
     const onPointerDown = (e) => {
-      if (!rootRef.current?.contains(e.target)) close()
+      const inTrigger = rootRef.current?.contains(e.target)
+      const inPanel = e.target instanceof Element && e.target.closest('.site-nav-mega-panel')
+      if (!inTrigger && !inPanel) close()
     }
 
     document.addEventListener('keydown', onKeyDown)
@@ -68,70 +75,76 @@ export function TeachingMethodsDesktopMenu({ pathname, linkClassName = NAV_LINK 
     }
   }, [open, close])
 
-  return (
+  const panel = (
     <div
-      ref={rootRef}
-      className="site-nav-dropdown site-nav-mega"
+      id={menuId}
+      className={cn('site-nav-mega-panel', open && 'site-nav-mega-panel--open')}
+      role="region"
+      aria-label="Teaching methods"
+      aria-hidden={!open}
       onMouseEnter={openMenu}
       onMouseLeave={scheduleClose}
     >
-      <button
-        type="button"
-        className={cn(
-          linkClassName,
-          'site-nav-dropdown-trigger site-nav-mega-trigger inline-flex items-center gap-1 border-none bg-transparent font-[inherit]',
-          (active || open) && 'site-nav-link--active',
-        )}
-        aria-expanded={open}
-        aria-haspopup="true"
-        aria-controls={menuId}
-        onClick={() => setOpen((v) => !v)}
-      >
-        Teaching Methods
-        <ChevronDown
-          size={14}
-          strokeWidth={2.25}
-          className={cn(
-            'site-nav-dropdown-chevron site-nav-mega-chevron transition-transform',
-            open && 'rotate-180',
-          )}
-          aria-hidden
-        />
-      </button>
-
-      <div
-        id={menuId}
-        className={cn('site-nav-mega-panel', open && 'site-nav-mega-panel--open')}
-        role="region"
-        aria-label="Teaching methods"
-        aria-hidden={!open}
-        onMouseEnter={openMenu}
-        onMouseLeave={scheduleClose}
-      >
-        <div className="site-nav-mega-inner">
-          <div className="site-nav-mega-grid">
-            {TEACHING_METHOD_COLUMNS.map((column) => (
-              <div key={column.id} className="site-nav-mega-col">
-                <p className="site-nav-mega-col-heading">{column.heading}</p>
-                <ul className="site-nav-mega-list">
-                  {column.methods.map((method) => (
-                    <li key={method.slug}>
-                      <Link
-                        href={getTeachingMethodPath(method.slug)}
-                        className="site-nav-mega-link"
-                        onClick={close}
-                      >
-                        {method.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+      <div className="site-nav-mega-inner">
+        <div className="site-nav-mega-grid">
+          {TEACHING_METHOD_COLUMNS.map((column) => (
+            <div key={column.id} className="site-nav-mega-col">
+              <p className="site-nav-mega-col-heading">{column.heading}</p>
+              <ul className="site-nav-mega-list">
+                {column.methods.map((method) => (
+                  <li key={method.slug}>
+                    <Link
+                      href={getTeachingMethodPath(method.slug)}
+                      className="site-nav-mega-link"
+                      onClick={close}
+                    >
+                      {method.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </div>
+  )
+
+  return (
+    <>
+      <div
+        ref={rootRef}
+        className="site-nav-dropdown site-nav-mega"
+        onMouseEnter={openMenu}
+        onMouseLeave={scheduleClose}
+      >
+        <button
+          type="button"
+          className={cn(
+            linkClassName,
+            'site-nav-dropdown-trigger site-nav-mega-trigger inline-flex items-center gap-1 border-none bg-transparent font-[inherit]',
+            (active || open) && 'site-nav-link--active',
+          )}
+          aria-expanded={open}
+          aria-haspopup="true"
+          aria-controls={menuId}
+          onClick={() => setOpen((v) => !v)}
+        >
+          Teaching Methods
+          <ChevronDown
+            size={14}
+            strokeWidth={2.25}
+            className={cn(
+              'site-nav-dropdown-chevron site-nav-mega-chevron transition-transform',
+              open && 'rotate-180',
+            )}
+            aria-hidden
+          />
+        </button>
+      </div>
+
+      {portalTarget ? createPortal(panel, portalTarget) : null}
+    </>
   )
 }
 

@@ -842,7 +842,7 @@
   }
 }
 
-/* Teaching Methods mega-menu — centered under trigger */
+/* Teaching Methods mega-menu — fixed, viewport-centered (never clipped) */
 #site-nav .site-nav-mega {
   position: relative;
 }
@@ -856,13 +856,16 @@
 }
 
 #site-nav .site-nav-mega-panel {
-  position: absolute;
-  top: calc(100% + 0.35rem);
-  left: 0;
-  right: auto;
+  position: fixed;
+  top: var(--site-nav-height);
+  left: 0.75rem;
+  right: 0.75rem;
   z-index: 1200;
-  width: max-content;
-  max-width: min(72rem, calc(100vw - 1.5rem));
+  width: fit-content;
+  max-width: calc(100vw - 1.5rem);
+  margin-inline: auto;
+  box-sizing: border-box;
+  padding-top: 0.5rem;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -881,6 +884,9 @@
 }
 
 #site-nav .site-nav-mega-inner {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   border-radius: 0.875rem;
   border: 1px solid color-mix(in srgb, var(--nav-navy) 12%, transparent);
   background: #ffffff;
@@ -897,7 +903,7 @@
   gap: 1rem 1.35rem;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1279px) {
   #site-nav .site-nav-mega-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -911,6 +917,7 @@
   text-transform: uppercase;
   color: var(--nav-cyan);
   font-family: inherit;
+  overflow-wrap: anywhere;
 }
 
 #site-nav .site-nav-mega-list {
@@ -929,6 +936,7 @@
   text-decoration: none;
   font-family: inherit;
   transition: color 0.15s ease;
+  overflow-wrap: anywhere;
 }
 
 #site-nav .site-nav-mega-link:hover {
