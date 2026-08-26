@@ -3451,47 +3451,91 @@
   border-radius: 0.75rem;
 }
 
-.mml-cc-structure--uk {
-  right: 0.85rem;
-  bottom: 0.65rem;
-  width: min(68%, 19.5rem);
-  height: auto;
-  aspect-ratio: 674 / 450;
+.mml-cc-card--uk .mml-cc-structure--uk {
+  top: 1.15rem;
+  right: 1.15rem;
+  bottom: 1.15rem;
+  left: auto;
+  width: min(54%, 28rem);
+  height: calc(100% - 2.3rem);
+  max-height: calc(100% - 2.3rem);
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: right center;
+  border-radius: 2.75rem 0.85rem 0.85rem 0.85rem;
 }
 
-.mml-cc-structure--us {
-  right: 1.25rem;
-  top: 0.65rem;
-  bottom: auto;
-  width: 5.75rem;
-  height: auto;
+.mml-cc-card--uk .mml-cc-card-body {
+  max-width: min(28rem, 46%);
+}
+
+.mml-cc-card--us .mml-cc-structure--us {
+  top: 0.85rem;
+  right: 0.7rem;
+  bottom: 0.85rem;
+  left: auto;
+  width: auto;
+  height: calc(100% - 1.7rem);
+  max-height: calc(100% - 1.7rem);
+  max-width: min(44%, 11rem);
   aspect-ratio: 182 / 274;
+  object-fit: contain;
+  object-position: right center;
+  border-radius: 0.85rem;
 }
 
-.mml-cc-structure--ib {
-  right: 0.75rem;
-  top: 0.55rem;
-  width: 5.5rem;
-  height: auto;
+.mml-cc-card--us .mml-cc-card-body {
+  max-width: none;
+  padding-right: min(48%, 12rem);
+  box-sizing: border-box;
+}
+
+.mml-cc-card--ib .mml-cc-structure--ib {
+  top: 0.85rem;
+  right: 0.7rem;
+  bottom: 0.85rem;
+  left: auto;
+  width: auto;
+  height: calc(100% - 1.7rem);
+  max-height: calc(100% - 1.7rem);
+  max-width: min(44%, 11rem);
   aspect-ratio: 186 / 278;
+  object-fit: contain;
+  object-position: right center;
+  border-radius: 0.85rem;
 }
 
-.mml-cc-structure--au {
-  right: 0.55rem;
-  top: 0.45rem;
-  width: 11rem;
+.mml-cc-card--ib .mml-cc-card-body {
+  max-width: none;
+  padding-right: min(48%, 12rem);
+  box-sizing: border-box;
+}
+
+.mml-cc-card--au .mml-cc-structure--au {
+  right: 0.65rem;
+  top: 0.55rem;
+  width: min(46%, 12.25rem);
   height: auto;
   aspect-ratio: 352 / 234;
+  object-fit: contain;
+  object-position: right top;
+  border-radius: 0.75rem;
   z-index: 0;
 }
 
-.mml-cc-structure--ca {
-  right: 1rem;
-  top: 0.55rem;
-  bottom: auto;
-  width: 7rem;
-  height: auto;
+.mml-cc-card--ca .mml-cc-structure--ca {
+  top: 0.85rem;
+  right: 0.7rem;
+  bottom: 0.85rem;
+  left: auto;
+  width: auto;
+  height: calc(100% - 1.7rem);
+  max-height: calc(100% - 1.7rem);
+  max-width: min(44%, 11rem);
   aspect-ratio: 270 / 338;
+  object-fit: contain;
+  object-position: right center;
+  border-radius: 0.85rem;
 }
 
 .mml-cc-card-top {
@@ -3516,44 +3560,42 @@
   max-width: 28rem;
 }
 
-.mml-cc-card--us .mml-cc-card-body,
-.mml-cc-card--ib .mml-cc-card-body {
-  max-width: 17.5rem;
-}
-
 .mml-cc-card--ca .mml-cc-card-body {
   max-width: none;
   margin-top: 1.15rem;
+  padding-right: min(48%, 12rem);
+  box-sizing: border-box;
 }
 
 .mml-cc-card--ca .mml-cc-card-title,
 .mml-cc-card--ca .mml-cc-card-range {
-  padding-right: 7.75rem;
+  padding-right: 0;
   box-sizing: border-box;
 }
 
 .mml-cc-card--au .mml-cc-card-body {
   max-width: none;
-  margin-top: 1.15rem;
+  margin-top: 0.85rem;
   padding-right: 0;
-}
-
-/* Keep title/range clear of the Opera House art. */
-.mml-cc-card--au .mml-cc-card-title,
-.mml-cc-card--au .mml-cc-card-range {
-  padding-right: 11.5rem;
   box-sizing: border-box;
 }
 
-/* Start the route list below the illustration so lines use full card width. */
+.mml-cc-card--au .mml-cc-card-title,
+.mml-cc-card--au .mml-cc-card-range {
+  padding-right: min(48%, 12.75rem);
+  box-sizing: border-box;
+}
+
 .mml-cc-card--au .mml-cc-list {
-  margin-top: 1.85rem;
+  margin-top: 1rem;
   max-width: 100%;
+  padding-right: 0;
 }
 
 .mml-cc-card--au .mml-cc-list-item {
   white-space: normal;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
   overflow-wrap: break-word;
 }
 
@@ -3743,39 +3785,77 @@
     max-width: none;
   }
 
+  .mml-cc-card--au .mml-cc-card-body {
+    padding-right: 0;
+  }
+
   .mml-cc-card--au .mml-cc-card-title,
   .mml-cc-card--au .mml-cc-card-range {
-    padding-right: 7.5rem;
+    padding-right: min(46%, 11rem);
   }
 
   .mml-cc-card--au .mml-cc-list {
-    margin-top: 1.35rem;
+    margin-top: 1rem;
+    padding-right: 0;
   }
 
   .mml-cc-card--au .mml-cc-list-item {
     white-space: normal;
     font-size: 0.9rem;
+    line-height: 1.45;
   }
 
-  .mml-cc-structure--au {
-    width: min(40%, 8.75rem);
+  .mml-cc-card--au .mml-cc-structure--au {
+    width: min(42%, 10.5rem);
   }
 
-  /* UK: pin illustration top-right on tablet/mobile so list text stays readable. */
-  .mml-cc-structure--uk {
-    right: 0.65rem;
-    top: 0.55rem;
-    bottom: auto;
-    width: min(42%, 9.5rem);
+  /* UK: keep full landmark visible inside card padding. */
+  .mml-cc-card--uk .mml-cc-structure--uk {
+    top: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    left: auto;
+    width: min(48%, 16rem);
+    height: calc(100% - 2rem);
+    max-height: calc(100% - 2rem);
+    object-fit: contain;
+    object-position: right center;
+    border-radius: 2rem 0.75rem 0.75rem 0.75rem;
   }
 
   .mml-cc-card--uk .mml-cc-card-body {
+    max-width: min(22rem, 52%);
+  }
+
+  .mml-cc-card--us .mml-cc-structure--us,
+  .mml-cc-card--ib .mml-cc-structure--ib,
+  .mml-cc-card--ca .mml-cc-structure--ca {
+    top: 0.75rem;
+    right: 0.6rem;
+    bottom: 0.75rem;
+    width: auto;
+    height: calc(100% - 1.5rem);
+    max-height: calc(100% - 1.5rem);
+    max-width: min(40%, 9.5rem);
+    object-fit: contain;
+    object-position: right center;
+  }
+
+  .mml-cc-card--us .mml-cc-card-body,
+  .mml-cc-card--ib .mml-cc-card-body,
+  .mml-cc-card--ca .mml-cc-card-body {
     max-width: none;
+    padding-right: min(44%, 10.5rem);
+  }
+
+  .mml-cc-card--ca .mml-cc-card-title,
+  .mml-cc-card--ca .mml-cc-card-range {
+    padding-right: 0;
   }
 
   .mml-cc-card--uk .mml-cc-card-title,
   .mml-cc-card--uk .mml-cc-card-range {
-    padding-right: 10rem;
+    padding-right: 0;
     box-sizing: border-box;
   }
 
@@ -3802,32 +3882,77 @@
     min-height: 0;
   }
 
-  .mml-cc-card--us .mml-cc-card-body,
   .mml-cc-card--ib .mml-cc-card-body,
   .mml-cc-card--au .mml-cc-card-body,
   .mml-cc-card--ca .mml-cc-card-body {
     max-width: none;
   }
 
-  .mml-cc-card--au .mml-cc-card-title,
-  .mml-cc-card--au .mml-cc-card-range {
-    padding-right: 6.5rem;
+  .mml-cc-card--au .mml-cc-card-body {
+    padding-right: 0;
   }
 
-  .mml-cc-structure--uk {
-    right: 0.55rem;
-    top: 0.45rem;
-    bottom: auto;
-    width: min(46%, 8.75rem);
+  .mml-cc-card--au .mml-cc-card-title,
+  .mml-cc-card--au .mml-cc-card-range {
+    padding-right: min(44%, 10rem);
+  }
+
+  .mml-cc-card--au .mml-cc-structure--au {
+    width: min(40%, 9.5rem);
+  }
+
+  .mml-cc-card--au .mml-cc-list {
+    margin-top: 1rem;
+    padding-right: 0;
+  }
+
+  .mml-cc-card--uk .mml-cc-structure--uk {
+    top: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.85rem;
+    left: auto;
+    width: min(46%, 12.5rem);
+    height: calc(100% - 1.7rem);
+    max-height: calc(100% - 1.7rem);
+    object-fit: contain;
+    object-position: right center;
+    border-radius: 1.75rem 0.65rem 0.65rem 0.65rem;
+  }
+
+  .mml-cc-card--us .mml-cc-structure--us,
+  .mml-cc-card--ib .mml-cc-structure--ib,
+  .mml-cc-card--ca .mml-cc-structure--ca {
+    top: 0.65rem;
+    right: 0.5rem;
+    bottom: 0.65rem;
+    width: auto;
+    height: calc(100% - 1.3rem);
+    max-height: calc(100% - 1.3rem);
+    max-width: min(38%, 8.25rem);
+    object-fit: contain;
+    object-position: right center;
+  }
+
+  .mml-cc-card--us .mml-cc-card-body,
+  .mml-cc-card--ib .mml-cc-card-body,
+  .mml-cc-card--ca .mml-cc-card-body {
+    max-width: none;
+    padding-right: min(42%, 9.25rem);
+  }
+
+  .mml-cc-card--ca .mml-cc-card-title,
+  .mml-cc-card--ca .mml-cc-card-range {
+    padding-right: 0;
   }
 
   .mml-cc-card--uk .mml-cc-card-title,
   .mml-cc-card--uk .mml-cc-card-range {
-    padding-right: 8.5rem;
+    padding-right: 0;
   }
 
   .mml-cc-card--uk .mml-cc-list {
     margin-top: 1.15rem;
+    max-width: 100%;
   }
 }
 .mml-rv {
