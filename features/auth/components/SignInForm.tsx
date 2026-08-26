@@ -24,6 +24,7 @@ import {
 } from "@/lib/auth-errors";
 import { authLog } from "@/lib/auth-logger";
 import { resolvePostAuthDestination } from "@/lib/post-auth";
+import { requestLogoSplashAfterAuth } from "@/lib/logo-splash";
 import { signInSchema, type SignInValues } from "@/lib/auth-validation";
 import { toastFirstFormError } from "@/lib/toast-form-errors";
 import { ROUTES } from "@/lib/urls";
@@ -80,6 +81,7 @@ export function SignInForm() {
     const user = getFirebaseAuth().currentUser;
     if (!user) {
       authLog.warn("sign_in.no_user_after_auth", { method });
+      requestLogoSplashAfterAuth(ROUTES.stage1);
       router.replace(ROUTES.stage1);
       return;
     }
@@ -99,6 +101,7 @@ export function SignInForm() {
     }
     authLog.info("sign_in.redirect", { method, dest });
     toast.success("Signed in successfully.");
+    requestLogoSplashAfterAuth(dest);
     router.replace(dest);
   }
 

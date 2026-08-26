@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { consumeLogoSplashRequest } from "@/lib/logo-splash";
+
 import "./DesktopLogoSplash.css";
 
 /** Wordmark finishes at ~3.35s; hold briefly, then fade the overlay. */
@@ -10,8 +12,10 @@ const SPLASH_FADE_MS = 450;
 const DESKTOP_MQ = "(min-width: 1024px)";
 
 /**
- * Fullscreen MML logo intro on desktop when the web app shell first mounts.
- * Skips phones/tablets and reduced-motion users.
+ * Fullscreen MML logo intro when:
+ * - the web/PWA app shell first mounts on desktop, or
+ * - the user just signed in (any viewport; queued via `requestLogoSplash`).
+ * Skips reduced-motion users after a short hold.
  */
 export function DesktopLogoSplash() {
   const [mounted, setMounted] = useState(false);
@@ -21,11 +25,13 @@ export function DesktopLogoSplash() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    const fromSignIn = consumeLogoSplashRequest();
     const isDesktop = window.matchMedia(DESKTOP_MQ).matches;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
       .matches;
 
-    if (!isDesktop) {
+    // Cold open / PWA open: desktop only. Sign-in welcome: all viewports.
+    if (!fromSignIn && !isDesktop) {
       setGone(true);
       return;
     }
@@ -34,7 +40,10 @@ export function DesktopLogoSplash() {
 
     if (reduceMotion) {
       const fadeTimer = window.setTimeout(() => setExiting(true), 500);
-      const doneTimer = window.setTimeout(() => setGone(true), 500 + SPLASH_FADE_MS);
+      const doneTimer = window.setTimeout(
+        () => setGone(true),
+        500 + SPLASH_FADE_MS,
+      );
       return () => {
         window.clearTimeout(fadeTimer);
         window.clearTimeout(doneTimer);

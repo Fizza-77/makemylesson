@@ -248,23 +248,15 @@ export function GenerationBusyOverlay({
     if (active) {
       sessionRef.current = true;
       setHoldReady(true);
-      return;
     }
-    // Generation finished: show ready state for 1s, then close automatically.
-    if (!sessionRef.current || !holdReady) return;
-    const t = window.setTimeout(() => {
-      sessionRef.current = false;
-      setHoldReady(false);
-      onDismiss?.();
-    }, 1000);
-    return () => window.clearTimeout(t);
-  }, [active, holdReady, onDismiss]);
+  }, [active]);
 
   const visible = active || holdReady;
   const pct = Math.min(
     100,
     Math.max(0, Math.round(typeof progress === "number" ? progress : active ? 8 : 100)),
   );
+  // Ready as soon as generation stops — no artificial hold after the cloud function.
   const isReady = !active && holdReady ? true : pct >= 100;
 
   const checklist = useMemo(() => {

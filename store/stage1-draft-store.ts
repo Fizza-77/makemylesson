@@ -187,12 +187,15 @@ async function finalizeStage1Plan(
   const trimmed = content.trim();
   if (!trimmed) return { savedToLibrary: false };
 
+  // End the generating UI as soon as the cloud function returns content.
+  // Library save must not extend perceived generation time.
   set({
     generatedSummary: trimmed,
-    progress: 99,
-    status: "saving",
-    phase: "saving",
-    isGenerating: true,
+    progress: 100,
+    status: "completed",
+    phase: "completed",
+    isGenerating: false,
+    error: null,
   });
 
   let savedToLibrary = false;
@@ -208,14 +211,6 @@ async function finalizeStage1Plan(
       toUserMessage(e, "Could not save lesson plan to library.");
     console.warn("[Stage1] library save failed", e);
   }
-
-  set({
-    progress: 100,
-    status: "completed",
-    phase: "completed",
-    isGenerating: false,
-    error: null,
-  });
 
   return { savedToLibrary, saveError };
 }

@@ -12,6 +12,7 @@ import { fetchUserProfile } from "@/firebase/firestore";
 import { signOutUser } from "@/firebase/auth";
 import { authLog } from "@/lib/auth-logger";
 import { AuthUiCopy } from "@/lib/auth-validation";
+import { requestLogoSplash } from "@/lib/logo-splash";
 import { ROUTES } from "@/lib/urls";
 import {
   saveCompletedProfile,
@@ -47,6 +48,7 @@ export function CompleteProfileForm() {
       try {
         const profile = await fetchUserProfile(current.uid);
         if (profile && !profile.needsCompletion) {
+          requestLogoSplash();
           router.replace(ROUTES.stage1);
           return;
         }
@@ -104,6 +106,7 @@ export function CompleteProfileForm() {
       setProfile(profile);
       authLog.success("complete_profile.ok", { uid: current.uid });
       toast.success("Profile completed.");
+      requestLogoSplash();
       router.replace(ROUTES.stage1);
     } catch (err) {
       authLog.error("complete_profile.failed", err);

@@ -24,6 +24,7 @@ import {
 } from "@/lib/auth-errors";
 import { authLog } from "@/lib/auth-logger";
 import { resolvePostAuthDestination } from "@/lib/post-auth";
+import { requestLogoSplashAfterAuth } from "@/lib/logo-splash";
 import { signUpSchema, type SignUpValues } from "@/lib/auth-validation";
 import { toastFirstFormError } from "@/lib/toast-form-errors";
 import { AppUrls, ROUTES } from "@/lib/urls";
@@ -76,6 +77,7 @@ export function SignUpForm() {
     const user = getFirebaseAuth().currentUser;
     if (!user) {
       authLog.warn("sign_up.social.no_user", { method });
+      requestLogoSplashAfterAuth(ROUTES.stage1);
       router.replace(ROUTES.stage1);
       return;
     }
@@ -86,6 +88,7 @@ export function SignUpForm() {
     });
     const dest = await resolvePostAuthDestination(user);
     authLog.info("sign_up.social.redirect", { method, dest });
+    requestLogoSplashAfterAuth(dest);
     router.replace(dest);
   }
 

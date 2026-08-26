@@ -17,6 +17,7 @@ import { signInWithCustomAuthToken } from "@/firebase/auth";
 import { userDocRef } from "@/firebase/firestore";
 import { mapFunctionsError } from "@/lib/auth-errors";
 import { authLog } from "@/lib/auth-logger";
+import { requestLogoSplashAfterAuth } from "@/lib/logo-splash";
 import { resolvePostAuthDestination } from "@/lib/post-auth";
 import { ROUTES } from "@/lib/urls";
 import {
@@ -142,6 +143,7 @@ export function OtpVerificationForm() {
       const dest = await resolvePostAuthDestination(user);
       authLog.info("otp.verify.redirect", { dest });
       toast.success("Email verified. Welcome to Make My Lesson.");
+      requestLogoSplashAfterAuth(dest);
       router.replace(dest);
     } catch (e) {
       authLog.error("otp.verify.failed", e, {
