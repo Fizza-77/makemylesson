@@ -27,6 +27,39 @@ function CheckMark() {
   );
 }
 
+function PersonalizationCircles({
+  schoolLogoUrl,
+  ownPictureUrl,
+}: {
+  schoolLogoUrl?: string | null;
+  ownPictureUrl?: string | null;
+}) {
+  const logo = schoolLogoUrl?.trim() || "";
+  const photo = ownPictureUrl?.trim() || "";
+  if (!logo && !photo) return null;
+
+  return (
+    <div className="flex shrink-0 items-center gap-2.5 self-start">
+      {logo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={logo}
+          alt="School logo"
+          className="size-11 rounded-full border border-slate-200 bg-white object-cover shadow-sm sm:size-12"
+        />
+      ) : null}
+      {photo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={photo}
+          alt="Teacher photo"
+          className="size-11 rounded-full border border-slate-200 bg-white object-cover shadow-sm sm:size-12"
+        />
+      ) : null}
+    </div>
+  );
+}
+
 export function LessonPlanResultPanel({
   hasPlan,
   isGenerating,
@@ -34,6 +67,8 @@ export function LessonPlanResultPanel({
   curriculumRoute,
   grade,
   subject,
+  schoolLogoUrl,
+  ownPictureUrl,
   linkedLibraryItemId,
   isSavingLibrary,
   exportMenuOpen,
@@ -53,6 +88,10 @@ export function LessonPlanResultPanel({
   curriculumRoute?: string;
   grade?: string;
   subject?: string;
+  /** School logo URL when personalization is enabled. */
+  schoolLogoUrl?: string | null;
+  /** Teacher photo URL when personalization is enabled. */
+  ownPictureUrl?: string | null;
   linkedLibraryItemId?: string | null;
   isSavingLibrary?: boolean;
   exportMenuOpen?: boolean;
@@ -83,6 +122,19 @@ export function LessonPlanResultPanel({
   const dirty = draft.trim() !== editBaseline.trim();
   // While editing, Save sits next to Edit (enabled once text changes).
   const showSave = editing;
+
+  const planArticle = (body: ReactNode) => (
+    <article className="flex min-h-[16rem] flex-col rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+      {/* Logo/photo sit on the same top row as the plan title + meta, right-aligned. */}
+      <div className="flex items-start justify-between gap-3 sm:gap-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-5">{body}</div>
+        <PersonalizationCircles
+          schoolLogoUrl={schoolLogoUrl}
+          ownPictureUrl={ownPictureUrl}
+        />
+      </div>
+    </article>
+  );
 
   const statusLabel = hasPlan
     ? editing
@@ -210,24 +262,28 @@ export function LessonPlanResultPanel({
                 className="min-h-[16rem] max-h-[min(70vh,36rem)]"
               />
             ) : (
-              <article className="flex min-h-[16rem] flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
-                <LessonPlanContentView content={draft} />
+              planArticle(
+                <>
+                  <LessonPlanContentView content={draft} />
+                  <LessonPlanSupplementView
+                    curriculumRoute={curriculumRoute ?? ""}
+                    grade={grade ?? ""}
+                    subject={subject ?? ""}
+                  />
+                </>,
+              )
+            )
+          ) : (
+            planArticle(
+              <>
+                <LessonPlanContentView content={content} />
                 <LessonPlanSupplementView
                   curriculumRoute={curriculumRoute ?? ""}
                   grade={grade ?? ""}
                   subject={subject ?? ""}
                 />
-              </article>
+              </>,
             )
-          ) : (
-            <article className="flex min-h-[16rem] flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
-              <LessonPlanContentView content={content} />
-              <LessonPlanSupplementView
-                curriculumRoute={curriculumRoute ?? ""}
-                grade={grade ?? ""}
-                subject={subject ?? ""}
-              />
-            </article>
           )
         ) : (
           <div className="relative flex min-h-[16rem] flex-col items-stretch gap-6 overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-[#F3F5F7] px-4 py-8 sm:flex-row sm:items-center sm:gap-8 sm:px-8 sm:py-10">

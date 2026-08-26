@@ -10,6 +10,7 @@ import { AccountExistsDialog } from "@/features/auth/AccountExistsDialog";
 import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 import {
   signInWithApplePopup,
   signInWithGooglePopup,
@@ -223,17 +224,15 @@ export function SignUpForm() {
                 </span>
               ) : null}
             </div>
-            <Input
+            <PasswordInput
               id="password"
-              type="password"
               autoComplete="new-password"
               error={errors.password?.message}
               {...register("password")}
             />
           </div>
-          <Input
+          <PasswordInput
             label="Confirm password"
-            type="password"
             autoComplete="new-password"
             error={errors.confirmPassword?.message}
             {...register("confirmPassword")}

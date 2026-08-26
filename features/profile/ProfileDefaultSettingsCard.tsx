@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
-import { ProfileCardShell } from "@/features/profile/ProfileMenuPrimitives";
+import { ProfileCardShell, ProfileDialogShell } from "@/features/profile/ProfileMenuPrimitives";
 import {
   clearLessonPlanCurriculumPrefs,
   curriculumLabelForPrefs,
@@ -150,41 +150,31 @@ export function ProfileDefaultSettingsCard() {
       </div>
 
       {confirmOpen ? (
-        <div
-          className="fixed inset-0 z-[110] flex items-center justify-center bg-black/40 p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="clear-defaults-title"
+        <ProfileDialogShell
+          title="Clear saved defaults?"
+          onClose={() => setConfirmOpen(false)}
         >
-          <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl">
-            <h3
-              id="clear-defaults-title"
-              className="text-base font-semibold text-[#0D1430]"
+          <p className="text-sm text-[#78848D]">
+            Your curriculum selections on the next generation will start empty
+            until you choose again.
+          </p>
+          <div className="mt-5 flex justify-end gap-2">
+            <button
+              type="button"
+              className="rounded-xl px-4 py-2 text-sm font-semibold text-[#0D1430] hover:bg-[#F5F6FA]"
+              onClick={() => setConfirmOpen(false)}
             >
-              Clear saved defaults?
-            </h3>
-            <p className="mt-2 text-sm text-[#78848D]">
-              Your curriculum selections on the next generation will start empty
-              until you choose again.
-            </p>
-            <div className="mt-5 flex justify-end gap-2">
-              <button
-                type="button"
-                className="rounded-xl px-4 py-2 text-sm font-semibold text-[#0D1430] hover:bg-[#F5F6FA]"
-                onClick={() => setConfirmOpen(false)}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="rounded-xl bg-[#20AAA7] px-4 py-2 text-sm font-semibold text-white hover:bg-[#35BEBC]"
-                onClick={clearDefaults}
-              >
-                Clear
-              </button>
-            </div>
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="rounded-xl bg-[#20AAA7] px-4 py-2 text-sm font-semibold text-white hover:bg-[#35BEBC]"
+              onClick={clearDefaults}
+            >
+              Clear
+            </button>
           </div>
-        </div>
+        </ProfileDialogShell>
       ) : null}
     </ProfileCardShell>
   );

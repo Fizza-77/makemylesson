@@ -46,8 +46,12 @@ const ANSWER_LINE_RE = new RegExp(
 const BARE_MARKER_RE = /^(?:[-*+]|\d+[.)])?[ \t]*$/;
 const LIST_MARKER_RE = /^[-*+][ \t]+/;
 const QUESTION_NUMBER_RE = /^((?:\d+[.)]|Q[ \t]*\d+[.):]?)[ \t]+)(.*)$/i;
+/** Number may already be wrapped: `**1.** stem` or `**Q1:** stem`. */
+const QUESTION_NUMBER_FLEX_RE =
+  /^\*{0,2}((?:\d+[.)]|Q[ \t]*\d+[.):]?))\*{0,2}([ \t]+)(.*)$/i;
 const QUESTION_HEADING_RE = /^#{1,6}[ \t]*(?:\*\*)?(?:Question|Q)[ \t]*\d+/i;
 const TRAILING_MARKS_RE = /([ \t]*\(\d+[ \t]*marks?\))[ \t]*$/i;
+const FULLY_BOLD_RE = /^\*\*(.+)\*\*$/;
 
 /** Canonical blank for fill-in-the-blank statements. Stays literal text inside `**…**`. */
 export const WORKSHEET_BLANK = "______";
@@ -186,10 +190,8 @@ function boldQuestionStems(text: string): string {
     const followsQuestionHeading = expectStem;
     expectStem = false;
 
-    // Already emphasized, a table row, a quote, or an option / marking bullet.
-    // (PDF renderer also force-bolds question lines even without full ** wrapping.)
+    // Table row, quote, or option / marking bullet — leave alone.
     if (
-      trimmed.includes("**") ||
       trimmed.startsWith("|") ||
       trimmed.startsWith(">") ||
       LIST_MARKER_RE.test(trimmed)
@@ -198,9 +200,26 @@ function boldQuestionStems(text: string): string {
       continue;
     }
 
-    const numbered = QUESTION_NUMBER_RE.exec(trimmed);
-    const marker = numbered?.[1] ?? "";
-    let stem = numbered?.[2] ?? trimmed;
+    const flex = QUESTION_NUMBER_FLEX_RE.exec(trimmed);
+    const plain = QUESTION_NUMBER_RE.exec(trimmed);
+    const marker = flex
+      ? `${flex[1]}${flex[2]}`
+      : (plain?.[1] ?? "");
+    let stem = flex?.[3] ?? plain?.[2] ?? trimmed;
+
+    // Stem already fully bold — keep (normalize number outside the bold).
+    if (FULLY_BOLD_RE.test(stem.trim())) {
+      if (marker && flex) {
+        const indent = line.slice(0, line.length - line.trimStart().length);
+        out.push(`${indent}${marker}${stem.trim()}`);
+      } else {
+        out.push(line);
+      }
+      continue;
+    }
+
+    // Drop a number-only bold wrapper left on the stem edge, then bold the whole stem.
+    stem = stem.replace(/^\*\*/, "").replace(/\*\*$/, "").trim();
 
     const marks = TRAILING_MARKS_RE.exec(stem)?.[1] ?? "";
     if (marks) stem = stem.slice(0, stem.length - marks.length).trimEnd();
@@ -209,12 +228,16 @@ function boldQuestionStems(text: string): string {
     const shortEnough = stem.length <= MAX_IMPLIED_STEM_LENGTH;
     const answeredBelow = shortEnough && ANSWER_LINE_RE.test(below);
     const choicesBelow = shortEnough && CHOICE_ITEM_RE.test(below);
+    // Also treat a following bare "A. …" / "**A.** …" line as choices.
+    const bareChoiceBelow =
+      shortEnough && /^(?:\*{0,2}[A-D][.)]\*{0,2}[ \t]+)/i.test(below);
     const isQuestion =
       Boolean(stem) &&
       (followsQuestionHeading ||
         stem.endsWith("?") ||
         answeredBelow ||
         choicesBelow ||
+        bareChoiceBelow ||
         stem.includes(WORKSHEET_BLANK));
 
     if (!isQuestion) {

@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils";
 
 /**
  * Stage body: main content left; tips (or Stage 4 checklist) + Ayla on the right.
- * Right column is sticky on desktop so it stays visible while the left column scrolls.
+ * Right column is sticky on desktop and scrolls independently so touch / wheel
+ * on the sidebar does not scroll the left column.
  */
 export function StageWorkspace({
   context,
@@ -30,8 +31,16 @@ export function StageWorkspace({
     >
       <div className="min-w-0 flex-1">{children}</div>
 
-      <aside className="relative w-full shrink-0 lg:sticky lg:top-[5.25rem] lg:w-80 lg:self-start xl:w-96">
-        <div className="flex flex-col gap-4">
+      <aside
+        className={cn(
+          "relative w-full shrink-0",
+          "lg:sticky lg:top-[5.25rem] lg:w-80 lg:self-start xl:w-96",
+          "lg:max-h-[calc(100dvh-5.25rem-1.25rem)] lg:overflow-y-auto lg:overscroll-y-contain",
+          "lg:touch-pan-y lg:[-webkit-overflow-scrolling:touch]",
+          "lg:[scrollbar-width:none] lg:[-ms-overflow-style:none] lg:[&::-webkit-scrollbar]:hidden",
+        )}
+      >
+        <div className="flex flex-col gap-4 pb-1">
           {isStage4 ? (
             <Stage4FinalChecklist />
           ) : (

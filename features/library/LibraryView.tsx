@@ -153,7 +153,7 @@ function LibraryItemCard({
         className="pointer-events-none h-auto w-full select-none"
       />
 
-      <div className="absolute inset-0 flex flex-col px-[5%] pt-[18%] pb-[6%]">
+      <div className="absolute inset-0 flex flex-col px-[5%] pt-[16%] pb-[11%]">
         <div className="flex items-start justify-between gap-2">
           <span className="rounded-full bg-[#20AAA7] px-2.5 py-1 text-[10px] font-bold tracking-wide text-black uppercase">
             {stageBadgeLabel(item)}
@@ -225,7 +225,7 @@ function LibraryItemCard({
           ))}
         </div>
 
-        <div className="mt-auto flex items-end justify-between gap-3 pt-3">
+        <div className="mt-auto flex shrink-0 items-center justify-between gap-3 pt-2">
           <p className="text-[11px] text-[#8A93A3]">
             {formatLibraryDate(item.generatedAt)}
           </p>
@@ -525,7 +525,15 @@ export function LibraryView() {
           )}
         </div>
 
-        <div className="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+        <div
+          className={cn(
+            "flex flex-col gap-5",
+            "lg:sticky lg:top-24 lg:self-start",
+            "lg:max-h-[calc(100dvh-6rem-1.25rem)] lg:overflow-y-auto lg:overscroll-y-contain",
+            "lg:touch-pan-y lg:[-webkit-overflow-scrolling:touch]",
+            "lg:[scrollbar-width:none] lg:[-ms-overflow-style:none] lg:[&::-webkit-scrollbar]:hidden",
+          )}
+        >
           <LibraryMapCard counts={counts} onSelect={setTab} />
           <LibraryTipsCard />
           <AylaChatPanel

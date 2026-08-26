@@ -318,6 +318,16 @@ export function Stage1View() {
               }
               grade={draft.grade}
               subject={draft.subject}
+              schoolLogoUrl={
+                account?.useSchoolLogoInAi && account.schoolLogoUrl?.trim()
+                  ? account.schoolLogoUrl.trim()
+                  : null
+              }
+              ownPictureUrl={
+                account?.useOwnPicInAi && account.profilePhotoUrl?.trim()
+                  ? account.profilePhotoUrl.trim()
+                  : null
+              }
               linkedLibraryItemId={draft.linkedLibraryItemId}
               isSavingLibrary={draft.isSavingLibrary}
               exportMenuOpen={exportMenuOpen}

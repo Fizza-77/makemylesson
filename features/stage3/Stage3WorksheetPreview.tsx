@@ -312,12 +312,14 @@ export function Stage3WorksheetPreview({
                         content={answerKeyMarkdown}
                         emptyPlaceholder="No answer key."
                         compact
+                        className="[&_ol>li]:font-bold"
                       />
                     ) : (
                       <MarkdownContentView
                         content={studentMarkdown}
                         emptyPlaceholder="No student activity text."
                         compact
+                        className="[&_ol>li]:font-bold"
                       />
                     )
                   ) : (
@@ -374,12 +376,14 @@ export function Stage3WorksheetPreview({
                           content={answerKeyMarkdown}
                           emptyPlaceholder="No answer key."
                           compact
+                          className="[&_ol>li]:font-bold"
                         />
                       ) : (
                         <MarkdownContentView
                           content={studentMarkdown}
                           emptyPlaceholder="No student activity text."
                           compact
+                          className="[&_ol>li]:font-bold"
                         />
                       )}
                     </div>

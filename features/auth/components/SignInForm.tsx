@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 import {
   signInWithApplePopup,
   signInWithEmail,
@@ -226,9 +227,8 @@ export function SignInForm() {
             },
           })}
         />
-        <Input
+        <PasswordInput
           label="Password"
-          type="password"
           autoComplete="current-password"
           labelClassName={labelClass}
           className={fieldClass}
