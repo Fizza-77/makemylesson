@@ -11,6 +11,7 @@ import { toUserMessage } from "@/lib/user-facing-error";
 import {
   getTopLevelById,
   getPathway,
+  normalizeStage1SelectionAgainstTree,
   resolveMappedCurriculum,
   resolveStage1SelectionFromLibrary,
 } from "@/services/curriculum.service";
@@ -221,10 +222,8 @@ export const useStage1DraftStore = create<Stage1Store>((set, get) => ({
   hydrateFromPrefs: () => {
     const snap = loadLessonPlanCurriculumPrefs();
     if (!snap) return;
-    const top = getTopLevelById(snap.topLevelId);
-    set({
+    const normalized = normalizeStage1SelectionAgainstTree({
       topLevelId: snap.topLevelId || initial.topLevelId,
-      curriculumLabel: top?.name ?? initial.curriculumLabel,
       pathwayId: snap.pathwayId,
       pathwayDisplayName: snap.pathwayDisplayName,
       gradeInternalId: snap.gradeInternalId,
@@ -232,11 +231,25 @@ export const useStage1DraftStore = create<Stage1Store>((set, get) => ({
       subject: snap.subjectDisplayName,
       subjectName: snap.subjectName,
       subjectCode: snap.subjectCode || null,
+    });
+    const topLevelId = normalized.topLevelId || initial.topLevelId;
+    const top = getTopLevelById(topLevelId);
+    set({
+      topLevelId,
+      curriculumLabel: normalized.curriculumLabel || top?.name || initial.curriculumLabel,
+      pathwayId: normalized.pathwayId,
+      pathwayDisplayName: normalized.pathwayDisplayName,
+      gradeInternalId: normalized.gradeInternalId,
+      grade: normalized.grade,
+      subject: normalized.subject,
+      subjectName: normalized.subjectName,
+      subjectCode: normalized.subjectCode,
       topic: snap.topic,
       method: snap.method || STAGE1_DEFAULT_METHOD,
       duration: snap.duration || STAGE1_DEFAULT_DURATION,
+      mappedCurriculumId: normalized.mappedCurriculumId,
+      mappedCurriculumName: normalized.mappedCurriculumName,
     });
-    get().recomputeMapping();
   },
 
   persistForm: () => schedulePersist(get),

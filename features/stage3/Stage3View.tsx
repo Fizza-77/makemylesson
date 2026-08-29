@@ -13,8 +13,7 @@ import { Stage3Hero } from "@/components/common/Stage3Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
 import { WorksheetContentView } from "@/components/common/WorksheetContentView";
 import { MarkdownEditPreviewDialog } from "@/components/common/MarkdownEditPreviewDialog";
-import { useSignInGate } from "@/features/auth/useSignInGate";
-import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { useGuestGeneration } from "@/features/generation/useGuestGeneration";
 import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
 import { Stage3AssessmentBuilder } from "@/features/stage3/Stage3AssessmentBuilder";
 import { Stage3WorksheetPreview } from "@/features/stage3/Stage3WorksheetPreview";
@@ -35,7 +34,6 @@ import {
 } from "@/services/stage3-export.service";
 import { resolveExportPersonalization } from "@/services/export-personalization.service";
 import {
-  refreshAccountFromServer,
   syncAccountSubscription,
   useAccountStore,
 } from "@/store/account-store";
@@ -58,8 +56,13 @@ export function Stage3View() {
   const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
-  const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
-  const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage3);
+  const {
+    prepareGeneration,
+    completeGeneration,
+    requireSignInToSaveLibrary,
+    signInDialog,
+    upgradeDialog,
+  } = useGuestGeneration(ROUTES.stage3, 3);
   const { confirmGeneration, dialog: confirmDialog } = useGenerationConfirm();
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
@@ -167,8 +170,7 @@ export function Stage3View() {
       return;
     }
 
-    if (requireSignIn()) return;
-    if (blockIfNoCredits()) return;
+    if (!(await prepareGeneration())) return;
     const clarified = await confirmGeneration(3, {
       grade: draft.grade,
       pathway: draft.pathwayDisplayName,
@@ -182,9 +184,7 @@ export function Stage3View() {
 
     try {
       const result = await draft.generate(clarified.answers);
-      if (user?.uid) {
-        await refreshAccountFromServer(user.uid).catch(() => null);
-      }
+      await completeGeneration();
       setSuccessFlash((n) => n + 1);
       void recordStageGenerated(3).catch(() => null);
       if (result.savedToLibrary) {
@@ -201,6 +201,7 @@ export function Stage3View() {
   }
 
   async function onSaveLibrary() {
+    if (requireSignInToSaveLibrary()) return;
     try {
       await draft.saveCurrentToLibrary();
       resultBaselineRef.current = JSON.stringify({
@@ -454,7 +455,7 @@ export function Stage3View() {
           }
           if (draft.linkedActivityLibraryItemId) {
             setLibraryDirty(true);
-          } else {
+          } else if (!requireSignInToSaveLibrary()) {
             void draft
               .saveCurrentToLibrary()
               .then(() => toast.success("Saved."))

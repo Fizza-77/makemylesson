@@ -57,7 +57,7 @@ export function SignInRequiredDialog({
           id="sign-in-required-title"
           className="pr-10 text-lg font-bold tracking-tight text-[#151B35]"
         >
-          Sign in first
+          Sign in required
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-500">{message}</p>
 

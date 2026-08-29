@@ -10,8 +10,7 @@ import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { Stage1Hero } from "@/components/common/Stage1Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
-import { useSignInGate } from "@/features/auth/useSignInGate";
-import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { useGuestGeneration } from "@/features/generation/useGuestGeneration";
 import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
 import {
   CreateLessonPlanButton,
@@ -39,7 +38,6 @@ import {
   recordStageGenerated,
 } from "@/services/notification-lifecycle.service";
 import {
-  refreshAccountFromServer,
   syncAccountSubscription,
   useAccountStore,
 } from "@/store/account-store";
@@ -55,8 +53,13 @@ export function Stage1View() {
   const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
-  const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
-  const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage1);
+  const {
+    prepareGeneration,
+    completeGeneration,
+    requireSignInToSaveLibrary,
+    signInDialog,
+    upgradeDialog,
+  } = useGuestGeneration(ROUTES.stage1, 1);
   const { confirmGeneration, dialog: confirmDialog } = useGenerationConfirm();
 
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
@@ -92,8 +95,7 @@ export function Stage1View() {
       return;
     }
 
-    if (requireSignIn()) return;
-    if (blockIfNoCredits()) return;
+    if (!(await prepareGeneration())) return;
     const clarified = await confirmGeneration(1, {
       grade: draft.grade,
       pathway: draft.pathwayDisplayName,
@@ -103,9 +105,7 @@ export function Stage1View() {
     if (!clarified) return;
     try {
       const result = await draft.generate(clarified.answers);
-      if (user?.uid) {
-        await refreshAccountFromServer(user.uid).catch(() => null);
-      }
+      await completeGeneration();
       setSuccessFlash((n) => n + 1);
       void recordStageGenerated(1).catch(() => null);
       if (result.savedToLibrary) {
@@ -113,10 +113,9 @@ export function Stage1View() {
         toast.success("Lesson plan generated and saved to library.");
       } else {
         toast.success("Lesson plan generated.");
-        toast.error(
-          result.saveError ||
-            "Could not save to library. Try Edit → Save, or regenerate while signed in.",
-        );
+        if (result.saveError) {
+          toast.error(result.saveError);
+        }
       }
     } catch (e) {
       toast.error(
@@ -128,6 +127,7 @@ export function Stage1View() {
   }
 
   async function onSaveEdit(value: string) {
+    if (requireSignInToSaveLibrary()) return;
     draft.setGeneratedSummary(value);
     try {
       await draft.saveCurrentPlanToLibrary();
@@ -338,6 +338,7 @@ export function Stage1View() {
               onSharePdf={() => void onSharePdf()}
               onSaveEdit={onSaveEdit}
               onSaveLibrary={() => {
+                if (requireSignInToSaveLibrary()) return;
                 void draft
                   .saveCurrentPlanToLibrary()
                   .then(() =>

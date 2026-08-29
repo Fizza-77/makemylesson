@@ -12,8 +12,7 @@ import { Stage4Hero } from "@/components/common/Stage4Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
 import { WorksheetContentView } from "@/components/common/WorksheetContentView";
 import { MarkdownEditPreviewDialog } from "@/components/common/MarkdownEditPreviewDialog";
-import { useSignInGate } from "@/features/auth/useSignInGate";
-import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { useGuestGeneration } from "@/features/generation/useGuestGeneration";
 import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
 import { Stage4AssessmentInbox } from "@/features/stage4/Stage4AssessmentInbox";
 import { Stage4AssessmentReviewWall } from "@/features/stage4/Stage4AssessmentReviewWall";
@@ -35,7 +34,6 @@ import {
 } from "@/services/stage4-export.service";
 import { resolveExportPersonalization } from "@/services/export-personalization.service";
 import {
-  refreshAccountFromServer,
   syncAccountSubscription,
   useAccountStore,
 } from "@/store/account-store";
@@ -57,8 +55,13 @@ export function Stage4View() {
   const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
-  const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
-  const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage4);
+  const {
+    prepareGeneration,
+    completeGeneration,
+    requireSignInToSaveLibrary,
+    signInDialog,
+    upgradeDialog,
+  } = useGuestGeneration(ROUTES.stage4, 4);
   const { confirmGeneration, dialog: confirmDialog } = useGenerationConfirm();
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
@@ -125,8 +128,7 @@ export function Stage4View() {
       return;
     }
 
-    if (requireSignIn()) return;
-    if (blockIfNoCredits()) return;
+    if (!(await prepareGeneration())) return;
     const clarified = await confirmGeneration(4, {
       grade: draft.grade,
       pathway: draft.pathwayDisplayName,
@@ -140,9 +142,7 @@ export function Stage4View() {
 
     try {
       const result = await draft.generate(clarified.answers);
-      if (user?.uid) {
-        await refreshAccountFromServer(user.uid).catch(() => null);
-      }
+      await completeGeneration();
       setSuccessFlash((n) => n + 1);
       void recordStageGenerated(4).catch(() => null);
       if (result.savedToLibrary) {
@@ -159,6 +159,7 @@ export function Stage4View() {
   }
 
   async function onSaveLibrary() {
+    if (requireSignInToSaveLibrary()) return;
     if (!draft.result) {
       toast.info("Generate assessment first.");
       return;

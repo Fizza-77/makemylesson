@@ -4,12 +4,18 @@ const PLATFORMS = [
   {
     key: "studiely",
     tone: "mint" as const,
-    title: "Studiely — For Students",
+    title: "For Students",
     badge: "Start studying smarter",
     description:
       "AI-powered study support for students across the same curriculum systems as Make My Lesson.",
     href: "https://studiely.com",
-    logo: "/studiely-logo.webp",
+    logo: "/logo-group.svg",
+    logoWidth: 140,
+    logoHeight: 43,
+    logoWordmark: true,
+    showTitle: false,
+    headSuffix: "— For Students",
+    ariaLabel: "Studiely — For Students",
   },
   {
     key: "linguatude",
@@ -52,19 +58,27 @@ export default function SisterPlatformsSection() {
             target="_blank"
             rel="noopener noreferrer"
             className={`mml-sp-card mml-sp-card--${platform.tone}`}
+            aria-label={"ariaLabel" in platform ? platform.ariaLabel : undefined}
           >
             <span className="mml-sp-head">
-              <span className="mml-sp-logo">
+              <span
+                className={`mml-sp-logo${"logoWordmark" in platform && platform.logoWordmark ? " mml-sp-logo--wordmark mml-sp-logo--plain" : ""}`}
+              >
                 <Image
                   src={platform.logo}
-                  alt=""
-                  width={40}
-                  height={40}
+                  alt={"logoWordmark" in platform && platform.logoWordmark ? "Studiely" : ""}
+                  width={"logoWidth" in platform ? platform.logoWidth : 40}
+                  height={"logoHeight" in platform ? platform.logoHeight : 40}
                   className="mml-sp-logo-img"
                   loading="lazy"
                 />
               </span>
-              <h3 className="mml-sp-name">{platform.title}</h3>
+              {"headSuffix" in platform && platform.headSuffix ? (
+                <span className="mml-sp-prefix">{platform.headSuffix}</span>
+              ) : null}
+              {!(( "showTitle" in platform) && platform.showTitle === false) ? (
+                <h3 className="mml-sp-name">{platform.title}</h3>
+              ) : null}
             </span>
             <span className="mml-sp-badge">{platform.badge}</span>
             <p className="mml-sp-body">{platform.description}</p>

@@ -4458,6 +4458,44 @@
   object-fit: cover;
 }
 
+.mml-sp-logo--wordmark {
+  width: auto;
+  max-width: min(12.5rem, 80%);
+  height: auto;
+  min-height: 2rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.65rem;
+  overflow: visible;
+}
+
+.mml-sp-logo--wordmark.mml-sp-logo--plain {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mml-sp-prefix {
+  flex-shrink: 0;
+  font-family: var(--font-manrope), Manrope, sans-serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #0e294c;
+}
+
+.mml-sp-card--navy .mml-sp-prefix {
+  color: #ffffff;
+}
+
+.mml-sp-logo--wordmark .mml-sp-logo-img {
+  width: auto;
+  height: clamp(1.85rem, 3vw, 2.35rem);
+  max-width: 100%;
+  object-fit: contain;
+}
+
 .mml-sp-name {
   margin: 0;
   min-width: 0;

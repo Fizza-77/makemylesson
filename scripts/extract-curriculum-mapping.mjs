@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dartPath = path.resolve(
   __dirname,
-  "../../MakeMyLesson/lib/services/curriculum_service.dart",
+  "../../MakeMyLesson-1/lib/services/curriculum_service.dart",
 );
 const outPath = path.resolve(__dirname, "../lib/stage1-curriculum-mapping.ts");
 

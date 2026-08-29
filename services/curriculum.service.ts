@@ -12,6 +12,18 @@ import { pathwayLabelForTopLevel } from "@/types/stage1";
 const tree = treeJson as TopLevelCurriculum[];
 const curriculumNames = namesJson as Record<string, string>;
 
+const EARLY_YEARS_STAGES = new Set(["EYFS", "Cambridge Early Years"]);
+
+const EYFS_SUBJECTS: SubjectInfo[] = [
+  "Communication and Language",
+  "Physical Development",
+  "Personal, Social and Emotional Development",
+  "Literacy",
+  "Mathematics",
+  "Understanding the World",
+  "Expressive Arts and Design",
+].map((name) => ({ name, code: null, displayName: name }));
+
 export function getTopLevelCurriculums(): TopLevelCurriculum[] {
   return tree;
 }
@@ -36,11 +48,147 @@ export function getGrade(
   return pathway.grades.find((g) => g.gradeId === gradeId) ?? null;
 }
 
+function subjectsFromNextGrade(
+  pathway: CurriculumPathway,
+  gradeId: string,
+): SubjectInfo[] {
+  const index = pathway.grades.findIndex((g) => g.gradeId === gradeId);
+  if (index < 0) return [];
+  for (let i = index + 1; i < pathway.grades.length; i++) {
+    const next = pathway.grades[i]?.subjects ?? [];
+    if (next.length > 0) return next;
+  }
+  return [];
+}
+
 export function getSubjectsForGrade(
   pathway: CurriculumPathway | null,
   gradeId: string,
 ): SubjectInfo[] {
-  return getGrade(pathway, gradeId)?.subjects ?? [];
+  const grade = getGrade(pathway, gradeId);
+  if (!grade || !pathway) return [];
+  if (grade.subjects.length > 0) return grade.subjects;
+  if (EARLY_YEARS_STAGES.has(grade.stage ?? "")) return EYFS_SUBJECTS;
+  return subjectsFromNextGrade(pathway, gradeId);
+}
+
+function subjectMatchesDisplay(
+  subjects: SubjectInfo[],
+  displayName: string,
+): SubjectInfo | null {
+  const needle = normalizeMatchLabel(displayName);
+  if (!needle) return null;
+  return (
+    subjects.find((s) => {
+      const label = normalizeMatchLabel(s.displayName);
+      return (
+        label === needle || label.includes(needle) || needle.includes(label)
+      );
+    }) ?? null
+  );
+}
+
+export type NormalizedStage1Selection = {
+  topLevelId: string;
+  curriculumLabel: string;
+  pathwayId: string;
+  pathwayDisplayName: string;
+  gradeInternalId: string;
+  grade: string;
+  subject: string;
+  subjectName: string;
+  subjectCode: string | null;
+  mappedCurriculumId: string | null;
+  mappedCurriculumName: string | null;
+};
+
+/** Drop saved prefs that no longer exist in the curriculum tree. */
+export function normalizeStage1SelectionAgainstTree(input: {
+  topLevelId?: string;
+  pathwayId?: string;
+  pathwayDisplayName?: string;
+  gradeInternalId?: string;
+  grade?: string;
+  subject?: string;
+  subjectName?: string;
+  subjectCode?: string | null;
+}): NormalizedStage1Selection {
+  const empty: NormalizedStage1Selection = {
+    topLevelId: "",
+    curriculumLabel: "",
+    pathwayId: "",
+    pathwayDisplayName: "",
+    gradeInternalId: "",
+    grade: "",
+    subject: "",
+    subjectName: "",
+    subjectCode: null,
+    mappedCurriculumId: null,
+    mappedCurriculumName: null,
+  };
+
+  const topLevelId = input.topLevelId?.trim() ?? "";
+  const top = topLevelId ? getTopLevelById(topLevelId) : null;
+  if (!top) return empty;
+
+  const pathwayId = input.pathwayId?.trim() ?? "";
+  const pathway = pathwayId ? getPathway(topLevelId, pathwayId) : null;
+  if (!pathway) {
+    return {
+      ...empty,
+      topLevelId,
+      curriculumLabel: top.name,
+    };
+  }
+
+  const gradeInternalId = input.gradeInternalId?.trim() ?? "";
+  const grade = gradeInternalId ? getGrade(pathway, gradeInternalId) : null;
+  if (!grade) {
+    return {
+      ...empty,
+      topLevelId,
+      curriculumLabel: top.name,
+      pathwayId,
+      pathwayDisplayName: pathway.name,
+    };
+  }
+
+  const subjects = getSubjectsForGrade(pathway, gradeInternalId);
+  const matchedSubject = subjectMatchesDisplay(
+    subjects,
+    input.subject?.trim() ?? "",
+  );
+  const mapped = resolveMappedCurriculum(pathwayId, gradeInternalId);
+
+  if (!matchedSubject) {
+    return {
+      topLevelId,
+      curriculumLabel: top.name,
+      pathwayId,
+      pathwayDisplayName: pathway.name,
+      gradeInternalId,
+      grade: grade.displayName,
+      subject: "",
+      subjectName: "",
+      subjectCode: null,
+      mappedCurriculumId: mapped?.id ?? null,
+      mappedCurriculumName: mapped?.name ?? null,
+    };
+  }
+
+  return {
+    topLevelId,
+    curriculumLabel: top.name,
+    pathwayId,
+    pathwayDisplayName: pathway.name,
+    gradeInternalId,
+    grade: grade.displayName,
+    subject: matchedSubject.displayName,
+    subjectName: matchedSubject.name,
+    subjectCode: matchedSubject.code,
+    mappedCurriculumId: mapped?.id ?? null,
+    mappedCurriculumName: mapped?.name ?? null,
+  };
 }
 
 export function resolveMappedCurriculum(
@@ -140,7 +288,8 @@ export function resolveStage1SelectionFromLibrary(params: {
         let subjectDisplay = params.subject.trim();
         let subjectMatch = !subjectNeedle;
         if (subjectNeedle) {
-          const found = grade.subjects.find((s) => {
+          const availableSubjects = getSubjectsForGrade(pathway, grade.gradeId);
+          const found = availableSubjects.find((s) => {
             const n = normalizeMatchLabel(s.displayName);
             return (
               n === subjectNeedle ||

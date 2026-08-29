@@ -54,6 +54,10 @@ export function mapFirebaseAuthError(error: unknown): string {
         return "Your browser blocked the sign-in popup. Allow popups and try again.";
       case "auth/unauthorized-domain":
         return "Sign-in isn’t available from this website address. Please contact support.";
+      case "auth/operation-not-allowed":
+        return "Guest generation isn’t enabled. Please sign in or create a free account to continue.";
+      case "auth/admin-restricted-operation":
+        return "Guest sign-in is restricted. Please sign in or create a free account to continue.";
       default:
         return "Something went wrong. Please try again in a moment.";
     }

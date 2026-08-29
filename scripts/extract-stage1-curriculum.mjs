@@ -240,9 +240,55 @@ const curriculumNames = {};
 }
 
 fs.mkdirSync(outDir, { recursive: true });
+
+const EYFS_SUBJECT_NAMES = [
+  "Communication and Language",
+  "Physical Development",
+  "Personal, Social and Emotional Development",
+  "Literacy",
+  "Mathematics",
+  "Understanding the World",
+  "Expressive Arts and Design",
+];
+const EARLY_YEARS_STAGES = new Set(["EYFS", "Cambridge Early Years"]);
+
+function backfillEmptySubjects(curriculumTree) {
+  let patched = 0;
+  for (const top of curriculumTree) {
+    for (const pathway of top.pathways) {
+      pathway.grades.forEach((grade, index) => {
+        if (grade.subjects?.length) return;
+        if (EARLY_YEARS_STAGES.has(grade.stage ?? "")) {
+          grade.subjects = EYFS_SUBJECT_NAMES.map((name) => ({
+            name,
+            code: null,
+            displayName: name,
+          }));
+          patched += 1;
+          return;
+        }
+        for (let i = index + 1; i < pathway.grades.length; i++) {
+          const next = pathway.grades[i].subjects;
+          if (next?.length) {
+            grade.subjects = next.map((s) => ({
+              name: s.name,
+              code: s.code ?? null,
+              displayName: s.displayName,
+            }));
+            patched += 1;
+            break;
+          }
+        }
+      });
+    }
+  }
+  return patched;
+}
+
+const backfilled = backfillEmptySubjects(tree);
 const treePath = path.join(outDir, "stage1-curriculum-tree.json");
 const namesPath = path.join(outDir, "stage1-curriculum-names.json");
-fs.writeFileSync(treePath, JSON.stringify(tree, null, 2));
+fs.writeFileSync(treePath, `${JSON.stringify(tree, null, 2)}\n`);
 fs.writeFileSync(namesPath, JSON.stringify(curriculumNames, null, 2));
 
 const pathwayCount = tree.reduce((n, t) => n + t.pathways.length, 0);
@@ -268,7 +314,7 @@ console.log(
   `Subject helpers: ${Object.keys(subjectHelpers).length}, parameterized: ${Object.keys(subjectHelpersByArg).length}, pathway methods: ${Object.keys(pathwaysByMethod).length}`,
 );
 console.log(
-  `Subjects listed: ${totalSubjects}; grades with empty subjects (incl. intentional EYFS/K): ${emptySubjectGrades}`,
+  `Subjects listed: ${totalSubjects}; grades backfilled after extract: ${backfilled}`,
 );
 console.log(`Wrote ${treePath}`);
 console.log(`Wrote ${namesPath}`);

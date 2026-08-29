@@ -14,7 +14,10 @@ const PLATFORMS = [
     name: 'Studiely',
     tagline: 'Start Studying Smarter',
     url: 'https://www.studiely.com',
-    logo: '/logo-studiely.jpeg',
+    logo: '/logo-group.svg',
+    logoWordmark: true,
+    hideName: true,
+    headSuffix: '— For Students',
     description: [
       'An AI-powered study platform built for students across the same curriculum systems Make My Lesson serves.',
       'Where Make My Lesson supports the teacher preparing the lesson, Studiely supports the student on the other side of it.',
@@ -44,16 +47,23 @@ function PlatformCard({ platform, delay = 0 }) {
         transition={SPRING}
       >
         <div className="sister-card-brand">
-          <div className="sister-card-logo-wrap">
+          <div
+            className={`sister-card-logo-wrap${platform.logoWordmark ? ' sister-card-logo-wrap--wordmark sister-card-logo-wrap--plain' : ''}`}
+          >
             <Image
               src={platform.logo}
-              alt={`${platform.name} logo`}
-              width={72}
-              height={72}
-              className="sister-card-logo"
+              alt={platform.logoWordmark ? platform.name : `${platform.name} logo`}
+              width={platform.logoWordmark ? 140 : 72}
+              height={platform.logoWordmark ? 43 : 72}
+              className={`sister-card-logo${platform.logoWordmark ? ' sister-card-logo--wordmark' : ''}`}
             />
           </div>
-          <h3 className="sister-card-name">{platform.name}</h3>
+          {platform.headSuffix ? (
+            <span className="sister-card-prefix">{platform.headSuffix}</span>
+          ) : null}
+          {!platform.hideName ? (
+            <h3 className="sister-card-name">{platform.name}</h3>
+          ) : null}
         </div>
         <div className="sister-card-copy">
           <p className="sister-card-tagline">{platform.tagline}</p>

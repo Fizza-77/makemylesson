@@ -10,8 +10,7 @@ import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
-import { useSignInGate } from "@/features/auth/useSignInGate";
-import { useUpgradeGate } from "@/features/billing/useUpgradeGate";
+import { useGuestGeneration } from "@/features/generation/useGuestGeneration";
 import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
 import { Stage2PresentationSetup } from "@/features/stage2/Stage2PresentationSetup";
 import { PresentationResultPanel } from "@/features/stage2/PresentationResultPanel";
@@ -25,7 +24,6 @@ import {
   recordStageGenerated,
 } from "@/services/notification-lifecycle.service";
 import {
-  refreshAccountFromServer,
   syncAccountSubscription,
   useAccountStore,
 } from "@/store/account-store";
@@ -52,8 +50,13 @@ export function Stage2View() {
   const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
-  const { blockIfNoCredits, dialog: upgradeDialog } = useUpgradeGate();
-  const { requireSignIn, dialog: signInDialog } = useSignInGate(ROUTES.stage2);
+  const {
+    prepareGeneration,
+    completeGeneration,
+    requireSignInToSaveLibrary,
+    signInDialog,
+    upgradeDialog,
+  } = useGuestGeneration(ROUTES.stage2, 2);
   const { confirmGeneration, dialog: confirmDialog } = useGenerationConfirm();
 
   const libraryItems = useLibraryCatalogStore((s) => s.items);
@@ -202,8 +205,7 @@ export function Stage2View() {
       return;
     }
 
-    if (requireSignIn()) return;
-    if (blockIfNoCredits()) return;
+    if (!(await prepareGeneration())) return;
     const clarified = await confirmGeneration(2, {
       grade: draft.grade,
       pathway: draft.pathwayDisplayName,
@@ -217,9 +219,7 @@ export function Stage2View() {
 
     try {
       const result = await draft.generate(clarified.answers);
-      if (user?.uid) {
-        await refreshAccountFromServer(user.uid).catch(() => null);
-      }
+      await completeGeneration();
       setSuccessFlash((n) => n + 1);
       void recordStageGenerated(2).catch(() => null);
       if (result.savedToLibrary) {
@@ -240,6 +240,7 @@ export function Stage2View() {
   }
 
   async function onSaveLibrary() {
+    if (requireSignInToSaveLibrary()) return;
     try {
       await draft.saveCurrentDeckToLibrary();
       slidesBaselineRef.current = JSON.stringify(
@@ -508,7 +509,7 @@ export function Stage2View() {
               setEditOpen(false);
               if (draft.linkedPresentationLibraryItemId) {
                 setLibraryDirty(true);
-              } else {
+              } else if (!requireSignInToSaveLibrary()) {
                 void draft
                   .saveCurrentDeckToLibrary()
                   .then(() => toast.success("Cover saved."))
@@ -520,7 +521,7 @@ export function Stage2View() {
               setEditOpen(false);
               if (draft.linkedPresentationLibraryItemId) {
                 setLibraryDirty(true);
-              } else {
+              } else if (!requireSignInToSaveLibrary()) {
                 void draft
                   .saveCurrentDeckToLibrary()
                   .then(() => toast.success("Slide saved."))

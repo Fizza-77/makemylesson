@@ -16,6 +16,7 @@ import { upsertCurrentDeviceToken } from "@/services/fcm-web.service";
 import { recordAppOpened } from "@/services/notification-lifecycle.service";
 import { useAccountStore } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
+import { isRegisteredUser } from "@/lib/guest-session";
 import { useNotificationsPanelStore } from "@/store/notifications-panel-store";
 import {
   syncNotificationsSubscription,
@@ -130,8 +131,9 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
     profile?.displayName ||
     user?.displayName ||
     "Teacher";
+  const isGuest = !isRegisteredUser(user);
   const credits = account ? Math.max(0, account.generationCredits) : null;
-  const isFree = !account || account.planTier === "free";
+  const isFree = isGuest || !account || account.planTier === "free";
 
   useEffect(() => {
     if (!authReady) return;
@@ -224,7 +226,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
           {/* Right: auth CTAs (guest) or alerts / credits / profile */}
           <div className="flex min-w-0 flex-1 items-center justify-end gap-2 sm:gap-3">
 
-            {authReady && !user ? (
+            {authReady && !isRegisteredUser(user) ? (
               <>
                 <Link
                   href={`${ROUTES.signIn}?next=${encodeURIComponent(pathname || ROUTES.home)}`}
@@ -241,7 +243,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
               </>
             ) : null}
 
-            {user ? (
+            {isRegisteredUser(user) ? (
               <>
                 <button
                   id="nav-alerts-bell"
@@ -268,7 +270,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                   ) : null}
                 </button>
 
-                {credits !== null ? (
+                {credits !== null && authReady ? (
                   <PricingLink
                     href={ROUTES.subscription}
                     className="hidden max-w-[12rem] items-center truncate rounded-lg bg-[#0F172A] px-3 py-2 text-[11px] font-semibold whitespace-nowrap text-white sm:inline-flex"

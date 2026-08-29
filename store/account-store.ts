@@ -41,22 +41,30 @@ export const useAccountStore = create<AccountStore>((set) => ({
 }));
 
 /** One live `users/{uid}` listener for credits/profile across the app. */
-export function syncAccountSubscription(uid: string | null) {
+export function syncAccountSubscription(
+  uid: string | null,
+  opts?: { isAnonymous?: boolean },
+) {
   const state = useAccountStore.getState();
-  if (state.subscribedUid === uid && unsubscribe) return;
+  const anonymous = Boolean(opts?.isAnonymous);
+  const key = uid ? (anonymous ? `anon:${uid}` : uid) : null;
+  if (state.subscribedUid === key && unsubscribe) return;
 
   if (unsubscribe) {
     unsubscribe();
     unsubscribe = null;
   }
 
-  if (!uid) {
+  if (!uid || anonymous) {
     useAccountStore.getState().clear();
+    if (uid && anonymous) {
+      useAccountStore.setState({ subscribedUid: key, loading: false });
+    }
     return;
   }
 
   useAccountStore.setState({
-    subscribedUid: uid,
+    subscribedUid: key,
     loading: true,
     error: null,
   });

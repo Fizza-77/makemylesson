@@ -3,12 +3,14 @@
 import Image from "next/image";
 
 import { PricingLink } from "@/components/common/PricingLink";
+import { isRegisteredUser } from "@/lib/guest-session";
 import { ROUTES } from "@/lib/urls";
 import {
   isPaidPlan,
   profileCreditsRemainingLine,
 } from "@/services/user-account.service";
 import { useAccountStore } from "@/store/account-store";
+import { useAuthStore } from "@/store/auth-store";
 
 function CrownIcon() {
   return (
@@ -25,7 +27,9 @@ function CrownIcon() {
 
 /** Stage 2 hero — same layout/style as Stage 1, Stage 2 copy + `stage2-hero.svg`. */
 export function Stage2Hero() {
+  const user = useAuthStore((s) => s.user);
   const account = useAccountStore((s) => s.account);
+  const isGuest = !isRegisteredUser(user);
   const credits = account ? Math.max(0, account.generationCredits) : null;
   const paid = account ? isPaidPlan(account.planTier) : false;
   const summary = account ? profileCreditsRemainingLine(account) : null;
@@ -72,9 +76,11 @@ export function Stage2Hero() {
               <p className="mt-0.5 truncate text-xs text-slate-400">
                 {(
                   summary ??
-                  (credits !== null
-                    ? `${credits} credit${credits === 1 ? "" : "s"} remaining`
-                    : "Sign in to see credits")
+                  (isGuest
+                    ? "Sign in for 5 free generation credits"
+                    : credits !== null
+                      ? `${credits} credit${credits === 1 ? "" : "s"} remaining`
+                      : "Loading credits…")
                 ).replace(/\s*generation\s+/gi, " ")}
               </p>
             </div>

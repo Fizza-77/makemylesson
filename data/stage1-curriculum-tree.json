@@ -13,14 +13,86 @@
             "displayName": "Nursery — Age 3–4 (Pre-K) – EYFS",
             "ageRange": "3-4",
             "stage": "EYFS",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "Communication and Language",
+                "code": null,
+                "displayName": "Communication and Language"
+              },
+              {
+                "name": "Physical Development",
+                "code": null,
+                "displayName": "Physical Development"
+              },
+              {
+                "name": "Personal, Social and Emotional Development",
+                "code": null,
+                "displayName": "Personal, Social and Emotional Development"
+              },
+              {
+                "name": "Literacy",
+                "code": null,
+                "displayName": "Literacy"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Understanding the World",
+                "code": null,
+                "displayName": "Understanding the World"
+              },
+              {
+                "name": "Expressive Arts and Design",
+                "code": null,
+                "displayName": "Expressive Arts and Design"
+              }
+            ]
           },
           {
             "gradeId": "reception",
             "displayName": "Reception — Age 4–5 (KG) – EYFS",
             "ageRange": "4-5",
             "stage": "EYFS",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "Communication and Language",
+                "code": null,
+                "displayName": "Communication and Language"
+              },
+              {
+                "name": "Physical Development",
+                "code": null,
+                "displayName": "Physical Development"
+              },
+              {
+                "name": "Personal, Social and Emotional Development",
+                "code": null,
+                "displayName": "Personal, Social and Emotional Development"
+              },
+              {
+                "name": "Literacy",
+                "code": null,
+                "displayName": "Literacy"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Understanding the World",
+                "code": null,
+                "displayName": "Understanding the World"
+              },
+              {
+                "name": "Expressive Arts and Design",
+                "code": null,
+                "displayName": "Expressive Arts and Design"
+              }
+            ]
           },
           {
             "gradeId": "1",
@@ -1070,14 +1142,86 @@
             "displayName": "Nursery — Age 3–4 (Pre-K) – Cambridge Early Years",
             "ageRange": "3-4",
             "stage": "Cambridge Early Years",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "Communication and Language",
+                "code": null,
+                "displayName": "Communication and Language"
+              },
+              {
+                "name": "Physical Development",
+                "code": null,
+                "displayName": "Physical Development"
+              },
+              {
+                "name": "Personal, Social and Emotional Development",
+                "code": null,
+                "displayName": "Personal, Social and Emotional Development"
+              },
+              {
+                "name": "Literacy",
+                "code": null,
+                "displayName": "Literacy"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Understanding the World",
+                "code": null,
+                "displayName": "Understanding the World"
+              },
+              {
+                "name": "Expressive Arts and Design",
+                "code": null,
+                "displayName": "Expressive Arts and Design"
+              }
+            ]
           },
           {
             "gradeId": "reception",
             "displayName": "Reception — Age 4–5 (KG) – Cambridge Early Years",
             "ageRange": "4-5",
             "stage": "Cambridge Early Years",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "Communication and Language",
+                "code": null,
+                "displayName": "Communication and Language"
+              },
+              {
+                "name": "Physical Development",
+                "code": null,
+                "displayName": "Physical Development"
+              },
+              {
+                "name": "Personal, Social and Emotional Development",
+                "code": null,
+                "displayName": "Personal, Social and Emotional Development"
+              },
+              {
+                "name": "Literacy",
+                "code": null,
+                "displayName": "Literacy"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Understanding the World",
+                "code": null,
+                "displayName": "Understanding the World"
+              },
+              {
+                "name": "Expressive Arts and Design",
+                "code": null,
+                "displayName": "Expressive Arts and Design"
+              }
+            ]
           },
           {
             "gradeId": "1",
@@ -2313,14 +2457,86 @@
             "displayName": "Nursery — Age 3–4 (Pre-K) – EYFS",
             "ageRange": "3-4",
             "stage": "EYFS",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "Communication and Language",
+                "code": null,
+                "displayName": "Communication and Language"
+              },
+              {
+                "name": "Physical Development",
+                "code": null,
+                "displayName": "Physical Development"
+              },
+              {
+                "name": "Personal, Social and Emotional Development",
+                "code": null,
+                "displayName": "Personal, Social and Emotional Development"
+              },
+              {
+                "name": "Literacy",
+                "code": null,
+                "displayName": "Literacy"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Understanding the World",
+                "code": null,
+                "displayName": "Understanding the World"
+              },
+              {
+                "name": "Expressive Arts and Design",
+                "code": null,
+                "displayName": "Expressive Arts and Design"
+              }
+            ]
           },
           {
             "gradeId": "reception",
             "displayName": "Reception — Age 4–5 (KG) – EYFS",
             "ageRange": "4-5",
             "stage": "EYFS",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "Communication and Language",
+                "code": null,
+                "displayName": "Communication and Language"
+              },
+              {
+                "name": "Physical Development",
+                "code": null,
+                "displayName": "Physical Development"
+              },
+              {
+                "name": "Personal, Social and Emotional Development",
+                "code": null,
+                "displayName": "Personal, Social and Emotional Development"
+              },
+              {
+                "name": "Literacy",
+                "code": null,
+                "displayName": "Literacy"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Understanding the World",
+                "code": null,
+                "displayName": "Understanding the World"
+              },
+              {
+                "name": "Expressive Arts and Design",
+                "code": null,
+                "displayName": "Expressive Arts and Design"
+              }
+            ]
           },
           {
             "gradeId": "1",
@@ -3371,7 +3587,58 @@
             "displayName": "Kindergarten — Age 5–6 (K) – Elementary School",
             "ageRange": "5-6",
             "stage": "Elementary School",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts (ELA)",
+                "code": null,
+                "displayName": "English Language Arts (ELA)"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Physical Education (PE)",
+                "code": null,
+                "displayName": "Physical Education (PE)"
+              },
+              {
+                "name": "Computer Science / Technology",
+                "code": null,
+                "displayName": "Computer Science / Technology"
+              },
+              {
+                "name": "Spanish",
+                "code": null,
+                "displayName": "Spanish"
+              },
+              {
+                "name": "French",
+                "code": null,
+                "displayName": "French"
+              }
+            ]
           },
           {
             "gradeId": "1",
@@ -16213,7 +16480,63 @@
             "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Computer Studies / Technology",
+                "code": null,
+                "displayName": "Computer Studies / Technology"
+              },
+              {
+                "name": "French as a Second Language",
+                "code": null,
+                "displayName": "French as a Second Language"
+              }
+            ]
           },
           {
             "gradeId": "grade_1",
@@ -17160,7 +17483,63 @@
             "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Computer Studies / Technology",
+                "code": null,
+                "displayName": "Computer Studies / Technology"
+              },
+              {
+                "name": "French as a Second Language",
+                "code": null,
+                "displayName": "French as a Second Language"
+              }
+            ]
           },
           {
             "gradeId": "grade_1",
@@ -18107,7 +18486,63 @@
             "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Computer Studies / Technology",
+                "code": null,
+                "displayName": "Computer Studies / Technology"
+              },
+              {
+                "name": "French as a Second Language",
+                "code": null,
+                "displayName": "French as a Second Language"
+              }
+            ]
           },
           {
             "gradeId": "grade_1",
@@ -19044,7 +19479,63 @@
             "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Computer Studies / Technology",
+                "code": null,
+                "displayName": "Computer Studies / Technology"
+              },
+              {
+                "name": "French as a Second Language",
+                "code": null,
+                "displayName": "French as a Second Language"
+              }
+            ]
           },
           {
             "gradeId": "grade_1",
@@ -19961,7 +20452,63 @@
             "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Computer Studies / Technology",
+                "code": null,
+                "displayName": "Computer Studies / Technology"
+              },
+              {
+                "name": "French as a Second Language",
+                "code": null,
+                "displayName": "French as a Second Language"
+              }
+            ]
           },
           {
             "gradeId": "grade_1",
@@ -20893,7 +21440,63 @@
             "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Computer Studies / Technology",
+                "code": null,
+                "displayName": "Computer Studies / Technology"
+              },
+              {
+                "name": "French as a Second Language",
+                "code": null,
+                "displayName": "French as a Second Language"
+              }
+            ]
           },
           {
             "gradeId": "grade_1",
@@ -21825,7 +22428,63 @@
             "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Computer Studies / Technology",
+                "code": null,
+                "displayName": "Computer Studies / Technology"
+              },
+              {
+                "name": "French as a Second Language",
+                "code": null,
+                "displayName": "French as a Second Language"
+              }
+            ]
           },
           {
             "gradeId": "grade_1",
@@ -22762,7 +23421,63 @@
             "displayName": "Kindergarten — Age 5–6 (Grade K / Prep) – Elementary",
             "ageRange": "5-6",
             "stage": "Elementary",
-            "subjects": []
+            "subjects": [
+              {
+                "name": "English Language Arts",
+                "code": null,
+                "displayName": "English Language Arts"
+              },
+              {
+                "name": "Mathematics",
+                "code": null,
+                "displayName": "Mathematics"
+              },
+              {
+                "name": "Science",
+                "code": null,
+                "displayName": "Science"
+              },
+              {
+                "name": "Social Studies",
+                "code": null,
+                "displayName": "Social Studies"
+              },
+              {
+                "name": "Geography",
+                "code": null,
+                "displayName": "Geography"
+              },
+              {
+                "name": "History",
+                "code": null,
+                "displayName": "History"
+              },
+              {
+                "name": "Health & Physical Education",
+                "code": null,
+                "displayName": "Health & Physical Education"
+              },
+              {
+                "name": "Art",
+                "code": null,
+                "displayName": "Art"
+              },
+              {
+                "name": "Music",
+                "code": null,
+                "displayName": "Music"
+              },
+              {
+                "name": "Computer Studies / Technology",
+                "code": null,
+                "displayName": "Computer Studies / Technology"
+              },
+              {
+                "name": "French as a Second Language",
+                "code": null,
+                "displayName": "French as a Second Language"
+              }
+            ]
           },
           {
             "gradeId": "grade_1",

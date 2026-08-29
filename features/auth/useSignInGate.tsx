@@ -3,30 +3,34 @@
 import { useCallback, useState } from "react";
 
 import { SignInRequiredDialog } from "@/features/auth/SignInRequiredDialog";
+import { isRegisteredUser } from "@/lib/guest-session";
 import { useAuthStore } from "@/store/auth-store";
 
 /**
- * When a guest tries to generate (or unlock) content, show a dismissible
- * Log in / Sign up dialog instead of navigating away immediately.
+ * When a signed-out user tries to generate or save to library, show sign in / sign up.
  */
 export function useSignInGate(nextPath: string) {
   const user = useAuthStore((s) => s.user);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState(
-    "You need to sign in first before you can generate anything.",
+    "Sign in or create a free account to save to your library.",
   );
 
-  const requireSignIn = useCallback(
+  const requireRegisteredSignIn = useCallback(
     (msg?: string): boolean => {
-      if (user) return false;
+      if (isRegisteredUser(user)) return false;
       setMessage(
-        msg ?? "You need to sign in first before you can generate anything.",
+        msg ??
+          "Sign in or create a free account to save to your library.",
       );
       setOpen(true);
       return true;
     },
     [user],
   );
+
+  /** @deprecated Use requireRegisteredSignIn for library saves. */
+  const requireSignIn = requireRegisteredSignIn;
 
   const dialog = (
     <SignInRequiredDialog
@@ -37,5 +41,5 @@ export function useSignInGate(nextPath: string) {
     />
   );
 
-  return { requireSignIn, dialog };
+  return { requireSignIn, requireRegisteredSignIn, dialog };
 }

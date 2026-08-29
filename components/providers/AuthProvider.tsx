@@ -29,8 +29,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       prevUid = user?.uid ?? null;
 
       setUser(user);
-      syncLibraryCatalogSubscription(user?.uid ?? null);
-      syncAccountSubscription(user?.uid ?? null);
+      if (user) {
+        syncLibraryCatalogSubscription(user.uid);
+      } else {
+        syncLibraryCatalogSubscription(null);
+      }
+      syncAccountSubscription(user?.uid ?? null, {
+        isAnonymous: false,
+      });
       if (!user) {
         setProfile(null);
         setAuthReady(true);
