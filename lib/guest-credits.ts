@@ -53,7 +53,7 @@ function clampUsed(totalUsed: number): number {
   return Math.max(0, Math.min(GUEST_GENERATION_CREDIT_CAP, Math.trunc(totalUsed)));
 }
 
-/** Merge server IP usage, local cache, and browser-profile usage — never grant extra credits. */
+/** Merge server IP usage and browser-profile usage — never grant extra credits. */
 export function setGuestCreditsFromServer(
   remaining: number,
   totalUsed: number,
@@ -66,11 +66,12 @@ export function setGuestCreditsFromServer(
 
   recordDeviceTrialUsage(serverUsed);
 
-  const currentRemaining = readRemainingFromStorage();
-  const localUsed = GUEST_GENERATION_CREDIT_CAP - currentRemaining;
   const deviceUsed = getDeviceTrialUsedCount();
-  const mergedUsed = Math.max(serverUsed, localUsed, deviceUsed);
-  const nextRemaining = Math.max(0, GUEST_GENERATION_CREDIT_CAP - mergedUsed);
+  const mergedUsed = Math.max(serverUsed, deviceUsed);
+  const nextRemaining = Math.min(
+    serverRemaining,
+    Math.max(0, GUEST_GENERATION_CREDIT_CAP - mergedUsed),
+  );
 
   writeRemainingToStorage(nextRemaining);
   writeServerUsedToStorage(mergedUsed);
@@ -100,10 +101,7 @@ function readRemainingFromStorage(): number {
 }
 
 export function getGuestCreditsRemaining(): number {
-  const stored = readRemainingFromStorage();
-  const deviceUsed = getDeviceTrialUsedCount();
-  if (deviceUsed <= 0) return stored;
-  return Math.min(stored, Math.max(0, GUEST_GENERATION_CREDIT_CAP - deviceUsed));
+  return readRemainingFromStorage();
 }
 
 export function getServerTrialUsedCount(): number {

@@ -18,10 +18,9 @@ export function markDeviceFreeSignupConsumed(): void {
   window.localStorage.setItem(DEVICE_FREE_SIGNUP_CONSUMED_KEY, "1");
 }
 
-/** Generations already used on this browser profile (guest trial + sign-up pool). */
+/** Generations already used on this browser profile (explicit trial counter only). */
 export function getDeviceTrialUsedCount(): number {
   if (typeof window === "undefined") return 0;
-  if (isDeviceFreeSignupConsumed()) return FREE_CREDIT_CAP;
   try {
     const raw = window.localStorage.getItem(DEVICE_TRIAL_USED_KEY);
     if (raw == null) return 0;

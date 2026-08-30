@@ -234,17 +234,15 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
 
             {authReady && !isRegisteredUser(user) ? (
               <>
-                {credits > 0 ? (
-                  <PricingLink
-                    href={ROUTES.subscription}
-                    className="hidden max-w-[12rem] items-center truncate rounded-lg bg-[#0F172A] px-3 py-2 text-[11px] font-semibold whitespace-nowrap text-white sm:inline-flex"
-                  >
-                    <span className="text-[#2DD4BF]">{credits}</span>
-                    <span className="ml-1 truncate font-medium">
-                      free credits left
-                    </span>
-                  </PricingLink>
-                ) : null}
+                <PricingLink
+                  href={ROUTES.subscription}
+                  className="inline-flex max-w-[11rem] items-center truncate rounded-lg bg-[#0F172A] px-2.5 py-2 text-[10px] font-semibold whitespace-nowrap text-white sm:max-w-[12rem] sm:px-3 sm:text-[11px]"
+                >
+                  <span className="text-[#2DD4BF]">{credits}</span>
+                  <span className="ml-1 truncate font-medium">
+                    free credits left
+                  </span>
+                </PricingLink>
                 <Link
                   href={`${ROUTES.signIn}?next=${encodeURIComponent(pathname || ROUTES.home)}`}
                   className="inline-flex items-center justify-center rounded-full px-3.5 py-2 text-sm font-semibold text-[#334155] transition hover:bg-[#F5F6FA] hover:text-[#0F172A] sm:px-4"
@@ -287,10 +285,10 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                   ) : null}
                 </button>
 
-                {credits !== null && authReady ? (
+                {authReady ? (
                   <PricingLink
                     href={ROUTES.subscription}
-                    className="hidden max-w-[12rem] items-center truncate rounded-lg bg-[#0F172A] px-3 py-2 text-[11px] font-semibold whitespace-nowrap text-white sm:inline-flex"
+                    className="inline-flex max-w-[11rem] items-center truncate rounded-lg bg-[#0F172A] px-2.5 py-2 text-[10px] font-semibold whitespace-nowrap text-white sm:max-w-[12rem] sm:px-3 sm:text-[11px]"
                   >
                     <span className="text-[#2DD4BF]">{credits}</span>
                     <span className="ml-1 truncate font-medium">
