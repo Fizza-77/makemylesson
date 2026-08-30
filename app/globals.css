@@ -180,10 +180,37 @@ body {
     touch-action: pan-y;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    min-height: 0;
   }
 
   .app-sidebar-column::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Library: map + tips scroll; Ayla pinned in the footer slot */
+  .app-sidebar-column--split {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .app-sidebar-column-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .app-sidebar-column-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .app-sidebar-column-footer {
+    flex-shrink: 0;
   }
 }
 

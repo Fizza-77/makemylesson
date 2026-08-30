@@ -364,8 +364,8 @@ export function LibraryView() {
     <div className="flex w-full min-w-0 flex-col gap-5 pb-8">
       <LibraryHero />
 
-      <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="flex min-w-0 flex-col gap-5">
+      <div className="flex w-full min-w-0 flex-col gap-5 lg:flex-row lg:items-start lg:gap-8">
+        <div className="flex min-w-0 flex-1 flex-col gap-5">
           <LibraryBrowseCard
             query={query}
             onQueryChange={setQuery}
@@ -526,13 +526,16 @@ export function LibraryView() {
           )}
         </div>
 
-        <AppSidebarColumn className="flex flex-col gap-5">
+        <AppSidebarColumn
+          footer={
+            <AylaChatPanel
+              context="library"
+              className="rounded-[28px] border-[#E5EBEF] shadow-[0_16px_36px_-18px_rgba(13,20,48,0.14)]"
+            />
+          }
+        >
           <LibraryMapCard counts={counts} onSelect={setTab} />
           <LibraryTipsCard />
-          <AylaChatPanel
-            context="library"
-            className="rounded-[28px] border-[#E5EBEF] shadow-[0_16px_36px_-18px_rgba(13,20,48,0.14)]"
-          />
         </AppSidebarColumn>
       </div>
 

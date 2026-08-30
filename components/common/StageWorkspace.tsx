@@ -33,29 +33,27 @@ export function StageWorkspace({
       <div className="min-w-0 flex-1">{children}</div>
 
       <AppSidebarColumn>
-        <div className="flex flex-col gap-4 pb-1">
-          {isStage4 ? (
-            <Stage4FinalChecklist />
-          ) : (
-            <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-              {context !== "stage3" ? (
-                <div
-                  className="pointer-events-none absolute inset-x-0 top-0 h-[5px] bg-teal-400"
-                  aria-hidden
-                />
-              ) : null}
-              <TipsResourcesCard
-                context={context}
-                className={context !== "stage3" ? "pt-1" : undefined}
+        {isStage4 ? (
+          <Stage4FinalChecklist />
+        ) : (
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+            {context !== "stage3" ? (
+              <div
+                className="pointer-events-none absolute inset-x-0 top-0 h-[5px] bg-teal-400"
+                aria-hidden
               />
-            </div>
-          )}
+            ) : null}
+            <TipsResourcesCard
+              context={context}
+              className={context !== "stage3" ? "pt-1" : undefined}
+            />
+          </div>
+        )}
 
-          <AylaChatPanel
-            context={context}
-            className="rounded-2xl border border-slate-200 shadow-sm"
-          />
-        </div>
+        <AylaChatPanel
+          context={context}
+          className="rounded-2xl border border-slate-200 shadow-sm"
+        />
       </AppSidebarColumn>
     </div>
   );
