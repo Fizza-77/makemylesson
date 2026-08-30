@@ -221,6 +221,8 @@ export function AylaChatPanel({
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const isAylaPage = context === "ayla";
+  /** Sidebar embed (stages / library) — parent column scrolls; no nested message scroller. */
+  const isSidebarEmbed = !isAylaPage && !compact;
   const isStage2 = context === "stage2";
   const isStage3 = context === "stage3";
   const isStage4 = context === "stage4";
@@ -303,13 +305,17 @@ export function AylaChatPanel({
 
       <div
         className={cn(
-          "theme-scroll-hover flex flex-col gap-3 overflow-y-auto overscroll-contain",
+          "flex flex-col gap-3",
+          !isSidebarEmbed &&
+            "theme-scroll-hover overflow-y-auto overscroll-contain",
           isLibrary || isAylaPage ? "bg-[#F5F6FA]" : "bg-[#F4F6F8]",
           compact
             ? "h-[14rem] px-3 py-2.5"
             : isAylaPage
               ? "h-[min(52vh,430px)] px-4 py-4 sm:px-5"
-              : "h-[16rem] px-3 py-3 sm:h-[18rem] sm:px-4",
+              : isSidebarEmbed
+                ? "min-h-[11rem] px-3 py-3 sm:min-h-[12rem] sm:px-4"
+                : "h-[16rem] px-3 py-3 sm:h-[18rem] sm:px-4",
         )}
       >
         {messages.length === 0 ? (

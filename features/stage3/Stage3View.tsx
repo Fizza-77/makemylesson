@@ -9,6 +9,7 @@ import { Spinner } from "@/components/ui/Spinner";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
+import { GuestSaveToLibraryPrompt } from "@/components/common/GuestSaveToLibraryPrompt";
 import { Stage3Hero } from "@/components/common/Stage3Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
 import { WorksheetContentView } from "@/components/common/WorksheetContentView";
@@ -20,9 +21,9 @@ import { Stage3WorksheetPreview } from "@/features/stage3/Stage3WorksheetPreview
 import { mapFunctionsError } from "@/lib/auth-errors";
 import { sortActionsByExportPreference } from "@/lib/export-format-prefs";
 import { ROUTES } from "@/lib/urls";
+import { notifyStage3GenerationComplete } from "@/lib/guest-generation-notify";
 import { pickAndParseStageSource } from "@/services/stage-source-parser.service";
 import {
-  recordLibrarySaved,
   recordStageGenerated,
 } from "@/services/notification-lifecycle.service";
 import {
@@ -57,6 +58,7 @@ export function Stage3View() {
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
   const {
+    isGuest,
     prepareGeneration,
     completeGeneration,
     requireSignInToSaveLibrary,
@@ -187,14 +189,7 @@ export function Stage3View() {
       await completeGeneration();
       setSuccessFlash((n) => n + 1);
       void recordStageGenerated(3).catch(() => null);
-      if (result.savedToLibrary) {
-        void recordLibrarySaved().catch(() => null);
-        toast.success("Activity generated and saved to library.");
-      } else if (result.saveError) {
-        toast.info(result.saveError);
-      } else if (draft.result) {
-        toast.success("Activity ready.");
-      }
+      notifyStage3GenerationComplete(isGuest, result, Boolean(draft.result));
     } catch (e) {
       toast.error(mapFunctionsError(e));
     }
@@ -289,6 +284,8 @@ export function Stage3View() {
         active={draft.isGenerating}
         stage={3}
         progress={draft.progress}
+        guestMode={isGuest}
+        autoDismissWhenReady={isGuest}
         status={draft.status || undefined}
         tags={[draft.topic].filter(Boolean)}
       />
@@ -437,6 +434,11 @@ export function Stage3View() {
           onShare={() => void onShare()}
         />
       </GenerationSuccessOverlay>
+
+      <GuestSaveToLibraryPrompt
+        visible={isGuest && hasResult}
+        onSave={() => requireSignInToSaveLibrary()}
+      />
 
       <MarkdownEditPreviewDialog
         open={editStudentOpen || editTeacherOpen}

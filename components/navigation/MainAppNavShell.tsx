@@ -207,7 +207,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
             aria-label="Main"
           >
             {primaryTabs
-              .filter((tab) => user || tab.id !== "profile")
+              .filter((tab) => isRegisteredUser(user) || tab.id !== "profile")
               .map((tab) => {
                 const isActive = tab.id === current;
                 return (
@@ -241,7 +241,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                   >
                     <span className="text-[#2DD4BF]">{credits}</span>
                     <span className="ml-1 truncate font-medium">
-                      trial credits left
+                      free credits left
                     </span>
                   </PricingLink>
                 ) : null}
@@ -346,7 +346,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
       >
         <ul className="mx-auto flex max-w-lg justify-between px-1 py-1.5">
           {primaryTabs
-            .filter((tab) => user || tab.id !== "profile")
+            .filter((tab) => isRegisteredUser(user) || tab.id !== "profile")
             .map((tab) => {
               const isActive = tab.id === current;
               return (

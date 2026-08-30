@@ -158,6 +158,35 @@ body {
   background: transparent;
 }
 
+/*
+ * Right sidebar (tips + Ayla on stages / library): sticky below the app header,
+ * scrolls independently from the main column; scrollbar hidden.
+ */
+.app-sidebar-column {
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .app-sidebar-column {
+    position: sticky;
+    top: 4.5rem; /* matches MainAppNavShell header h-[72px] */
+    align-self: start;
+    max-height: calc(100dvh - 4.5rem - 2rem);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .app-sidebar-column::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* App chrome — ~0.5in side gutters on large screens (stages, library, profile) */
 .app-shell-inner {
   width: 100%;

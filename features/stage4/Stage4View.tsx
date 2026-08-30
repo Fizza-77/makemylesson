@@ -8,6 +8,7 @@ import { Spinner } from "@/components/ui/Spinner";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
+import { GuestSaveToLibraryPrompt } from "@/components/common/GuestSaveToLibraryPrompt";
 import { Stage4Hero } from "@/components/common/Stage4Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
 import { WorksheetContentView } from "@/components/common/WorksheetContentView";
@@ -20,9 +21,9 @@ import { Stage4FinalPaperWorkshop } from "@/features/stage4/Stage4FinalPaperWork
 import { mapFunctionsError } from "@/lib/auth-errors";
 import { sortActionsByExportPreference } from "@/lib/export-format-prefs";
 import { ROUTES } from "@/lib/urls";
+import { notifyStage4GenerationComplete } from "@/lib/guest-generation-notify";
 import { pickAndParseStageSource } from "@/services/stage-source-parser.service";
 import {
-  recordLibrarySaved,
   recordStageGenerated,
 } from "@/services/notification-lifecycle.service";
 import {
@@ -56,6 +57,7 @@ export function Stage4View() {
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
   const {
+    isGuest,
     prepareGeneration,
     completeGeneration,
     requireSignInToSaveLibrary,
@@ -145,14 +147,7 @@ export function Stage4View() {
       await completeGeneration();
       setSuccessFlash((n) => n + 1);
       void recordStageGenerated(4).catch(() => null);
-      if (result.savedToLibrary) {
-        void recordLibrarySaved().catch(() => null);
-        toast.success("Assessment generated and saved to library.");
-      } else if (result.saveError) {
-        toast.info(result.saveError);
-      } else if (draft.result) {
-        toast.success("Assessment ready.");
-      }
+      notifyStage4GenerationComplete(isGuest, result, Boolean(draft.result));
     } catch (e) {
       toast.error(mapFunctionsError(e));
     }
@@ -248,6 +243,8 @@ export function Stage4View() {
         active={draft.isGenerating}
         stage={4}
         progress={draft.progress}
+        guestMode={isGuest}
+        autoDismissWhenReady={isGuest}
         status={draft.status || draft.phase || undefined}
         tags={[draft.topic].filter(Boolean)}
       />
@@ -379,6 +376,11 @@ export function Stage4View() {
           onSaveLibrary={() => void onSaveLibrary()}
         />
       </GenerationSuccessOverlay>
+
+      <GuestSaveToLibraryPrompt
+        visible={isGuest && Boolean(draft.result)}
+        onSave={() => requireSignInToSaveLibrary()}
+      />
 
       {draft.isGenerating || draft.error ? (
         <Card className="flex flex-col gap-2">

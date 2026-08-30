@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { AppSidebarColumn } from "@/components/common/AppSidebarColumn";
 import { Spinner } from "@/components/ui/Spinner";
 import { Button } from "@/components/ui/Button";
 import {
@@ -525,22 +526,14 @@ export function LibraryView() {
           )}
         </div>
 
-        <div
-          className={cn(
-            "flex flex-col gap-5",
-            "lg:sticky lg:top-24 lg:self-start",
-            "lg:max-h-[calc(100dvh-6rem-1.25rem)] lg:overflow-y-auto lg:overscroll-y-contain",
-            "lg:touch-pan-y lg:[-webkit-overflow-scrolling:touch]",
-            "lg:[scrollbar-width:none] lg:[-ms-overflow-style:none] lg:[&::-webkit-scrollbar]:hidden",
-          )}
-        >
+        <AppSidebarColumn className="flex flex-col gap-5">
           <LibraryMapCard counts={counts} onSelect={setTab} />
           <LibraryTipsCard />
           <AylaChatPanel
             context="library"
             className="rounded-[28px] border-[#E5EBEF] shadow-[0_16px_36px_-18px_rgba(13,20,48,0.14)]"
           />
-        </div>
+        </AppSidebarColumn>
       </div>
 
       <ConfirmDialog

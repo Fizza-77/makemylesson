@@ -9,6 +9,7 @@ import { Stage2Hero } from "@/components/common/Stage2Hero";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
+import { GuestSaveToLibraryPrompt } from "@/components/common/GuestSaveToLibraryPrompt";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
 import { useGuestGeneration } from "@/features/generation/useGuestGeneration";
 import { useGenerationConfirm } from "@/features/generation/useGenerationConfirm";
@@ -18,9 +19,9 @@ import { Stage2SlideEditDialog } from "@/features/stage2/Stage2SlideEditDialog";
 import { mapFunctionsError } from "@/lib/auth-errors";
 import { sortActionsByExportPreference } from "@/lib/export-format-prefs";
 import { ROUTES } from "@/lib/urls";
+import { notifyStage2GenerationComplete } from "@/lib/guest-generation-notify";
 import { STAGE2_MIN_SOURCE_CHARS } from "@/types/stage2";
 import {
-  recordLibrarySaved,
   recordStageGenerated,
 } from "@/services/notification-lifecycle.service";
 import {
@@ -51,6 +52,7 @@ export function Stage2View() {
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
   const {
+    isGuest,
     prepareGeneration,
     completeGeneration,
     requireSignInToSaveLibrary,
@@ -222,18 +224,10 @@ export function Stage2View() {
       await completeGeneration();
       setSuccessFlash((n) => n + 1);
       void recordStageGenerated(2).catch(() => null);
-      if (result.savedToLibrary) {
-        void recordLibrarySaved().catch(() => null);
-        toast.success("Presentation generated and saved to library.");
-      } else if (result.saveError) {
-        toast.info(result.saveError);
-      } else if (draft.hasUsableDeck()) {
-        toast.success("Presentation ready.");
-      } else if (draft.slides.length) {
-        toast.info(
-          "Slides generated but incomplete for library save. You can edit or regenerate.",
-        );
-      }
+      notifyStage2GenerationComplete(isGuest, result, {
+        hasUsableDeck: draft.hasUsableDeck(),
+        slideCount: draft.slides.length,
+      });
     } catch (e) {
       toast.error(mapFunctionsError(e));
     }
@@ -337,6 +331,8 @@ export function Stage2View() {
         active={isGenerating}
         stage={2}
         progress={draft.progress}
+        guestMode={isGuest}
+        autoDismissWhenReady={isGuest}
         status={draft.status || undefined}
         tags={[
           draft.grade || stage1.grade,
@@ -496,6 +492,11 @@ export function Stage2View() {
               }}
             />
           </GenerationSuccessOverlay>
+
+          <GuestSaveToLibraryPrompt
+            visible={isGuest && hasDeck}
+            onSave={() => requireSignInToSaveLibrary()}
+          />
 
           <Stage2SlideEditDialog
             open={editOpen}

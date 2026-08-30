@@ -38,6 +38,7 @@ const STAGE_COPY: Record<
     generatingTitle: string;
     generatingLead: string;
     readyTitle: string;
+    guestReadyTitle: string;
     readyLead: string;
     readyPanelLead: string;
     openLabel: string;
@@ -53,6 +54,7 @@ const STAGE_COPY: Record<
     generatingLead:
       "Your curriculum, year level and topic become a structured, classroom-ready plan.",
     readyTitle: "Your lesson plan is ready!",
+    guestReadyTitle: "Lesson plan generated!",
     readyLead:
       "Everything is connected, generated and ready for you to review, edit or export.",
     readyPanelLead:
@@ -90,6 +92,7 @@ const STAGE_COPY: Record<
     generatingLead:
       "Slide-by-slide content and speaker notes from your lesson context.",
     readyTitle: "Your presentation is ready!",
+    guestReadyTitle: "Presentation generated!",
     readyLead:
       "Your slides are connected to the lesson and ready for you to review, edit or export.",
     readyPanelLead:
@@ -127,6 +130,7 @@ const STAGE_COPY: Record<
     generatingLead:
       "A ready-to-use activity with tasks and an answer key for your lesson.",
     readyTitle: "Your classroom activity is ready!",
+    guestReadyTitle: "Activity generated!",
     readyLead:
       "Your activity is connected to the lesson and ready for you to review, edit or export.",
     readyPanelLead:
@@ -164,6 +168,7 @@ const STAGE_COPY: Record<
     generatingLead:
       "An assessment with answer key and mark scheme from your teaching pack.",
     readyTitle: "Your assessment is ready!",
+    guestReadyTitle: "Assessment generated!",
     readyLead:
       "Your assessment is connected to the pack and ready for you to review, edit or export.",
     readyPanelLead:
@@ -229,6 +234,9 @@ export function GenerationBusyOverlay({
   status,
   tags = [],
   onDismiss,
+  guestMode = false,
+  autoDismissWhenReady = false,
+  autoDismissDelayMs = 2200,
 }: {
   active: boolean;
   stage?: GenerationStage;
@@ -239,6 +247,11 @@ export function GenerationBusyOverlay({
   tags?: string[];
   /** Called when user opens the ready result or dismisses the ready screen */
   onDismiss?: () => void;
+  /** Trial / guest mode — simpler “generated” copy and no library hints in status */
+  guestMode?: boolean;
+  /** When true, closes automatically after the ready state is shown */
+  autoDismissWhenReady?: boolean;
+  autoDismissDelayMs?: number;
 }) {
   const copy = STAGE_COPY[stage];
   const [holdReady, setHoldReady] = useState(false);
@@ -269,24 +282,41 @@ export function GenerationBusyOverlay({
     });
   }, [copy.checklist, isReady, pct]);
 
-  if (!visible) return null;
-
-  const heading = isReady
-    ? copy.readyTitle
-    : title?.trim() || copy.generatingTitle;
-  const lead = isReady ? copy.readyLead : copy.generatingLead;
-  const progressLabel = isReady ? copy.completeLabel : copy.progressLabel;
-  const displayPct = isReady ? 100 : Math.max(6, pct);
-  const visibleTags = [
-    copy.productTag,
-    ...tags.map((t) => t.trim()).filter(Boolean),
-  ].slice(0, 6);
-
   function dismiss() {
     sessionRef.current = false;
     setHoldReady(false);
     onDismiss?.();
   }
+
+  useEffect(() => {
+    if (!autoDismissWhenReady || !isReady || active) return;
+    const id = window.setTimeout(() => dismiss(), autoDismissDelayMs);
+    return () => window.clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- dismiss on ready edge only
+  }, [autoDismissWhenReady, autoDismissDelayMs, isReady, active]);
+
+  if (!visible) return null;
+
+  const heading = isReady
+    ? guestMode
+      ? copy.guestReadyTitle
+      : copy.readyTitle
+    : title?.trim() || copy.generatingTitle;
+  const lead = isReady
+    ? guestMode
+      ? `Your ${copy.product} is ready to review, edit, or export.`
+      : copy.readyLead
+    : copy.generatingLead;
+  const progressLabel = isReady
+    ? guestMode
+      ? copy.guestReadyTitle.replace(/!$/, "")
+      : copy.completeLabel
+    : copy.progressLabel;
+  const displayPct = isReady ? 100 : Math.max(6, pct);
+  const visibleTags = [
+    copy.productTag,
+    ...tags.map((t) => t.trim()).filter(Boolean),
+  ].slice(0, 6);
 
   return (
     <div
@@ -379,7 +409,7 @@ export function GenerationBusyOverlay({
                 ) : null}
               </p>
             </div>
-          ) : (
+          ) : autoDismissWhenReady ? null : (
             <div className="mt-4 flex flex-col gap-2 sm:flex-row">
               <button
                 type="button"
@@ -435,18 +465,22 @@ export function GenerationBusyOverlay({
                 />
               </div>
               <h3 className="text-[1.05rem] font-bold tracking-tight text-[#1A1C30]">
-                {copy.readyTitle}
+                {guestMode ? copy.guestReadyTitle : copy.readyTitle}
               </h3>
               <p className="mt-1.5 text-[12px] leading-snug text-[#5D6B84]">
-                {copy.readyPanelLead}
+                {guestMode
+                  ? `Your ${copy.product} is ready to review, edit, or export.`
+                  : copy.readyPanelLead}
               </p>
-              <button
-                type="button"
-                onClick={dismiss}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#1A1E3A] px-4 py-2.5 text-[13px] font-bold text-white transition hover:bg-[#242845]"
-              >
-                {copy.openLabel}
-              </button>
+              {autoDismissWhenReady ? null : (
+                <button
+                  type="button"
+                  onClick={dismiss}
+                  className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#1A1E3A] px-4 py-2.5 text-[13px] font-bold text-white transition hover:bg-[#242845]"
+                >
+                  {copy.openLabel}
+                </button>
+              )}
             </div>
           ) : (
             <div className="relative flex size-[min(20rem,48vh)] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#E8E4DC] bg-[#FFFDF8] shadow-sm">

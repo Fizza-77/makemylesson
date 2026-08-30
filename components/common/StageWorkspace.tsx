@@ -1,5 +1,6 @@
 "use client";
 
+import { AppSidebarColumn } from "@/components/common/AppSidebarColumn";
 import { TipsResourcesCard } from "@/components/common/TipsResourcesCard";
 import { Stage4FinalChecklist } from "@/components/common/Stage4FinalChecklist";
 import { AylaChatPanel } from "@/features/ayla/AylaChatPanel";
@@ -31,15 +32,7 @@ export function StageWorkspace({
     >
       <div className="min-w-0 flex-1">{children}</div>
 
-      <aside
-        className={cn(
-          "relative w-full shrink-0",
-          "lg:sticky lg:top-[5.25rem] lg:w-80 lg:self-start xl:w-96",
-          "lg:max-h-[calc(100dvh-5.25rem-1.25rem)] lg:overflow-y-auto lg:overscroll-y-contain",
-          "lg:touch-pan-y lg:[-webkit-overflow-scrolling:touch]",
-          "lg:[scrollbar-width:none] lg:[-ms-overflow-style:none] lg:[&::-webkit-scrollbar]:hidden",
-        )}
-      >
+      <AppSidebarColumn className="lg:w-80 xl:w-96">
         <div className="flex flex-col gap-4 pb-1">
           {isStage4 ? (
             <Stage4FinalChecklist />
@@ -63,7 +56,7 @@ export function StageWorkspace({
             className="rounded-2xl border border-slate-200 shadow-sm"
           />
         </div>
-      </aside>
+      </AppSidebarColumn>
     </div>
   );
 }

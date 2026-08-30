@@ -41,13 +41,23 @@ function writeServerUsedToStorage(totalUsed: number): void {
   }
 }
 
-/** Sync UI cache from server IP trial pool. */
+/** Sync UI cache from server IP trial pool. Never inflates remaining above local usage. */
 export function setGuestCreditsFromServer(
   remaining: number,
   totalUsed: number,
 ): void {
-  writeRemainingToStorage(remaining);
-  writeServerUsedToStorage(totalUsed);
+  const serverRemaining = Math.max(
+    0,
+    Math.min(GUEST_GENERATION_CREDIT_CAP, Math.trunc(remaining)),
+  );
+  const currentRemaining = getGuestCreditsRemaining();
+  const nextRemaining = Math.min(currentRemaining, serverRemaining);
+  const nextUsed = Math.max(
+    Math.max(0, Math.trunc(totalUsed)),
+    GUEST_GENERATION_CREDIT_CAP - nextRemaining,
+  );
+  writeRemainingToStorage(nextRemaining);
+  writeServerUsedToStorage(nextUsed);
   emitGuestCreditsChanged();
 }
 

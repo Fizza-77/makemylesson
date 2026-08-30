@@ -8,7 +8,10 @@ import {
 } from "@/firebase/auth";
 import { ensureUserDocument } from "@/firebase/firestore";
 import { getFirebaseAuth } from "@/firebase/config";
-import { consumeGuestCreditLocal } from "@/lib/guest-credits";
+import {
+  consumeGuestCreditLocal,
+  getGuestCreditsRemaining,
+} from "@/lib/guest-credits";
 import {
   isGuestWebUid,
   readStoredGuestAuthUid,
@@ -115,10 +118,14 @@ export async function syncGuestTrialCredits(user: User): Promise<number> {
 export async function afterGuestGenerationSuccess(): Promise<void> {
   if (!shouldSkipLibrarySave()) return;
 
+  const before = getGuestCreditsRemaining();
   const user = getFirebaseAuth().currentUser;
   if (user) {
     await consumeWebTrialCreditOnServer(user);
   } else {
+    consumeGuestCreditLocal();
+  }
+  if (getGuestCreditsRemaining() >= before && before > 0) {
     consumeGuestCreditLocal();
   }
 }

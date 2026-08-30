@@ -8,6 +8,7 @@ import { Spinner } from "@/components/ui/Spinner";
 import { StageProgressNav } from "@/components/common/StageProgressNav";
 import { GenerationBusyOverlay } from "@/components/common/GenerationBusyOverlay";
 import { GenerationSuccessOverlay } from "@/components/common/GenerationSuccessOverlay";
+import { GuestSaveToLibraryPrompt } from "@/components/common/GuestSaveToLibraryPrompt";
 import { Stage1Hero } from "@/components/common/Stage1Hero";
 import { StageWorkspace } from "@/components/common/StageWorkspace";
 import { useGuestGeneration } from "@/features/generation/useGuestGeneration";
@@ -34,7 +35,6 @@ import {
   shareLessonPlanPdf,
 } from "@/services/lesson-plan-pdf.service";
 import {
-  recordLibrarySaved,
   recordStageGenerated,
 } from "@/services/notification-lifecycle.service";
 import {
@@ -46,6 +46,7 @@ import { useStage1DraftStore } from "@/store/stage1-draft-store";
 import { toast } from "@/store/toast-store";
 import { STAGE1_DURATIONS, STAGE1_METHODS } from "@/types/stage1";
 import { ROUTES } from "@/lib/urls";
+import { notifyStage1GenerationComplete } from "@/lib/guest-generation-notify";
 import { mapFirebaseAuthError, mapFunctionsError } from "@/lib/auth-errors";
 
 export function Stage1View() {
@@ -109,19 +110,7 @@ export function Stage1View() {
       await completeGeneration();
       setSuccessFlash((n) => n + 1);
       void recordStageGenerated(1).catch(() => null);
-      if (result.savedToLibrary) {
-        void recordLibrarySaved().catch(() => null);
-        toast.success("Lesson plan generated and saved to library.");
-      } else if (isGuest) {
-        toast.success(
-          "Lesson plan generated. Sign in to save it to your library.",
-        );
-      } else {
-        toast.success("Lesson plan generated.");
-        if (result.saveError) {
-          toast.error(result.saveError);
-        }
-      }
+      notifyStage1GenerationComplete(isGuest, result);
     } catch (e) {
       toast.error(
         mapFunctionsError(e) ||
@@ -236,8 +225,10 @@ export function Stage1View() {
         active={isGenerating}
         stage={1}
         progress={draft.progress}
+        guestMode={isGuest}
+        autoDismissWhenReady={isGuest}
         status={
-          draft.phase === "saving"
+          draft.phase === "saving" && !isGuest
             ? "Saving to library…"
             : draft.phase
               ? `Generating… ${draft.phase}`
@@ -259,7 +250,7 @@ export function Stage1View() {
                   <div className="mb-1 rounded-xl border border-[#E8F8F7] bg-[#F5FBFB] px-4 py-3">
                     <div className="mb-2 flex items-center justify-between text-sm">
                       <span className="font-medium text-[#1A1C30]">
-                        {draft.phase === "saving"
+                        {draft.phase === "saving" && !isGuest
                           ? "Saving to library…"
                           : `Generating… ${draft.phase || "working"}`}
                       </span>
@@ -359,6 +350,11 @@ export function Stage1View() {
               }}
             />
           </GenerationSuccessOverlay>
+
+          <GuestSaveToLibraryPrompt
+            visible={isGuest && hasPlan}
+            onSave={() => requireSignInToSaveLibrary()}
+          />
 
           <div className="flex w-full justify-center">
             <Button

@@ -4,7 +4,9 @@ import type { User } from "firebase/auth";
 
 import { callFunction } from "@/firebase/functions";
 import {
+  consumeGuestCreditLocal,
   GUEST_GENERATION_CREDIT_CAP,
+  getGuestCreditsRemaining,
   setGuestCreditsFromServer,
 } from "@/lib/guest-credits";
 
@@ -77,7 +79,8 @@ export async function bootstrapWebTrialCredits(user: User): Promise<{
   }
 }
 
-export async function consumeWebTrialCreditOnServer(user: User): Promise<void> {
+export async function consumeWebTrialCreditOnServer(user: User): Promise<number> {
+  const before = getGuestCreditsRemaining();
   try {
     await user.getIdToken();
     const payload = await callFunction<Record<string, never>, TrialStatusPayload>(
@@ -86,7 +89,16 @@ export async function consumeWebTrialCreditOnServer(user: User): Promise<void> {
     );
     const result = normalizeTrialStatus(payload);
     setGuestCreditsFromServer(result.remaining, result.totalUsed);
+    const after = getGuestCreditsRemaining();
+    if (after >= before && before > 0) {
+      return consumeGuestCreditLocal();
+    }
+    return after;
   } catch (error) {
     console.warn("[Trial] consumeWebTrial failed", error);
+    if (before > 0) {
+      return consumeGuestCreditLocal();
+    }
+    return before;
   }
 }

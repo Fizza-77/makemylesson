@@ -83,7 +83,7 @@ export function Stage2Hero() {
                 {(
                   summary ??
                   (isGuest
-                    ? `${credits} free trial credit${credits === 1 ? "" : "s"} remaining`
+                    ? `${credits} free credit${credits === 1 ? "" : "s"} remaining`
                     : credits !== null
                       ? `${credits} credit${credits === 1 ? "" : "s"} remaining`
                       : "Loading credits…")
