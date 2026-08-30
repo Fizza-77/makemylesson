@@ -107,3 +107,14 @@ export async function consumeWebTrialCreditOnServer(user: User): Promise<number>
     ? lastError
     : new Error("Could not record web trial usage.");
 }
+
+/** Mark this public IP's web trial as fully used (after guest trial links to account). */
+export async function sealWebTrialIpOnServer(user: User): Promise<void> {
+  await user.getIdToken();
+  const payload = await callFunction<Record<string, never>, TrialStatusPayload>(
+    "sealWebTrialIp",
+    {},
+  );
+  const result = normalizeTrialStatus(payload);
+  setGuestCreditsFromServer(result.remaining, result.totalUsed);
+}

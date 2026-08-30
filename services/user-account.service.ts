@@ -10,11 +10,15 @@ import {
   markDeviceFreeSignupConsumed,
 } from "@/lib/device-free-signup";
 import {
-  clearGuestTrialUsageAfterAccountSync,
   getGuestCreditsRemaining,
   getGuestTrialUsedCount,
   GUEST_GENERATION_CREDIT_CAP,
+  sealGuestTrialOnDevice,
 } from "@/lib/guest-credits";
+import {
+  fetchWebTrialStatusFromServer,
+  sealWebTrialIpOnServer,
+} from "@/lib/trial-api.client";
 import {
   freeTierExhaustedOnDevicePayload,
   freeTierPayloadFromTrialRemaining,
@@ -26,7 +30,6 @@ import {
   toInt,
   userDocMissingCreditBalance,
 } from "@/lib/subscription-firestore-sync";
-import { fetchWebTrialStatusFromServer } from "@/lib/trial-api.client";
 import type { AccountPlanTier } from "@/types/account";
 
 /** Read model for Profile — mirrors users/{uid} fields Flutter already uses. */
@@ -233,8 +236,7 @@ export async function ensureFreeGenerationCreditsForUser(
     { merge: true },
   );
 
-  markDeviceFreeSignupConsumed();
-  clearGuestTrialUsageAfterAccountSync();
+  sealGuestTrialOnDevice();
 
   authLog.info("account.free_credits_initialized", {
     uid,
@@ -266,8 +268,13 @@ export async function mergeTrialUsageIntoAccountCredits(
   const newRemaining = Math.max(0, current - trialUsed);
 
   if (newRemaining === current) {
-    clearGuestTrialUsageAfterAccountSync();
-    markDeviceFreeSignupConsumed();
+    if (newRemaining === 0) {
+      const user = getFirebaseAuth().currentUser;
+      if (user) {
+        await sealWebTrialIpOnServer(user).catch(() => null);
+      }
+    }
+    sealGuestTrialOnDevice();
     return;
   }
 
@@ -282,8 +289,13 @@ export async function mergeTrialUsageIntoAccountCredits(
     { merge: true },
   );
 
-  clearGuestTrialUsageAfterAccountSync();
-  markDeviceFreeSignupConsumed();
+  if (newRemaining === 0) {
+    const user = getFirebaseAuth().currentUser;
+    if (user) {
+      await sealWebTrialIpOnServer(user).catch(() => null);
+    }
+  }
+  sealGuestTrialOnDevice();
 
   authLog.info("account.trial_merged", {
     uid,

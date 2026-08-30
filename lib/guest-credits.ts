@@ -1,5 +1,6 @@
 import {
   getDeviceTrialUsedCount,
+  isDeviceFreeSignupConsumed,
   markDeviceFreeSignupConsumed,
   recordDeviceTrialUsage,
 } from "@/lib/device-free-signup";
@@ -58,6 +59,13 @@ export function setGuestCreditsFromServer(
   remaining: number,
   totalUsed: number,
 ): void {
+  if (isDeviceFreeSignupConsumed()) {
+    writeRemainingToStorage(0);
+    writeServerUsedToStorage(GUEST_GENERATION_CREDIT_CAP);
+    emitGuestCreditsChanged();
+    return;
+  }
+
   const serverRemaining = clampRemaining(remaining);
   const serverUsed = Math.max(
     clampUsed(totalUsed),
@@ -83,6 +91,7 @@ export function setGuestCreditsFromServer(
 
 function readRemainingFromStorage(): number {
   if (typeof window === "undefined") return GUEST_GENERATION_CREDIT_CAP;
+  if (isDeviceFreeSignupConsumed()) return 0;
   try {
     const raw = window.localStorage.getItem(GUEST_CREDITS_REMAINING_KEY);
     if (raw == null) {
@@ -120,6 +129,15 @@ export function getServerTrialUsedCount(): number {
 export function getGuestTrialUsedCount(): number {
   const localUsed = GUEST_GENERATION_CREDIT_CAP - getGuestCreditsRemaining();
   return Math.max(localUsed, getServerTrialUsedCount(), getDeviceTrialUsedCount());
+}
+
+/** After linking guest trial to a signed-in account — no guest credits on sign-out. */
+export function sealGuestTrialOnDevice(): void {
+  recordDeviceTrialUsage(GUEST_GENERATION_CREDIT_CAP);
+  markDeviceFreeSignupConsumed();
+  writeRemainingToStorage(0);
+  writeServerUsedToStorage(GUEST_GENERATION_CREDIT_CAP);
+  emitGuestCreditsChanged();
 }
 
 /** Reset guest UI cache after trial usage is merged into a signed-in account. */

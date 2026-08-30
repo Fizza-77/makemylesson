@@ -237,8 +237,42 @@ const consumeWebTrial = onCall(callableOptions, async (request) => {
   }
 });
 
+async function setIpUsageToCap(ipHash) {
+  const admin = getAdmin();
+  await getDb()
+    .collection(WEB_TRIAL_IP_COLLECTION)
+    .doc(ipHash)
+    .set(
+      {
+        totalUsed: WEB_TRIAL_CAP,
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      },
+      { merge: true },
+    );
+  return { totalUsed: WEB_TRIAL_CAP };
+}
+
+const sealWebTrialIp = onCall(callableOptions, async (request) => {
+  if (!request.auth?.uid) {
+    throw new HttpsError("unauthenticated", "Sign in required.");
+  }
+  try {
+    const ipHash = hashClientIp(clientIpFromRequest(request.rawRequest));
+    await setIpUsageToCap(ipHash);
+    return trialPayload(WEB_TRIAL_CAP);
+  } catch (error) {
+    console.error("[sealWebTrialIp]", error);
+    if (error instanceof HttpsError) throw error;
+    throw new HttpsError(
+      "internal",
+      `Could not seal web trial IP usage: ${formatInternalError(error)}`,
+    );
+  }
+});
+
 module.exports = {
   getWebTrialStatus,
   bootstrapWebTrial,
   consumeWebTrial,
+  sealWebTrialIp,
 };
