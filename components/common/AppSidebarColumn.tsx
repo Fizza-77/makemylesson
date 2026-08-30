@@ -8,5 +8,14 @@ export function AppSidebarColumn({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <aside className={cn("app-sidebar-column", className)}>{children}</aside>;
+  return (
+    <aside
+      className={cn(
+        "app-sidebar-column w-full shrink-0 lg:w-80 xl:w-96",
+        className,
+      )}
+    >
+      {children}
+    </aside>
+  );
 }

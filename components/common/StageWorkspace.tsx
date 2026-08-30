@@ -32,7 +32,7 @@ export function StageWorkspace({
     >
       <div className="min-w-0 flex-1">{children}</div>
 
-      <AppSidebarColumn className="lg:w-80 xl:w-96">
+      <AppSidebarColumn>
         <div className="flex flex-col gap-4 pb-1">
           {isStage4 ? (
             <Stage4FinalChecklist />

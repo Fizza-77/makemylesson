@@ -164,8 +164,8 @@ body {
  */
 .app-sidebar-column {
   position: relative;
-  width: 100%;
   flex-shrink: 0;
+  /* Width comes from Tailwind on AppSidebarColumn (w-full lg:w-80). Do not set width:100% here — it overrides lg:w-80 and collapses the main column. */
 }
 
 @media (min-width: 1024px) {
