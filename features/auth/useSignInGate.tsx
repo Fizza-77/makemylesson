@@ -7,7 +7,8 @@ import { isRegisteredUser } from "@/lib/guest-session";
 import { useAuthStore } from "@/store/auth-store";
 
 /**
- * When a signed-out user tries to generate or save to library, show sign in / sign up.
+ * Web trial users and signed-out visitors — sign-in gate for library saves
+ * and after trial credits are used.
  */
 export function useSignInGate(nextPath: string) {
   const user = useAuthStore((s) => s.user);

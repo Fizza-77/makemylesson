@@ -11,7 +11,11 @@ import { signOutUser } from "@/firebase/auth";
 import { callFunction } from "@/firebase/functions";
 import { authLog } from "@/lib/auth-logger";
 import { ROUTES } from "@/lib/urls";
-import { ensureFreeGenerationCreditsForUser } from "@/services/user-account.service";
+import { userDocMissingCreditBalance } from "@/lib/subscription-firestore-sync";
+import {
+  ensureFreeGenerationCreditsForUser,
+  mergeTrialUsageIntoAccountCredits,
+} from "@/services/user-account.service";
 import { useAuthStore } from "@/store/auth-store";
 
 function isSocialProvider(user: User): boolean {
@@ -73,7 +77,18 @@ export async function resolvePostAuthDestination(user: User): Promise<string> {
   }
 
   try {
+    const preCreditSnap = await getDoc(userDocRef(user.uid));
+    const hadCreditBalance =
+      preCreditSnap.exists() &&
+      !userDocMissingCreditBalance(
+        (preCreditSnap.data() ?? {}) as Record<string, unknown>,
+      );
+
     await ensureFreeGenerationCreditsForUser(user.uid);
+
+    if (hadCreditBalance) {
+      await mergeTrialUsageIntoAccountCredits(user.uid);
+    }
   } catch (e) {
     authLog.warn("post_auth.free_credits_failed", {
       uid: user.uid,

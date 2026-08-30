@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signInWithCustomToken,
+  signInAnonymously,
   signOut,
   confirmPasswordReset,
   verifyPasswordResetCode,
@@ -99,6 +100,15 @@ export async function signInWithEmail(email: string, password: string) {
 export async function signInWithCustomAuthToken(token: string) {
   await ensureAuthPersistence();
   return signInWithCustomToken(getFirebaseAuth(), token);
+}
+
+export async function signInAnonymouslyIfNeeded() {
+  await ensureAuthPersistence();
+  const auth = getFirebaseAuth();
+  if (auth.currentUser) {
+    return { user: auth.currentUser };
+  }
+  return signInAnonymously(auth);
 }
 
 export async function signOutUser() {

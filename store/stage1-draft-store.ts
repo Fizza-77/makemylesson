@@ -8,6 +8,7 @@ import {
 } from "@/lib/lesson-plan-curriculum-prefs";
 import { newPlanBundleId } from "@/lib/plan-bundle-id";
 import { toUserMessage } from "@/lib/user-facing-error";
+import { shouldSkipLibrarySave } from "@/lib/guest-session";
 import {
   getTopLevelById,
   getPathway,
@@ -201,6 +202,9 @@ async function finalizeStage1Plan(
 
   let savedToLibrary = false;
   let saveError: string | undefined;
+  if (shouldSkipLibrarySave()) {
+    return { savedToLibrary, saveError };
+  }
   try {
     await get().saveCurrentPlanToLibrary();
     savedToLibrary = Boolean(get().linkedLibraryItemId);
@@ -474,6 +478,9 @@ export const useStage1DraftStore = create<Stage1Store>((set, get) => ({
     }
 
     const { getFirebaseAuth } = await import("@/firebase/config");
+    if (shouldSkipLibrarySave()) {
+      throw new Error("Sign in to save to your library.");
+    }
     if (!getFirebaseAuth().currentUser) {
       throw new Error("Sign in to save to your library.");
     }

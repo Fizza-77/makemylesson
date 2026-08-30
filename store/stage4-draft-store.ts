@@ -8,6 +8,7 @@ import {
 } from "@/data/stage2-route-map";
 import { newPlanBundleId } from "@/lib/plan-bundle-id";
 import { toUserMessage } from "@/lib/user-facing-error";
+import { shouldSkipLibrarySave } from "@/lib/guest-session";
 import {
   findCurriculumIdFromName,
   resolveStage1SelectionFromLibrary,
@@ -261,6 +262,9 @@ async function persistToLibrary(
   }
 
   const { getFirebaseAuth } = await import("@/firebase/config");
+  if (shouldSkipLibrarySave()) {
+    return { saved: false };
+  }
   if (!getFirebaseAuth().currentUser) {
     return { saved: false, saveError: "Sign in to save to your library." };
   }

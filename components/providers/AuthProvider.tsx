@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { getFirebaseAuth } from "@/firebase/config";
 import { fetchUserProfile } from "@/firebase/firestore";
+import { isGuestUser } from "@/lib/guest-session";
 import { useAuthStore } from "@/store/auth-store";
 import { syncAccountSubscription } from "@/store/account-store";
 import { syncLibraryCatalogSubscription } from "@/store/library-catalog-store";
@@ -29,15 +30,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       prevUid = user?.uid ?? null;
 
       setUser(user);
-      if (user) {
+      const guest = isGuestUser(user);
+      if (!guest && user) {
         syncLibraryCatalogSubscription(user.uid);
       } else {
         syncLibraryCatalogSubscription(null);
       }
       syncAccountSubscription(user?.uid ?? null, {
-        isAnonymous: false,
+        isAnonymous: guest,
       });
       if (!user) {
+        setProfile(null);
+        setAuthReady(true);
+        return;
+      }
+      if (guest) {
         setProfile(null);
         setAuthReady(true);
         return;

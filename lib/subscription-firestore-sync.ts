@@ -180,3 +180,18 @@ export function freeTierStarterCreditsPayload(): Record<string, unknown> {
     creditsUsed: 0,
   };
 }
+
+/** Seed free-tier balance from web trial remaining (0–5). */
+export function freeTierPayloadFromTrialRemaining(
+  remaining: number,
+  cap = 5,
+): Record<string, unknown> {
+  const clamped = clampInt(remaining, 0, cap);
+  return {
+    planTier: "free",
+    subscriptionPlan: "free",
+    generationCredits: clamped,
+    generationCreditCap: cap,
+    creditsUsed: cap - clamped,
+  };
+}

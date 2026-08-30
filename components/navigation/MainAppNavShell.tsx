@@ -16,6 +16,7 @@ import { upsertCurrentDeviceToken } from "@/services/fcm-web.service";
 import { recordAppOpened } from "@/services/notification-lifecycle.service";
 import { useAccountStore } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
+import { useGuestCreditsRemaining } from "@/hooks/useGuestCredits";
 import { isRegisteredUser } from "@/lib/guest-session";
 import { useNotificationsPanelStore } from "@/store/notifications-panel-store";
 import {
@@ -131,8 +132,13 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
     profile?.displayName ||
     user?.displayName ||
     "Teacher";
+  const guestCredits = useGuestCreditsRemaining();
   const isGuest = !isRegisteredUser(user);
-  const credits = account ? Math.max(0, account.generationCredits) : null;
+  const credits = isGuest
+    ? guestCredits
+    : account
+      ? Math.max(0, account.generationCredits)
+      : guestCredits;
   const isFree = isGuest || !account || account.planTier === "free";
 
   useEffect(() => {
@@ -228,6 +234,17 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
 
             {authReady && !isRegisteredUser(user) ? (
               <>
+                {credits > 0 ? (
+                  <PricingLink
+                    href={ROUTES.subscription}
+                    className="hidden max-w-[12rem] items-center truncate rounded-lg bg-[#0F172A] px-3 py-2 text-[11px] font-semibold whitespace-nowrap text-white sm:inline-flex"
+                  >
+                    <span className="text-[#2DD4BF]">{credits}</span>
+                    <span className="ml-1 truncate font-medium">
+                      trial credits left
+                    </span>
+                  </PricingLink>
+                ) : null}
                 <Link
                   href={`${ROUTES.signIn}?next=${encodeURIComponent(pathname || ROUTES.home)}`}
                   className="inline-flex items-center justify-center rounded-full px-3.5 py-2 text-sm font-semibold text-[#334155] transition hover:bg-[#F5F6FA] hover:text-[#0F172A] sm:px-4"

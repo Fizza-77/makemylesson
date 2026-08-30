@@ -10,7 +10,14 @@ import {
   markDeviceFreeSignupConsumed,
 } from "@/lib/device-free-signup";
 import {
+  clearGuestTrialUsageAfterAccountSync,
+  getGuestCreditsRemaining,
+  getGuestTrialUsedCount,
+  GUEST_GENERATION_CREDIT_CAP,
+} from "@/lib/guest-credits";
+import {
   freeTierExhaustedOnDevicePayload,
+  freeTierPayloadFromTrialRemaining,
   freeTierStarterCreditsPayload,
   isLifetimeTopUpTier,
   isPaidPlanTier,
@@ -178,10 +185,25 @@ function maybeMarkDeviceFreeSignupConsumedFromUserDoc(
   }
 }
 
+function resolveInitialFreeTierPayload(): Record<string, unknown> {
+  const trialRemaining = getGuestCreditsRemaining();
+  const trialUsed = getGuestTrialUsedCount();
+
+  if (trialUsed > 0) {
+    return freeTierPayloadFromTrialRemaining(trialRemaining);
+  }
+  if (isDeviceFreeSignupConsumed()) {
+    return freeTierExhaustedOnDevicePayload();
+  }
+  if (trialRemaining < GUEST_GENERATION_CREDIT_CAP) {
+    return freeTierPayloadFromTrialRemaining(trialRemaining);
+  }
+  return freeTierStarterCreditsPayload();
+}
+
 /**
- * First-time balance on `users/{uid}`: grant 5 only if this device has not
- * already used its one-time free signup allocation; otherwise 0 (same shape as
- * Flutter `freeTierAfterTopUpExhausted` / exhausted free tier).
+ * First-time balance on `users/{uid}`: seed from web trial remaining when set,
+ * otherwise 5 if this device has not used its one-time free signup allocation.
  */
 export async function ensureFreeGenerationCreditsForUser(
   uid: string,
@@ -193,9 +215,7 @@ export async function ensureFreeGenerationCreditsForUser(
   if (!userDocMissingCreditBalance(data)) return;
   if (parsePlanTierFromUserDoc(data) !== "free") return;
 
-  const payload = isDeviceFreeSignupConsumed()
-    ? freeTierExhaustedOnDevicePayload()
-    : freeTierStarterCreditsPayload();
+  const payload = resolveInitialFreeTierPayload();
 
   await setDoc(
     ref,
@@ -207,10 +227,62 @@ export async function ensureFreeGenerationCreditsForUser(
   );
 
   markDeviceFreeSignupConsumed();
+  clearGuestTrialUsageAfterAccountSync();
 
   authLog.info("account.free_credits_initialized", {
     uid,
     granted: payload.generationCredits,
+  });
+}
+
+/**
+ * Existing free accounts: subtract web trial usage from Firestore balance so
+ * mobile and web share one lifetime free-credit pool.
+ */
+export async function mergeTrialUsageIntoAccountCredits(
+  uid: string,
+): Promise<void> {
+  const trialUsed = getGuestTrialUsedCount();
+  if (trialUsed <= 0) return;
+
+  const ref = userDocRef(uid);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) return;
+
+  const data = snap.data() as Record<string, unknown>;
+  if (parsePlanTierFromUserDoc(data) !== "free") return;
+  if (userDocMissingCreditBalance(data)) return;
+
+  const resolved = resolveSubscriptionCredits(data);
+  const cap = resolved.generationCreditCap;
+  const current = resolved.generationCredits;
+  const newRemaining = Math.max(0, current - trialUsed);
+
+  if (newRemaining === current) {
+    clearGuestTrialUsageAfterAccountSync();
+    markDeviceFreeSignupConsumed();
+    return;
+  }
+
+  await setDoc(
+    ref,
+    {
+      generationCredits: newRemaining,
+      generationCreditCap: cap,
+      creditsUsed: cap - newRemaining,
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true },
+  );
+
+  clearGuestTrialUsageAfterAccountSync();
+  markDeviceFreeSignupConsumed();
+
+  authLog.info("account.trial_merged", {
+    uid,
+    trialUsed,
+    before: current,
+    after: newRemaining,
   });
 }
 

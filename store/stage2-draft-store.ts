@@ -9,6 +9,7 @@ import {
 import { stage2ThemeById } from "@/data/stage2-themes";
 import { newPlanBundleId } from "@/lib/plan-bundle-id";
 import { toUserMessage } from "@/lib/user-facing-error";
+import { shouldSkipLibrarySave } from "@/lib/guest-session";
 import {
   findCurriculumIdFromName,
 } from "@/services/curriculum.service";
@@ -265,6 +266,9 @@ async function persistDeckToLibrary(
   }
 
   const { getFirebaseAuth } = await import("@/firebase/config");
+  if (shouldSkipLibrarySave()) {
+    return { saved: false };
+  }
   if (!getFirebaseAuth().currentUser) {
     return { saved: false, saveError: "Sign in to save to your library." };
   }

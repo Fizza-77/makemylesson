@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import { PricingLink } from "@/components/common/PricingLink";
+import { useGuestCreditsRemaining } from "@/hooks/useGuestCredits";
 import { isRegisteredUser } from "@/lib/guest-session";
 import { ROUTES } from "@/lib/urls";
 import {
@@ -29,8 +30,13 @@ function CrownIcon() {
 export function Stage2Hero() {
   const user = useAuthStore((s) => s.user);
   const account = useAccountStore((s) => s.account);
+  const guestCredits = useGuestCreditsRemaining();
   const isGuest = !isRegisteredUser(user);
-  const credits = account ? Math.max(0, account.generationCredits) : null;
+  const credits = isGuest
+    ? guestCredits
+    : account
+      ? Math.max(0, account.generationCredits)
+      : guestCredits;
   const paid = account ? isPaidPlan(account.planTier) : false;
   const summary = account ? profileCreditsRemainingLine(account) : null;
 
@@ -77,7 +83,7 @@ export function Stage2Hero() {
                 {(
                   summary ??
                   (isGuest
-                    ? "Sign in for 5 free generation credits"
+                    ? `${credits} free trial credit${credits === 1 ? "" : "s"} remaining`
                     : credits !== null
                       ? `${credits} credit${credits === 1 ? "" : "s"} remaining`
                       : "Loading credits…")

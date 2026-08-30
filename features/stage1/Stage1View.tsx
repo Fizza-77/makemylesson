@@ -54,6 +54,7 @@ export function Stage1View() {
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
   const {
+    isGuest,
     prepareGeneration,
     completeGeneration,
     requireSignInToSaveLibrary,
@@ -111,6 +112,10 @@ export function Stage1View() {
       if (result.savedToLibrary) {
         void recordLibrarySaved().catch(() => null);
         toast.success("Lesson plan generated and saved to library.");
+      } else if (isGuest) {
+        toast.success(
+          "Lesson plan generated. Sign in to save it to your library.",
+        );
       } else {
         toast.success("Lesson plan generated.");
         if (result.saveError) {
