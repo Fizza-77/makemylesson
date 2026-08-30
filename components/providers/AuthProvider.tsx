@@ -19,6 +19,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const setAuthReady = useAuthStore((s) => s.setAuthReady);
 
   useEffect(() => {
+    async function refreshGuestTrialFromServer() {
+      const auth = getFirebaseAuth();
+      const user = auth.currentUser;
+      try {
+        if (isGuestUser(user) && user) {
+          await syncGuestTrialCredits(user);
+        } else if (!user) {
+          await fetchWebTrialStatusFromServer();
+        }
+      } catch {
+        /* non-blocking */
+      }
+    }
+
+    function onVisible() {
+      if (document.visibilityState !== "visible") return;
+      void refreshGuestTrialFromServer();
+    }
+
+    window.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", onVisible);
+
     const auth = getFirebaseAuth();
     let prevUid: string | null = null;
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -72,6 +94,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     return () => {
       unsub();
+      window.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", onVisible);
       syncLibraryCatalogSubscription(null);
       syncAccountSubscription(null);
     };

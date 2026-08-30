@@ -26,16 +26,22 @@ function formatInternalError(error) {
   return String(error);
 }
 
-function getDb() {
+function ensureAdmin() {
   const admin = require("firebase-admin");
-  if (!admin.apps.length) {
+  try {
+    admin.app();
+  } catch {
     admin.initializeApp({ projectId: getProjectId() });
   }
-  return admin.firestore();
+  return admin;
+}
+
+function getDb() {
+  return ensureAdmin().firestore();
 }
 
 function getAdmin() {
-  return require("firebase-admin");
+  return ensureAdmin();
 }
 
 function getSalt() {
