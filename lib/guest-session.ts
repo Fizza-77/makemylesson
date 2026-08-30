@@ -8,12 +8,16 @@ import {
 } from "@/firebase/auth";
 import { ensureUserDocument } from "@/firebase/firestore";
 import { getFirebaseAuth } from "@/firebase/config";
-import { consumeGuestCredit } from "@/lib/guest-credits";
+import { consumeGuestCreditLocal } from "@/lib/guest-credits";
 import {
   isGuestWebUid,
   readStoredGuestAuthUid,
   writeStoredGuestAuthUid,
 } from "@/lib/guest-auth-id";
+import {
+  bootstrapWebTrialCredits,
+  consumeWebTrialCreditOnServer,
+} from "@/lib/trial-api.client";
 
 /** Web trial user — unsigned, anonymous Firebase, or guest custom token. */
 export function isGuestUser(user: User | null | undefined): boolean {
@@ -102,9 +106,20 @@ export async function ensureGuestAuth(): Promise<User> {
   return user;
 }
 
-export function afterGuestGenerationSuccess(): void {
-  if (shouldSkipLibrarySave()) {
-    consumeGuestCredit();
+/** Sync IP trial pool to guest Firestore credits and UI cache. */
+export async function syncGuestTrialCredits(user: User): Promise<number> {
+  const result = await bootstrapWebTrialCredits(user);
+  return result.remaining;
+}
+
+export async function afterGuestGenerationSuccess(): Promise<void> {
+  if (!shouldSkipLibrarySave()) return;
+
+  const user = getFirebaseAuth().currentUser;
+  if (user) {
+    await consumeWebTrialCreditOnServer(user);
+  } else {
+    consumeGuestCreditLocal();
   }
 }
 

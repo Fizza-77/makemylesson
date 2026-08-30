@@ -11,6 +11,7 @@ import {
   ensureGuestAuth,
   isGuestSignInUnavailableError,
   isRegisteredUser,
+  syncGuestTrialCredits,
 } from "@/lib/guest-session";
 import { refreshAccountFromServer } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
@@ -23,7 +24,7 @@ const TRIAL_EXHAUSTED_MESSAGE =
   "You've used your 5 free trial generations. Sign in or create a free account to continue.";
 
 /**
- * Web-only trial: 5 device-local credits, silent Firebase session for Cloud Functions,
+ * Web-only trial: 5 credits per public IP (server), silent Firebase session for Cloud Functions,
  * no library auto-save. Mobile app still requires sign-in before generating.
  */
 export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
@@ -41,7 +42,14 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
     }
 
     try {
-      await ensureGuestAuth();
+      const user = await ensureGuestAuth();
+      if (isGuest) {
+        const remaining = await syncGuestTrialCredits(user);
+        if (remaining <= 0) {
+          requireRegisteredSignIn(TRIAL_EXHAUSTED_MESSAGE);
+          return false;
+        }
+      }
     } catch (e) {
       console.error("[Guest] ensureGuestAuth failed", e);
       if (isGuestSignInUnavailableError(e)) {
@@ -59,7 +67,7 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
   }, [blockIfNoCredits, isGuest, requireRegisteredSignIn]);
 
   const completeGeneration = useCallback(async () => {
-    afterGuestGenerationSuccess();
+    await afterGuestGenerationSuccess();
     const current = useAuthStore.getState().user;
     if (isRegisteredUser(current) && current?.uid) {
       await refreshAccountFromServer(current.uid).catch(() => null);

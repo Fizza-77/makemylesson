@@ -4,6 +4,7 @@ import { markDeviceFreeSignupConsumed } from "@/lib/device-free-signup";
 export const GUEST_GENERATION_CREDIT_CAP = 5;
 
 const GUEST_CREDITS_REMAINING_KEY = "mml_guest_credits_remaining";
+const GUEST_TRIAL_SERVER_USED_KEY = "mml_guest_trial_server_used";
 
 const listeners = new Set<() => void>();
 
@@ -14,6 +15,40 @@ function emitGuestCreditsChanged() {
 export function subscribeGuestCredits(onStoreChange: () => void): () => void {
   listeners.add(onStoreChange);
   return () => listeners.delete(onStoreChange);
+}
+
+function writeRemainingToStorage(remaining: number): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(
+      GUEST_CREDITS_REMAINING_KEY,
+      String(Math.max(0, Math.min(GUEST_GENERATION_CREDIT_CAP, remaining))),
+    );
+  } catch {
+    /* ignore */
+  }
+}
+
+function writeServerUsedToStorage(totalUsed: number): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(
+      GUEST_TRIAL_SERVER_USED_KEY,
+      String(Math.max(0, Math.min(GUEST_GENERATION_CREDIT_CAP, totalUsed))),
+    );
+  } catch {
+    /* ignore */
+  }
+}
+
+/** Sync UI cache from server IP trial pool. */
+export function setGuestCreditsFromServer(
+  remaining: number,
+  totalUsed: number,
+): void {
+  writeRemainingToStorage(remaining);
+  writeServerUsedToStorage(totalUsed);
+  emitGuestCreditsChanged();
 }
 
 export function getGuestCreditsRemaining(): number {
@@ -29,8 +64,22 @@ export function getGuestCreditsRemaining(): number {
   }
 }
 
+export function getServerTrialUsedCount(): number {
+  if (typeof window === "undefined") return 0;
+  try {
+    const raw = window.localStorage.getItem(GUEST_TRIAL_SERVER_USED_KEY);
+    if (raw == null) return 0;
+    const n = Number.parseInt(raw, 10);
+    if (!Number.isFinite(n)) return 0;
+    return Math.max(0, Math.min(GUEST_GENERATION_CREDIT_CAP, n));
+  } catch {
+    return 0;
+  }
+}
+
 export function getGuestTrialUsedCount(): number {
-  return GUEST_GENERATION_CREDIT_CAP - getGuestCreditsRemaining();
+  const localUsed = GUEST_GENERATION_CREDIT_CAP - getGuestCreditsRemaining();
+  return Math.max(localUsed, getServerTrialUsedCount());
 }
 
 /** Reset local trial counter after usage is synced to Firestore. */
@@ -41,20 +90,17 @@ export function clearGuestTrialUsageAfterAccountSync(): void {
       GUEST_CREDITS_REMAINING_KEY,
       String(GUEST_GENERATION_CREDIT_CAP),
     );
+    window.localStorage.removeItem(GUEST_TRIAL_SERVER_USED_KEY);
   } catch {
     /* ignore */
   }
   emitGuestCreditsChanged();
 }
 
-/** @returns remaining credits after consumption */
-export function consumeGuestCredit(): number {
+/** @returns remaining credits after consumption (local cache only) */
+export function consumeGuestCreditLocal(): number {
   const next = Math.max(0, getGuestCreditsRemaining() - 1);
-  try {
-    window.localStorage.setItem(GUEST_CREDITS_REMAINING_KEY, String(next));
-  } catch {
-    /* ignore */
-  }
+  writeRemainingToStorage(next);
   emitGuestCreditsChanged();
   if (next === 0) {
     markDeviceFreeSignupConsumed();

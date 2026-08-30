@@ -5,7 +5,8 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { getFirebaseAuth } from "@/firebase/config";
 import { fetchUserProfile } from "@/firebase/firestore";
-import { isGuestUser } from "@/lib/guest-session";
+import { isGuestUser, syncGuestTrialCredits } from "@/lib/guest-session";
+import { fetchWebTrialStatusFromServer } from "@/lib/trial-api.client";
 import { useAuthStore } from "@/store/auth-store";
 import { syncAccountSubscription } from "@/store/account-store";
 import { syncLibraryCatalogSubscription } from "@/store/library-catalog-store";
@@ -41,11 +42,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       if (!user) {
         setProfile(null);
+        void fetchWebTrialStatusFromServer();
         setAuthReady(true);
         return;
       }
       if (guest) {
         setProfile(null);
+        void syncGuestTrialCredits(user);
         setAuthReady(true);
         return;
       }
