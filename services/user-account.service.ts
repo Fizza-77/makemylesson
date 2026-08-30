@@ -26,6 +26,7 @@ import {
   toInt,
   userDocMissingCreditBalance,
 } from "@/lib/subscription-firestore-sync";
+import { fetchWebTrialStatusFromServer } from "@/lib/trial-api.client";
 import type { AccountPlanTier } from "@/types/account";
 
 /** Read model for Profile — mirrors users/{uid} fields Flutter already uses. */
@@ -214,6 +215,12 @@ export async function ensureFreeGenerationCreditsForUser(
   const data = snap.data() as Record<string, unknown>;
   if (!userDocMissingCreditBalance(data)) return;
   if (parsePlanTierFromUserDoc(data) !== "free") return;
+
+  try {
+    await fetchWebTrialStatusFromServer();
+  } catch {
+    /* IP trial sync is best-effort */
+  }
 
   const payload = resolveInitialFreeTierPayload();
 

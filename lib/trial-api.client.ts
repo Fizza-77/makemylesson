@@ -9,6 +9,7 @@ import {
   getGuestCreditsRemaining,
   setGuestCreditsFromServer,
 } from "@/lib/guest-credits";
+import { getDeviceTrialUsedCount } from "@/lib/device-free-signup";
 
 type TrialStatusPayload = {
   remaining?: number;
@@ -51,9 +52,12 @@ export async function fetchWebTrialStatusFromServer(): Promise<{
     return result;
   } catch (error) {
     console.warn("[Trial] getWebTrialStatus failed", error);
+    const deviceUsed = getDeviceTrialUsedCount();
+    const remaining = Math.max(0, GUEST_GENERATION_CREDIT_CAP - deviceUsed);
+    setGuestCreditsFromServer(remaining, deviceUsed);
     return {
-      remaining: GUEST_GENERATION_CREDIT_CAP,
-      totalUsed: 0,
+      remaining,
+      totalUsed: deviceUsed,
       configured: false,
     };
   }

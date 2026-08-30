@@ -42,13 +42,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       if (!user) {
         setProfile(null);
-        void fetchWebTrialStatusFromServer();
+        try {
+          await fetchWebTrialStatusFromServer();
+        } catch {
+          /* non-blocking */
+        }
         setAuthReady(true);
         return;
       }
       if (guest) {
         setProfile(null);
-        void syncGuestTrialCredits(user);
+        try {
+          await syncGuestTrialCredits(user);
+        } catch {
+          /* non-blocking */
+        }
         setAuthReady(true);
         return;
       }
