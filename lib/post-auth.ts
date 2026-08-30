@@ -14,6 +14,7 @@ import { ROUTES } from "@/lib/urls";
 import {
   ensureFreeGenerationCreditsForUser,
   mergeTrialUsageIntoAccountCredits,
+  sealWebTrialWhenFreeAccountExhausted,
 } from "@/services/user-account.service";
 import { useAuthStore } from "@/store/auth-store";
 
@@ -78,6 +79,7 @@ export async function resolvePostAuthDestination(user: User): Promise<string> {
   try {
     await ensureFreeGenerationCreditsForUser(user.uid);
     await mergeTrialUsageIntoAccountCredits(user.uid);
+    await sealWebTrialWhenFreeAccountExhausted(user.uid);
   } catch (e) {
     authLog.warn("post_auth.free_credits_failed", {
       uid: user.uid,

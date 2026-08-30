@@ -305,6 +305,49 @@ export async function mergeTrialUsageIntoAccountCredits(
   });
 }
 
+/**
+ * When a free account has no credits left, seal the IP trial pool too so
+ * incognito / other browsers on the same network cannot pick up leftover IP credits.
+ */
+export async function sealWebTrialWhenFreeAccountExhausted(
+  uid: string,
+): Promise<void> {
+  const user = getFirebaseAuth().currentUser;
+  if (!user) return;
+
+  const snap = await getDoc(userDocRef(uid));
+  if (!snap.exists()) return;
+
+  const data = snap.data() as Record<string, unknown>;
+  if (parsePlanTierFromUserDoc(data) !== "free") return;
+  if (userDocMissingCreditBalance(data)) return;
+
+  const resolved = resolveSubscriptionCredits(data);
+  if (resolved.generationCredits > 0) return;
+
+  let ipRemaining = 0;
+  try {
+    const trial = await fetchWebTrialStatusFromServer();
+    ipRemaining = trial.remaining;
+  } catch {
+    /* best-effort */
+  }
+
+  if (ipRemaining > 0) {
+    try {
+      await sealWebTrialIpOnServer(user);
+      authLog.info("account.ip_trial_sealed", { uid, ipRemainingBefore: ipRemaining });
+    } catch (error) {
+      authLog.warn("account.ip_trial_seal_failed", {
+        uid,
+        message: String(error),
+      });
+    }
+  }
+
+  sealGuestTrialOnDevice();
+}
+
 /** Live listener on users/{uid} — read only; no subscription repair writes. */
 export function subscribeUserAccount(
   uid: string,
