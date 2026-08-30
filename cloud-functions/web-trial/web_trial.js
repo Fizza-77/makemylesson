@@ -6,10 +6,30 @@ const WEB_TRIAL_CAP = 5;
 const WEB_TRIAL_IP_COLLECTION = "webTrialIpUsage";
 const GUEST_WEB_UID_PREFIX = "guest_web_";
 
+function getProjectId() {
+  return (
+    process.env.GCLOUD_PROJECT ||
+    process.env.GCP_PROJECT ||
+    process.env.GOOGLE_CLOUD_PROJECT ||
+    "makemylesson-44088"
+  );
+}
+
+/** Use Firebase Admin SDK SA (has Firestore access). Not @appspot — often missing from IAM. */
+function getFunctionsServiceAccount() {
+  return `firebase-adminsdk-fbsvc@${getProjectId()}.iam.gserviceaccount.com`;
+}
+
+function formatInternalError(error) {
+  if (error instanceof HttpsError) return error.message;
+  if (error instanceof Error) return error.message;
+  return String(error);
+}
+
 function getDb() {
   const admin = require("firebase-admin");
   if (!admin.apps.length) {
-    admin.initializeApp();
+    admin.initializeApp({ projectId: getProjectId() });
   }
   return admin.firestore();
 }
@@ -26,9 +46,19 @@ function getSalt() {
 }
 
 function clientIpFromRequest(rawRequest) {
-  const forwarded = rawRequest?.headers?.["x-forwarded-for"];
+  const headers = rawRequest?.headers ?? {};
+  const forwarded = headers["x-forwarded-for"] ?? headers["X-Forwarded-For"];
   if (typeof forwarded === "string" && forwarded.trim()) {
     return forwarded.split(",")[0].trim();
+  }
+  const realIp = headers["x-real-ip"] ?? headers["X-Real-Ip"];
+  if (typeof realIp === "string" && realIp.trim()) {
+    return realIp.trim();
+  }
+  const cfIp =
+    headers["cf-connecting-ip"] ?? headers["CF-Connecting-IP"];
+  if (typeof cfIp === "string" && cfIp.trim()) {
+    return cfIp.trim();
   }
   return rawRequest?.ip?.trim() || "unknown";
 }
@@ -137,6 +167,8 @@ async function readTrialForRequest(rawRequest) {
 
 const callableOptions = {
   region: "us-central1",
+  invoker: "public",
+  serviceAccount: getFunctionsServiceAccount(),
 };
 
 const getWebTrialStatus = onCall(callableOptions, async (request) => {
@@ -144,7 +176,10 @@ const getWebTrialStatus = onCall(callableOptions, async (request) => {
     return await readTrialForRequest(request.rawRequest);
   } catch (error) {
     console.error("[getWebTrialStatus]", error);
-    throw new HttpsError("internal", "Could not load web trial status.");
+    throw new HttpsError(
+      "internal",
+      `Could not load web trial status: ${formatInternalError(error)}`,
+    );
   }
 });
 
@@ -154,12 +189,20 @@ const bootstrapWebTrial = onCall(callableOptions, async (request) => {
     const ipHash = hashClientIp(clientIpFromRequest(request.rawRequest));
     const { totalUsed } = await getIpUsage(ipHash);
     const remaining = remainingFromTotalUsed(totalUsed);
-    await setGuestCredits(request.auth.uid, remaining);
+    try {
+      await setGuestCredits(request.auth.uid, remaining);
+    } catch (creditError) {
+      // IP ledger is authoritative; user doc sync is best-effort for guests.
+      console.warn("[bootstrapWebTrial] setGuestCredits skipped", creditError);
+    }
     return trialPayload(totalUsed);
   } catch (error) {
     console.error("[bootstrapWebTrial]", error);
     if (error instanceof HttpsError) throw error;
-    throw new HttpsError("internal", "Could not bootstrap web trial credits.");
+    throw new HttpsError(
+      "internal",
+      `Could not bootstrap web trial credits: ${formatInternalError(error)}`,
+    );
   }
 });
 
@@ -168,6 +211,12 @@ const consumeWebTrial = onCall(callableOptions, async (request) => {
   try {
     const ipHash = hashClientIp(clientIpFromRequest(request.rawRequest));
     const { totalUsed } = await incrementIpUsage(ipHash);
+    const remaining = remainingFromTotalUsed(totalUsed);
+    try {
+      await setGuestCredits(request.auth.uid, remaining);
+    } catch (creditError) {
+      console.warn("[consumeWebTrial] setGuestCredits skipped", creditError);
+    }
     return {
       ok: true,
       ...trialPayload(totalUsed),
@@ -175,7 +224,10 @@ const consumeWebTrial = onCall(callableOptions, async (request) => {
   } catch (error) {
     console.error("[consumeWebTrial]", error);
     if (error instanceof HttpsError) throw error;
-    throw new HttpsError("internal", "Could not record web trial usage.");
+    throw new HttpsError(
+      "internal",
+      `Could not record web trial usage: ${formatInternalError(error)}`,
+    );
   }
 });
 

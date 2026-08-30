@@ -57,6 +57,7 @@ export function Stage1View() {
   const {
     isGuest,
     prepareGeneration,
+    consumeTrialCreditBeforeGenerate,
     completeGeneration,
     requireSignInToSaveLibrary,
     signInDialog,
@@ -105,6 +106,7 @@ export function Stage1View() {
       subject: draft.subject,
     });
     if (!clarified) return;
+    if (!(await consumeTrialCreditBeforeGenerate())) return;
     try {
       const result = await draft.generate(clarified.answers);
       await completeGeneration();

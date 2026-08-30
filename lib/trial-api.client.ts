@@ -4,12 +4,14 @@ import type { User } from "firebase/auth";
 
 import { callFunction } from "@/firebase/functions";
 import {
-  consumeGuestCreditLocal,
   GUEST_GENERATION_CREDIT_CAP,
   getGuestCreditsRemaining,
   setGuestCreditsFromServer,
 } from "@/lib/guest-credits";
-import { getDeviceTrialUsedCount } from "@/lib/device-free-signup";
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 type TrialStatusPayload = {
   remaining?: number;
@@ -52,12 +54,10 @@ export async function fetchWebTrialStatusFromServer(): Promise<{
     return result;
   } catch (error) {
     console.warn("[Trial] getWebTrialStatus failed", error);
-    const deviceUsed = getDeviceTrialUsedCount();
-    const remaining = Math.max(0, GUEST_GENERATION_CREDIT_CAP - deviceUsed);
-    setGuestCreditsFromServer(remaining, deviceUsed);
+    setGuestCreditsFromServer(0, GUEST_GENERATION_CREDIT_CAP);
     return {
-      remaining,
-      totalUsed: deviceUsed,
+      remaining: 0,
+      totalUsed: GUEST_GENERATION_CREDIT_CAP,
       configured: false,
     };
   }
@@ -84,25 +84,26 @@ export async function bootstrapWebTrialCredits(user: User): Promise<{
 }
 
 export async function consumeWebTrialCreditOnServer(user: User): Promise<number> {
-  const before = getGuestCreditsRemaining();
-  try {
-    await user.getIdToken();
-    const payload = await callFunction<Record<string, never>, TrialStatusPayload>(
-      "consumeWebTrial",
-      {},
-    );
-    const result = normalizeTrialStatus(payload);
-    setGuestCreditsFromServer(result.remaining, result.totalUsed);
-    const after = getGuestCreditsRemaining();
-    if (after >= before && before > 0) {
-      return consumeGuestCreditLocal();
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await user.getIdToken();
+      const payload = await callFunction<
+        Record<string, never>,
+        TrialStatusPayload
+      >("consumeWebTrial", {});
+      const result = normalizeTrialStatus(payload);
+      setGuestCreditsFromServer(result.remaining, result.totalUsed);
+      return getGuestCreditsRemaining();
+    } catch (error) {
+      lastError = error;
+      console.warn("[Trial] consumeWebTrial failed", { attempt: attempt + 1, error });
+      if (attempt < 2) {
+        await sleep(400 * (attempt + 1));
+      }
     }
-    return after;
-  } catch (error) {
-    console.warn("[Trial] consumeWebTrial failed", error);
-    if (before > 0) {
-      return consumeGuestCreditLocal();
-    }
-    return before;
   }
+  throw lastError instanceof Error
+    ? lastError
+    : new Error("Could not record web trial usage.");
 }

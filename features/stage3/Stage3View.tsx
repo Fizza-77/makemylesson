@@ -60,6 +60,7 @@ export function Stage3View() {
   const {
     isGuest,
     prepareGeneration,
+    consumeTrialCreditBeforeGenerate,
     completeGeneration,
     requireSignInToSaveLibrary,
     signInDialog,
@@ -183,6 +184,8 @@ export function Stage3View() {
       sourceFileName: draft.sourceFileName,
     });
     if (!clarified) return;
+
+    if (!(await consumeTrialCreditBeforeGenerate())) return;
 
     try {
       const result = await draft.generate(clarified.answers);

@@ -137,3 +137,5 @@ Firebase Console → delete only the three `*WebTrial*` functions. Mobile callab
 | `firebase use must be run from a Firebase project directory` | Run commands from `c:\dev\nextjs` (this folder has `firebase.json`) |
 | `functions/not-found` in browser | Deploy not finished or wrong project |
 | Trial always shows 5 | Functions env salt missing, or deploy failed — check Functions logs in Console |
+| `500` / `Could not bootstrap web trial credits` | Open the full error in Console — often `PERMISSION_DENIED`. Redeploy after latest `web_trial.js` (uses `@appspot.gserviceaccount.com`). If still failing: Google Cloud → IAM → grant **Cloud Datastore User** to `makemylesson-44088@appspot.gserviceaccount.com` and your `{project-number}-compute@developer.gserviceaccount.com` |
+| View function logs | [Google Cloud Logs](https://console.cloud.google.com/logs/query?project=makemylesson-44088) → filter `resource.type="cloud_run_revision"` and `bootstrapWebTrial` |

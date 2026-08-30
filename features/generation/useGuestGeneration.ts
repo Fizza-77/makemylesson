@@ -8,6 +8,7 @@ import { mapFirebaseAuthError } from "@/lib/auth-errors";
 import { getGuestCreditsRemaining } from "@/lib/guest-credits";
 import {
   afterGuestGenerationSuccess,
+  consumeGuestTrialCreditBeforeGenerate,
   ensureGuestAuth,
   isGuestSignInUnavailableError,
   isRegisteredUser,
@@ -22,6 +23,9 @@ const LIBRARY_SIGN_IN_MESSAGE =
 
 const TRIAL_EXHAUSTED_MESSAGE =
   "You've used your 5 free trial generations. Sign in or create a free account to continue.";
+
+const TRIAL_UNAVAILABLE_MESSAGE =
+  "Free trial is unavailable right now. Sign in or create a free account to continue.";
 
 /**
  * Web-only trial: 5 credits per public IP (server), silent Firebase session for Cloud Functions,
@@ -44,8 +48,12 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
     try {
       const user = await ensureGuestAuth();
       if (isGuest) {
-        const remaining = await syncGuestTrialCredits(user);
-        if (remaining <= 0) {
+        const trial = await syncGuestTrialCredits(user);
+        if (!trial.configured) {
+          requireRegisteredSignIn(TRIAL_UNAVAILABLE_MESSAGE);
+          return false;
+        }
+        if (trial.remaining <= 0) {
           requireRegisteredSignIn(TRIAL_EXHAUSTED_MESSAGE);
           return false;
         }
@@ -74,6 +82,18 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
     }
   }, []);
 
+  const consumeTrialCreditBeforeGenerate = useCallback(async (): Promise<boolean> => {
+    if (!isGuest) return true;
+    const ok = await consumeGuestTrialCreditBeforeGenerate();
+    if (ok) return true;
+    requireRegisteredSignIn(
+      getGuestCreditsRemaining() <= 0
+        ? TRIAL_EXHAUSTED_MESSAGE
+        : TRIAL_UNAVAILABLE_MESSAGE,
+    );
+    return false;
+  }, [isGuest, requireRegisteredSignIn]);
+
   const requireSignInToSaveLibrary = useCallback(
     (message = LIBRARY_SIGN_IN_MESSAGE): boolean =>
       requireRegisteredSignIn(message),
@@ -84,6 +104,7 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
     isGuest,
     credits,
     prepareGeneration,
+    consumeTrialCreditBeforeGenerate,
     completeGeneration,
     requireSignInToSaveLibrary,
     signInDialog,

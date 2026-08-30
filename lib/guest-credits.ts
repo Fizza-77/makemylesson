@@ -90,7 +90,7 @@ function readRemainingFromStorage(): number {
       if (deviceUsed > 0) {
         return Math.max(0, GUEST_GENERATION_CREDIT_CAP - deviceUsed);
       }
-      return GUEST_GENERATION_CREDIT_CAP;
+      return 0;
     }
     const n = Number.parseInt(raw, 10);
     if (!Number.isFinite(n)) return GUEST_GENERATION_CREDIT_CAP;

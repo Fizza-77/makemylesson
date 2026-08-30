@@ -8,10 +8,7 @@ import {
 } from "@/firebase/auth";
 import { ensureUserDocument } from "@/firebase/firestore";
 import { getFirebaseAuth } from "@/firebase/config";
-import {
-  consumeGuestCreditLocal,
-  getGuestCreditsRemaining,
-} from "@/lib/guest-credits";
+import { getGuestCreditsRemaining } from "@/lib/guest-credits";
 import {
   isGuestWebUid,
   readStoredGuestAuthUid,
@@ -110,23 +107,42 @@ export async function ensureGuestAuth(): Promise<User> {
 }
 
 /** Sync IP trial pool to guest Firestore credits and UI cache. */
-export async function syncGuestTrialCredits(user: User): Promise<number> {
+export async function syncGuestTrialCredits(user: User): Promise<{
+  remaining: number;
+  configured: boolean;
+}> {
   const result = await bootstrapWebTrialCredits(user);
-  return result.remaining;
+  return {
+    remaining: result.remaining,
+    configured: result.configured,
+  };
+}
+
+/** Reserve one IP trial credit before generation (server-enforced). */
+export async function consumeGuestTrialCreditBeforeGenerate(): Promise<boolean> {
+  if (!shouldSkipLibrarySave()) return true;
+
+  const user = getFirebaseAuth().currentUser;
+  if (!user) return false;
+
+  const before = getGuestCreditsRemaining();
+  if (before <= 0) return false;
+
+  try {
+    const after = await consumeWebTrialCreditOnServer(user);
+    return after < before;
+  } catch (error) {
+    console.warn("[Guest] consume trial before generate failed", error);
+    return false;
+  }
 }
 
 export async function afterGuestGenerationSuccess(): Promise<void> {
   if (!shouldSkipLibrarySave()) return;
 
-  const before = getGuestCreditsRemaining();
   const user = getFirebaseAuth().currentUser;
   if (user) {
-    await consumeWebTrialCreditOnServer(user);
-  } else {
-    consumeGuestCreditLocal();
-  }
-  if (getGuestCreditsRemaining() >= before && before > 0) {
-    consumeGuestCreditLocal();
+    await bootstrapWebTrialCredits(user).catch(() => null);
   }
 }
 
