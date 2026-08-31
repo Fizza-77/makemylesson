@@ -339,8 +339,8 @@ export function GenerationBusyOverlay({
         </button>
       </header>
 
-      <div className="mx-auto grid min-h-0 w-full max-w-5xl flex-1 items-center gap-4 overflow-y-auto px-4 py-3 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:gap-6 lg:overflow-hidden lg:py-4">
-        <section className="flex min-h-0 min-w-0 flex-col justify-center bg-white py-1">
+      <div className="mx-auto grid min-h-0 w-full max-w-5xl flex-1 grid-cols-1 content-start items-start gap-5 overflow-y-auto overscroll-contain px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:items-center lg:gap-6 lg:overflow-hidden lg:py-4">
+        <section className="flex min-h-0 min-w-0 flex-col justify-start bg-white">
           <div className="mx-auto mb-2.5 size-12 overflow-hidden rounded-full bg-[#E8F8F7] ring-2 ring-[#28C2C0]/30 sm:size-14">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -373,13 +373,40 @@ export function GenerationBusyOverlay({
             </div>
           </div>
 
-          <ul className="mt-3.5 flex flex-col gap-2">
+          {visibleTags.length > 0 ? (
+            <div className="mt-3 flex flex-wrap items-center gap-1.5">
+              <span className="w-full text-[10px] font-bold uppercase tracking-[0.12em] text-[#7A8699] sm:w-auto">
+                {isReady ? "Ready" : "Building"}
+              </span>
+              {visibleTags.map((tag, i) => (
+                <span
+                  key={`${tag}-${i}`}
+                  className={cn(
+                    "inline-flex max-w-full items-center gap-1.5 truncate rounded-full px-2.5 py-0.5 text-[11px] font-bold",
+                    i === 0
+                      ? "bg-[#28C2C0] text-white"
+                      : "border border-[#D7DEE8] bg-white text-[#1A1C30]",
+                  )}
+                >
+                  {i === 0 ? (
+                    <span
+                      className="size-1.5 shrink-0 rounded-full bg-white"
+                      aria-hidden
+                    />
+                  ) : null}
+                  <span className="truncate">{tag}</span>
+                </span>
+              ))}
+            </div>
+          ) : null}
+
+          <ul className="mt-3.5 flex flex-col gap-2.5">
             {checklist.map((item) => (
               <li key={item.id} className="flex items-start gap-2.5">
                 <CheckIcon done={item.done} active={item.current && !item.done} />
                 <span
                   className={cn(
-                    "pt-0.5 text-[13px] leading-snug",
+                    "min-w-0 flex-1 pt-0.5 text-[13px] leading-snug",
                     item.done
                       ? "font-bold text-[#1A1C30]"
                       : item.current
@@ -429,32 +456,7 @@ export function GenerationBusyOverlay({
           )}
         </section>
 
-        <section className="flex min-h-0 min-w-0 flex-col items-center justify-center gap-3 py-1">
-          <div className="flex w-full max-w-[20rem] flex-wrap items-center justify-center gap-1.5">
-            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#7A8699]">
-              {isReady ? "Ready" : "Building"}
-            </span>
-            {visibleTags.map((tag, i) => (
-              <span
-                key={`${tag}-${i}`}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold",
-                  i === 0
-                    ? "bg-[#28C2C0] text-white"
-                    : "border border-[#D7DEE8] bg-white text-[#1A1C30]",
-                )}
-              >
-                {i === 0 ? (
-                  <span
-                    className="size-1.5 rounded-full bg-white"
-                    aria-hidden
-                  />
-                ) : null}
-                {tag}
-              </span>
-            ))}
-          </div>
-
+        <section className="flex min-h-0 min-w-0 flex-col items-center justify-start gap-3 lg:justify-center">
           {isReady ? (
             <div className="w-full max-w-[18rem] rounded-2xl border border-[#E6EAF0] bg-white px-5 py-5 text-center shadow-[0_14px_40px_rgba(26,28,48,0.1)] sm:max-w-[20rem]">
               <div className="mx-auto mb-3 inline-flex size-12 items-center justify-center rounded-xl bg-[#28C2C0] shadow-sm">
@@ -483,7 +485,7 @@ export function GenerationBusyOverlay({
               )}
             </div>
           ) : (
-            <div className="relative flex size-[min(20rem,48vh)] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#E8E4DC] bg-[#FFFDF8] shadow-sm">
+            <div className="relative flex size-[min(14rem,30vh)] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#E8E4DC] bg-[#FFFDF8] shadow-sm sm:size-[min(17rem,38vh)] lg:size-[min(20rem,48vh)]">
               <div className="flex size-[88%] items-center justify-center">
                 <Lottie
                   key={stage}
