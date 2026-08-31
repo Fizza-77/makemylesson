@@ -325,7 +325,7 @@ export function Stage3AssessmentBuilder({
       <div className="space-y-5 border-t border-slate-200 bg-white px-4 py-5 sm:px-5 sm:py-6">
         <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,0.65fr)_minmax(0,1.35fr)]">
           {/* Teacher Clipboard — light cyan */}
-          <div className="relative min-w-0 overflow-hidden rounded-2xl border border-[#B9E6E2] bg-[#E8F8F8] p-4 pt-11 shadow-sm sm:p-5 sm:pt-12">
+          <div className="relative min-w-0 rounded-2xl border border-[#B9E6E2] bg-[#E8F8F8] p-4 pt-11 shadow-sm sm:p-5 sm:pt-12">
             <div className="absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
               <Image
                 src="/badge.svg"
