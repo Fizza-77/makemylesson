@@ -286,7 +286,7 @@ export function Stage3View() {
         stage={3}
         progress={draft.progress}
         guestMode={isGuest}
-        autoDismissWhenReady={isGuest}
+        autoDismissWhenReady
         status={draft.status || undefined}
         tags={[draft.topic].filter(Boolean)}
       />

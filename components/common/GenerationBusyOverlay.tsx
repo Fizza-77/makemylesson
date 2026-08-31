@@ -235,8 +235,8 @@ export function GenerationBusyOverlay({
   tags = [],
   onDismiss,
   guestMode = false,
-  autoDismissWhenReady = false,
-  autoDismissDelayMs = 2200,
+  autoDismissWhenReady = true,
+  autoDismissDelayMs = 0,
 }: {
   active: boolean;
   stage?: GenerationStage;
@@ -257,14 +257,26 @@ export function GenerationBusyOverlay({
   const [holdReady, setHoldReady] = useState(false);
   const sessionRef = useRef(false);
 
+  function dismiss() {
+    sessionRef.current = false;
+    setHoldReady(false);
+    onDismiss?.();
+  }
+
   useEffect(() => {
     if (active) {
       sessionRef.current = true;
       setHoldReady(true);
+      return;
     }
-  }, [active]);
+    if (!sessionRef.current) return;
+    if (autoDismissWhenReady && autoDismissDelayMs <= 0) {
+      dismiss();
+    }
+  }, [active, autoDismissWhenReady, autoDismissDelayMs]);
 
-  const visible = active || holdReady;
+  const showReadyHold = !autoDismissWhenReady || autoDismissDelayMs > 0;
+  const visible = active || (showReadyHold && holdReady);
   const pct = Math.min(
     100,
     Math.max(0, Math.round(typeof progress === "number" ? progress : active ? 8 : 100)),
@@ -282,14 +294,8 @@ export function GenerationBusyOverlay({
     });
   }, [copy.checklist, isReady, pct]);
 
-  function dismiss() {
-    sessionRef.current = false;
-    setHoldReady(false);
-    onDismiss?.();
-  }
-
   useEffect(() => {
-    if (!autoDismissWhenReady || !isReady || active) return;
+    if (!autoDismissWhenReady || autoDismissDelayMs <= 0 || active || !isReady) return;
     const id = window.setTimeout(() => dismiss(), autoDismissDelayMs);
     return () => window.clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- dismiss on ready edge only

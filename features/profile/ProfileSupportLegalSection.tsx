@@ -7,6 +7,7 @@ import {
   ProfileCardShell,
   ProfileDialogShell,
 } from "@/features/profile/ProfileMenuPrimitives";
+import { openContactPage } from "@/lib/open-pricing";
 import { AppUrls } from "@/lib/urls";
 import { cn } from "@/lib/utils";
 import { toast } from "@/store/toast-store";
@@ -241,7 +242,7 @@ export function ProfileSupportLegalSection() {
                 icon={<ChatIcon />}
                 title="Contact Support"
                 description="Send us a message"
-                href={`mailto:${AppUrls.supportEmail}`}
+                onClick={() => openContactPage()}
               />
               <ShelfCard
                 tone="tealLight"

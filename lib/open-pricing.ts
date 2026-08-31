@@ -1,5 +1,5 @@
 import { isStandaloneDisplay } from "@/lib/pwa-install";
-import { MARKETING_ORIGIN, ROUTES } from "@/lib/urls";
+import { AppUrls, MARKETING_ORIGIN, ROUTES } from "@/lib/urls";
 
 function pricingPath(search = ""): string {
   if (!search) return ROUTES.pricing;
@@ -21,6 +21,11 @@ export function marketingHomeUrl(): string {
 /** Absolute marketing pricing URL (always the marketing site origin). */
 export function marketingPricingUrl(search = ""): string {
   return `${marketingOrigin()}${pricingPath(search)}`;
+}
+
+/** Absolute contact page URL. */
+export function marketingContactUrl(): string {
+  return `${marketingOrigin()}${AppUrls.contactSales}`;
 }
 
 function isAndroidUa(): boolean {
@@ -113,6 +118,31 @@ export function openMarketingHome(
 
   if (navigateInApp) {
     navigateInApp("/");
+    return;
+  }
+
+  if (typeof window !== "undefined") {
+    window.location.assign(url);
+  }
+}
+
+/**
+ * Open the marketing contact page.
+ * In an installed PWA, force the system browser so support is not trapped in-app.
+ */
+export function openContactPage(
+  navigateInApp?: (href: string) => void,
+): void {
+  const path = AppUrls.contactSales;
+  const url = marketingContactUrl();
+
+  if (typeof window !== "undefined" && isStandaloneDisplay()) {
+    openInSystemBrowser(url);
+    return;
+  }
+
+  if (navigateInApp) {
+    navigateInApp(path);
     return;
   }
 

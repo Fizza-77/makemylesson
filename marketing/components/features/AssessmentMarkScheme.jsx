@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@marketing/lib/cn'
 
 const SCHEME_ROWS = [
@@ -158,7 +157,7 @@ export default function AssessmentMarkScheme() {
                 <article
                   key={card.n}
                   className={cn(
-                    'relative flex min-h-[180px] w-full min-w-0 flex-col rounded-[24px] p-5 sm:min-h-[200px] sm:p-6',
+                    'flex min-h-[180px] w-full min-w-0 flex-col justify-center rounded-[24px] p-5 sm:min-h-[200px] sm:p-6',
                     navy ? 'bg-[#1A1E3A] text-white' : 'bg-[#35BEBC] text-[#1A1E3A]',
                   )}
                 >
@@ -181,14 +180,6 @@ export default function AssessmentMarkScheme() {
                   >
                     {card.body}
                   </p>
-                  <ArrowUpRight
-                    className={cn(
-                      'absolute bottom-4 right-4 h-4 w-4',
-                      navy ? 'text-white' : 'text-black',
-                    )}
-                    aria-hidden
-                    strokeWidth={2}
-                  />
                 </article>
               )
             })}

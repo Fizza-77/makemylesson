@@ -333,7 +333,7 @@ export function Stage2View() {
         stage={2}
         progress={draft.progress}
         guestMode={isGuest}
-        autoDismissWhenReady={isGuest}
+        autoDismissWhenReady
         status={draft.status || undefined}
         tags={[
           draft.grade || stage1.grade,

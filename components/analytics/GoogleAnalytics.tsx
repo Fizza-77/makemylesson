@@ -3,9 +3,12 @@ import Script from "next/script";
 const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "G-JQFWEL60WH";
 
-/** Google Analytics 4 (gtag.js) — loaded in document head on every page. */
+const GOOGLE_ADS_ID =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? "AW-17975031252";
+
+/** Google Analytics 4 + Google Ads (gtag.js) — loaded in document head on every page. */
 export function GoogleAnalytics() {
-  if (!GA_MEASUREMENT_ID) return null;
+  if (!GA_MEASUREMENT_ID && !GOOGLE_ADS_ID) return null;
 
   return (
     <>
@@ -20,6 +23,7 @@ export function GoogleAnalytics() {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}');
+          gtag('config', '${GOOGLE_ADS_ID}');
         `}
       </Script>
     </>

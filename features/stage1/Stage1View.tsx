@@ -219,7 +219,7 @@ export function Stage1View() {
         stage={1}
         progress={draft.progress}
         guestMode={isGuest}
-        autoDismissWhenReady={isGuest}
+        autoDismissWhenReady
         status={
           draft.phase === "saving" && !isGuest
             ? "Saving to library…"

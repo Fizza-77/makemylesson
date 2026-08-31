@@ -190,7 +190,7 @@ function ProfileHero({
           </h1>
 
           <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/75 sm:text-[15px]">
-            Manage your teacher identity, AI export kit, curriculum defaults,
+            Manage your teacher identity, export identity kit, curriculum defaults,
             subscription, security, and support resources.
           </p>
 
@@ -376,7 +376,7 @@ function AiExportIdentityKit({
   return (
     <ProfileCardShell
       icon={<KitHeaderIcon />}
-      title="AI Export Identity Kit"
+      title="Export Identity Kit"
       description="Choose which teacher and school details appear in generated exports."
       badge="Account"
       className="border-[#D5DCE3] shadow-[0_10px_28px_-16px_rgba(13,20,48,0.12)]"
@@ -522,7 +522,7 @@ export function ProfileView() {
           ) : (
             <ProfileCardShell
               icon={<KitHeaderIcon />}
-              title="AI Export Identity Kit"
+              title="Export Identity Kit"
               description="Choose which teacher and school details appear in generated exports."
               badge="Account"
               className="border-[#D5DCE3] shadow-[0_10px_28px_-16px_rgba(13,20,48,0.12)]"

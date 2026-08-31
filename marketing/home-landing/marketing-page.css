@@ -2013,11 +2013,12 @@
 .mml-trust-note {
   margin: 0;
   padding: 0 1.1rem 0.85rem;
-  font-size: 0.62rem;
-  line-height: 1.45;
+  font-size: 0.74rem;
+  line-height: 1.25;
   font-weight: 700;
   color: #000000;
   text-align: center;
+  white-space: nowrap;
 }
 
 .mml-trust-item {
