@@ -28,14 +28,27 @@ export type AppCreditsView = {
   isFree: boolean;
 };
 
-function subscribeGuestCreditsState(onStoreChange: () => void): () => void {
-  return subscribeGuestCredits(onStoreChange);
-}
-
-function getGuestCreditsSnapshot(): Pick<
+type GuestCreditsSnapshot = Pick<
   AppCreditsView,
   "remaining" | "used" | "cap" | "summaryLine" | "loading"
-> {
+>;
+
+const GUEST_CREDITS_SERVER_SNAPSHOT: GuestCreditsSnapshot = {
+  remaining: GUEST_GENERATION_CREDIT_CAP,
+  used: 0,
+  cap: GUEST_GENERATION_CREDIT_CAP,
+  summaryLine: "Loading credits…",
+  loading: true,
+};
+
+let cachedGuestSnapshot: GuestCreditsSnapshot | null = null;
+let cachedGuestSnapshotKey = "";
+
+function buildGuestCreditsSnapshotKey(): string {
+  return `${isGuestCreditsHydrated()}:${getGuestCreditsRemaining()}:${getGuestTrialUsedCount()}`;
+}
+
+function buildGuestCreditsSnapshot(): GuestCreditsSnapshot {
   const cap = GUEST_GENERATION_CREDIT_CAP;
   const hydrated = isGuestCreditsHydrated();
   const remaining = getGuestCreditsRemaining();
@@ -52,17 +65,30 @@ function getGuestCreditsSnapshot(): Pick<
   };
 }
 
-function getGuestCreditsServerSnapshot(): Pick<
-  AppCreditsView,
-  "remaining" | "used" | "cap" | "summaryLine" | "loading"
-> {
-  return {
-    remaining: GUEST_GENERATION_CREDIT_CAP,
-    used: 0,
-    cap: GUEST_GENERATION_CREDIT_CAP,
-    summaryLine: "Loading credits…",
-    loading: true,
-  };
+function invalidateGuestCreditsSnapshotCache(): void {
+  cachedGuestSnapshot = null;
+  cachedGuestSnapshotKey = "";
+}
+
+function getGuestCreditsSnapshot(): GuestCreditsSnapshot {
+  const key = buildGuestCreditsSnapshotKey();
+  if (cachedGuestSnapshot && cachedGuestSnapshotKey === key) {
+    return cachedGuestSnapshot;
+  }
+  cachedGuestSnapshotKey = key;
+  cachedGuestSnapshot = buildGuestCreditsSnapshot();
+  return cachedGuestSnapshot;
+}
+
+function getGuestCreditsServerSnapshot(): GuestCreditsSnapshot {
+  return GUEST_CREDITS_SERVER_SNAPSHOT;
+}
+
+function subscribeGuestCreditsState(onStoreChange: () => void): () => void {
+  return subscribeGuestCredits(() => {
+    invalidateGuestCreditsSnapshotCache();
+    onStoreChange();
+  });
 }
 
 /** Single credits source for navbar, stage heroes, and upgrade gates. */
@@ -104,8 +130,8 @@ export function useAppCredits(): AppCreditsView {
       remaining: null,
       used: 0,
       cap: GUEST_GENERATION_CREDIT_CAP,
-      summaryLine: accountLoading ? "Loading credits…" : "Loading credits…",
-      loading: true,
+      summaryLine: "Loading credits…",
+      loading: accountLoading,
       isGuest: false,
       isFree: true,
     };
