@@ -306,40 +306,19 @@ function TipsCheckIcon() {
   );
 }
 
-export function archiveShelfCopy(tab: LibraryTabId): {
-  title: string;
-  hint: string;
-} {
+export function archiveShelfCopy(tab: LibraryTabId): { title: string } {
   switch (tab) {
     case "lessonPlan":
-      return {
-        title: "Lesson Plans",
-        hint: "Browse, favourite, open or remove saved lesson plans.",
-      };
+      return { title: "Lesson Plans" };
     case "presentation":
-      return {
-        title: "Presentations",
-        hint: "Browse, favourite, open or remove saved presentations.",
-      };
+      return { title: "Presentations" };
     case "activity":
-      return {
-        title: "Formative",
-        hint: "Browse, favourite, open or remove saved formative activities.",
-      };
+      return { title: "Formative" };
     case "assessment":
-      return {
-        title: "Quiz & Test",
-        hint: "Browse, favourite, open or remove saved quizzes and tests.",
-      };
+      return { title: "Quiz & Test" };
     case "completePack":
-      return {
-        title: "Complete Packs",
-        hint: "Browse complete teaching packs across all stages.",
-      };
+      return { title: "Complete Packs" };
     case "favourites":
-      return {
-        title: "Favourites",
-        hint: "Browse items you have marked as favourites.",
-      };
+      return { title: "Favourites" };
   }
 }

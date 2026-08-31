@@ -386,9 +386,6 @@ export function LibraryView() {
               </h2>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <p className="max-w-xs text-right text-xs text-[#8A93A3]">
-                {shelf.hint}
-              </p>
               <Button
                 variant="outline"
                 className="shrink-0 text-xs"

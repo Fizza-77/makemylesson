@@ -219,9 +219,10 @@ export function AylaChatPanel({
   const clear = useAylaChatStore((s) => s.clear);
   const [draft, setDraft] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<HTMLDivElement>(null);
 
   const isAylaPage = context === "ayla";
-  /** Sidebar embed (stages / library) — parent column scrolls; no nested message scroller. */
+  /** Sidebar embed (stages / library) — inner chat scrolls first, then the column. */
   const isSidebarEmbed = !isAylaPage && !compact;
   const isStage2 = context === "stage2";
   const isStage3 = context === "stage3";
@@ -249,6 +250,31 @@ export function AylaChatPanel({
     if (!prompt) return;
     if (!text) setDraft("");
     await send(prompt);
+  }
+
+  /** Scroll Ayla messages first; pass overflow to the sticky sidebar column. */
+  function onSidebarEmbedWheel(e: React.WheelEvent<HTMLDivElement>) {
+    if (!isSidebarEmbed) return;
+    const el = e.currentTarget;
+    const column = el.closest(".app-sidebar-column");
+    if (!(column instanceof HTMLElement)) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const atTop = scrollTop <= 0;
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+    const scrollingUp = e.deltaY < 0;
+    const scrollingDown = e.deltaY > 0;
+    const hasInnerScroll = scrollHeight > clientHeight + 1;
+
+    if (
+      hasInnerScroll &&
+      ((scrollingUp && !atTop) || (scrollingDown && !atBottom))
+    ) {
+      return;
+    }
+
+    e.preventDefault();
+    column.scrollTop += e.deltaY;
   }
 
   return (
@@ -304,15 +330,21 @@ export function AylaChatPanel({
       </header>
 
       <div
+        ref={messagesRef}
+        onWheel={isSidebarEmbed ? onSidebarEmbedWheel : undefined}
         className={cn(
-          "flex flex-col gap-3 overflow-y-auto overscroll-contain",
-          isSidebarEmbed ? "theme-scroll-inner" : "theme-scroll-hover",
+          "flex flex-col gap-3 overflow-y-auto",
+          isSidebarEmbed
+            ? "theme-scroll-inner overscroll-y-auto"
+            : "theme-scroll-hover overscroll-contain",
           isLibrary || isAylaPage ? "bg-[#F5F6FA]" : "bg-[#F4F6F8]",
           compact
             ? "h-[14rem] px-3 py-2.5"
             : isAylaPage
               ? "h-[min(52vh,430px)] px-4 py-4 sm:px-5"
-              : "h-[16rem] px-3 py-3 sm:h-[18rem] sm:px-4",
+              : isLibrary
+                ? "h-[13rem] px-3 py-2.5 sm:h-[15rem] sm:px-4"
+                : "h-[15rem] px-3 py-3 sm:h-[17rem] sm:px-4",
         )}
       >
         {messages.length === 0 ? (
@@ -334,7 +366,9 @@ export function AylaChatPanel({
                 "max-w-[95%] rounded-2xl border border-slate-200/80 bg-white text-slate-700 shadow-sm",
                 compact
                   ? "px-2.5 py-2 text-xs leading-relaxed"
-                  : "px-3 py-2.5 text-sm leading-relaxed",
+                  : isLibrary
+                    ? "px-3 py-2 text-xs leading-relaxed"
+                    : "px-3 py-2.5 text-sm leading-relaxed",
               )}
             >
               {copy.welcome}
@@ -395,8 +429,8 @@ export function AylaChatPanel({
         {messages.length === 0 ? (
           <div
             className={cn(
-              "flex flex-wrap gap-1.5",
-              isAylaPage ? "mb-3 justify-center gap-2" : compact ? "mb-2" : "mb-2.5",
+              "flex flex-wrap gap-1",
+              isAylaPage ? "mb-3 justify-center gap-2" : compact ? "mb-2" : "mb-2",
             )}
           >
             {copy.intents.map((intent) => (
@@ -406,14 +440,14 @@ export function AylaChatPanel({
                 disabled={isSending}
                 onClick={() => void onSend(intent.prompt)}
                 className={cn(
-                  "rounded-full px-2.5 py-1 text-[11px] font-medium transition disabled:opacity-50",
+                  "rounded-full font-medium transition disabled:opacity-50",
                   useLibraryChips
-                    ? "border border-[#E5E7EB] bg-white px-3.5 py-2 text-sm font-semibold text-[#065F46] hover:border-[#CFE6E4] hover:bg-white"
+                    ? "border border-[#E5E7EB] bg-white px-2.5 py-1 text-[10px] leading-tight text-[#065F46] hover:border-[#CFE6E4] hover:bg-white"
                     : useMintChips
-                      ? "border border-[#28C2C0]/40 bg-[#E8F8F8] font-semibold text-[#128C89] hover:border-[#28C2C0] hover:bg-[#D5F3F2]"
+                      ? "border border-[#28C2C0]/40 bg-[#E8F8F8] px-2.5 py-1 text-[11px] font-semibold text-[#128C89] hover:border-[#28C2C0] hover:bg-[#D5F3F2]"
                       : useOutlineChips
-                        ? "border border-[#28C2C0]/60 bg-white text-[#28C2C0] hover:border-[#28C2C0] hover:bg-[#E8F8F8]"
-                        : "border border-teal-200 bg-white text-teal-600 hover:border-teal-400 hover:bg-teal-50",
+                        ? "border border-[#28C2C0]/60 bg-white px-2.5 py-1 text-[11px] text-[#28C2C0] hover:border-[#28C2C0] hover:bg-[#E8F8F8]"
+                        : "border border-teal-200 bg-white px-2.5 py-1 text-[11px] text-teal-600 hover:border-teal-400 hover:bg-teal-50",
                   isAylaPage && "px-3.5 py-1.5 text-xs",
                 )}
               >

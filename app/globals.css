@@ -88,6 +88,7 @@ body {
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
 }
 .theme-scroll-inner::-webkit-scrollbar {
   display: none;
