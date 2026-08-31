@@ -151,10 +151,10 @@ function LibraryItemCard({
         alt=""
         width={410}
         height={321}
-        className="pointer-events-none h-auto w-full select-none"
+        className="pointer-events-none block h-auto w-full select-none"
       />
 
-      <div className="absolute inset-0 flex flex-col px-[5%] pt-[16%] pb-[11%]">
+      <div className="absolute inset-0 grid grid-rows-[auto_minmax(0,1fr)_auto_auto] gap-2 px-[5%] pt-[16%] pb-[11%]">
         <div className="flex items-start justify-between gap-2">
           <span className="rounded-full bg-[#20AAA7] px-2.5 py-1 text-[10px] font-bold tracking-wide text-black uppercase">
             {stageBadgeLabel(item)}
@@ -193,12 +193,12 @@ function LibraryItemCard({
         <button
           type="button"
           onClick={onOpen}
-          className="mt-3 flex w-full items-center gap-3 rounded-2xl border border-[#E5EBEF] bg-white px-3 py-3 text-left shadow-[0_6px_16px_-12px_rgba(13,20,48,0.25)] transition hover:border-[#CFE6E4]"
+          className="flex min-h-0 w-full min-w-0 items-center gap-3 self-stretch overflow-hidden rounded-2xl border border-[#E5EBEF] bg-white px-3 py-3 text-left shadow-[0_6px_16px_-12px_rgba(13,20,48,0.25)] transition hover:border-[#CFE6E4]"
         >
           <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#E7F6F5] text-[#128C89]">
             <DocMiniIcon />
           </span>
-          <span className="min-w-0 flex-1">
+          <span className="min-w-0 flex-1 overflow-hidden">
             <span className="block truncate text-sm font-bold text-[#0D1430]">
               {item.topic || "Untitled"}
             </span>
@@ -215,25 +215,25 @@ function LibraryItemCard({
           </span>
         </button>
 
-        <div className="mt-3 flex flex-wrap gap-1.5">
+        <div className="flex min-w-0 gap-1.5 overflow-hidden">
           {tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="max-w-[9rem] truncate rounded-full border border-[#D5DCE3] bg-white px-2.5 py-1 text-[10px] font-medium text-[#0D1430]"
+              className="max-w-[9rem] shrink truncate rounded-full border border-[#D5DCE3] bg-white px-2.5 py-1 text-[10px] font-medium text-[#0D1430]"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        <div className="mt-auto flex shrink-0 items-center justify-between gap-3 pt-2">
-          <p className="text-[11px] text-[#8A93A3]">
+        <div className="flex shrink-0 items-center justify-between gap-3 pt-0.5">
+          <p className="shrink-0 text-[11px] text-[#8A93A3]">
             {formatLibraryDate(item.generatedAt)}
           </p>
           <button
             type="button"
             onClick={onOpen}
-            className="inline-flex items-center gap-1 rounded-xl bg-gradient-to-r from-[#20AAA7] to-[#68D3D0] px-3.5 py-2 text-xs font-semibold text-black shadow-[0_8px_16px_-10px_rgba(32,170,167,0.8)] transition hover:opacity-95"
+            className="inline-flex shrink-0 items-center gap-1 rounded-xl bg-gradient-to-r from-[#20AAA7] to-[#68D3D0] px-3.5 py-2 text-xs font-semibold text-black shadow-[0_8px_16px_-10px_rgba(32,170,167,0.8)] transition hover:opacity-95"
           >
             Open
             <span aria-hidden>›</span>
@@ -526,9 +526,9 @@ export function LibraryView() {
           )}
         </div>
 
-        <AppSidebarColumn>
-          <LibraryMapCard counts={counts} onSelect={setTab} />
+        <AppSidebarColumn className="lg:w-72 xl:w-[21rem]">
           <LibraryTipsCard />
+          <LibraryMapCard counts={counts} onSelect={setTab} />
           <AylaChatPanel
             context="library"
             className="rounded-[28px] border-[#E5EBEF] shadow-[0_16px_36px_-18px_rgba(13,20,48,0.14)]"
