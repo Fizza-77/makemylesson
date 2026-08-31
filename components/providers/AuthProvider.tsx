@@ -8,7 +8,7 @@ import { fetchUserProfile } from "@/firebase/firestore";
 import { isGuestUser, syncGuestTrialCredits } from "@/lib/guest-session";
 import { fetchWebTrialStatusFromServer } from "@/lib/trial-api.client";
 import { useAuthStore } from "@/store/auth-store";
-import { syncAccountSubscription } from "@/store/account-store";
+import { syncAccountSubscriptionForUser } from "@/store/account-store";
 import { syncLibraryCatalogSubscription } from "@/store/library-catalog-store";
 import { useStage3DraftStore } from "@/store/stage3-draft-store";
 import { useStage4DraftStore } from "@/store/stage4-draft-store";
@@ -59,9 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         syncLibraryCatalogSubscription(null);
       }
-      syncAccountSubscription(user?.uid ?? null, {
-        isAnonymous: guest,
-      });
+      syncAccountSubscriptionForUser(user);
       if (!user) {
         setProfile(null);
         try {
@@ -97,7 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("visibilitychange", onVisible);
       window.removeEventListener("focus", onVisible);
       syncLibraryCatalogSubscription(null);
-      syncAccountSubscription(null);
+      syncAccountSubscriptionForUser(null);
     };
   }, [setAuthReady, setProfile, setUser]);
 

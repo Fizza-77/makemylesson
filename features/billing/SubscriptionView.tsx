@@ -25,7 +25,7 @@ import { getMyAdminOrganizations } from "@/services/organization.service";
 import { isPaidPlan, PLAN_LABELS } from "@/services/user-account.service";
 import {
   refreshAccountFromServer,
-  syncAccountSubscription,
+  syncAccountSubscriptionForUser,
   useAccountStore,
 } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
@@ -183,7 +183,7 @@ export function SubscriptionView() {
 
   useEffect(() => {
     if (!authReady) return;
-    syncAccountSubscription(user?.uid ?? null);
+    syncAccountSubscriptionForUser(user);
     if (!user?.uid) {
       setOwnedOrgs([]);
       return;

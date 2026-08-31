@@ -15,7 +15,7 @@ import {
 } from "@/services/paypal-checkout.service";
 import {
   refreshAccountFromServer,
-  syncAccountSubscription,
+  syncAccountSubscriptionForUser,
 } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
 import { toast } from "@/store/toast-store";
@@ -51,7 +51,7 @@ export function usePayPalCheckout() {
 
   useEffect(() => {
     if (!authReady) return;
-    syncAccountSubscription(user?.uid ?? null);
+    syncAccountSubscriptionForUser(user);
   }, [authReady, user?.uid]);
 
   useEffect(() => {

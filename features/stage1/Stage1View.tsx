@@ -37,10 +37,7 @@ import {
 import {
   recordStageGenerated,
 } from "@/services/notification-lifecycle.service";
-import {
-  syncAccountSubscription,
-  useAccountStore,
-} from "@/store/account-store";
+import { useAccountStore } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
 import { useStage1DraftStore } from "@/store/stage1-draft-store";
 import { toast } from "@/store/toast-store";
@@ -51,7 +48,6 @@ import { mapFirebaseAuthError, mapFunctionsError } from "@/lib/auth-errors";
 
 export function Stage1View() {
   const router = useRouter();
-  const user = useAuthStore((s) => s.user);
   const authReady = useAuthStore((s) => s.authReady);
   const account = useAccountStore((s) => s.account);
   const {
@@ -81,11 +77,6 @@ export function Stage1View() {
     draft.hydrateFromPrefs();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- hydrate once on mount
   }, []);
-
-  useEffect(() => {
-    if (!authReady) return;
-    syncAccountSubscription(user?.uid ?? null);
-  }, [authReady, user?.uid]);
 
   async function onGenerate() {
     if (!authReady) return;

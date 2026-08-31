@@ -5,6 +5,7 @@ import { getFirebaseAuth } from "@/firebase/config";
 import { userDocRef } from "@/firebase/firestore";
 import { uploadUserFile, deleteUserFile } from "@/firebase/storage";
 import { authLog } from "@/lib/auth-logger";
+import { isGuestWebUid } from "@/lib/guest-auth-id";
 import {
   isDeviceFreeSignupConsumed,
   markDeviceFreeSignupConsumed,
@@ -185,6 +186,13 @@ export const PLAN_LABELS: Record<AccountPlanTier, string> = {
 function maybeMarkDeviceFreeSignupConsumedFromUserDoc(
   data: Record<string, unknown>,
 ): void {
+  const authUser = getFirebaseAuth().currentUser;
+  if (
+    authUser &&
+    (authUser.isAnonymous || isGuestWebUid(authUser.uid))
+  ) {
+    return;
+  }
   if (parsePlanTierFromUserDoc(data) !== "free") return;
   const credits = toInt(data.generationCredits);
   const used = toInt(data.creditsUsed);
@@ -220,6 +228,14 @@ function resolveInitialFreeTierPayload(): Record<string, unknown> {
 export async function ensureFreeGenerationCreditsForUser(
   uid: string,
 ): Promise<void> {
+  const authUser = getFirebaseAuth().currentUser;
+  if (
+    authUser?.uid === uid &&
+    (authUser.isAnonymous || isGuestWebUid(uid))
+  ) {
+    return;
+  }
+
   const ref = userDocRef(uid);
   const snap = await getDoc(ref);
   if (!snap.exists()) return;

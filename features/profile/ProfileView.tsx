@@ -31,7 +31,7 @@ import {
   type UserAccountView,
 } from "@/services/user-account.service";
 import {
-  syncAccountSubscription,
+  syncAccountSubscriptionForUser,
   useAccountStore,
 } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
@@ -441,7 +441,7 @@ export function ProfileView() {
 
   useEffect(() => {
     if (!authReady) return;
-    syncAccountSubscription(user?.uid ?? null);
+    syncAccountSubscriptionForUser(user);
   }, [authReady, user?.uid]);
 
   useEffect(() => {

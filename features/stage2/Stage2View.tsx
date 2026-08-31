@@ -25,7 +25,6 @@ import {
   recordStageGenerated,
 } from "@/services/notification-lifecycle.service";
 import {
-  syncAccountSubscription,
   useAccountStore,
 } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
@@ -169,9 +168,8 @@ export function Stage2View() {
 
   useEffect(() => {
     if (!authReady) return;
-    syncAccountSubscription(user?.uid ?? null);
-    if (user?.uid) syncLibraryCatalogSubscription(user.uid);
-  }, [authReady, user?.uid]);
+    if (user?.uid && !isGuest) syncLibraryCatalogSubscription(user.uid);
+  }, [authReady, isGuest, user?.uid]);
 
   useEffect(() => {
     const text = stage1.generatedSummary.trim();

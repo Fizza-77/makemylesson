@@ -1,10 +1,12 @@
 "use client";
 
 import { create } from "zustand";
+import type { User } from "firebase/auth";
 import { getDoc, getDocFromServer } from "firebase/firestore";
 
 import { userDocRef } from "@/firebase/firestore";
 import { getFirebaseAuth } from "@/firebase/config";
+import { isGuestUser } from "@/lib/guest-session";
 import { toUserMessage } from "@/lib/user-facing-error";
 import {
   ensureFreeGenerationCreditsForUser,
@@ -85,6 +87,13 @@ export function syncAccountSubscription(
       });
     },
   );
+}
+
+/** Subscribe to account doc for registered users only; guests use IP trial credits. */
+export function syncAccountSubscriptionForUser(user: User | null | undefined) {
+  syncAccountSubscription(user?.uid ?? null, {
+    isAnonymous: isGuestUser(user),
+  });
 }
 
 /**
