@@ -426,7 +426,7 @@ export function LibraryView() {
           ) : (
             <ul
               className={cn(
-                "grid gap-4",
+                "grid min-h-[min(320px,38dvh)] gap-4 content-start",
                 viewMode === "grid"
                   ? "grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3"
                   : "grid-cols-1",
@@ -526,16 +526,13 @@ export function LibraryView() {
           )}
         </div>
 
-        <AppSidebarColumn
-          footer={
-            <AylaChatPanel
-              context="library"
-              className="rounded-[28px] border-[#E5EBEF] shadow-[0_16px_36px_-18px_rgba(13,20,48,0.14)]"
-            />
-          }
-        >
+        <AppSidebarColumn>
           <LibraryMapCard counts={counts} onSelect={setTab} />
           <LibraryTipsCard />
+          <AylaChatPanel
+            context="library"
+            className="rounded-[28px] border-[#E5EBEF] shadow-[0_16px_36px_-18px_rgba(13,20,48,0.14)]"
+          />
         </AppSidebarColumn>
       </div>
 
