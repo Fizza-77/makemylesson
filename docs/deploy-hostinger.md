@@ -15,17 +15,17 @@ Stack: **nginx** (TLS) → **PM2** → Next.js on **`127.0.0.1:3010`**.
 
 ## Build + start (correct)
 
+`next.config` uses `output: "standalone"`. **Do not** run `next start` or
+`pm2 restart studiely` — use the standalone server on port **3010**.
+
 ```bash
 cd /var/www/makemylesson_new
 git pull
 npm ci
-npm run build
+npm run build   # postbuild copies public/ + .next/static into standalone
 
-# Stop any broken npm-start process
 pm2 delete makemylesson 2>/dev/null || true
-
-# Start via ecosystem (binds 127.0.0.1:3010)
-pm2 start ecosystem.config.cjs
+pm2 start ecosystem.config.cjs   # runs .next/standalone/server.js
 pm2 save
 pm2 startup   # once per server
 ```
@@ -83,14 +83,18 @@ sudo nginx -t && sudo systemctl reload nginx
 | Favicons / images 404 | standalone assets not copied | `npm run build` runs `postbuild` copy; or use `next start` as in ecosystem |
 | SSH / ping timeout | VPS network / firewall / IP change | Hostinger panel → restart VPS / check IP |
 
-## Optional: standalone mode
+## Standalone mode (required)
 
-`next.config` has `output: "standalone"`. Prefer the **ecosystem `next start`** flow above on this multi-app VPS unless you intentionally run from `.next/standalone`.
+`next.config` has `output: "standalone"`. PM2 must run
+`.next/standalone/server.js` (see `ecosystem.config.cjs`).
 
-If you do use standalone:
+If PM2 logs show `"next start" does not work with "output: standalone"`, the
+process was started incorrectly — redeploy with the ecosystem file above.
+
+Manual smoke test:
 
 ```bash
-npm run build   # postbuild copies public + static
+npm run build
 cd .next/standalone
 PORT=3010 HOSTNAME=127.0.0.1 node server.js
 ```
