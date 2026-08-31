@@ -3,6 +3,7 @@ import {
   isDeviceFreeSignupConsumed,
   markDeviceFreeSignupConsumed,
   recordDeviceTrialUsage,
+  setDeviceTrialUsageCount,
 } from "@/lib/device-free-signup";
 
 /** Device-local trial credits for web guests (not signed up / signed in). */
@@ -10,6 +11,7 @@ export const GUEST_GENERATION_CREDIT_CAP = 5;
 
 const GUEST_CREDITS_REMAINING_KEY = "mml_guest_credits_remaining";
 const GUEST_TRIAL_SERVER_USED_KEY = "mml_guest_trial_server_used";
+const GUEST_CREDITS_HYDRATED_KEY = "mml_guest_credits_hydrated";
 
 const listeners = new Set<() => void>();
 
@@ -54,26 +56,59 @@ function clampUsed(totalUsed: number): number {
   return Math.max(0, Math.min(GUEST_GENERATION_CREDIT_CAP, Math.trunc(totalUsed)));
 }
 
-/** Merge server IP usage and browser-profile usage — never grant extra credits. */
+export function markGuestCreditsHydrated(): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(GUEST_CREDITS_HYDRATED_KEY, "1");
+  } catch {
+    /* ignore */
+  }
+  emitGuestCreditsChanged();
+}
+
+export function isGuestCreditsHydrated(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.sessionStorage.getItem(GUEST_CREDITS_HYDRATED_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+/** Sync guest credits from the IP trial Cloud Functions. */
 export function setGuestCreditsFromServer(
   remaining: number,
   totalUsed: number,
+  opts?: { configured?: boolean },
 ): void {
   if (isDeviceFreeSignupConsumed()) {
     writeRemainingToStorage(0);
     writeServerUsedToStorage(GUEST_GENERATION_CREDIT_CAP);
+    markGuestCreditsHydrated();
     emitGuestCreditsChanged();
     return;
   }
 
+  const configured = opts?.configured !== false;
   const serverRemaining = clampRemaining(remaining);
   const serverUsed = Math.max(
     clampUsed(totalUsed),
     GUEST_GENERATION_CREDIT_CAP - serverRemaining,
   );
 
-  recordDeviceTrialUsage(serverUsed);
+  if (configured) {
+    setDeviceTrialUsageCount(serverUsed);
+    writeRemainingToStorage(serverRemaining);
+    writeServerUsedToStorage(serverUsed);
+    if (serverUsed >= GUEST_GENERATION_CREDIT_CAP) {
+      markDeviceFreeSignupConsumed();
+    }
+    markGuestCreditsHydrated();
+    emitGuestCreditsChanged();
+    return;
+  }
 
+  recordDeviceTrialUsage(serverUsed);
   const deviceUsed = getDeviceTrialUsedCount();
   const mergedUsed = Math.max(serverUsed, deviceUsed);
   const nextRemaining = Math.min(
@@ -83,7 +118,7 @@ export function setGuestCreditsFromServer(
 
   writeRemainingToStorage(nextRemaining);
   writeServerUsedToStorage(mergedUsed);
-  if (nextRemaining === 0) {
+  if (mergedUsed >= GUEST_GENERATION_CREDIT_CAP) {
     markDeviceFreeSignupConsumed();
   }
   emitGuestCreditsChanged();
@@ -99,7 +134,7 @@ function readRemainingFromStorage(): number {
       if (deviceUsed > 0) {
         return Math.max(0, GUEST_GENERATION_CREDIT_CAP - deviceUsed);
       }
-      return 0;
+      return GUEST_GENERATION_CREDIT_CAP;
     }
     const n = Number.parseInt(raw, 10);
     if (!Number.isFinite(n)) return GUEST_GENERATION_CREDIT_CAP;
@@ -137,6 +172,7 @@ export function sealGuestTrialOnDevice(): void {
   markDeviceFreeSignupConsumed();
   writeRemainingToStorage(0);
   writeServerUsedToStorage(GUEST_GENERATION_CREDIT_CAP);
+  markGuestCreditsHydrated();
   emitGuestCreditsChanged();
 }
 
@@ -146,6 +182,7 @@ export function clearGuestTrialUsageAfterAccountSync(): void {
   try {
     window.localStorage.removeItem(GUEST_CREDITS_REMAINING_KEY);
     window.localStorage.removeItem(GUEST_TRIAL_SERVER_USED_KEY);
+    window.sessionStorage.removeItem(GUEST_CREDITS_HYDRATED_KEY);
   } catch {
     /* ignore */
   }

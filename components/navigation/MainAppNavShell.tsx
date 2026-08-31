@@ -16,7 +16,7 @@ import { upsertCurrentDeviceToken } from "@/services/fcm-web.service";
 import { recordAppOpened } from "@/services/notification-lifecycle.service";
 import { useAccountStore } from "@/store/account-store";
 import { useAuthStore } from "@/store/auth-store";
-import { useGuestCreditsRemaining } from "@/hooks/useGuestCredits";
+import { useAppCredits } from "@/hooks/useAppCredits";
 import { isRegisteredUser } from "@/lib/guest-session";
 import { useNotificationsPanelStore } from "@/store/notifications-panel-store";
 import {
@@ -132,14 +132,10 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
     profile?.displayName ||
     user?.displayName ||
     "Teacher";
-  const guestCredits = useGuestCreditsRemaining();
-  const isGuest = !isRegisteredUser(user);
-  const credits = isGuest
-    ? guestCredits
-    : account
-      ? Math.max(0, account.generationCredits)
-      : guestCredits;
-  const isFree = isGuest || !account || account.planTier === "free";
+  const { remaining, loading: creditsLoading, isFree, isGuest } =
+    useAppCredits();
+  const creditsLabel =
+    creditsLoading || remaining === null ? "…" : String(remaining);
 
   useEffect(() => {
     if (!authReady) return;
@@ -238,7 +234,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                   href={ROUTES.subscription}
                   className="inline-flex max-w-[11rem] items-center truncate rounded-lg bg-[#0F172A] px-2.5 py-2 text-[10px] font-semibold whitespace-nowrap text-white sm:max-w-[12rem] sm:px-3 sm:text-[11px]"
                 >
-                  <span className="text-[#2DD4BF]">{credits}</span>
+                  <span className="text-[#2DD4BF]">{creditsLabel}</span>
                   <span className="ml-1 truncate font-medium">
                     free credits left
                   </span>
@@ -290,7 +286,7 @@ export function MainAppNavShell({ children }: { children: React.ReactNode }) {
                     href={ROUTES.subscription}
                     className="inline-flex max-w-[11rem] items-center truncate rounded-lg bg-[#0F172A] px-2.5 py-2 text-[10px] font-semibold whitespace-nowrap text-white sm:max-w-[12rem] sm:px-3 sm:text-[11px]"
                   >
-                    <span className="text-[#2DD4BF]">{credits}</span>
+                    <span className="text-[#2DD4BF]">{creditsLabel}</span>
                     <span className="ml-1 truncate font-medium">
                       {isFree ? "free credits left" : "credits left"}
                     </span>

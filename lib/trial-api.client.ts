@@ -6,6 +6,7 @@ import { callFunction } from "@/firebase/functions";
 import {
   GUEST_GENERATION_CREDIT_CAP,
   getGuestCreditsRemaining,
+  markGuestCreditsHydrated,
   setGuestCreditsFromServer,
 } from "@/lib/guest-credits";
 
@@ -39,6 +40,14 @@ function normalizeTrialStatus(payload: TrialStatusPayload | null | undefined): {
   };
 }
 
+function applyTrialStatus(
+  result: ReturnType<typeof normalizeTrialStatus>,
+): void {
+  setGuestCreditsFromServer(result.remaining, result.totalUsed, {
+    configured: result.configured,
+  });
+}
+
 export async function fetchWebTrialStatusFromServer(): Promise<{
   remaining: number;
   totalUsed: number;
@@ -50,14 +59,14 @@ export async function fetchWebTrialStatusFromServer(): Promise<{
       TrialStatusPayload
     >("getWebTrialStatus", {});
     const result = normalizeTrialStatus(payload);
-    setGuestCreditsFromServer(result.remaining, result.totalUsed);
+    applyTrialStatus(result);
     return result;
   } catch (error) {
     console.warn("[Trial] getWebTrialStatus failed", error);
-    setGuestCreditsFromServer(0, GUEST_GENERATION_CREDIT_CAP);
+    markGuestCreditsHydrated();
     return {
-      remaining: 0,
-      totalUsed: GUEST_GENERATION_CREDIT_CAP,
+      remaining: getGuestCreditsRemaining(),
+      totalUsed: GUEST_GENERATION_CREDIT_CAP - getGuestCreditsRemaining(),
       configured: false,
     };
   }
@@ -75,7 +84,7 @@ export async function bootstrapWebTrialCredits(user: User): Promise<{
       {},
     );
     const result = normalizeTrialStatus(payload);
-    setGuestCreditsFromServer(result.remaining, result.totalUsed);
+    applyTrialStatus(result);
     return result;
   } catch (error) {
     console.warn("[Trial] bootstrapWebTrial failed", error);
@@ -93,7 +102,7 @@ export async function consumeWebTrialCreditOnServer(user: User): Promise<number>
         TrialStatusPayload
       >("consumeWebTrial", {});
       const result = normalizeTrialStatus(payload);
-      setGuestCreditsFromServer(result.remaining, result.totalUsed);
+      applyTrialStatus(result);
       return getGuestCreditsRemaining();
     } catch (error) {
       lastError = error;
@@ -116,5 +125,5 @@ export async function sealWebTrialIpOnServer(user: User): Promise<void> {
     {},
   );
   const result = normalizeTrialStatus(payload);
-  setGuestCreditsFromServer(result.remaining, result.totalUsed);
+  applyTrialStatus(result);
 }

@@ -3,15 +3,10 @@
 import Image from "next/image";
 
 import { PricingLink } from "@/components/common/PricingLink";
-import { useGuestCreditsRemaining } from "@/hooks/useGuestCredits";
-import { isRegisteredUser } from "@/lib/guest-session";
+import { useAppCredits } from "@/hooks/useAppCredits";
 import { ROUTES } from "@/lib/urls";
-import {
-  isPaidPlan,
-  profileCreditsRemainingLine,
-} from "@/services/user-account.service";
+import { isPaidPlan } from "@/services/user-account.service";
 import { useAccountStore } from "@/store/account-store";
-import { useAuthStore } from "@/store/auth-store";
 
 function CrownIcon() {
   return (
@@ -28,17 +23,9 @@ function CrownIcon() {
 
 /** Stage 1 dark navy hero — Tailwind only + `public/stage1-hero.svg`. */
 export function Stage1Hero() {
-  const user = useAuthStore((s) => s.user);
   const account = useAccountStore((s) => s.account);
-  const guestCredits = useGuestCreditsRemaining();
-  const isGuest = !isRegisteredUser(user);
-  const credits = isGuest
-    ? guestCredits
-    : account
-      ? Math.max(0, account.generationCredits)
-      : guestCredits;
+  const { summaryLine } = useAppCredits();
   const paid = account ? isPaidPlan(account.planTier) : false;
-  const summary = account ? profileCreditsRemainingLine(account) : null;
 
   return (
     <section
@@ -50,7 +37,6 @@ export function Stage1Hero() {
         ].join(", "),
       }}
     >
-      {/* Decorative half-circles on the hero card, behind the illustration */}
       <span
         aria-hidden
         className="pointer-events-none absolute top-[-28%] right-[28%] z-0 aspect-square w-[min(220px,28%)] rounded-full border-[28px] border-white/10 lg:top-[-30%] lg:right-[26%] lg:w-[min(260px,22%)]"
@@ -91,14 +77,7 @@ export function Stage1Hero() {
                 {paid ? "Your plan" : "Upgrade to Pro"}
               </p>
               <p className="mt-0.5 truncate text-xs text-slate-400">
-                {(
-                  summary ??
-                  (isGuest
-                    ? `${credits} free credit${credits === 1 ? "" : "s"} remaining`
-                    : credits !== null
-                      ? `${credits} credit${credits === 1 ? "" : "s"} remaining`
-                      : "Loading credits…")
-                ).replace(/\s*generation\s+/gi, " ")}
+                {summaryLine}
               </p>
             </div>
           </PricingLink>

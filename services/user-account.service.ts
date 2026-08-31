@@ -61,14 +61,22 @@ export function isPaidPlan(tier: AccountPlanTier): boolean {
   return isPaidPlanTier(tier);
 }
 
+/** Shared free-tier credit summary for guests and signed-in free users. */
+export function freeCreditsSummaryLine(
+  remaining: number,
+  cap = GUEST_GENERATION_CREDIT_CAP,
+): string {
+  const safeRemaining = Math.max(0, Math.min(cap, Math.trunc(remaining)));
+  const used = Math.max(0, cap - safeRemaining);
+  return `${safeRemaining} of ${cap} free generation credits remaining · ${used} used`;
+}
+
 /** Mirrors Flutter `AccountSettings.creditsSummaryLine`. */
 export function profileCreditsRemainingLine(account: UserAccountView): string {
   const { planTier, generationCredits, generationCreditCap, creditsUsed } =
     account;
   if (planTier === "free") {
-    const remaining = Math.max(0, Math.min(5, generationCredits));
-    const used = Math.max(0, 5 - remaining);
-    return `${remaining} of 5 free generation credits remaining · ${used} used`;
+    return freeCreditsSummaryLine(generationCredits);
   }
   if (isLifetimeTopUpTier(planTier)) {
     return `${generationCredits} of ${generationCreditCap} generation credits · ${creditsUsed} used`;

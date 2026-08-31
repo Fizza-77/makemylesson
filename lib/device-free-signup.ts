@@ -47,6 +47,20 @@ export function recordDeviceTrialUsage(totalUsed: number): void {
   }
 }
 
+/** Replace browser trial counter with server IP usage (authoritative sync). */
+export function setDeviceTrialUsageCount(totalUsed: number): void {
+  if (typeof window === "undefined") return;
+  const clamped = Math.max(0, Math.min(FREE_CREDIT_CAP, Math.trunc(totalUsed)));
+  try {
+    window.localStorage.setItem(DEVICE_TRIAL_USED_KEY, String(clamped));
+  } catch {
+    /* ignore */
+  }
+  if (clamped >= FREE_CREDIT_CAP) {
+    markDeviceFreeSignupConsumed();
+  }
+}
+
 /** Local fallback when Firestore has no credit balance fields yet. */
 export function deviceFreeCreditsFallback(): number {
   const used = getDeviceTrialUsedCount();
