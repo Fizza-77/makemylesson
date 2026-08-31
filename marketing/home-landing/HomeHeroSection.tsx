@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import SectionLink from "@marketing/components/SectionLink";
+import HeroCardStack from "@marketing/home-landing/HeroCardStack";
 import { MML_APP } from "@marketing/lib/appUrls";
 
 const CURRICULUMS = [
@@ -192,18 +193,7 @@ export default function HomeHeroSection() {
           </div>
 
           <div className="mml-mkt-hero-visual-col">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/hero-visual-stage.webp"
-              srcSet="/hero-visual-stage-sm.webp 860w, /hero-visual-stage.webp 1718w"
-              sizes="(max-width: 1199px) min(100vw, 44rem), 50vw"
-              alt="Overlapping teaching pack documents: lesson plan, slides, classroom activity, test paper, answer key, and mark scheme for an ecosystems lesson."
-              className="mml-mkt-hero-stage-svg"
-              width={859}
-              height={630}
-              decoding="async"
-              fetchPriority="high"
-            />
+            <HeroCardStack />
           </div>
         </div>
       </div>

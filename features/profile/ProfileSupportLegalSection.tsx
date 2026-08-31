@@ -8,6 +8,7 @@ import {
   ProfileDialogShell,
 } from "@/features/profile/ProfileMenuPrimitives";
 import { openContactPage } from "@/lib/open-pricing";
+import { openHelpCentreEmail } from "@/lib/open-support-email";
 import { AppUrls } from "@/lib/urls";
 import { cn } from "@/lib/utils";
 import { toast } from "@/store/toast-store";
@@ -262,7 +263,7 @@ export function ProfileSupportLegalSection() {
                 icon={<HelpCardIcon />}
                 title="Help Centre"
                 description="Guides and answers"
-                href={`mailto:${AppUrls.helpEmail}`}
+                onClick={() => openHelpCentreEmail()}
               />
               <ShelfCard
                 tone="navy"

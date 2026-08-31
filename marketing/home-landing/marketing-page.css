@@ -500,11 +500,103 @@
   pointer-events: none;
 }
 
+/* Stacked hero teaching-pack cards (6 SVGs) */
+.mml-hero-card-stack {
+  position: relative;
+  width: min(100%, 60rem);
+  max-width: 60rem;
+  aspect-ratio: 859 / 630;
+  min-height: clamp(19rem, 42vw, 33rem);
+  margin-left: auto;
+  margin-right: 0;
+  flex-shrink: 0;
+  transform: translate(2.5rem, 0.85rem);
+  transform-origin: right center;
+}
+
+.mml-hero-card-stack__card {
+  position: absolute;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mml-hero-card-stack__card--slides {
+  left: 4%;
+  top: 0%;
+  width: 39%;
+  z-index: 1;
+}
+
+.mml-hero-card-stack__card--answerkey {
+  left: 5%;
+  top: 28%;
+  width: 34%;
+  z-index: 2;
+}
+
+.mml-hero-card-stack__card--classroomactivity {
+  left: 55%;
+  top: -4%;
+  width: 40%;
+  z-index: 2;
+}
+
+.mml-hero-card-stack__card--markscheme {
+  left: 76%;
+  top: 8%;
+  width: 32%;
+  z-index: 3;
+}
+
+.mml-hero-card-stack__card--testpaper {
+  left: 56%;
+  top: 29%;
+  width: 32%;
+  z-index: 4;
+}
+
+.mml-hero-card-stack__card--lessonplan {
+  left: 26%;
+  top: 8%;
+  width: 44%;
+  z-index: 5;
+}
+
 .mml-mkt-hero-stage-svg {
   display: block;
   width: 100%;
   height: auto;
   max-width: none;
+}
+
+@media (max-width: 1399px) and (min-width: 1200px) {
+  .mml-hero-card-stack {
+    transform: translate(3rem, 0.65rem) scale(1.2);
+    transform-origin: right center;
+  }
+
+  .mml-hero-card-stack__card--markscheme {
+    left: 71%;
+  }
+
+  .mml-hero-card-stack__card--classroomactivity {
+    left: 52%;
+  }
+}
+
+@media (max-width: 1299px) and (min-width: 1200px) {
+  .mml-hero-card-stack {
+    transform: translate(2.25rem, 0.85rem) scale(1.14);
+    transform-origin: right center;
+  }
+
+  .mml-hero-card-stack__card--markscheme {
+    left: 68%;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -622,12 +714,37 @@
   }
 
   .mml-mkt-hero-visual-col {
-    justify-content: center;
+    justify-content: flex-end;
+    overflow: visible;
+  }
+
+  .mml-hero-card-stack {
+    width: min(100%, 60rem);
+    margin-right: -1rem;
+    transform: translate(3.75rem, 0.35rem) scale(1.28);
+    transform-origin: right center;
+  }
+
+  .mml-hero-card-stack__card--markscheme {
+    left: 69%;
+    width: 30%;
   }
 
   .mml-mkt-hero-stage-svg {
     transform: translate(-72px, -2.15rem) scale(1.34);
     transform-origin: left bottom;
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .mml-hero-card-stack {
+    transform: translate(3.25rem, 0.4rem) scale(1.28);
+    transform-origin: right center;
+  }
+
+  .mml-hero-card-stack__card--markscheme {
+    left: 66%;
+    width: 30%;
   }
 }
 
@@ -639,6 +756,16 @@
   .mml-mkt-hero-split {
     min-height: 0;
     gap: clamp(3rem, 6vw, 6.5rem);
+  }
+
+  .mml-hero-card-stack {
+    transform: translate(3.5rem, 0.55rem) scale(1.34);
+    transform-origin: right center;
+  }
+
+  .mml-hero-card-stack__card--markscheme {
+    left: 67%;
+    width: 30%;
   }
 
   .mml-mkt-hero-stage-svg {
@@ -711,6 +838,31 @@
     justify-content: center;
     width: 100%;
     max-width: min(38rem, 100%);
+    overflow: visible;
+  }
+
+  .mml-hero-card-stack {
+    width: min(100%, 37rem);
+    margin-inline: auto;
+    transform: translate(1.5rem, 1rem) scale(1.08);
+    transform-origin: center center;
+  }
+
+  .mml-hero-card-stack__card--answerkey {
+    top: 30%;
+  }
+
+  .mml-hero-card-stack__card--testpaper {
+    top: 31%;
+  }
+
+  .mml-hero-card-stack__card--lessonplan {
+    top: 10%;
+  }
+
+  .mml-hero-card-stack__card--markscheme {
+    left: 74%;
+    top: 10%;
   }
 
   .mml-mkt-hero-stage-svg {
