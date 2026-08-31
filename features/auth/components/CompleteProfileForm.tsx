@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/Input";
 import { Spinner } from "@/components/ui/Spinner";
 import { getFirebaseAuth } from "@/firebase/config";
 import { fetchUserProfile } from "@/firebase/firestore";
-import { signOutUser } from "@/firebase/auth";
+import { signOutAndSealTrial } from "@/lib/sign-out-session";
 import { authLog } from "@/lib/auth-logger";
 import { AuthUiCopy } from "@/lib/auth-validation";
 import { requestLogoSplash } from "@/lib/logo-splash";
@@ -119,7 +119,7 @@ export function CompleteProfileForm() {
   }
 
   async function signOutAndLeave() {
-    await signOutUser();
+    await signOutAndSealTrial();
     reset();
     router.replace(ROUTES.signIn);
   }

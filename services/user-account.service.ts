@@ -325,24 +325,14 @@ export async function sealWebTrialWhenFreeAccountExhausted(
   const resolved = resolveSubscriptionCredits(data);
   if (resolved.generationCredits > 0) return;
 
-  let ipRemaining = 0;
   try {
-    const trial = await fetchWebTrialStatusFromServer();
-    ipRemaining = trial.remaining;
-  } catch {
-    /* best-effort */
-  }
-
-  if (ipRemaining > 0) {
-    try {
-      await sealWebTrialIpOnServer(user);
-      authLog.info("account.ip_trial_sealed", { uid, ipRemainingBefore: ipRemaining });
-    } catch (error) {
-      authLog.warn("account.ip_trial_seal_failed", {
-        uid,
-        message: String(error),
-      });
-    }
+    await sealWebTrialIpOnServer(user);
+    authLog.info("account.ip_trial_sealed", { uid });
+  } catch (error) {
+    authLog.warn("account.ip_trial_seal_failed", {
+      uid,
+      message: String(error),
+    });
   }
 
   sealGuestTrialOnDevice();

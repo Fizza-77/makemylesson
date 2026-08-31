@@ -7,7 +7,7 @@ import { Spinner } from "@/components/ui/Spinner";
 import { openPricingPage } from "@/lib/open-pricing";
 import { isStandaloneDisplay } from "@/lib/pwa-install";
 import { isAuthPublicPath, isMarketingPath, ROUTES } from "@/lib/urls";
-import { signOutUser } from "@/firebase/auth";
+import { signOutAndSealTrial } from "@/lib/sign-out-session";
 import { useAuthStore } from "@/store/auth-store";
 
 /** Defer until App Router dispatch is ready (avoids Next 16 Turbopack init race). */
@@ -73,7 +73,7 @@ export function ProfileRouteGuard({ children }: { children: React.ReactNode }) {
       )}`;
       if (redirectedRef.current === href) return;
       redirectedRef.current = href;
-      void signOutUser().then(() => {
+      void signOutAndSealTrial().then(() => {
         useAuthStore.getState().reset();
         safeReplace(router, href);
       });

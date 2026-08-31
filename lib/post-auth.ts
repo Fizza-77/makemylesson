@@ -7,7 +7,7 @@ import {
   fetchUserProfile,
   userDocRef,
 } from "@/firebase/firestore";
-import { signOutUser } from "@/firebase/auth";
+import { signOutAndSealTrial } from "@/lib/sign-out-session";
 import { callFunction } from "@/firebase/functions";
 import { authLog } from "@/lib/auth-logger";
 import { ROUTES } from "@/lib/urls";
@@ -95,7 +95,7 @@ export async function resolvePostAuthDestination(user: User): Promise<string> {
 
   if (profile?.banned) {
     authLog.warn("post_auth.banned", { uid: user.uid });
-    await signOutUser();
+    await signOutAndSealTrial();
     useAuthStore.getState().reset();
     const reason = encodeURIComponent(
       "Your account has been suspended. Please contact support.",

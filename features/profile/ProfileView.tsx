@@ -18,7 +18,7 @@ import {
   ProfileSignOutButton,
   ProfileSupportLegalSection,
 } from "@/features/profile/ProfileSupportLegalSection";
-import { signOutUser } from "@/firebase/auth";
+import { signOutAndSealTrial } from "@/lib/sign-out-session";
 import { authLog } from "@/lib/auth-logger";
 import {
   curriculumLabelForPrefs,
@@ -454,7 +454,7 @@ export function ProfileView() {
   async function leaveSignedOut() {
     authLog.info("sign_out.start", { uid: user?.uid });
     try {
-      await signOutUser();
+      await signOutAndSealTrial();
     } catch (e) {
       authLog.warn("sign_out.after_delete", { message: String(e) });
     }
