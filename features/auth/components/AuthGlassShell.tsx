@@ -85,6 +85,9 @@ export function AuthGlassShell({
         {split ? (
           <div className="grid h-full items-center gap-8 sm:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] sm:gap-8 lg:gap-8 xl:gap-12">
             <div className="flex flex-col items-center justify-center border-b border-[#E8ECF0] pb-8 text-center sm:border-r sm:border-b-0 sm:pr-8 sm:pb-0 lg:pr-10 xl:pr-12">
+              <div className="mb-6">
+                <AuthBrandMark large />
+              </div>
               {title ? (
                 <h1 className="text-[1.75rem] font-bold tracking-tight text-[#1A1C30] sm:text-[2rem]">
                   {title}
@@ -95,9 +98,6 @@ export function AuthGlassShell({
                   {subtitle}
                 </p>
               ) : null}
-              <div className="mt-8">
-                <AuthBrandMark large />
-              </div>
               {headerAction ? <div className="mt-4">{headerAction}</div> : null}
             </div>
             <div className="flex min-w-0 flex-col justify-center overflow-hidden sm:pl-1">

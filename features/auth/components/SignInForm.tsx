@@ -286,7 +286,7 @@ export function SignInForm() {
           disabled={busy}
         >
           {socialLoading === "google" ? null : <GoogleIcon />}
-          <span className="truncate">Sign in with Google</span>
+          <span className="truncate">Google</span>
         </Button>
         <Button
           type="button"
@@ -297,7 +297,7 @@ export function SignInForm() {
           disabled={busy}
         >
           {socialLoading === "apple" ? null : <AppleIcon />}
-          <span className="truncate">Sign in with Apple</span>
+          <span className="truncate">Apple</span>
         </Button>
       </div>
 
