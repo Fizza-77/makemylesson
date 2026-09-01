@@ -190,7 +190,7 @@ export function SignInForm() {
       title="Welcome back"
       subtitle="Sign in to continue planning lessons"
     >
-      <div className="relative min-h-[22rem]">
+      <div className="relative min-h-[22rem] overflow-hidden">
         <AuthLoadingOverlay active={busy} messages={SIGN_IN_LOADING_MESSAGES} />
 
       <form
@@ -286,7 +286,7 @@ export function SignInForm() {
           disabled={busy}
         >
           {socialLoading === "google" ? null : <GoogleIcon />}
-          Google
+          <span className="truncate">Sign in with Google</span>
         </Button>
         <Button
           type="button"
@@ -297,11 +297,21 @@ export function SignInForm() {
           disabled={busy}
         >
           {socialLoading === "apple" ? null : <AppleIcon />}
-          Apple
+          <span className="truncate">Sign in with Apple</span>
         </Button>
       </div>
 
-      <p className="mt-6 text-center">
+      <p className="mt-6 text-center text-sm text-[#666666]">
+        Don’t have an account?{" "}
+        <Link
+          href={ROUTES.signUp}
+          className="font-semibold text-[#28C2C0] hover:underline"
+        >
+          Sign up
+        </Link>
+      </p>
+
+      <p className="mt-3 text-center">
         <Link
           href={ROUTES.stage1}
           className="text-sm font-medium text-[#94A3B8] transition hover:text-[#1A1C30] hover:underline"

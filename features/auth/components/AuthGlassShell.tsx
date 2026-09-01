@@ -64,7 +64,7 @@ export function AuthGlassShell({
   return (
     <div
       className={cn(
-        "flex min-h-dvh flex-col bg-gradient-to-br from-[#1A2138] via-[#1E2235] to-[#28C2C0]/30",
+        "flex h-dvh flex-col overflow-hidden bg-gradient-to-br from-[#1A2138] via-[#1E2235] to-[#28C2C0]/30",
         isWideLayout
           ? "items-center justify-center p-4 sm:p-6 lg:p-[0.5in]"
           : "items-center justify-center px-4 py-8 sm:py-10",
@@ -73,7 +73,7 @@ export function AuthGlassShell({
     >
       <div
         className={cn(
-          "mx-auto flex w-full flex-col rounded-2xl border border-white/10 bg-white shadow-[0_24px_60px_-20px_rgba(15,23,42,0.45)] sm:rounded-3xl",
+          "mx-auto flex w-full max-h-[calc(100dvh-2rem)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-white shadow-[0_24px_60px_-20px_rgba(15,23,42,0.45)] sm:rounded-3xl",
           split
             ? "max-w-[54rem] p-6 sm:p-8 lg:p-10"
             : wide
@@ -83,11 +83,10 @@ export function AuthGlassShell({
         )}
       >
         {split ? (
-          <div className="grid items-center gap-8 sm:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] sm:gap-8 lg:gap-10 xl:gap-12">
-            <div className="flex flex-col justify-center border-b border-[#E8ECF0] pb-8 sm:border-r sm:border-b-0 sm:pr-8 sm:pb-0 lg:pr-10 xl:pr-12">
-              <AuthBrandMark large />
+          <div className="grid h-full items-center gap-8 sm:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] sm:gap-8 lg:gap-8 xl:gap-12">
+            <div className="flex flex-col items-center justify-center border-b border-[#E8ECF0] pb-8 text-center sm:border-r sm:border-b-0 sm:pr-8 sm:pb-0 lg:pr-10 xl:pr-12">
               {title ? (
-                <h1 className="mt-6 text-[1.75rem] font-bold tracking-tight text-[#1A1C30] sm:text-[2rem]">
+                <h1 className="text-[1.75rem] font-bold tracking-tight text-[#1A1C30] sm:text-[2rem]">
                   {title}
                 </h1>
               ) : null}
@@ -96,9 +95,12 @@ export function AuthGlassShell({
                   {subtitle}
                 </p>
               ) : null}
+              <div className="mt-8">
+                <AuthBrandMark large />
+              </div>
               {headerAction ? <div className="mt-4">{headerAction}</div> : null}
             </div>
-            <div className="flex min-w-0 flex-col justify-center sm:pl-1">
+            <div className="flex min-w-0 flex-col justify-center overflow-hidden sm:pl-1">
               {children}
             </div>
           </div>
