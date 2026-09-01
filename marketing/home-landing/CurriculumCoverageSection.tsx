@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { responsiveWebpSrcSet } from "@marketing/home-landing/responsiveWebp";
+
 function RoutesUnderline() {
   return (
     <svg
@@ -219,6 +221,7 @@ export default function CurriculumCoverageSection() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={card.structure}
+                  srcSet={responsiveWebpSrcSet(card.structure, 340, 680)}
                   alt={`${card.title} curriculum routes illustration`}
                   width={298}
                   height={199}

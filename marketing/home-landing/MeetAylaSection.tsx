@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { responsiveWebpSrcSet } from "@marketing/home-landing/responsiveWebp";
+
 const BULLETS = [
   "Knows your curriculum, grade and lesson context",
   "Suggests activities, materials and differentiation",
@@ -76,6 +78,7 @@ export default function MeetAylaSection() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={AYLA_IMAGE}
+              srcSet={responsiveWebpSrcSet(AYLA_IMAGE, 200, 420)}
               alt="Ayla, teaching assistant"
               width={420}
               height={630}
