@@ -1,0 +1,7 @@
+@reference "tailwindcss";
+
+@import './marketing/marketing-base.css';
+@import './marketing/marketing-nav-core.css';
+@import './marketing/marketing-nav-lean.css';
+@import './marketing/marketing-footer.css';
+@import './marketing/marketing-mega-menus.css';

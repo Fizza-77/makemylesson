@@ -1,14 +1,14 @@
 const HERO_CARDS = [
-  { id: "slides", src: "/svgs/slides.svg", modifier: "slides" },
-  { id: "answerkey", src: "/svgs/answerkey.svg", modifier: "answerkey" },
+  { id: "slides", src: "/svgs/slides.webp", modifier: "slides" },
+  { id: "answerkey", src: "/svgs/answerkey.webp", modifier: "answerkey" },
   {
     id: "classroomactivity",
-    src: "/svgs/classroomactivity.svg",
+    src: "/svgs/classroomactivity.webp",
     modifier: "classroomactivity",
   },
-  { id: "markscheme", src: "/svgs/markscheme.svg", modifier: "markscheme" },
-  { id: "testpaper", src: "/svgs/testpaper.svg", modifier: "testpaper" },
-  { id: "lessonplan", src: "/svgs/lessonplan.svg", modifier: "lessonplan" },
+  { id: "markscheme", src: "/svgs/markscheme.webp", modifier: "markscheme" },
+  { id: "testpaper", src: "/svgs/testpaper.webp", modifier: "testpaper" },
+  { id: "lessonplan", src: "/svgs/lessonplan.webp", modifier: "lessonplan" },
 ] as const;
 
 export default function HeroCardStack() {

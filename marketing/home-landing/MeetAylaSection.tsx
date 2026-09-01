@@ -36,7 +36,7 @@ const MESSAGES = [
   },
 ] as const;
 
-const AYLA_IMAGE = "/svgs/ayla.svg";
+const AYLA_IMAGE = "/svgs/ayla.webp";
 const AYLA_AVATAR = "/Group 7.svg";
 
 function TypingDots() {

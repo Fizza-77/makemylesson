@@ -51,7 +51,7 @@ const CARDS: CurriculumCard[] = [
     tone: "navy",
     flag: "/UK.png",
     flagAlt: "United Kingdom flag",
-    structure: "/svgs/UK.svg",
+    structure: "/svgs/UK.webp",
     structureClass: "mml-cc-structure--uk",
     items: [
       "UK National Curriculum",
