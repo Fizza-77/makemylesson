@@ -36,7 +36,7 @@ const MESSAGES = [
   },
 ] as const;
 
-const AYLA_IMAGE = "/svgs/ayla.webp";
+const AYLA_IMAGE = "/svgs/ayla.svg";
 const AYLA_AVATAR = "/Group 7.svg";
 
 function TypingDots() {
@@ -77,8 +77,9 @@ export default function MeetAylaSection() {
             <img
               src={AYLA_IMAGE}
               alt="Ayla, teaching assistant"
-              width={720}
-              height={1079}
+              width={420}
+              height={630}
+              sizes="(max-width: 767px) 52vw, 30vw"
               className="mml-ayla-character-img"
               loading="lazy"
               decoding="async"

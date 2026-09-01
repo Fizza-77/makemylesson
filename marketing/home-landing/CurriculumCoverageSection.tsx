@@ -51,7 +51,7 @@ const CARDS: CurriculumCard[] = [
     tone: "navy",
     flag: "/UK.png",
     flagAlt: "United Kingdom flag",
-    structure: "/svgs/UK.webp",
+    structure: "/svgs/UK.svg",
     structureClass: "mml-cc-structure--uk",
     items: [
       "UK National Curriculum",
@@ -220,6 +220,9 @@ export default function CurriculumCoverageSection() {
                 <img
                   src={card.structure}
                   alt={`${card.title} curriculum routes illustration`}
+                  width={298}
+                  height={199}
+                  sizes="(max-width: 767px) 48vw, 18vw"
                   className={`mml-cc-structure ${card.structureClass}`}
                   loading="lazy"
                   decoding="async"
