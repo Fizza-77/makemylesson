@@ -4,8 +4,6 @@ import type { ReactNode } from "react";
 import { ConsentGatedAnalytics } from "@/components/analytics/ConsentGatedAnalytics";
 import { APP_ORIGIN } from "@/lib/urls";
 
-import "./globals.css";
-
 export const metadata: Metadata = {
   metadataBase: new URL(APP_ORIGIN),
   title: {

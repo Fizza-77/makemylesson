@@ -1117,7 +1117,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
   font-size: clamp(1.7rem, 3.1vw, 2.85rem);
   font-weight: 500;
   font-style: normal;
@@ -1795,7 +1795,7 @@
   z-index: 2;
   line-height: 1.1;
   color: var(--mml-cyan);
-  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -1878,7 +1878,7 @@
 
 .mml-hero-stage-num {
   flex-shrink: 0;
-  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1912,7 +1912,7 @@
 
 .mml-hero-stage-title {
   margin: 0;
-  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
   font-size: clamp(1.2rem, 1.4vw, 1.4rem);
   font-weight: 700;
   letter-spacing: -0.03em;

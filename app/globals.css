@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-@source "../marketing/**/*.{js,jsx,ts,tsx}";
 @source "../components/**/*.{js,jsx,ts,tsx}";
-@source "./**/*.{js,jsx,ts,tsx}";
+@source "./(app)/**/*.{js,jsx,ts,tsx}";
+@source "./(auth)/**/*.{js,jsx,ts,tsx}";
+@source "./not-found.tsx";
 
 :root {
   --background: #f5f6fa;

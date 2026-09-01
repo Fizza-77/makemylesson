@@ -23,16 +23,25 @@ const STATIC_LINKS = [
   { href: '/contact', label: 'Contact Us' },
 ]
 
-/** Server-rendered nav — zero client JS for teaching-method / feature detail pages. */
-export default function StaticSiteNavbarServer() {
+/** Server-rendered nav — zero client JS for lean marketing pages and the homepage. */
+export default function StaticSiteNavbarServer({ theme = 'site' }) {
+  const isHome = theme === 'home'
+
   return (
     <nav
       id="site-nav"
       aria-label="Main navigation"
-      className="site-nav site-nav--light site-nav--scrolled fixed left-0 right-0 top-0 z-[1100]"
+      className={`site-nav fixed left-0 right-0 top-0 z-[1100] ${
+        isHome ? 'site-nav--home site-nav--scrolled' : 'site-nav--light site-nav--scrolled'
+      }`}
     >
       <div className={`${NAV_CONTAINER} ${NAV_BAR}`}>
-        <Link href="/" className="site-nav-brand site-nav-brand--active flex shrink-0 items-center no-underline">
+        <Link
+          href="/"
+          className={`site-nav-brand flex shrink-0 items-center no-underline${
+            isHome ? ' site-nav-brand--active' : ''
+          }`}
+        >
           <span className="site-nav-brand-text font-sans">Make My Lesson</span>
         </Link>
 

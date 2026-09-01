@@ -1,24 +1,13 @@
 import type { ReactNode } from "react";
-import { Poppins } from "next/font/google";
 
 import "../../marketing-home.css";
-import MarketingChrome from "@marketing/components/MarketingChrome";
+import HomeMarketingShell from "@marketing/components/HomeMarketingShell";
 import { HOME_CRITICAL_CSS } from "@marketing/home-landing/homeCriticalCss";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-/** Homepage: single CSS bundle + inlined critical hero rules for faster LCP. */
+/** Homepage: lean server shell + single CSS bundle (no app globals / mega-menus / Poppins). */
 export default function HomeLayout({ children }: { children: ReactNode }) {
   return (
-    <MarketingChrome
-      siteClassName="flex min-h-screen flex-col bg-white font-sans text-[#1a1e3a] antialiased"
-      homeClassName="mml-marketing-page"
-    >
+    <HomeMarketingShell>
       <style dangerouslySetInnerHTML={{ __html: HOME_CRITICAL_CSS }} />
       <link
         rel="preload"
@@ -27,7 +16,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
         href="/svgs/lessonplan-sm.webp"
         fetchPriority="high"
       />
-      <div className={poppins.variable}>{children}</div>
-    </MarketingChrome>
+      {children}
+    </HomeMarketingShell>
   );
 }
