@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { FileText, Globe } from 'lucide-react'
 import { MML_APP } from '@marketing/lib/appUrls'

@@ -1,5 +1,7 @@
 'use client'
 
+import '@marketing/styles/marketing-feature-range.css'
+
 import { useMemo, useState } from 'react'
 import { cn } from '@marketing/lib/cn'
 

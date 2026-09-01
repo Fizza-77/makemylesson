@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 import withPWAInit from "@ducanh2912/next-pwa";
 
+const modernPolyfillStub = "./lib/modern-polyfill.js";
+
 const withPWA = withPWAInit({
   dest: "public",
   // Default: off in `next dev` (HMR cache issues). Set PWA_DEV=1 to test SW locally.
@@ -20,7 +22,21 @@ const appOrigin =
 const nextConfig: NextConfig = {
   output: "standalone",
   reactStrictMode: true,
-  turbopack: {},
+  turbopack: {
+    // Next.js injects polyfill-module for all browsers; our browserslist is modern-only.
+    resolveAlias: {
+      "../build/polyfills/polyfill-module": modernPolyfillStub,
+      "next/dist/build/polyfills/polyfill-module": modernPolyfillStub,
+    },
+  },
+  webpack(config) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "../build/polyfills/polyfill-module": false,
+      "next/dist/build/polyfills/polyfill-module": false,
+    };
+    return config;
+  },
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },

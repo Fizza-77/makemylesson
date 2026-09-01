@@ -6,18 +6,17 @@ const GA_MEASUREMENT_ID =
 const GOOGLE_ADS_ID =
   process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? "AW-17975031252";
 
-/** Google Analytics 4 + Google Ads (gtag.js) — loaded in document head on every page. */
+/** Google Analytics 4 + Google Ads (gtag.js) — lazyOnload to stay off the LCP critical path. */
 export function GoogleAnalytics() {
   if (!GA_MEASUREMENT_ID && !GOOGLE_ADS_ID) return null;
 
   return (
     <>
       <Script
-        async
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy="beforeInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="google-analytics" strategy="beforeInteractive">
+      <Script id="google-analytics" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}

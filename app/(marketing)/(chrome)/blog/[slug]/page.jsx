@@ -13,6 +13,8 @@ import {
   SITE_URL,
 } from '@marketing/lib/siteUrl'
 
+import '@marketing/styles/blog-article.css'
+
 async function loadPost(slug) {
   const blog = await getBlogBySlugForMakeMyLesson(slug)
   if (!blog) return null

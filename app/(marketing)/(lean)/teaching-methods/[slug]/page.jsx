@@ -5,6 +5,7 @@ import {
   ALL_TEACHING_METHODS,
   TEACHING_METHODS_BASE,
   getTeachingMethodBySlug,
+  getTeachingMethodHeroImagePath,
 } from '@marketing/data/teachingMethods'
 import { getTeachingMethodContent } from '@marketing/data/teachingMethodContent'
 import {
@@ -79,9 +80,13 @@ export default async function TeachingMethodRoutePage({ params }) {
     description: pageDescription,
   })
   const faqJsonLd = content?.faq ? buildTeachingMethodFaqJsonLd(content.faq, canonical) : null
+  const heroImage = getTeachingMethodHeroImagePath(method)
 
   return (
     <>
+      {heroImage ? (
+        <link rel="preload" as="image" href={heroImage} fetchPriority="high" />
+      ) : null}
       <MarketingPageJsonLd data={[breadcrumbSchema, webPageSchema, faqJsonLd].filter(Boolean)} />
       <TeachingMethodPage method={method} content={content} />
     </>

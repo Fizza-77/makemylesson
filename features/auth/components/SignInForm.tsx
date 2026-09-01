@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 
 import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
+import { AuthLoadingOverlay } from "@/features/auth/components/AuthLoadingOverlay";
+import { SIGN_IN_LOADING_MESSAGES } from "@/features/auth/auth-loading-messages";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
@@ -184,9 +186,13 @@ export function SignInForm() {
 
   return (
     <AuthGlassShell
+      split
       title="Welcome back"
       subtitle="Sign in to continue planning lessons"
     >
+      <div className="relative min-h-[22rem]">
+        <AuthLoadingOverlay active={busy} messages={SIGN_IN_LOADING_MESSAGES} />
+
       <form
         className="space-y-4"
         onSubmit={handleSubmit(onSubmit, toastFirstFormError)}
@@ -270,7 +276,7 @@ export function SignInForm() {
         <div className="h-px flex-1 bg-[#E5E7EB]" />
       </div>
 
-      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-2.5">
         <Button
           type="button"
           variant="outline"
@@ -295,16 +301,7 @@ export function SignInForm() {
         </Button>
       </div>
 
-      <p className="mt-6 text-center text-sm text-[#666666]">
-        Don&apos;t have an account?{" "}
-        <Link
-          href={ROUTES.signUp}
-          className="font-semibold text-[#28C2C0] hover:underline"
-        >
-          Sign up
-        </Link>
-      </p>
-      <p className="mt-3 text-center">
+      <p className="mt-6 text-center">
         <Link
           href={ROUTES.stage1}
           className="text-sm font-medium text-[#94A3B8] transition hover:text-[#1A1C30] hover:underline"
@@ -312,6 +309,7 @@ export function SignInForm() {
           Continue as guest
         </Link>
       </p>
+      </div>
     </AuthGlassShell>
   );
 }

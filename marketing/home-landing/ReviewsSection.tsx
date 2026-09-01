@@ -290,7 +290,8 @@ function Stars({ color }: { color: Review["stars"] }) {
     color === "cyan" ? "#159f9b" : color === "white" ? "#ffffff" : "#0e294c";
 
   return (
-    <div className="mml-rv-stars" aria-label="5 out of 5 stars">
+    <span className="mml-rv-stars">
+      <span className="sr-only">5 out of 5 stars</span>
       {Array.from({ length: 5 }, (_, i) => (
         <svg
           key={i}
@@ -306,7 +307,7 @@ function Stars({ color }: { color: Review["stars"] }) {
           />
         </svg>
       ))}
-    </div>
+    </span>
   );
 }
 
@@ -436,7 +437,6 @@ export default function ReviewsSection() {
                   key={slideIndex}
                   className="mml-rv-slide"
                   aria-hidden={page !== slideIndex}
-                  aria-label={`Reviews page ${slideIndex + 1}`}
                 >
                   {slide.map((review) => (
                     <ReviewCard
@@ -450,13 +450,12 @@ export default function ReviewsSection() {
           </div>
         </div>
 
-        <div className="mml-rv-dots" role="tablist" aria-label="Review pages">
+        <div className="mml-rv-dots" role="group" aria-label="Review pages">
           {REVIEW_SLIDES.map((_, i) => (
             <button
               key={i}
               type="button"
-              role="tab"
-              aria-selected={page === i}
+              aria-pressed={page === i}
               aria-label={`Show reviews page ${i + 1}`}
               className={`mml-rv-dot${page === i ? " mml-rv-dot--active" : ""}`}
               onClick={() => setPage(i)}

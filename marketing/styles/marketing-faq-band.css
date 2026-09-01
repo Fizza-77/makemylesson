@@ -1,0 +1,197 @@
+/* FAQ band styles — lean teaching-method / feature detail pages */
+
+.pricing-faq-inner {
+  width: 100%;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1in;
+  padding-right: 1in;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .pricing-faq-inner {
+    padding-left: max(1rem, 0.5in);
+    padding-right: max(1rem, 0.5in);
+  }
+}
+
+@media (max-width: 640px) {
+  .pricing-faq-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* FAQ band â€” full available width, ~1in side inset */
+.pricing-faq-section {
+  box-sizing: border-box;
+}
+
+.pricing-faq-inner {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.pricing-schools-section {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+}
+
+.pricing-schools-copy,
+.pricing-schools-visual {
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .pricing-schools-copy {
+    padding-left: 1in;
+    padding-right: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .pricing-schools-visual {
+    padding-right: 1in;
+    padding-left: clamp(1.5rem, 3vw, 3rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  .pricing-schools-copy,
+  .pricing-schools-visual {
+    padding-left: 1in;
+    padding-right: 1in;
+  }
+}
+
+@media (max-width: 900px) {
+  .pricing-schools-copy,
+  .pricing-schools-visual {
+    padding-left: max(1rem, 0.5in);
+    padding-right: max(1rem, 0.5in);
+  }
+}
+
+@media (max-width: 640px) {
+  .pricing-schools-copy,
+  .pricing-schools-visual {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.pricing-faq-heading {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(1.85rem, 3.8vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.pricing-faq-copy {
+  margin: 1.25rem 0 0;
+  max-width: 28rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+.pricing-faq-list {
+  min-width: 0;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-faq-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Native <details> FAQ on lean teaching-method / feature pages */
+.pricing-faq-item > summary {
+  list-style: none;
+}
+
+.pricing-faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.pricing-faq-chevron {
+  transition: transform 0.3s ease;
+}
+
+.pricing-faq-item[open] .pricing-faq-chevron {
+  transform: rotate(180deg);
+}
+
+.pricing-faq-question {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ffffff;
+  min-width: 0;
+}
+
+.pricing-faq-answer {
+  margin: 0;
+  padding-right: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .pricing-faq-trigger {
+    padding: 1.5rem 0;
+  }
+
+  .pricing-faq-question {
+    font-size: 1rem;
+  }
+
+  .pricing-faq-copy {
+    font-size: 1rem;
+  }
+
+  .pricing-faq-answer {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pricing-faq-inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pricing-faq-inner {
+    gap: 5rem;
+  }
+
+  .pricing-faq-heading {
+    max-width: none;
+  }
+
+  .pricing-faq-copy {
+    max-width: 32rem;
+  }
+}

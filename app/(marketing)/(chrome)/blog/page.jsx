@@ -11,6 +11,8 @@ import {
   SITE_URL,
 } from '@marketing/lib/siteUrl'
 
+import '@marketing/styles/blog-hub.css'
+
 export async function generateMetadata() {
   const title = 'Lesson Planning Blog for Teachers | Make My Lesson'
   const description =
@@ -108,8 +110,22 @@ export default async function BlogPage({ searchParams }) {
       })
     : posts
 
+  const lcpCoverUrl = visiblePosts.find((post) => post.cover_image_url)?.cover_image_url || ''
+  const cloudinaryOrigin = lcpCoverUrl.startsWith('https://res.cloudinary.com/')
+    ? 'https://res.cloudinary.com'
+    : ''
+
   return (
     <>
+      {cloudinaryOrigin ? (
+        <>
+          <link rel="preconnect" href={cloudinaryOrigin} crossOrigin="" />
+          <link rel="dns-prefetch" href={cloudinaryOrigin} />
+        </>
+      ) : null}
+      {lcpCoverUrl ? (
+        <link rel="preload" as="image" href={lcpCoverUrl} fetchPriority="high" />
+      ) : null}
       <MarketingPageJsonLd data={[breadcrumbSchema, ...hubJsonLd]} />
       <PageShell
         className="!bg-white border-t-transparent text-[#1A1E3A]"
@@ -124,6 +140,7 @@ export default async function BlogPage({ searchParams }) {
             height={600}
             className="blog-hub-hero-art blog-hub-hero-art--left"
             decoding="async"
+            loading="lazy"
             aria-hidden
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -134,6 +151,7 @@ export default async function BlogPage({ searchParams }) {
             height={600}
             className="blog-hub-hero-art blog-hub-hero-art--right"
             decoding="async"
+            loading="lazy"
             aria-hidden
           />
           <div className="blog-hub-hero-copy">
@@ -191,7 +209,9 @@ export default async function BlogPage({ searchParams }) {
                 {seo.empty_state_message}
               </p>
             ) : (
-              visiblePosts.map((post) => (
+              visiblePosts.map((post) => {
+                const isLcpCover = Boolean(post.cover_image_url) && post.cover_image_url === lcpCoverUrl
+                return (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
@@ -208,7 +228,12 @@ export default async function BlogPage({ searchParams }) {
                       <img
                         src={post.cover_image_url}
                         alt={post.title || 'Blog article cover image'}
+                        width={640}
+                        height={320}
                         className="h-40 w-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
+                        loading={isLcpCover ? 'eager' : 'lazy'}
+                        fetchPriority={isLcpCover ? 'high' : 'auto'}
+                        decoding={isLcpCover ? 'sync' : 'async'}
                       />
                     </div>
                   )}
@@ -232,7 +257,8 @@ export default async function BlogPage({ searchParams }) {
                     </span>
                   </span>
                 </Link>
-              ))
+                )
+              })
             )}
           </section>
         </Container>

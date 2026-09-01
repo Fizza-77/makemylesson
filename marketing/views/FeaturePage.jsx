@@ -1,7 +1,7 @@
 import { PageShell } from '@marketing/components/layout/Container'
 import FeatureHero from '@marketing/components/features/FeatureHero'
 import TeachingMethodCta from '@marketing/components/teaching-methods/TeachingMethodCta'
-import TeachingMethodFaq from '@marketing/components/teaching-methods/TeachingMethodFaq'
+import TeachingMethodFaqServer from '@marketing/components/teaching-methods/TeachingMethodFaqServer'
 import TeachingMethodSection from '@marketing/components/teaching-methods/TeachingMethodSection'
 
 function FeatureArticle({ feature, content }) {
@@ -33,7 +33,7 @@ function FeatureArticle({ feature, content }) {
             <TeachingMethodCta heading={content.cta.heading} body={content.cta.body} />
           )}
 
-          {content.faq?.length > 0 && <TeachingMethodFaq items={content.faq} />}
+          {content.faq?.length > 0 && <TeachingMethodFaqServer items={content.faq} />}
         </div>
       </article>
     </PageShell>

@@ -1,0 +1,62 @@
+/* Feature pages: slide-deck duration range only (not full pricing stylesheet). */
+
+.slide-deck-range {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 0.5rem;
+  margin: 0;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.16);
+  outline: none;
+  cursor: pointer;
+}
+
+.slide-deck-range::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: transparent;
+}
+
+.slide-deck-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: -0.3125rem;
+  border-radius: 9999px;
+  background: #35bebc;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+}
+
+.slide-deck-range::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: none;
+}
+
+.slide-deck-range::-moz-range-progress {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #35bebc;
+  border: none;
+}
+
+.slide-deck-range::-moz-range-thumb {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 9999px;
+  background: #35bebc;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+}
+
+.slide-deck-range:focus-visible {
+  outline: 2px solid #aae4e3;
+  outline-offset: 4px;
+}

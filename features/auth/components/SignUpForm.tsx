@@ -8,6 +8,11 @@ import { useRef, useState } from "react";
 
 import { AccountExistsDialog } from "@/features/auth/AccountExistsDialog";
 import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
+import { AuthLoadingOverlay } from "@/features/auth/components/AuthLoadingOverlay";
+import {
+  SIGN_UP_EMAIL_LOADING_MESSAGES,
+  SIGN_UP_SOCIAL_LOADING_MESSAGES,
+} from "@/features/auth/auth-loading-messages";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
@@ -31,6 +36,30 @@ import { AppUrls, ROUTES } from "@/lib/urls";
 import { startEmailSignupVerification } from "@/services/auth-email.service";
 import { useSignupDraftStore } from "@/store/signup-draft-store";
 import { toast } from "@/store/toast-store";
+
+const fieldClass =
+  "rounded-lg px-3 py-2 text-sm lg:rounded-lg lg:px-3.5 lg:py-2.5 lg:text-sm";
+const labelClass = "text-xs font-medium lg:text-xs";
+const btnClass = "rounded-lg px-3 py-2.5 text-sm lg:rounded-lg lg:px-4 lg:py-2.5 lg:text-sm";
+
+function GoogleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-4 shrink-0" aria-hidden>
+      <path
+        fill="#EA4335"
+        d="M12 10.2v3.9h5.5c-.2 1.3-1.6 3.8-5.5 3.8-3.3 0-6-2.7-6-6s2.7-6 6-6c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.8 3.1 14.6 2 12 2 6.5 2 2 6.5 2 12s4.5 10 10 10c5.8 0 9.6-4.1 9.6-9.8 0-.7-.1-1.2-.2-1.7H12z"
+      />
+    </svg>
+  );
+}
+
+function AppleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-4 shrink-0 fill-current" aria-hidden>
+      <path d="M16.7 12.6c0-2.1 1.7-3.1 1.8-3.2-1-1.4-2.5-1.6-3-1.7-1.3-.1-2.5.8-3.1.8-.6 0-1.6-.7-2.7-.7-1.4 0-2.7.8-3.4 2.1-1.5 2.5-.4 6.3 1 8.3.7 1 1.5 2.1 2.6 2.1 1 0 1.4-.7 2.7-.7s1.6.7 2.7.7c1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3-.1 0-2.1-.8-2.2-3.4zM14.5 5.8c.6-.7 1-1.7.9-2.7-1 .1-2.1.7-2.7 1.4-.6.6-1.1 1.7-1 2.6 1.1.1 2.1-.5 2.8-1.3z" />
+    </svg>
+  );
+}
 
 function fileToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -175,29 +204,38 @@ export function SignUpForm() {
   }
 
   const busy = isSubmitting || socialLoading !== null;
+  const loadingMessages = isSubmitting
+    ? SIGN_UP_EMAIL_LOADING_MESSAGES
+    : SIGN_UP_SOCIAL_LOADING_MESSAGES;
 
   return (
     <AuthGlassShell
       wide
       title="Create your account"
       subtitle="Join thousands of teachers saving hours every week."
+      shellClassName="lg:overflow-hidden"
     >
-      <div className="flex min-h-0 flex-1 flex-col">
+      <div className="relative flex min-h-0 flex-1 flex-col">
+        <AuthLoadingOverlay active={busy} messages={loadingMessages} />
       <form
-        className="flex min-h-0 flex-col space-y-1.5 lg:space-y-5"
+        className="flex min-h-0 flex-col space-y-2 lg:space-y-2.5"
         onSubmit={handleSubmit(onSubmit, toastFirstFormError)}
         noValidate
       >
-        <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-3 lg:gap-5">
+        <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-3">
           <Input
             label="First name"
             autoComplete="given-name"
+            labelClassName={labelClass}
+            className={fieldClass}
             error={errors.firstName?.message}
             {...register("firstName")}
           />
           <Input
             label="Last name"
             autoComplete="family-name"
+            labelClassName={labelClass}
+            className={fieldClass}
             error={errors.lastName?.message}
             {...register("lastName")}
           />
@@ -206,23 +244,25 @@ export function SignUpForm() {
               label="Email"
               type="email"
               autoComplete="email"
+              labelClassName={labelClass}
+              className={fieldClass}
               error={errors.email?.message}
               {...register("email")}
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-3 lg:gap-5">
-          <div className="flex min-w-0 flex-col gap-0.5 lg:gap-2">
+        <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-3">
+          <div className="flex min-w-0 flex-col gap-0.5">
             <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
               <label
                 htmlFor="password"
-                className="text-[11px] font-medium text-[#1A1C30] lg:text-base"
+                className="text-xs font-medium text-[#1A1C30]"
               >
                 Password
               </label>
               {showPasswordLengthHint ? (
-                <span className="text-[10px] text-red-600 lg:text-sm">
+                <span className="text-[10px] text-red-600">
                   Use at least 8 characters
                 </span>
               ) : null}
@@ -230,6 +270,7 @@ export function SignUpForm() {
             <PasswordInput
               id="password"
               autoComplete="new-password"
+              className={fieldClass}
               error={errors.password?.message}
               {...register("password")}
             />
@@ -237,6 +278,8 @@ export function SignUpForm() {
           <PasswordInput
             label="Confirm password"
             autoComplete="new-password"
+            labelClassName={labelClass}
+            className={fieldClass}
             error={errors.confirmPassword?.message}
             {...register("confirmPassword")}
           />
@@ -244,27 +287,31 @@ export function SignUpForm() {
             <Input
               label="School name (optional)"
               autoComplete="organization"
+              labelClassName={labelClass}
+              className={fieldClass}
               error={errors.schoolName?.message}
               {...register("schoolName")}
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-1.5 lg:gap-5">
-          <div className="flex min-w-0 flex-col gap-0.5 lg:gap-2">
-            <label className="text-[11px] font-medium text-[#1A1C30] lg:text-base">
+        <div className="grid grid-cols-2 gap-2 lg:gap-3">
+          <div className="flex min-w-0 flex-col gap-0.5">
+            <label className="text-xs font-medium text-[#1A1C30]">
               School logo (optional)
             </label>
             <input
               type="file"
               accept="image/*"
-              className="rounded-md border border-[#E5E7EB] bg-white px-2.5 py-1.5 text-[11px] text-[#4A4A4A] file:mr-1.5 file:rounded file:border-0 file:bg-[#E8F8F7] file:px-1.5 file:py-1 file:text-[10px] file:font-semibold file:text-[#1A1C30] lg:rounded-xl lg:px-5 lg:py-3.5 lg:text-base lg:file:px-4 lg:file:py-2.5 lg:file:text-base"
+              className="rounded-lg border border-[#E5E7EB] bg-white px-3 py-2 text-xs text-[#4A4A4A] file:mr-2 file:rounded file:border-0 file:bg-[#E8F8F7] file:px-2 file:py-1 file:text-[11px] file:font-semibold file:text-[#1A1C30]"
               onChange={(e) => setLogoFile(e.target.files?.[0] ?? null)}
             />
           </div>
           <Input
             label="Date of birth (optional)"
             type="date"
+            labelClassName={labelClass}
+            className={fieldClass}
             error={errors.dateOfBirth?.message}
             {...register("dateOfBirth")}
             onChange={(e) => {
@@ -276,25 +323,25 @@ export function SignUpForm() {
 
         <Button
           type="submit"
-          className="w-full shrink-0 lg:py-4 lg:text-lg"
+          className={`w-full shrink-0 ${btnClass}`}
           isLoading={isSubmitting}
           disabled={busy}
         >
           Create account
         </Button>
 
-        <div className="flex shrink-0 flex-col items-center gap-1 lg:gap-3">
+        <div className="flex shrink-0 flex-col items-center gap-1">
           {!dateOfBirth ? (
-            <label className="flex w-fit items-start justify-center gap-1 text-center text-[10px] leading-snug text-[#4A4A4A] lg:text-base">
+            <label className="flex w-fit items-start justify-center gap-1.5 text-center text-[11px] leading-snug text-[#4A4A4A]">
               <input
                 type="checkbox"
-                className="mt-0.5 size-3 shrink-0 rounded border-[#E5E7EB] lg:size-5"
+                className="mt-0.5 size-3.5 shrink-0 rounded border-[#E5E7EB]"
                 {...register("ageConfirmed")}
               />
               <span>
                 I confirm I am at least 16 years old
                 {errors.ageConfirmed?.message ? (
-                  <span className="mt-0.5 block text-[10px] text-red-600 lg:text-sm" role="alert">
+                  <span className="mt-0.5 block text-[10px] text-red-600" role="alert">
                     {errors.ageConfirmed.message}
                   </span>
                 ) : null}
@@ -302,7 +349,7 @@ export function SignUpForm() {
             </label>
           ) : null}
 
-          <p className="max-w-2xl text-center text-[10px] leading-snug text-[#666666] lg:text-sm">
+          <p className="max-w-2xl text-center text-[11px] leading-snug text-[#666666]">
             By creating an account, you agree to our{" "}
             <a
               href={AppUrls.termsOfService}
@@ -326,36 +373,38 @@ export function SignUpForm() {
         </div>
       </form>
 
-      <div className="my-1.5 flex shrink-0 items-center gap-2 lg:my-6 lg:gap-3">
+      <div className="my-2 flex shrink-0 items-center gap-2 lg:my-2.5">
         <div className="h-px flex-1 bg-[#E5E7EB]" />
-        <span className="text-[10px] text-[#666666] lg:text-sm">or</span>
+        <span className="text-[11px] text-[#666666]">or</span>
         <div className="h-px flex-1 bg-[#E5E7EB]" />
       </div>
 
-      <div className="grid shrink-0 grid-cols-2 gap-1.5 lg:gap-5">
+      <div className="grid shrink-0 grid-cols-2 gap-2 lg:gap-3">
         <Button
           type="button"
           variant="outline"
-          className="w-full px-1.5 lg:px-4"
+          className={`w-full ${btnClass}`}
           onClick={onGoogle}
           isLoading={socialLoading === "google"}
           disabled={busy}
         >
-          <span className="truncate">Continue with Google</span>
+          {socialLoading === "google" ? null : <GoogleIcon />}
+          <span className="truncate">Google</span>
         </Button>
         <Button
           type="button"
           variant="outline"
-          className="w-full px-1.5 lg:px-4"
+          className={`w-full ${btnClass}`}
           onClick={onApple}
           isLoading={socialLoading === "apple"}
           disabled={busy}
         >
-          <span className="truncate">Continue with Apple</span>
+          {socialLoading === "apple" ? null : <AppleIcon />}
+          <span className="truncate">Apple</span>
         </Button>
       </div>
 
-      <p className="mt-1.5 shrink-0 text-center text-xs text-[#666666] lg:mt-6 lg:text-base">
+      <p className="mt-2 shrink-0 text-center text-xs text-[#666666] lg:mt-2.5">
         Already have an account?{" "}
         <Link
           href={ROUTES.signIn}

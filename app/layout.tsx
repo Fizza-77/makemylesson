@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { ConsentGatedAnalytics } from "@/components/analytics/ConsentGatedAnalytics";
 import { APP_ORIGIN } from "@/lib/urls";
 
 import "./globals.css";
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="h-full overflow-x-clip">
       <body className="min-h-full overflow-x-clip antialiased">
-        <GoogleAnalytics />
+        <ConsentGatedAnalytics />
         {children}
       </body>
     </html>

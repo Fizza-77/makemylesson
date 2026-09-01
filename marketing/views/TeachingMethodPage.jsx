@@ -1,6 +1,6 @@
 import { PageShell } from '@marketing/components/layout/Container'
 import TeachingMethodCta from '@marketing/components/teaching-methods/TeachingMethodCta'
-import TeachingMethodFaq from '@marketing/components/teaching-methods/TeachingMethodFaq'
+import TeachingMethodFaqServer from '@marketing/components/teaching-methods/TeachingMethodFaqServer'
 import TeachingMethodHero from '@marketing/components/teaching-methods/TeachingMethodHero'
 import TeachingMethodSection from '@marketing/components/teaching-methods/TeachingMethodSection'
 
@@ -34,7 +34,7 @@ function TeachingMethodArticle({ method, content }) {
             />
           ))}
 
-          {content.faq?.length > 0 && <TeachingMethodFaq items={content.faq} />}
+          {content.faq?.length > 0 && <TeachingMethodFaqServer items={content.faq} />}
 
           {content.cta && (
             <TeachingMethodCta heading={content.cta.heading} body={content.cta.body} />

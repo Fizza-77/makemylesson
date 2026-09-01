@@ -1,5 +1,3 @@
-'use client'
-
 import { sectionAnchorId, jumpNavLabel } from '@marketing/lib/teachingMethodLayout'
 
 export default function TeachingMethodJumpNav({ sections, pageType = 'teaching-method' }) {

@@ -1,59 +1,22 @@
-'use client'
-
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Suspense, useCallback } from 'react'
+import { Suspense } from 'react'
 import {
   ArrowRight,
   AtSign,
   Building2,
   Camera,
-  GraduationCap,
-  LifeBuoy,
-  Lightbulb,
   Mail,
-  Megaphone,
   Play,
   QrCode,
   Smartphone,
   Users,
   Zap,
 } from 'lucide-react'
-import ContactForm from '@marketing/components/contact/ContactForm'
+
+import ContactIntentPicker from '@marketing/components/contact/ContactIntentPicker'
+import LazyContactForm from '@marketing/components/contact/LazyContactForm'
 import { SUPPORT_EMAIL } from '@marketing/lib/contact/constants'
 import { MML_APP } from '@marketing/lib/appUrls'
-import { cn } from '@marketing/lib/cn'
-
-const INTENTS = [
-  {
-    subject: 'billing',
-    title: 'I need help',
-    body: 'Support with my account or a generation',
-    Icon: LifeBuoy,
-    tone: 'navy',
-  },
-  {
-    subject: 'school',
-    title: 'School enquiry',
-    body: 'Quotes, seats, and purchase orders',
-    Icon: GraduationCap,
-    tone: 'light',
-  },
-  {
-    subject: 'feedback',
-    title: 'Feedback & ideas',
-    body: 'A bug, a wish, or a curriculum request',
-    Icon: Lightbulb,
-    tone: 'navy',
-  },
-  {
-    subject: 'partnership',
-    title: 'Press & partners',
-    body: 'Media, partnerships, and integrations',
-    Icon: Megaphone,
-    tone: 'light',
-  },
-]
 
 const FAST_LINKS = [
   { href: '/faq', label: 'Browse the FAQs — 50 answers' },
@@ -61,25 +24,34 @@ const FAST_LINKS = [
   { href: '/account-data-deletion', label: 'Account & data deletion' },
 ]
 
-function ContactPageInner() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const selectedSubject = searchParams.get('subject') || ''
-
-  const selectIntent = useCallback(
-    (subject) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set('subject', subject)
-      router.replace(`/contact?${params.toString()}`, { scroll: false })
-      requestAnimationFrame(() => {
-        document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      })
-    },
-    [router, searchParams],
+function IntentPickerFallback() {
+  return (
+    <div
+      className="mt-2 grid gap-3 sm:mt-3 sm:grid-cols-2 lg:-mt-2 lg:grid-cols-4 lg:gap-4"
+      aria-hidden
+    >
+      {Array.from({ length: 4 }, (_, i) => (
+        <div
+          key={i}
+          className="min-h-[7.5rem] rounded-[22px] bg-[#1A1E3A]/15 sm:rounded-[24px]"
+        />
+      ))}
+    </div>
   )
+}
 
+export default function ContactPage({ initialSubject = '' }) {
   return (
     <div className="contact-page min-h-[calc(100vh-4rem)] bg-white">
+      <link
+        rel="preload"
+        as="image"
+        href="/svgs/contact-hero-640.webp"
+        fetchPriority="high"
+        imageSrcSet="/svgs/contact-hero-416.webp 416w, /svgs/contact-hero-640.webp 640w, /svgs/contact-hero.webp 960w"
+        imageSizes="(max-width: 640px) 352px, (max-width: 1024px) 416px, 580px"
+      />
+
       <div className="contact-hero-shell pt-2 sm:pt-3">
         <section
           className="relative overflow-hidden rounded-[32px] bg-[#ade5df] sm:rounded-[40px]"
@@ -109,78 +81,41 @@ function ContactPageInner() {
                   We&apos;ll be quick.
                 </h1>
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-relaxed text-[#1A1E3A]/75 sm:text-base xl:text-[17px]">
-                  Tell us who you are and we&apos;ll route your message to the right person with an honest
-                  idea of when you&apos;ll hear back.
+                  Tell us who you are and we&apos;ll route your message to the right person with an
+                  honest idea of when you&apos;ll hear back.
                 </p>
               </div>
 
               <div className="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:-translate-y-10 lg:mx-0 lg:max-w-none lg:justify-self-end xl:-translate-y-14">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/svgs/contact-hero.webp"
+                  src="/svgs/contact-hero-640.webp"
+                  srcSet="/svgs/contact-hero-416.webp 416w, /svgs/contact-hero-640.webp 640w, /svgs/contact-hero.webp 960w"
+                  sizes="(max-width: 640px) 352px, (max-width: 1024px) 416px, 580px"
                   alt=""
                   width={960}
                   height={640}
                   className="h-auto w-full object-contain object-right"
+                  loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                   aria-hidden
                 />
               </div>
             </div>
 
-            <div className="mt-2 grid gap-3 sm:mt-3 sm:grid-cols-2 lg:-mt-2 lg:grid-cols-4 lg:gap-4 xl:-mt-4 xl:gap-5 2xl:gap-6">
-              {INTENTS.map((intent) => {
-                const Icon = intent.Icon
-                const active = selectedSubject === intent.subject
-                const navy = intent.tone === 'navy'
-                return (
-                  <button
-                    key={intent.subject}
-                    type="button"
-                    onClick={() => selectIntent(intent.subject)}
-                    className={cn(
-                      'min-w-0 rounded-[22px] p-4 text-left transition sm:rounded-[24px] sm:p-5 xl:rounded-[28px] xl:p-6 2xl:p-7',
-                      navy
-                        ? 'bg-[#1A1E3A] text-white hover:bg-[#242845]'
-                        : 'bg-[#f4f7f7] text-[#1A1E3A] hover:bg-white',
-                      active && 'ring-2 ring-[#1A1E3A] ring-offset-2 ring-offset-[#ade5df]',
-                    )}
-                  >
-                    <div className="flex min-w-0 items-center gap-2.5">
-                      <span
-                        className={cn(
-                          'inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg xl:h-9 xl:w-9',
-                          navy ? 'bg-[#35BEBC] text-white' : 'bg-[#1A1E3A] text-white',
-                        )}
-                      >
-                        <Icon className="h-4 w-4 xl:h-[18px] xl:w-[18px]" aria-hidden strokeWidth={2.25} />
-                      </span>
-                      <p className="min-w-0 text-[15px] font-bold leading-tight tracking-tight sm:text-[16px] xl:text-[17px] 2xl:text-[18px]">
-                        {intent.title}
-                      </p>
-                    </div>
-                    <p
-                      className={cn(
-                        'mt-3 text-[13px] leading-snug xl:text-[14px]',
-                        navy ? 'text-white/90' : 'text-[#1A1E3A]/70',
-                      )}
-                    >
-                      {intent.body}
-                    </p>
-                  </button>
-                )
-              })}
-            </div>
+            <Suspense fallback={<IntentPickerFallback />}>
+              <ContactIntentPicker initialSubject={initialSubject} />
+            </Suspense>
           </div>
         </section>
       </div>
 
-      {/* White gap below cyan hero */}
       <div className="h-10 bg-white sm:h-14" aria-hidden />
 
       <section className="bg-[#1A1E3A] py-12 sm:py-14 lg:py-16" aria-label="Contact form and channels">
         <div className="contact-support-shell grid gap-6 lg:grid-cols-[1.35fr_0.85fr] lg:gap-7 xl:gap-8">
-          <ContactForm initialSubject={selectedSubject} />
+          <LazyContactForm initialSubject={initialSubject} />
 
           <aside className="flex flex-col gap-4 xl:gap-5">
             <div className="rounded-[28px] bg-[#242845] p-5 sm:rounded-[32px] sm:p-6 xl:p-7">
@@ -215,7 +150,7 @@ function ContactPageInner() {
               <ul className="space-y-3 text-[13px] font-medium text-[#1A1E3A] sm:text-[14px]">
                 <li className="flex items-center gap-2.5">
                   <Mail className="h-4 w-4 shrink-0" aria-hidden strokeWidth={2.25} />
-                  <a href={`mailto:hello@makemylesson.ai`} className="no-underline hover:underline">
+                  <a href="mailto:hello@makemylesson.ai" className="no-underline hover:underline">
                     hello@makemylesson.ai
                   </a>
                 </li>
@@ -264,16 +199,13 @@ function ContactPageInner() {
         </div>
       </section>
 
-      <section
-        className="bg-white py-10 sm:py-12 lg:py-14"
-        aria-labelledby="contact-ayla-heading"
-      >
+      <section className="bg-white py-10 sm:py-12 lg:py-14" aria-labelledby="contact-ayla-heading">
         <div className="contact-support-shell">
           <div className="flex w-full flex-col items-start justify-between gap-6 rounded-[28px] bg-[#ade5df] px-6 py-7 shadow-[0_18px_50px_rgba(26,30,58,0.1)] sm:rounded-[36px] sm:px-8 sm:py-8 lg:flex-row lg:items-center lg:gap-10 lg:px-12 lg:py-10 xl:gap-12 xl:px-14 xl:py-11 2xl:px-16 2xl:py-12">
             <div className="min-w-0 max-w-none flex-1">
               <h2
                 id="contact-ayla-heading"
-                className="max-w-[28ch] text-[clamp(1.2rem,2.4vw,1.55rem)] font-bold tracking-tight text-[#1A1E3A] xl:max-w-none xl:text-[clamp(1.35rem,2.2vw,1.85rem)] xl:whitespace-nowrap"
+                className="max-w-[28ch] text-[clamp(1.2rem,2.4vw,1.55rem)] font-bold tracking-tight text-[#1A1E3A] xl:max-w-none xl:whitespace-nowrap xl:text-[clamp(1.35rem,2.2vw,1.85rem)]"
               >
                 Question about a lesson you&apos;re building right now?
               </h2>
@@ -291,19 +223,5 @@ function ContactPageInner() {
         </div>
       </section>
     </div>
-  )
-}
-
-export default function ContactPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="min-h-[calc(100vh-4rem)] bg-white px-4 py-10 sm:px-6 md:px-8">
-          <div className="mx-auto h-80 max-w-[1200px] animate-pulse rounded-[32px] bg-[#ade5df]/70" />
-        </div>
-      }
-    >
-      <ContactPageInner />
-    </Suspense>
   )
 }

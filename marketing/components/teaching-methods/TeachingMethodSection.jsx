@@ -1,38 +1,28 @@
-'use client'
-
-import { BookOpen, Compass, GraduationCap, Lightbulb, Sparkles, Target } from 'lucide-react'
-import dynamic from 'next/dynamic'
-import { useInView } from '@marketing/landing/hooks'
 import { cn } from '@marketing/lib/cn'
+import { TEACHING_METHOD_CARD_ICONS } from '@marketing/components/teaching-methods/TeachingMethodCardIcons'
 import { getCardDisplayParts } from '@marketing/lib/teachingMethodCard'
 import TeachingMethodSectionImage from '@marketing/components/teaching-methods/TeachingMethodSectionImage'
+import TeachingMethodBuilderSectionServer from '@marketing/components/teaching-methods/TeachingMethodBuilderSectionServer'
 import {
   getCompareBand,
   getSectionLayout,
   sectionAnchorId,
 } from '@marketing/lib/teachingMethodLayout'
 
-const BuilderInteractiveLayout = dynamic(
-  () => import('@marketing/components/teaching-methods/BuilderInteractiveLayout'),
-  { ssr: false, loading: () => null },
-)
+const CARD_ICONS = TEACHING_METHOD_CARD_ICONS
 
-const CARD_ICONS = [Lightbulb, BookOpen, Target, Compass, Sparkles, GraduationCap]
-
-function SectionHeader({ heading, visible }) {
-  return (
-    <h2 className={cn('tm-section-heading', visible && 'tm-section-heading--visible')}>{heading}</h2>
-  )
+function SectionHeader({ heading }) {
+  return <h2 className="tm-section-heading tm-section-heading--visible">{heading}</h2>
 }
 
-function ContentCard({ paragraph, index, visible, sectionIndex }) {
+function ContentCard({ paragraph, index, sectionIndex }) {
   const { title, body } = getCardDisplayParts(paragraph)
   const Icon = CARD_ICONS[(sectionIndex + index) % CARD_ICONS.length]
 
   return (
     <article
-      className={cn('tm-content-card', visible && 'tm-content-card--visible')}
-      style={{ transitionDelay: visible ? `${120 + index * 90}ms` : undefined }}
+      className="tm-content-card tm-content-card--visible"
+      style={{ transitionDelay: `${120 + index * 90}ms` }}
     >
       <div className="tm-content-card-icon" aria-hidden>
         <Icon size={18} strokeWidth={2} />
@@ -43,14 +33,14 @@ function ContentCard({ paragraph, index, visible, sectionIndex }) {
   )
 }
 
-function IntroLayout({ section, visible }) {
+function IntroLayout({ section }) {
   return (
     <div className="tm-section-plain">
       {section.paragraphs.map((paragraph, index) => (
         <p
           key={`${section.heading}-plain-${index}`}
-          className={cn('tm-paragraph', visible && 'tm-paragraph--visible')}
-          style={{ transitionDelay: visible ? `${80 + index * 60}ms` : undefined }}
+          className="tm-paragraph tm-paragraph--visible"
+          style={{ transitionDelay: `${80 + index * 60}ms` }}
         >
           {paragraph}
         </p>
@@ -59,7 +49,7 @@ function IntroLayout({ section, visible }) {
   )
 }
 
-function CompareLayout({ section, visible }) {
+function CompareLayout({ section }) {
   const tags = ['Key idea', 'In practice']
 
   return (
@@ -70,11 +60,10 @@ function CompareLayout({ section, visible }) {
           <article
             key={`${section.heading}-compare-${index}`}
             className={cn(
-              'tm-compare-card',
+              'tm-compare-card tm-compare-card--visible',
               index === 1 && 'tm-compare-card--accent',
-              visible && 'tm-compare-card--visible',
             )}
-            style={{ transitionDelay: visible ? `${100 + index * 100}ms` : undefined }}
+            style={{ transitionDelay: `${100 + index * 100}ms` }}
           >
             <span className="tm-compare-tag">{tags[index] ?? 'Insight'}</span>
             {title ? <h3 className="tm-compare-title">{title}</h3> : null}
@@ -86,7 +75,7 @@ function CompareLayout({ section, visible }) {
   )
 }
 
-function WhenUseLayout({ section, visible, sectionIndex }) {
+function WhenUseLayout({ section, sectionIndex }) {
   return (
     <div className={cn('tm-use-grid', section.paragraphs.length === 1 && 'tm-use-grid--single')}>
       {section.paragraphs.map((paragraph, index) => {
@@ -95,8 +84,8 @@ function WhenUseLayout({ section, visible, sectionIndex }) {
         return (
           <article
             key={`${section.heading}-use-${index}`}
-            className={cn('tm-use-card', visible && 'tm-use-card--visible')}
-            style={{ transitionDelay: visible ? `${100 + index * 90}ms` : undefined }}
+            className="tm-use-card tm-use-card--visible"
+            style={{ transitionDelay: `${100 + index * 90}ms` }}
           >
             <div className="tm-use-icon" aria-hidden>
               <Icon size={22} strokeWidth={2} />
@@ -110,7 +99,7 @@ function WhenUseLayout({ section, visible, sectionIndex }) {
   )
 }
 
-function ProofLayout({ section, visible, entity, pageType = 'teaching-method' }) {
+function ProofLayout({ section, entity, pageType = 'teaching-method' }) {
   const category =
     pageType === 'feature' ? 'Features' : entity?.columnHeading ?? 'Teaching Methods'
   const pills = [entity?.label, category, 'Australian Curriculum', 'Make My Lesson'].filter(Boolean)
@@ -129,8 +118,8 @@ function ProofLayout({ section, visible, entity, pageType = 'teaching-method' })
         {section.paragraphs.map((paragraph, index) => (
           <p
             key={`${section.heading}-proof-${index}`}
-            className={cn('tm-paragraph', visible && 'tm-paragraph--visible')}
-            style={{ transitionDelay: visible ? `${80 + index * 60}ms` : undefined }}
+            className="tm-paragraph tm-paragraph--visible"
+            style={{ transitionDelay: `${80 + index * 60}ms` }}
           >
             {paragraph}
           </p>
@@ -154,7 +143,6 @@ export default function TeachingMethodSection({
   pageType = 'teaching-method',
   sections = [],
 }) {
-  const [ref, visible] = useInView({ threshold: 0.1 })
   const layout = getSectionLayout(section.heading, section.paragraphs.length, {
     pageType,
     sectionIndex,
@@ -170,26 +158,24 @@ export default function TeachingMethodSection({
     <section
       id={sectionAnchorId(section.heading)}
       className={cn(
-        'tm-section',
+        'tm-section tm-section--visible',
         isSoft && 'tm-section--soft',
         isCyan && 'tm-section--cyan',
         isCyanSoft && 'tm-section--cyan-soft',
-        visible && 'tm-section--visible',
       )}
-      ref={ref}
     >
-      <SectionHeader heading={section.heading} visible={visible} />
+      <SectionHeader heading={section.heading} />
 
-      {layout === 'intro' && <IntroLayout section={section} visible={visible} />}
-      {layout === 'compare' && <CompareLayout section={section} visible={visible} />}
+      {layout === 'intro' && <IntroLayout section={section} />}
+      {layout === 'compare' && <CompareLayout section={section} />}
       {layout === 'builder' && (
-        <BuilderInteractiveLayout section={section} sectionIndex={sectionIndex} />
+        <TeachingMethodBuilderSectionServer section={section} sectionIndex={sectionIndex} />
       )}
       {layout === 'when-use' && (
-        <WhenUseLayout section={section} visible={visible} sectionIndex={sectionIndex} />
+        <WhenUseLayout section={section} sectionIndex={sectionIndex} />
       )}
       {layout === 'proof' && (
-        <ProofLayout section={section} visible={visible} entity={entity} pageType={pageType} />
+        <ProofLayout section={section} entity={entity} pageType={pageType} />
       )}
       {layout === 'cards' && (
         <div className={cn('tm-content-cards', hasMultiple && 'tm-content-cards--multi')}>
@@ -198,7 +184,6 @@ export default function TeachingMethodSection({
               key={`${section.heading}-${index}`}
               paragraph={paragraph}
               index={index}
-              visible={visible}
               sectionIndex={sectionIndex}
             />
           ))}

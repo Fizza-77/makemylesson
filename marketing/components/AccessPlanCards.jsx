@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { CalendarDays, Check, ChevronDown } from 'lucide-react'
+import { CalendarDays, Check } from 'lucide-react'
+import FreePlanFeaturesScroll from '@marketing/components/FreePlanFeaturesScroll'
 import { MML_APP } from '@marketing/lib/appUrls'
 import { cn } from '@marketing/lib/cn'
 
@@ -48,7 +49,6 @@ export const ACCESS_PLANS = [
     priceNote: 'Forever Free',
     includedTitle: 'Included on every plan',
     features: FREE_PLAN_FEATURES,
-    previewCount: 3,
     cta: 'Get Started',
     href: MML_APP.signUp,
   },
@@ -140,18 +140,6 @@ export function AccessPlanCard({
   const ctaLabel = checkoutLoading ? 'Redirecting…' : plan.cta
   const isFree = !plan.wasPrice
 
-  /* The free plan lists far more than the paid cards, so only a few lines show
-     up front and the rest sit behind the toggle — that keeps all five cards at a
-     comparable content height. */
-  const shownFeatures = plan.previewCount
-    ? plan.features.slice(0, plan.previewCount)
-    : plan.features
-  const hiddenFeatures = plan.previewCount
-    ? plan.features.slice(plan.previewCount)
-    : []
-
-  /* Visible lines match the paid cards' type scale; only the revealed overflow
-     list is condensed, since it runs long. */
   const renderFeatures = (items, compact = false) => (
     <ul className={cn('mml-pr-features', compact && 'mml-pr-features--compact')}>
       {items.map((feature) => (
@@ -171,6 +159,7 @@ export function AccessPlanCard({
         'mml-pr-card',
         `mml-pr-card--${plan.tone}`,
         plan.popular && 'mml-pr-card--popular',
+        isFree && 'mml-pr-card--free',
         short && 'mml-pr-card--short',
       )}
     >
@@ -217,19 +206,11 @@ export function AccessPlanCard({
               <p className="mml-pr-included">{plan.includedTitle}</p>
             ) : null}
 
-            {renderFeatures(shownFeatures)}
-
-            {/* `details` avoids turning the whole marketing section into a client
-                component just to toggle a list. */}
-            {hiddenFeatures.length ? (
-              <details className="mml-pr-details">
-                <summary className="mml-pr-summary">
-                  <span>{hiddenFeatures.length} more included</span>
-                  <ChevronDown className="mml-pr-summary-chevron" size={14} strokeWidth={3} />
-                </summary>
-                {renderFeatures(hiddenFeatures, true)}
-              </details>
-            ) : null}
+            {isFree ? (
+              <FreePlanFeaturesScroll features={plan.features} />
+            ) : (
+              renderFeatures(plan.features)
+            )}
 
             {plan.spreadNote ? (
               <p className="mml-pr-spread">

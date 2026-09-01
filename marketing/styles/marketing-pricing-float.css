@@ -1,0 +1,365 @@
+/* Shared pricing float cards â€” scale up on large screens */
+.mml-pricing-float {
+  --pf-h: 22.5rem;
+  --pf-max: 33.75rem;
+  --pf-card-w: 70%;
+  --pf-card-max: 14.7rem;
+  --pf-card-max-main: 16rem;
+  --pf-pad: 1rem;
+  --pf-pad-main: 1.25rem;
+  --pf-radius: 1.625rem;
+  --pf-radius-main: 1.75rem;
+  --pf-eyebrow: 0.625rem;
+  --pf-title: 1.65rem;
+  --pf-title-main: 1.75rem;
+  --pf-title-suffix: 0.95rem;
+  --pf-desc: 0.6875rem;
+  --pf-desc-main: 0.75rem;
+  --pf-meter-value: 1.35rem;
+  --pf-meter-value-lg: 1.75rem;
+  --pf-meter-label: 0.6875rem;
+  --pf-list: 0.6875rem;
+  --pf-list-main: 0.75rem;
+  --pf-meta: 0.5625rem;
+  --pf-btn: 0.625rem;
+  --pf-icon: 1rem;
+  --pf-icon-svg: 0.625rem;
+
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: var(--pf-h);
+  max-width: var(--pf-max);
+}
+
+.mml-pricing-float-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: var(--pf-card-w);
+  max-width: var(--pf-card-max);
+  padding: var(--pf-pad);
+  border-radius: var(--pf-radius);
+  box-sizing: border-box;
+  color: #1a1e3a;
+}
+
+.mml-pricing-float-card--school {
+  right: 0;
+  top: 2rem;
+  z-index: 1;
+  max-width: var(--pf-card-max);
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(26, 30, 58, 0.14);
+  transform: rotate(8deg);
+}
+
+.mml-pricing-float-card--free {
+  left: 0;
+  top: 3rem;
+  z-index: 2;
+  background: #1a1e3a;
+  color: #ffffff;
+  box-shadow: 0 18px 40px rgba(26, 30, 58, 0.3);
+  transform: rotate(-9deg);
+}
+
+.mml-pricing-float-card--individual {
+  left: 16%;
+  top: 0;
+  z-index: 3;
+  width: 76%;
+  max-width: var(--pf-card-max-main);
+  padding: var(--pf-pad-main);
+  border-radius: var(--pf-radius-main);
+  background: #000000;
+  color: #ffffff;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5);
+  transform: rotate(2deg);
+}
+
+.mml-pricing-float-eyebrow {
+  margin: 0;
+  font-size: var(--pf-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26, 30, 58, 0.4);
+}
+
+.mml-pricing-float-eyebrow--light {
+  color: #ffffff;
+}
+
+.mml-pricing-float-title {
+  margin: 0.5rem 0 0;
+  font-size: var(--pf-title);
+  font-weight: 700;
+  line-height: 1;
+  color: inherit;
+}
+
+.mml-pricing-float-card--individual .mml-pricing-float-title {
+  font-size: var(--pf-title-main);
+}
+
+.mml-pricing-float-title-suffix {
+  margin-left: 0.35rem;
+  font-size: var(--pf-title-suffix);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.mml-pricing-float-desc {
+  margin: 0.5rem 0 0;
+  font-size: var(--pf-desc);
+  line-height: 1.35;
+  color: rgba(26, 30, 58, 0.55);
+}
+
+.mml-pricing-float-desc--light {
+  color: #ffffff;
+}
+
+.mml-pricing-float-card--individual .mml-pricing-float-desc {
+  font-size: var(--pf-desc-main);
+}
+
+.mml-pricing-float-meter {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 1rem;
+}
+
+.mml-pricing-float-meter--light {
+  background: #eef2f6;
+}
+
+.mml-pricing-float-meter--dark {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mml-pricing-float-meter-row {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-weight: 500;
+  color: rgba(26, 30, 58, 0.55);
+}
+
+.mml-pricing-float-meter-row--light {
+  color: #ffffff;
+}
+
+.mml-pricing-float-meter-value {
+  font-size: var(--pf-meter-value-lg);
+  font-weight: 700;
+  line-height: 1;
+  color: #1a1e3a;
+}
+
+.mml-pricing-float-meter-value--light {
+  font-size: var(--pf-meter-value);
+  color: #ffffff;
+}
+
+.mml-pricing-float-meter-label {
+  font-size: var(--pf-meter-label);
+}
+
+.mml-pricing-float-track {
+  margin-top: 0.5rem;
+  height: 0.375rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: #d7e0e8;
+}
+
+.mml-pricing-float-track--dark {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mml-pricing-float-fill {
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.mml-pricing-float-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: var(--pf-list);
+  font-weight: 500;
+  color: rgba(26, 30, 58, 0.7);
+}
+
+.mml-pricing-float-list--light {
+  color: #ffffff;
+}
+
+.mml-pricing-float-card--individual .mml-pricing-float-list {
+  margin-top: 0.875rem;
+  font-size: var(--pf-list-main);
+}
+
+.mml-pricing-float-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mml-pricing-float-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pf-icon);
+  height: var(--pf-icon);
+  border-radius: 4px;
+  background: rgba(53, 190, 188, 0.25);
+  color: #35bebc;
+  flex-shrink: 0;
+}
+
+.mml-pricing-float-icon-svg {
+  width: var(--pf-icon-svg);
+  height: var(--pf-icon-svg);
+}
+
+.mml-pricing-float-foot {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.mml-pricing-float-card--individual .mml-pricing-float-foot {
+  padding-top: 1.25rem;
+}
+
+.mml-pricing-float-meta {
+  font-size: var(--pf-meta);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(26, 30, 58, 0.4);
+}
+
+.mml-pricing-float-meta--light {
+  color: #ffffff;
+}
+
+.mml-pricing-float-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: var(--pf-btn);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.mml-pricing-float-btn--navy {
+  background: #1a1e3a;
+  color: #ffffff;
+}
+
+.mml-pricing-float-btn--teal {
+  background: #35bebc;
+  color: #1a1e3a;
+}
+
+.mml-pricing-float-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  background: #35bebc;
+  color: #1a1e3a;
+  font-size: var(--pf-btn);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+  .mml-pricing-float {
+    --pf-h: 25rem;
+  }
+
+  .mml-pricing-float-card--school {
+    right: 0.25rem;
+    top: 2.5rem;
+  }
+
+  .mml-pricing-float-card--free {
+    top: 3.5rem;
+  }
+
+  .mml-pricing-float-card--individual {
+    left: 20%;
+  }
+}
+
+@media (min-width: 1100px) {
+  .mml-pricing-float {
+    --pf-h: 28.5rem;
+    --pf-max: 40rem;
+    --pf-card-max: 17.5rem;
+    --pf-card-max-main: 19rem;
+    --pf-pad: 1.25rem;
+    --pf-pad-main: 1.5rem;
+    --pf-title: 1.95rem;
+    --pf-title-main: 2.1rem;
+    --pf-title-suffix: 1.05rem;
+    --pf-desc: 0.8125rem;
+    --pf-desc-main: 0.875rem;
+    --pf-meter-value: 1.55rem;
+    --pf-meter-value-lg: 2rem;
+    --pf-meter-label: 0.75rem;
+    --pf-list: 0.8125rem;
+    --pf-list-main: 0.875rem;
+    --pf-meta: 0.625rem;
+    --pf-btn: 0.6875rem;
+    --pf-icon: 1.15rem;
+    --pf-icon-svg: 0.7rem;
+    --pf-eyebrow: 0.6875rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .mml-pricing-float {
+    --pf-h: 32rem;
+    --pf-max: 46rem;
+    --pf-card-max: 20rem;
+    --pf-card-max-main: 21.5rem;
+    --pf-pad: 1.45rem;
+    --pf-pad-main: 1.7rem;
+    --pf-radius: 1.85rem;
+    --pf-radius-main: 2rem;
+    --pf-title: 2.2rem;
+    --pf-title-main: 2.35rem;
+    --pf-title-suffix: 1.15rem;
+    --pf-desc: 0.9rem;
+    --pf-desc-main: 0.95rem;
+    --pf-meter-value: 1.75rem;
+    --pf-meter-value-lg: 2.25rem;
+    --pf-meter-label: 0.8125rem;
+    --pf-list: 0.9rem;
+    --pf-list-main: 0.95rem;
+    --pf-meta: 0.6875rem;
+    --pf-btn: 0.75rem;
+    --pf-icon: 1.25rem;
+    --pf-icon-svg: 0.75rem;
+  }
+}

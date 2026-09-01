@@ -1,19 +1,9 @@
-'use client'
-
 import Link from 'next/link'
-import { useInView } from '@marketing/landing/hooks'
-import { cn } from '@marketing/lib/cn'
 import { MML_APP } from '@marketing/lib/appUrls'
 
 export default function TeachingMethodCta({ heading, body }) {
-  const [ref, visible] = useInView({ threshold: 0.2 })
-
   return (
-    <section
-      className={cn('tm-cta-band', visible && 'tm-cta-band--visible')}
-      aria-labelledby="tm-cta-heading"
-      ref={ref}
-    >
+    <section className="tm-cta-band tm-cta-band--visible" aria-labelledby="tm-cta-heading">
       <div className="tm-cta-band-glow" aria-hidden />
       <div className="tm-cta-band-inner">
         <h2 id="tm-cta-heading" className="tm-cta-band-title">

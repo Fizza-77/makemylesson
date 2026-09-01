@@ -208,6 +208,23 @@
   cursor: pointer;
 }
 
+/* Native <details> FAQ on lean teaching-method / feature pages */
+.pricing-faq-item > summary {
+  list-style: none;
+}
+
+.pricing-faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.pricing-faq-chevron {
+  transition: transform 0.3s ease;
+}
+
+.pricing-faq-item[open] .pricing-faq-chevron {
+  transform: rotate(180deg);
+}
+
 .pricing-faq-question {
   font-size: 0.9375rem;
   font-weight: 600;

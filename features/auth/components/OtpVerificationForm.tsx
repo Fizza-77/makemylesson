@@ -12,6 +12,8 @@ import {
 } from "react";
 
 import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
+import { AuthLoadingOverlay } from "@/features/auth/components/AuthLoadingOverlay";
+import { OTP_VERIFY_LOADING_MESSAGES } from "@/features/auth/auth-loading-messages";
 import { Button } from "@/components/ui/Button";
 import { signInWithCustomAuthToken } from "@/firebase/auth";
 import { userDocRef } from "@/firebase/firestore";
@@ -176,6 +178,9 @@ export function OtpVerificationForm() {
       title="Verify your email"
       subtitle="Check your email and enter the 6-digit verification code."
     >
+      <div className="relative min-h-[18rem]">
+        <AuthLoadingOverlay active={verifying} messages={OTP_VERIFY_LOADING_MESSAGES} />
+
       {email ? (
         <p className="mb-4 text-center text-sm text-[#666666]">
           Code sent to <span className="font-semibold text-[#1A1C30]">{email}</span>
@@ -231,6 +236,7 @@ export function OtpVerificationForm() {
           ← Back to sign in
         </Link>
       </p>
+      </div>
     </AuthGlassShell>
   );
 }

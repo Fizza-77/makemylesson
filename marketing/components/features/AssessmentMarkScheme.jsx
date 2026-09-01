@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@marketing/lib/cn'
 
 const SCHEME_ROWS = [

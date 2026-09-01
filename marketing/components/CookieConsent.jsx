@@ -5,8 +5,13 @@ import '@marketing/styles/cookie-consent.css'
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 
-const STORAGE_KEY = 'mml-cookie-consent'
-const CONSENT_VERSION = '1'
+import {
+  COOKIE_CONSENT_STORAGE_KEY,
+  COOKIE_CONSENT_VERSION,
+} from '@/components/analytics/cookieConsentStorage'
+
+const STORAGE_KEY = COOKIE_CONSENT_STORAGE_KEY
+const CONSENT_VERSION = COOKIE_CONSENT_VERSION
 
 function readStoredConsent() {
   if (typeof window === 'undefined') return null

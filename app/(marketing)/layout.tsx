@@ -2,10 +2,6 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter, Manrope } from "next/font/google";
 
-import MarketingChrome from "@marketing/components/MarketingChrome";
-
-import "../marketing-globals.css";
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -44,12 +40,5 @@ export const metadata: Metadata = {
 export default function MarketingLayout({ children }: { children: ReactNode }) {
   const fontVars = `${inter.variable} ${manrope.variable} ${inter.className}`;
 
-  return (
-    <MarketingChrome
-      siteClassName={`${fontVars} flex min-h-screen flex-col bg-white font-sans text-[#1a1e3a] antialiased`}
-      homeClassName={`${fontVars} mml-marketing-page`}
-    >
-      {children}
-    </MarketingChrome>
-  );
+  return <div className={fontVars}>{children}</div>;
 }

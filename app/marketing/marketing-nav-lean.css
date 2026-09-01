@@ -1,0 +1,34 @@
+/* Lean content pages: CSS-only mobile menu (no client nav JS) */
+#site-nav .site-nav-lean-menu {
+  position: relative;
+}
+
+#site-nav .site-nav-lean-drawer {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.35rem);
+  z-index: 1200;
+  min-width: min(100vw - 1.5rem, 20rem);
+  border-radius: 1rem;
+  border: 1px solid rgba(26, 30, 58, 0.1);
+  background: #ffffff;
+  box-shadow: 0 14px 40px rgba(26, 30, 58, 0.14);
+}
+
+#site-nav.site-nav--light .site-nav-lean-drawer {
+  background: #ffffff;
+  border-color: rgba(26, 30, 58, 0.1);
+}
+
+/* Desktop: never show the mobile drawer/toggle (do not rely only on Tailwind) */
+@media (min-width: 901px) {
+  #site-nav .site-nav-drawer,
+  #site-nav .site-nav-toggle,
+  #site-nav .site-nav-lean-menu {
+    display: none !important;
+  }
+
+  #site-nav .site-nav-desktop {
+    display: flex !important;
+  }
+}

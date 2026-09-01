@@ -28,7 +28,13 @@ export const metadata = {
   },
 }
 
-export default function ContactRoutePage() {
+export default async function ContactRoutePage({ searchParams }) {
+  const params = await searchParams
+  const rawSubject = params?.subject
+  const initialSubject = (
+    Array.isArray(rawSubject) ? rawSubject[0] : rawSubject
+  )?.trim() || ''
+
   return (
     <>
       <MarketingPageJsonLd
@@ -40,7 +46,7 @@ export default function ContactRoutePage() {
           mainEntityOrganization: true,
         })}
       />
-      <ContactPage />
+      <ContactPage initialSubject={initialSubject} />
     </>
   )
 }

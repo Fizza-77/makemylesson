@@ -1,8 +1,6 @@
-import '@marketing/styles/blog-article.css'
-
 /**
  * Blog segment: always server-render on each request with live Supabase data.
- * No static pages, no ISR, no default fetch cache for this subtree.
+ * CSS is imported per route (hub vs article) to avoid unused render-blocking sheets.
  */
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'

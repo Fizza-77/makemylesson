@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import PricingPlanFloatCards from '@marketing/components/PricingPlanFloatCards'
 import { MML_APP } from '@marketing/lib/appUrls'

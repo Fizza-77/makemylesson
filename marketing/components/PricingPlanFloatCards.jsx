@@ -1,3 +1,7 @@
+'use client'
+
+import '@marketing/styles/marketing-pricing-float.css'
+
 import Link from 'next/link'
 import { BookOpen, Folder, Library, Users } from 'lucide-react'
 import { MML_APP } from '@marketing/lib/appUrls'

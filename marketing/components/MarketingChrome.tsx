@@ -5,9 +5,13 @@ import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import Footer from "@marketing/components/Footer";
 import LandingScrollHandler from "@marketing/components/LandingScrollHandler";
 import Navbar from "@marketing/components/Navbar";
+
+const Footer = dynamic(() => import("@marketing/components/Footer"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const CookieConsent = dynamic(() => import("@marketing/components/CookieConsent"), {
   ssr: false,
@@ -18,6 +22,23 @@ const AylaMarketingChat = dynamic(() => import("@marketing/components/AylaMarket
   ssr: false,
   loading: () => null,
 });
+
+function DeferredFooter() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const idle = window.requestIdleCallback?.(() => setReady(true), { timeout: 2000 });
+    const fallback = window.setTimeout(() => setReady(true), 2000);
+    return () => {
+      if (idle !== undefined) window.cancelIdleCallback(idle);
+      window.clearTimeout(fallback);
+    };
+  }, []);
+
+  if (!ready) return null;
+
+  return <Footer />;
+}
 
 function DeferredChromeWidgets({ includeAyla }: { includeAyla: boolean }) {
   const [ready, setReady] = useState(false);
@@ -56,7 +77,6 @@ export default function MarketingChrome({
   const isHome = pathname === "/";
   const includeAyla =
     isHome ||
-    pathname.startsWith("/features") ||
     pathname.startsWith("/pricing") ||
     pathname === "/contact";
 
@@ -69,7 +89,7 @@ export default function MarketingChrome({
         <Navbar theme="home" />
         <LandingScrollHandler />
         <div>{children}</div>
-        <Footer />
+        <DeferredFooter />
         <DeferredChromeWidgets includeAyla />
       </div>
     );
@@ -79,7 +99,7 @@ export default function MarketingChrome({
     <div className={`mml-chrome mml-chrome--site ${siteClassName}`}>
       <Navbar theme="site" />
       <main className="main-content flex min-h-0 flex-1 flex-col pt-16">{children}</main>
-      <Footer />
+      <DeferredFooter />
       <DeferredChromeWidgets includeAyla={includeAyla} />
     </div>
   );

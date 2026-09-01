@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { FEATURE_STAGE_ITEMS, getFeaturePath } from '@marketing/data/features'
 import { cn } from '@marketing/lib/cn'

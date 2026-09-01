@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@marketing/lib/cn'
@@ -10,13 +10,9 @@ import { scrollToTop } from '@marketing/lib/homeScroll'
 import { Menu, X } from 'lucide-react'
 import { MarketingHomeLink } from '@/components/common/MarketingHomeLink'
 import {
-  FeaturesDesktopMenu,
-  FeaturesMobileMenu,
-} from '@marketing/components/FeaturesNavMenu'
-import {
-  TeachingMethodsDesktopMenu,
-  TeachingMethodsMobileMenu,
-} from '@marketing/components/TeachingMethodsMegaMenu'
+  DesktopNavMegaMenus,
+  MobileNavMegaMenus,
+} from '@marketing/components/NavMegaMenus'
 
 const NAV_GUTTER = 'px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8 2xl:px-10'
 
@@ -91,8 +87,13 @@ export default function Navbar({ theme = 'home' }) {
   const navLinks = useNavLinks()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [megaMenusReady, setMegaMenusReady] = useState(false)
   const pathname = usePathname()
   const isLight = theme === 'site'
+
+  const enableMegaMenus = useCallback(() => {
+    setMegaMenusReady(true)
+  }, [])
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10)
@@ -103,6 +104,10 @@ export default function Navbar({ theme = 'home' }) {
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    if (mobileOpen) setMegaMenusReady(true)
+  }, [mobileOpen])
 
   return (
     <nav
@@ -132,21 +137,26 @@ export default function Navbar({ theme = 'home' }) {
           <span className="site-nav-brand-text font-sans">Make My Lesson</span>
         </MarketingHomeLink>
 
-        <div className={NAV_DESKTOP}>
-          <div className="site-nav-links" role="list">
+        <div
+          className={NAV_DESKTOP}
+          onMouseEnter={enableMegaMenus}
+          onFocusCapture={enableMegaMenus}
+        >
+          <ul className="site-nav-links">
             {navLinks.map((item) => (
-              <React.Fragment key={item.label}>
+              <li key={item.label} className="site-nav-links__item">
                 {item.label === 'Features' ? (
-                  <>
-                    <FeaturesDesktopMenu pathname={pathname} linkClassName={NAV_LINK} />
-                    <TeachingMethodsDesktopMenu pathname={pathname} linkClassName={NAV_LINK} />
-                  </>
+                  <DesktopNavMegaMenus
+                    pathname={pathname}
+                    linkClassName={NAV_LINK}
+                    enabled={megaMenusReady}
+                  />
                 ) : (
                   <NavLink item={item} pathname={pathname} className={NAV_LINK} />
                 )}
-              </React.Fragment>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div className="site-nav-actions">
@@ -179,18 +189,12 @@ export default function Navbar({ theme = 'home' }) {
           {navLinks.map((item) => (
             <React.Fragment key={item.label}>
               {item.label === 'Features' ? (
-                <>
-                  <FeaturesMobileMenu
-                    pathname={pathname}
-                    linkClassName={NAV_MENU_LINK}
-                    onNavigate={() => setMobileOpen(false)}
-                  />
-                  <TeachingMethodsMobileMenu
-                    pathname={pathname}
-                    linkClassName={NAV_MENU_LINK}
-                    onNavigate={() => setMobileOpen(false)}
-                  />
-                </>
+                <MobileNavMegaMenus
+                  pathname={pathname}
+                  linkClassName={NAV_MENU_LINK}
+                  onNavigate={() => setMobileOpen(false)}
+                  enabled={megaMenusReady}
+                />
               ) : (
                 <NavLink
                   item={item}
