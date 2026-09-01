@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
 
-import "../../marketing-lean.css";
+import "../../marketing-base.css";
+import "../../marketing-nav-core.css";
+import "../../marketing-nav-lean.css";
+import "../../marketing-footer.css";
+import "../../marketing-content.css";
+import "../../styles/marketing-faq-band.css";
 import LeanMarketingShell from "@marketing/components/LeanMarketingShell";
 
 export default function LeanMarketingLayout({ children }: { children: ReactNode }) {
