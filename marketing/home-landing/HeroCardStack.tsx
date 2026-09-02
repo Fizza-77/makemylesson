@@ -1,44 +1,33 @@
-import { responsiveWebpSrcSet } from "@marketing/home-landing/responsiveWebp";
-
-const HERO_CARD_LG = 620;
-const HERO_CARD_SM = 200;
-
 const HERO_CARDS = [
   {
     id: "slides",
-    src: "/svgs/slides.webp",
+    src: "/svgs/slides.svg",
     modifier: "slides",
-    sizes: "(max-width: 767px) 39vw, 20vw",
   },
   {
     id: "answerkey",
-    src: "/svgs/answerkey.webp",
+    src: "/svgs/answerkey.svg",
     modifier: "answerkey",
-    sizes: "(max-width: 767px) 34vw, 17vw",
   },
   {
     id: "classroomactivity",
-    src: "/svgs/classroomactivity.webp",
+    src: "/svgs/classroomactivity.svg",
     modifier: "classroomactivity",
-    sizes: "(max-width: 767px) 40vw, 20vw",
   },
   {
     id: "markscheme",
-    src: "/svgs/markscheme.webp",
+    src: "/svgs/markscheme.svg",
     modifier: "markscheme",
-    sizes: "(max-width: 767px) 32vw, 16vw",
   },
   {
     id: "testpaper",
-    src: "/svgs/testpaper.webp",
+    src: "/svgs/testpaper.svg",
     modifier: "testpaper",
-    sizes: "(max-width: 767px) 32vw, 16vw",
   },
   {
     id: "lessonplan",
-    src: "/svgs/lessonplan.webp",
+    src: "/svgs/lessonplan.svg",
     modifier: "lessonplan",
-    sizes: "(max-width: 767px) 44vw, 22vw",
   },
 ] as const;
 
@@ -54,8 +43,6 @@ export default function HeroCardStack() {
         <img
           key={card.id}
           src={card.src}
-          srcSet={responsiveWebpSrcSet(card.src, HERO_CARD_SM, HERO_CARD_LG)}
-          sizes={card.sizes}
           alt=""
           className={`mml-hero-card-stack__card mml-hero-card-stack__card--${card.modifier}`}
           width={309}

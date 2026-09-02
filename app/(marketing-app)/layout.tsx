@@ -5,6 +5,7 @@ import { Inter, Manrope } from "next/font/google";
 import MarketingChrome from "@marketing/components/MarketingChrome";
 
 import "../marketing-chrome.css";
+import "../marketing-tailwind.css";
 
 const inter = Inter({
   subsets: ["latin"],

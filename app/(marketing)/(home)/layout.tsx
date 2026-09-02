@@ -12,8 +12,8 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       <link
         rel="preload"
         as="image"
-        type="image/webp"
-        href="/svgs/lessonplan-sm.webp"
+        href="/svgs/lessonplan.svg"
+        type="image/svg+xml"
         fetchPriority="high"
       />
       {children}

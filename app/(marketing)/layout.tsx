@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter, Manrope } from "next/font/google";
 
+import "../marketing-tailwind.css";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",

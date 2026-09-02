@@ -11,12 +11,9 @@ type HomeMarketingShellProps = {
 /** Server shell for the homepage — no MarketingChrome client bundle. */
 export default function HomeMarketingShell({ children }: HomeMarketingShellProps) {
   return (
-    <div
-      className="mml-chrome mml-chrome--home mml-marketing-page"
-      style={{ background: "#e6ecee", minHeight: "100vh" }}
-    >
+    <div className="mml-chrome mml-chrome--home mml-marketing-page flex min-h-screen flex-col bg-[#e6ecee]">
       <StaticSiteNavbarServer theme="home" />
-      <div>{children}</div>
+      <div className="flex-1">{children}</div>
       <StaticSiteFooterServer />
       <DeferredCookieConsent />
     </div>

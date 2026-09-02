@@ -45,7 +45,6 @@ export const ACCESS_PLANS = [
     generations: 5,
     tone: 'teal',
     priceUsd: 0,
-    priceLabel: 'Free',
     priceNote: 'Forever Free',
     includedTitle: 'Included on every plan',
     features: FREE_PLAN_FEATURES,

@@ -4,15 +4,15 @@ import { APP_STORE_URL, GOOGLE_PLAY_URL } from '@marketing/lib/appUrls'
 export const FOOTER_TEAL = '#159F9B'
 
 export const FOOTER_SITEMAP_LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/features/lesson-plan-generator', label: 'Features' },
-  { href: '/teaching-methods', label: 'Teaching Methods' },
-  { href: '/#how-it-works', label: 'How It Works' },
-  { href: getFeaturePath('lesson-plan-generator'), label: 'Teaching Pack' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/faq', label: 'FAQs' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact Us' },
+  { href: '/', label: 'Home', icon: 'home' },
+  { href: '/features/lesson-plan-generator', label: 'Features', icon: 'features' },
+  { href: '/teaching-methods', label: 'Teaching Methods', icon: 'teaching-methods' },
+  { href: '/#how-it-works', label: 'How It Works', icon: 'how-it-works' },
+  { href: getFeaturePath('lesson-plan-generator'), label: 'Teaching Pack', icon: 'teaching-pack' },
+  { href: '/pricing', label: 'Pricing', icon: 'pricing' },
+  { href: '/faq', label: 'FAQs', icon: 'faq' },
+  { href: '/blog', label: 'Blog', icon: 'blog' },
+  { href: '/contact', label: 'Contact Us', icon: 'contact' },
 ]
 
 export const FOOTER_LEGAL_DOCS = [

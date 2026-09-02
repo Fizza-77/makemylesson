@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import BrandMark from '@marketing/components/BrandMark'
+import { FooterSitemapIcon } from '@marketing/components/footer/FooterSitemapIcons'
 import Container from '@marketing/components/layout/Container'
 import {
   APP_STORE_URL,
@@ -140,7 +141,7 @@ export default function StaticSiteFooterServer() {
               </p>
               <nav aria-label="Sitemap">
                 <ul className="mml-site-footer-sitemap flex w-full flex-nowrap items-stretch overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                  {FOOTER_SITEMAP_LINKS.map(({ href, label }, index) => {
+                  {FOOTER_SITEMAP_LINKS.map(({ href, label, icon }, index) => {
                     const isLast = index === FOOTER_SITEMAP_LINKS.length - 1
                     return (
                       <li
@@ -151,6 +152,12 @@ export default function StaticSiteFooterServer() {
                           href={href}
                           className="group flex h-full flex-col items-center gap-1.5 px-1.5 py-0.5 text-center no-underline"
                         >
+                          <span
+                            className="inline-flex h-7 w-7 shrink-0 items-center justify-center transition-transform group-hover:scale-105"
+                            style={{ color: FOOTER_TEAL }}
+                          >
+                            <FooterSitemapIcon name={icon} />
+                          </span>
                           <span className="max-w-[4.75rem] text-[10px] font-medium leading-tight text-white/90 transition-colors group-hover:text-white sm:text-[11px]">
                             {label}
                           </span>
