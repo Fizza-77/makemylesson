@@ -861,7 +861,7 @@
     width: min(100%, 32rem);
     max-width: 100%;
     margin-inline: auto;
-    transform: translateY(3.05rem);
+    transform: translateY(2.65rem);
     transform-origin: center center;
   }
 
@@ -911,7 +911,7 @@
   }
 
   .mml-hero-card-stack {
-    transform: translateY(2.85rem) scale(0.92);
+    transform: translateY(2.45rem) scale(0.92);
     transform-origin: center center;
   }
 
