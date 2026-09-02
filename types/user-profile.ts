@@ -55,18 +55,50 @@ export class UserFirestoreProfile {
 }
 
 export function parsePlanTier(raw: string | null | undefined): AccountPlanTier {
-  const value = (raw ?? "").trim();
-  if (!value || value === "free") return "free";
+  return tryParsePlanTier(raw) ?? "free";
+}
+
+/**
+ * Parse a plan string without collapsing unknown values to `"free"`.
+ * Returns `null` when empty/unrecognized so callers can fall back to cap heuristics.
+ */
+export function tryParsePlanTier(
+  raw: string | null | undefined,
+): AccountPlanTier | null {
+  const value = normalizePlanTierKey(raw);
+  if (!value) return null;
+  if (value === "free") return "free";
+
   const map: Record<string, AccountPlanTier> = {
-    individualMonthly: "individualMonthly",
+    individualmonthly: "individualMonthly",
     individual_monthly: "individualMonthly",
-    individualAnnual: "individualAnnual",
+    individual_month: "individualMonthly",
+    monthly: "individualMonthly",
+    individualannual: "individualAnnual",
     individual_annual: "individualAnnual",
-    creditTopUp50: "creditTopUp50",
+    individual_year: "individualAnnual",
+    annual: "individualAnnual",
+    yearly: "individualAnnual",
+    credittopup50: "creditTopUp50",
     credit_topup_50: "creditTopUp50",
+    credit_top_up_50: "creditTopUp50",
+    credit_topup: "creditTopUp50",
+    topup50: "creditTopUp50",
+    top_up_50: "creditTopUp50",
     department: "department",
     school: "school",
+    schoolplus: "school_plus",
     school_plus: "school_plus",
+    school_plus_plan: "school_plus",
   };
-  return map[value] ?? "free";
+
+  return map[value] ?? null;
+}
+
+function normalizePlanTierKey(raw: string | null | undefined): string {
+  return (raw ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[\s-]+/g, "_")
+    .replace(/_+/g, "_");
 }

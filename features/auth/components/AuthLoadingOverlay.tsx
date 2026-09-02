@@ -53,7 +53,7 @@ export function AuthLoadingOverlay({ active, messages, className }: AuthLoadingO
   return (
     <div
       className={cn(
-        "absolute inset-0 z-20 flex flex-col items-center justify-center rounded-2xl bg-white/85 px-6 py-10 text-center backdrop-blur-[3px] sm:rounded-3xl",
+        "absolute inset-0 z-20 flex flex-col items-center justify-center bg-white px-6 py-10 text-center",
         className,
       )}
       role="status"
@@ -63,7 +63,7 @@ export function AuthLoadingOverlay({ active, messages, className }: AuthLoadingO
       <AuthLoaderRing />
       <p
         key={message}
-        className="mt-5 max-w-[20ch] text-[15px] font-semibold leading-snug text-[#1A1C30] sm:text-base"
+        className="mt-5 max-w-[20ch] rounded-full bg-[#E8F8F7] px-4 py-2 text-[15px] font-semibold leading-snug text-[#1A1C30] sm:text-base"
       >
         {message}
       </p>

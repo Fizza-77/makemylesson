@@ -178,7 +178,7 @@ export function OtpVerificationForm() {
       title="Verify your email"
       subtitle="Check your email and enter the 6-digit verification code."
     >
-      <div className="relative min-h-[18rem]">
+      <div className="relative min-h-[18rem] overflow-hidden">
         <AuthLoadingOverlay active={verifying} messages={OTP_VERIFY_LOADING_MESSAGES} />
 
       {email ? (

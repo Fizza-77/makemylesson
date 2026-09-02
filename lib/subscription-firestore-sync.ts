@@ -1,11 +1,13 @@
 import type { AccountPlanTier } from "@/types/account";
-import { parsePlanTier } from "@/types/user-profile";
+import { tryParsePlanTier } from "@/types/user-profile";
 
 import { deviceFreeCreditsFallback } from "@/lib/device-free-signup";
 
 /** Mirrors Flutter `OrgBillingConstants`. */
 export const ANNUAL_CREDITS_PER_SEAT = 360;
 export const CREDIT_TOP_UP_POOL = 50;
+export const FREE_GENERATION_CREDIT_CAP = 5;
+export const MONTHLY_GENERATION_CREDIT_CAP = 30;
 
 /** Coerce Firestore number / numeric string — parity with Dart `num?.toInt()`. */
 export function toInt(value: unknown): number | null {
@@ -34,10 +36,10 @@ export function expectedCapForTier(tier: AccountPlanTier): number {
     case "creditTopUp50":
       return CREDIT_TOP_UP_POOL;
     case "individualMonthly":
-      return 30;
+      return MONTHLY_GENERATION_CREDIT_CAP;
     case "free":
     default:
-      return 5;
+      return FREE_GENERATION_CREDIT_CAP;
   }
 }
 
@@ -59,22 +61,75 @@ export function isAnnualBillingTier(tier: AccountPlanTier): boolean {
 }
 
 /**
- * Mirrors Flutter `SubscriptionFirestoreSync.parsePlanTier`.
- * Uses plan string first; falls back to cap heuristics when plan is missing.
+ * Infer a paid tier from Firestore cap / remaining when the plan string is
+ * missing, `"free"`, or unrecognized (stale after purchase).
  */
-export function parsePlanTierFromUserDoc(data: Record<string, unknown>): AccountPlanTier {
-  const planRaw =
-    ((data.subscriptionPlan ?? data.planTier) as string | null | undefined) ??
-    null;
-  const trimmed = (planRaw ?? "").trim();
-  if (trimmed) {
-    return parsePlanTier(trimmed);
+export function inferPaidPlanTierFromBalance(params: {
+  firestoreCap: number | null;
+  generationCredits: number | null;
+}): AccountPlanTier | null {
+  const { firestoreCap, generationCredits } = params;
+
+  if (firestoreCap != null) {
+    if (firestoreCap >= ANNUAL_CREDITS_PER_SEAT) return "individualAnnual";
+    if (firestoreCap === CREDIT_TOP_UP_POOL) return "creditTopUp50";
+    if (firestoreCap >= MONTHLY_GENERATION_CREDIT_CAP) {
+      return "individualMonthly";
+    }
   }
-  const cap = toInt(data.generationCreditCap);
-  if (cap == null) return "free";
-  if (cap >= ANNUAL_CREDITS_PER_SEAT) return "individualAnnual";
-  if (cap === CREDIT_TOP_UP_POOL) return "creditTopUp50";
-  if (cap >= 30) return "individualMonthly";
+
+  if (generationCredits != null && generationCredits > FREE_GENERATION_CREDIT_CAP) {
+    if (generationCredits >= ANNUAL_CREDITS_PER_SEAT) return "individualAnnual";
+    if (generationCredits > MONTHLY_GENERATION_CREDIT_CAP) {
+      return "creditTopUp50";
+    }
+    return "individualMonthly";
+  }
+
+  return null;
+}
+
+/**
+ * Mirrors Flutter `SubscriptionFirestoreSync.parsePlanTier`, with recovery when
+ * `subscriptionPlan` stays `"free"` (or unknown) after a paid purchase write.
+ *
+ * Preference order:
+ * 1. Explicit paid `subscriptionPlan`
+ * 2. Explicit paid `planTier`
+ * 3. Cap / credits heuristics when string says free/unknown but balance is paid
+ * 4. Explicit free / default free
+ */
+export function parsePlanTierFromUserDoc(
+  data: Record<string, unknown>,
+): AccountPlanTier {
+  const subscriptionRaw =
+    typeof data.subscriptionPlan === "string"
+      ? data.subscriptionPlan
+      : null;
+  const planTierRaw =
+    typeof data.planTier === "string" ? data.planTier : null;
+
+  const fromSubscription = tryParsePlanTier(subscriptionRaw);
+  const fromPlanTier = tryParsePlanTier(planTierRaw);
+
+  if (fromSubscription && fromSubscription !== "free") {
+    return fromSubscription;
+  }
+  if (fromPlanTier && fromPlanTier !== "free") {
+    return fromPlanTier;
+  }
+
+  const inferred = inferPaidPlanTierFromBalance({
+    firestoreCap: toInt(data.generationCreditCap),
+    generationCredits: toInt(data.generationCredits),
+  });
+  if (inferred) return inferred;
+
+  if (fromSubscription === "free" || fromPlanTier === "free") {
+    return "free";
+  }
+
+  // Unrecognized / empty plan strings with no paid balance signals.
   return "free";
 }
 
@@ -118,6 +173,9 @@ export function resolveCreditsRemaining(params: {
  *
  * When Firestore has no balance fields, use device-scoped fallback (5 only if
  * this browser has not already used its one-time free signup allocation).
+ *
+ * Guest / local trial credits are never read here — callers must keep using
+ * `lib/guest-credits` while the session is guest.
  */
 export function resolveSubscriptionCredits(
   data: Record<string, unknown>,
@@ -128,11 +186,36 @@ export function resolveSubscriptionCredits(
   generationCreditCap: number;
   creditsUsed: number;
 } {
-  const planTier = parsePlanTierFromUserDoc(data);
-  const firestoreCap = toInt(data.generationCreditCap);
-  const cap = resolveCreditCap({ tier: planTier, firestoreCap });
   const remoteCredits = toInt(data.generationCredits);
   const remoteUsed = toInt(data.creditsUsed);
+  const firestoreCap = toInt(data.generationCreditCap);
+
+  let planTier = parsePlanTierFromUserDoc(data);
+
+  // Belt-and-suspenders: never keep free if remote balance clearly exceeds free.
+  if (planTier === "free") {
+    const inferred = inferPaidPlanTierFromBalance({
+      firestoreCap,
+      generationCredits: remoteCredits,
+    });
+    if (inferred) planTier = inferred;
+  }
+
+  let cap = resolveCreditCap({ tier: planTier, firestoreCap });
+
+  // Paid remaining must not be clamped under a stale free cap of 5.
+  if (isPaidPlanTier(planTier)) {
+    const floor = Math.max(
+      cap,
+      firestoreCap ?? 0,
+      remoteCredits ?? 0,
+      remoteUsed != null && remoteCredits != null
+        ? remoteUsed + remoteCredits
+        : 0,
+    );
+    if (floor > cap) cap = floor;
+  }
+
   // When Firestore has a balance field, never invent credits from local default.
   const hasRemoteBalance = remoteCredits != null || remoteUsed != null;
   const generationCredits = resolveCreditsRemaining({
@@ -165,8 +248,8 @@ export function freeTierExhaustedOnDevicePayload(): Record<string, unknown> {
     planTier: "free",
     subscriptionPlan: "free",
     generationCredits: 0,
-    generationCreditCap: 5,
-    creditsUsed: 5,
+    generationCreditCap: FREE_GENERATION_CREDIT_CAP,
+    creditsUsed: FREE_GENERATION_CREDIT_CAP,
   };
 }
 
@@ -175,8 +258,8 @@ export function freeTierStarterCreditsPayload(): Record<string, unknown> {
   return {
     planTier: "free",
     subscriptionPlan: "free",
-    generationCredits: 5,
-    generationCreditCap: 5,
+    generationCredits: FREE_GENERATION_CREDIT_CAP,
+    generationCreditCap: FREE_GENERATION_CREDIT_CAP,
     creditsUsed: 0,
   };
 }
@@ -184,7 +267,7 @@ export function freeTierStarterCreditsPayload(): Record<string, unknown> {
 /** Seed free-tier balance from web trial remaining (0–5). */
 export function freeTierPayloadFromTrialRemaining(
   remaining: number,
-  cap = 5,
+  cap = FREE_GENERATION_CREDIT_CAP,
 ): Record<string, unknown> {
   const clamped = clampInt(remaining, 0, cap);
   return {
