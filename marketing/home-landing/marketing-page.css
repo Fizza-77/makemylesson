@@ -849,16 +849,25 @@
 
   .mml-mkt-hero-visual-col {
     justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: min(38rem, 100%);
+    max-width: 100%;
+    padding-inline: 4px;
+    box-sizing: border-box;
     overflow: visible;
   }
 
   .mml-hero-card-stack {
-    width: min(100%, 33rem);
+    width: min(100%, 32rem);
+    max-width: 100%;
     margin-inline: auto;
-    transform: translate(1.35rem, 3.05rem) scale(0.98);
+    transform: translateY(3.05rem);
     transform-origin: center center;
+  }
+
+  .mml-hero-card-stack__card--classroomactivity {
+    left: 52%;
+    width: 38%;
   }
 
   .mml-hero-card-stack__card--answerkey {
@@ -867,6 +876,7 @@
 
   .mml-hero-card-stack__card--testpaper {
     top: 31%;
+    left: 52%;
   }
 
   .mml-hero-card-stack__card--lessonplan {
@@ -874,7 +884,8 @@
   }
 
   .mml-hero-card-stack__card--markscheme {
-    left: 74%;
+    left: 68%;
+    width: 28%;
     top: 10%;
   }
 
@@ -897,6 +908,11 @@
   .mml-mkt-hero-steps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.15rem 0.65rem;
+  }
+
+  .mml-hero-card-stack {
+    transform: translateY(2.85rem) scale(0.92);
+    transform-origin: center center;
   }
 
   .mml-mkt-hero-ctas {
