@@ -22,8 +22,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og-image.png",
-        width: 1350,
-        height: 707,
+        width: 1731,
+        height: 909,
         alt: "Make My Lesson — AI Lesson Planner",
       },
     ],
