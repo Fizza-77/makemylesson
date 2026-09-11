@@ -166,7 +166,7 @@ export default function CookieConsent() {
             <p className="cookie-consent-legal">
               <Link href="/cookie-policy">Cookie Policy</Link>
               <span aria-hidden> · </span>
-              <Link href="/privacy-policy">Privacy Policy</Link>
+              <Link href="/privacy-policy-web">Privacy Policy</Link>
             </p>
           </div>
         </div>

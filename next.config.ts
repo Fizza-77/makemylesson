@@ -86,6 +86,11 @@ const nextConfig: NextConfig = {
       { source: "/ayla-chat", destination: "/stage1", permanent: false },
       { source: "/onboarding", destination: "/stage1", permanent: false },
       { source: "/marketing", destination: "/", permanent: true },
+      {
+        source: "/web-privacy-policy",
+        destination: "/privacy-policy-web",
+        permanent: true,
+      },
       // Keep /pricing as marketing + PayPal checkout surface
     ];
   },

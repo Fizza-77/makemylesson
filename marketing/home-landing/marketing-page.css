@@ -146,7 +146,7 @@
   color: var(--mml-ink);
   padding-top: calc(4.25rem + clamp(1.1rem, 2.4vw, 2rem));
   padding-right: max(0.75rem, clamp(1.1rem, 3vw, 2.5rem));
-  padding-bottom: 0.35rem;
+  padding-bottom: 2rem;
   padding-left: max(0.75rem, 4px);
   box-sizing: border-box;
 }
@@ -192,7 +192,7 @@
 
 .mml-mkt-hero-kicker {
   margin: 0 0 1.35rem;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -203,7 +203,7 @@
 .mml-mkt-hero-title {
   margin: 0;
   font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
-  font-size: clamp(2.15rem, 5.2vw, 3.85rem);
+  font-size: clamp(2.35rem, 5.5vw, 4.1rem);
   font-weight: 700;
   line-height: 1.08;
   letter-spacing: -0.035em;
@@ -223,8 +223,8 @@
 .mml-mkt-hero-lead {
   margin: 0;
   max-width: none;
-  font-size: clamp(0.98rem, 1.05vw, 1.12rem);
-  line-height: 1.58;
+  font-size: clamp(1.05rem, 1.15vw, 1.22rem);
+  line-height: 1.62;
   text-align: left;
   color: var(--mml-text-secondary);
 }
@@ -254,8 +254,8 @@
 .mml-mkt-hero-body {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  margin-top: 1.85rem;
+  gap: 1rem;
+  margin-top: 2.2rem;
 }
 
 .mml-mkt-hero-ctas {
@@ -396,14 +396,21 @@
 }
 
 .mml-mkt-hero-steps-wrap {
-  margin-top: 0.65rem;
+  position: relative;
+  z-index: 2;
+  margin-top: 2.5rem;
   width: 100%;
+  max-width: min(1280px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  padding-inline: 0.75rem;
+  box-sizing: border-box;
 }
 
 .mml-mkt-hero-steps-heading {
-  margin: 0 0 1.15rem;
-  font-size: 1.15rem;
-  font-weight: 600;
+  margin: 0 0 1.35rem;
+  font-size: 1.25rem;
+  font-weight: 700;
   text-align: center;
   color: var(--mml-navy);
 }
@@ -692,12 +699,14 @@
   }
 
   .mml-mkt-hero-steps-wrap {
-    margin-top: 0.7rem;
+    margin-top: 2.5rem;
+    max-width: min(1480px, 100%);
+    padding-inline: 0.75rem;
   }
 
   .mml-mkt-hero-steps-heading {
-    font-size: 1.18rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+    margin-bottom: 1.3rem;
   }
 
   .mml-mkt-hero-step-link {
@@ -791,6 +800,10 @@
 
   .mml-mkt-hero-stage-svg {
     transform: translate(-72px, -2.15rem) scale(1.36);
+  }
+
+  .mml-mkt-hero-steps-wrap {
+    max-width: min(1720px, 94vw);
   }
 }
 

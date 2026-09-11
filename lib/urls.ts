@@ -77,6 +77,7 @@ export const PUBLIC_PATH_PREFIXES = [
   "/teaching-methods",
   "/privacy",
   "/privacy-policy",
+  "/privacy-policy-web",
   "/cookie-policy",
   "/terms",
   "/terms-of-service",
@@ -128,6 +129,7 @@ export const MARKETING_PATH_PREFIXES = [
   "/lesson",
   "/smartlink",
   "/privacy-policy",
+  "/privacy-policy-web",
   "/cookie-policy",
   "/terms-of-service",
   "/acceptable-use-policy",
@@ -147,7 +149,8 @@ export function isMarketingPath(pathname: string): boolean {
 
 export const AppUrls = {
   marketingHome: "/",
-  privacyPolicy: "/privacy-policy",
+  privacyPolicy: "/privacy-policy-web",
+  mobilePrivacyPolicy: "/privacy-policy",
   termsOfService: "/terms-of-service",
   contactSales: "/contact",
   helpEmail: "hello@makemylesson.ai",

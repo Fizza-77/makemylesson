@@ -170,24 +170,6 @@ export default function HomeHeroSection() {
                     </SectionLink>
                   ))}
                 </div>
-
-                <div className="mml-mkt-hero-steps-wrap">
-                  <p className="mml-mkt-hero-steps-heading">
-                    From Plan to Classroom in <span>4 Simple Steps.</span>
-                  </p>
-                  <ol className="mml-mkt-hero-steps">
-                    {STEPS.map((step, index) => (
-                      <li key={step.title} className="mml-mkt-hero-step">
-                        {index > 0 ? <StepArrow /> : null}
-                        <a href={step.href} className="mml-mkt-hero-step-link">
-                          <span className="mml-mkt-hero-step-num">{index + 1}</span>
-                          <h2>{step.title}</h2>
-                          <p>{step.copy}</p>
-                        </a>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
               </div>
             </div>
           </div>
@@ -195,6 +177,25 @@ export default function HomeHeroSection() {
           <div className="mml-mkt-hero-visual-col">
             <HeroCardStack />
           </div>
+        </div>
+
+        {/* Steps section — full-width below the hero split */}
+        <div className="mml-mkt-hero-steps-wrap">
+          <p className="mml-mkt-hero-steps-heading">
+            From Plan to Classroom in <span>4 Simple Steps.</span>
+          </p>
+          <ol className="mml-mkt-hero-steps">
+            {STEPS.map((step, index) => (
+              <li key={step.title} className="mml-mkt-hero-step">
+                {index > 0 ? <StepArrow /> : null}
+                <a href={step.href} className="mml-mkt-hero-step-link">
+                  <span className="mml-mkt-hero-step-num">{index + 1}</span>
+                  <h2>{step.title}</h2>
+                  <p>{step.copy}</p>
+                </a>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </main>

@@ -20,7 +20,7 @@ export default function CookiePolicyPage() {
           <p>
             This Cookie Policy explains what cookies and similar technologies are, how Make My Lesson uses them across its
             website and web-based services, and what controls you have over them. It should be read alongside our{' '}
-            <Link href="/privacy-policy" className="text-mml-teal underline-offset-2 hover:underline">
+            <Link href="/privacy-policy-web" className="text-mml-teal underline-offset-2 hover:underline">
               Privacy Policy
             </Link>
             .

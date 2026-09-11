@@ -16,7 +16,7 @@ export const FOOTER_SITEMAP_LINKS = [
 ]
 
 export const FOOTER_LEGAL_DOCS = [
-  { href: '/privacy-policy', label: 'Privacy Policy' },
+  { href: '/privacy-policy-web', label: 'Privacy Policy' },
   { href: '/terms-of-service', label: 'Terms of Service' },
   { href: '/acceptable-use-policy', label: 'Acceptable Use Policy' },
   { href: '/cookie-policy', label: 'Cookie Policy' },

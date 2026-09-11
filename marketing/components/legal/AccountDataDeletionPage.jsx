@@ -161,7 +161,7 @@ export default function AccountDataDeletionPage() {
             <h2 className="legal-h2">Additional Information</h2>
             <p>
               For full details on how we collect, use, and protect your data, please refer to our{' '}
-              <Link href="/privacy-policy" className="text-mml-teal underline-offset-2 hover:underline">
+              <Link href="/privacy-policy-web" className="text-mml-teal underline-offset-2 hover:underline">
                 Privacy Policy
               </Link>
               .

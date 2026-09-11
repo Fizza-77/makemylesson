@@ -1,4 +1,17 @@
 @import "tailwindcss";
 
+@theme inline {
+  --color-mml-navy: #1a1e3a;
+  --color-mml-navy-mid: #242845;
+  --color-mml-navy-light: #2e3355;
+  --color-mml-navy-card: #222640;
+  --color-mml-teal: #7dd3e8;
+  --color-mml-teal-dark: #4ba8c4;
+  --color-mml-teal-light: #b5e8f4;
+  --color-mml-text: #f0f6ff;
+  --color-mml-text-secondary: #94a3b8;
+  --color-mml-muted: #64748b;
+}
+
 @source "../marketing/**/*.{js,jsx,ts,tsx}";
 @source "../components/common/MarketingHomeLink.tsx";

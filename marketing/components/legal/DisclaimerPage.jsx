@@ -28,7 +28,7 @@ export default function DisclaimerPage() {
               Terms of Service
             </Link>
             ,{' '}
-            <Link href="/privacy-policy" className="text-mml-teal underline-offset-2 hover:underline">
+            <Link href="/privacy-policy-web" className="text-mml-teal underline-offset-2 hover:underline">
               Privacy Policy
             </Link>
             ,{' '}
