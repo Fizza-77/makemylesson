@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 import "../globals.css";
 import { AppShell } from "@/components/layout/AppShell";
@@ -18,3 +18,5 @@ export default function MainAppLayout({ children }: { children: React.ReactNode 
     </AppProviders>
   );
 }
+
+

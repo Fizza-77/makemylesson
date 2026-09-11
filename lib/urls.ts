@@ -1,4 +1,4 @@
-export const APP_ORIGIN =
+﻿export const APP_ORIGIN =
   process.env.NEXT_PUBLIC_APP_ORIGIN?.replace(/\/$/, "") ??
   "https://makemylesson.ai";
 
@@ -157,3 +157,5 @@ export const AppUrls = {
   supportEmail: "support@makemylesson.ai",
   smartLink: "https://makemylesson.ai/smartlink",
 } as const;
+
+

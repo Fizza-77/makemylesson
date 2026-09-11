@@ -1,4 +1,4 @@
-import { SignJWT, importPKCS8 } from "jose";
+﻿import { SignJWT, importPKCS8 } from "jose";
 
 import { parseFirebaseServiceAccount } from "@/lib/firebase-service-account.server";
 import {
@@ -235,3 +235,5 @@ export async function setGuestUserGenerationCredits(
 export function remainingFromIpUsage(totalUsed: number): number {
   return Math.max(0, WEB_TRIAL_GENERATION_CAP - totalUsed);
 }
+
+

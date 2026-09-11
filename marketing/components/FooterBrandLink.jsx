@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import BrandMark from '@marketing/components/BrandMark'
 
 export default function FooterBrandLink() {
@@ -15,3 +15,5 @@ export default function FooterBrandLink() {
     </Link>
   )
 }
+
+

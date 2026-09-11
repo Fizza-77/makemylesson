@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 /**
  * Embeds the Flutter web app below the global Navbar.
@@ -20,3 +20,5 @@ export default function FlutterAppEmbed({ segments = [] }) {
     />
   )
 }
+
+

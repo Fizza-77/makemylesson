@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback } from "react";
 
@@ -111,3 +111,5 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
     upgradeDialog,
   };
 }
+
+

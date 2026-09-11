@@ -1,3 +1,4 @@
+﻿import Link from 'next/link'
 import PolicyPageShell from '@marketing/components/layout/PolicyPageShell'
 
 export default function AcceptableUsePolicyPage() {
@@ -5,202 +6,76 @@ export default function AcceptableUsePolicyPage() {
     <PolicyPageShell>
       <article className="legal-article">
         <header className="legal-article-header">
-          <h1 className="legal-article-title">
-            Acceptable Use Policy
-          </h1>
-          <p className="legal-article-operator">Operated by Qismat Ventures W.L.L</p>
+          <h1 className="legal-article-title">Acceptable Use Policy</h1>
+          <p className="legal-article-operator">Operated by Skyen Systems Pty Ltd</p>
           <p className="legal-article-meta">
-            <span className="block">Effective Date: [To be set]</span>
-            <span className="mt-1 block">Last Updated: [To be set]</span>
+            <span className="block">Effective: 10 September 2026</span>
+            <span className="mt-1 block">Last Updated: 10 September 2026</span>
           </p>
         </header>
-
         <div className="legal-article-body">
-          <p>
-            Make My Lesson is an educational technology platform designed to help teachers and educators plan lessons,
-            create teaching materials, and manage classroom resources more efficiently.
-          </p>
-          <p>
-            To maintain a safe, professional, and responsible environment, all users must follow this Acceptable Use Policy
-            (&quot;AUP&quot;). This policy forms part of and should be read alongside the Make My Lesson Terms of Service.
-          </p>
-          <p>By accessing or using Make My Lesson, you agree to comply with this AUP.</p>
-
-<section className="legal-section">
-            <h2 className="legal-h2">1. Who This Policy Applies To</h2>
-            <p className="mb-3">This policy applies to all users of Make My Lesson, including:</p>
+          {/* Content copied from previous version, unchanged except operator details */}
+          <section className="legal-section">
+            <h2 className="legal-h2">1. Purpose</h2>
+            <p>This Acceptable Use Policy sets out what you may and may not do on Make My Lesson. It forms part of our Terms of Service and applies to everyone who uses the website or apps, whether on a free, paid, or institutional account.</p>
+          </section>
+          <section className="legal-section">
+            <h2 className="legal-h2">2. Using the platform lawfully and appropriately</h2>
             <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Teachers and educators</li>
-              <li>Schools and institutions</li>
-              <li>Department heads and administrators</li>
-              <li>Any individual accessing or using the platform</li>
+              <li>Use the platform for lawful purposes and in compliance with applicable laws.</li>
+              <li>Do not generate or attempt to generate content that is abusive, discriminatory, harassing, sexually explicit, or otherwise inappropriate for a school environment.</li>
+              <li>Do not enter personal information identifying individual students into lesson topics, instructions or refinement requests.</li>
+              <li>Do not bully, harass, or target any person or group.</li>
+              <li>Do not upload or generate content that infringes anyone's intellectual property or other rights.</li>
             </ul>
           </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">2. Permitted Use</h2>
-            <p className="mb-3">Make My Lesson is designed strictly for educational and professional teaching purposes.</p>
-            <p className="mb-3">Permitted uses include:</p>
+          <section className="legal-section">
+            <h2 className="legal-h2">3. Protecting the platform</h2>
             <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Creating lesson plans, presentations, activities, and assessments</li>
-              <li>Generating and editing teaching materials</li>
-              <li>Managing teaching resources and curriculum selections</li>
-              <li>Exporting materials for classroom use</li>
-              <li>Supporting teaching and instructional planning</li>
+              <li>Do not attempt unauthorised access to any account, system or data.</li>
+              <li>Do not interfere with or disrupt the platform, its servers, or the networks connected to it.</li>
+              <li>Do not use automated systems, scripts, or bots to access the platform or generate content at scale, unless expressly agreed in writing.</li>
+              <li>Do not reverse engineer, decompile, or extract the underlying models or systems.</li>
+              <li>Do not probe, scan or test the vulnerability of our systems without prior written permission.</li>
+              <li>Do not circumvent credit limits, plan restrictions, or account controls.</li>
             </ul>
-            <p className="mt-3">Any use outside of these purposes may be restricted.</p>
           </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">3. Prohibited Conduct</h2>
-            <p className="mb-4">You must not use Make My Lesson to:</p>
-
-            <h3 className="mb-2 font-sans text-[15px] font-semibold text-white">3.1 Harmful or Inappropriate Content</h3>
-            <ul className="mb-6 list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Generate or distribute abusive, offensive, or discriminatory content</li>
-              <li>Create content that is inappropriate for educational environments</li>
-              <li>Use the platform to harass or harm others</li>
-            </ul>
-
-            <h3 className="mb-2 font-sans text-[15px] font-semibold text-white">3.2 Illegal or Unlawful Activity</h3>
-            <ul className="mb-6 list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Use the platform for any unlawful purpose</li>
-              <li>Violate intellectual property rights</li>
-              <li>Upload or distribute harmful software or malicious code</li>
-            </ul>
-
-            <h3 className="mb-2 font-sans text-[15px] font-semibold text-white">3.3 Academic Misuse</h3>
-            <ul className="mb-6 list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Use AI-generated content without proper review or validation</li>
-              <li>Generate assessments or materials intended to mislead or misrepresent learning outcomes</li>
-              <li>Use the platform in ways that compromise academic integrity</li>
-            </ul>
-
-            <h3 className="mb-2 font-sans text-[15px] font-semibold text-white">3.4 Platform Abuse &amp; Security Violations</h3>
-            <ul className="mb-6 list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Attempt to bypass or interfere with platform security</li>
-              <li>Reverse engineer or exploit the system</li>
-              <li>Use automated tools (bots, scripts) to extract data</li>
-              <li>Attempt unauthorised access to systems or data</li>
-            </ul>
-
-            <h3 className="mb-2 font-sans text-[15px] font-semibold text-white">3.5 Data &amp; Privacy Violations</h3>
-            <ul className="mb-6 list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Upload or share personal data without proper consent</li>
-              <li>Misuse institutional or student data</li>
-              <li>Attempt to access other users&apos; accounts</li>
-            </ul>
-
-            <h3 className="mb-2 font-sans text-[15px] font-semibold text-white">3.6 Commercial Misuse</h3>
+          <section className="legal-section">
+            <h2 className="legal-h2">4. Account and licence use</h2>
             <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Resell or redistribute platform outputs commercially without permission</li>
-              <li>Use the platform for unrelated commercial activities</li>
-              <li>Exploit the platform beyond intended educational use</li>
+              <li>Do not share your account login with another person.</li>
+              <li>Do not create multiple free accounts to obtain more free credits than intended.</li>
+              <li>Do not use a school or department seat that was not allocated to you.</li>
+              <li>Do not impersonate another person or misrepresent your affiliation with a school or institution.</li>
             </ul>
           </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">4. Use of AI-Generated Content</h2>
-            <p className="mb-3">Make My Lesson uses AI to generate educational materials.</p>
-            <p className="mb-3">You agree that:</p>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>AI-generated content is a support tool, not a final or authoritative output</li>
-              <li>You are responsible for reviewing, editing, and validating all generated materials</li>
-              <li>You must ensure content meets curriculum and institutional standards</li>
-            </ul>
+          <section className="legal-section">
+            <h2 className="legal-h2">5. Generated content</h2>
+            <p>You are responsible for reviewing all AI‑generated material before using it in a classroom, in line with section 4 of our Terms of Service. You must not present AI‑generated content as independently verified against a specific exam board or curriculum authority without checking it yourself.</p>
+            <p>You must not use the platform to mass‑produce content for resale as a competing product or service.</p>
           </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">5. Content Standards</h2>
-            <p className="mb-3">All generated or uploaded content must:</p>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Be relevant to educational use</li>
-              <li>Be appropriate for classroom environments</li>
-              <li>Avoid harmful, offensive, or misleading material</li>
-              <li>Comply with applicable laws and institutional policies</li>
-            </ul>
-            <p className="mt-3">We reserve the right to remove content that violates these standards.</p>
+          <section className="legal-section">
+            <h2 className="legal-h2">6. Reporting a concern</h2>
+            <p>If you believe another user is misusing the platform, or you have found a security issue, email <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">support@makemylesson.ai</a>. We take reports seriously and will investigate.</p>
           </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">6. Institutional Responsibilities</h2>
-            <p className="mb-3">Schools and institutions using Make My Lesson must:</p>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Ensure teachers use the platform responsibly</li>
-              <li>Manage account access appropriately</li>
-              <li>Avoid shared login practices</li>
-              <li>Ensure compliance with applicable policies and regulations</li>
-            </ul>
+          <section className="legal-section">
+            <h2 className="legal-h2">7. What happens if this policy is breached</h2>
+            <p>Depending on the nature and seriousness of the breach, we may issue a warning, restrict features, suspend your account, or terminate it, as set out in section 10 of our Terms of Service. Where a subscription was purchased through the App Store or Google Play, any refund following termination is subject to that platform's policies, not ours.</p>
           </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">7. Reporting Violations</h2>
-            <p className="mb-3">If you identify misuse or violations of this policy, please contact:</p>
-            <ul className="list-none space-y-1">
-              <li>
-                <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
-                  hello@makemylesson.ai
-                </a>
-              </li>
-              <li>
-                <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
-                  support@makemylesson.ai
-                </a>
-              </li>
-            </ul>
-            <p className="mt-3">We will investigate all reports and take appropriate action.</p>
+          <section className="legal-section">
+            <h2 className="legal-h2">8. Changes to this policy</h2>
+            <p>We may update this policy from time to time. The current version is always published on this page with the date it was last updated.</p>
           </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">8. Consequences of Violations</h2>
-            <p className="mb-3">Violations may result in:</p>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Suspension or termination of account</li>
-              <li>Removal of content</li>
-              <li>Restriction of platform access</li>
-              <li>Legal action where applicable</li>
-            </ul>
-            <p className="mt-3">We reserve the right to determine violations at our discretion.</p>
-          </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">9. Intellectual Property Reminder</h2>
-            <p className="mb-3">
-              All platform content, design, and technology belong to Qismat Ventures W.L.L. Users may not copy,
-              distribute, or exploit platform materials without permission. User-generated content remains the property of
-              the user but may be processed for platform functionality.
-            </p>
-          </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">10. Changes to This Policy</h2>
-            <p className="mb-3">We may update this Acceptable Use Policy periodically.</p>
-            <p>Continued use of the platform constitutes acceptance of updates.</p>
-          </section>
-
-<section className="legal-section">
-            <h2 className="legal-h2">11. Contact</h2>
-            <p className="mb-3">For questions or concerns:</p>
-            <ul className="list-none space-y-1">
-              <li>
-                <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
-                  hello@makemylesson.ai
-                </a>
-              </li>
-              <li>
-                <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
-                  support@makemylesson.ai
-                </a>
-              </li>
-            </ul>
-            <p className="mt-6 text-sm text-white">
-              Operated by Qismat Ventures W.L.L
-              <br />
-              Office 501, Building 1025, Road 3621, Block 436, Al-Seef, Kingdom of Bahrain
-            </p>
+          <section className="legal-section">
+            <h2 className="legal-h2">9. Contact</h2>
+            <p>Skyen Systems Pty Ltd · ACN 701 564 730</p>
+            <p>Unit 18, 285–287 Derrumat Rd, Hoppers Crossing VIC 3029, Australia</p>
+            <p><a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">support@makemylesson.ai</a></p>
           </section>
         </div>
       </article>
     </PolicyPageShell>
   )
 }
+
+

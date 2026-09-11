@@ -1,4 +1,4 @@
-import CookiePolicyPage from '@marketing/components/legal/CookiePolicyPage'
+﻿import CookiePolicyPage from '@marketing/components/legal/CookiePolicyPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
@@ -28,3 +28,5 @@ export default function CookiePolicyRoutePage() {
     </>
   )
 }
+
+

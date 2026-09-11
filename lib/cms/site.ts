@@ -1,4 +1,4 @@
-import { cache } from "react";
+﻿import { cache } from "react";
 import type { SiteResolveResponse } from "./types";
 import { getCmsEnv, isSupabaseConfigured } from "./config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -100,3 +100,5 @@ export const getSiteId = cache(async (): Promise<string | null> => {
     return null;
   }
 });
+
+

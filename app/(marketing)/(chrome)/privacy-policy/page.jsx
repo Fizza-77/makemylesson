@@ -1,4 +1,4 @@
-import PrivacyPolicyPage from '@marketing/components/legal/PrivacyPolicyPage'
+﻿import PrivacyPolicyPage from '@marketing/components/legal/PrivacyPolicyPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
@@ -28,3 +28,5 @@ export default function PrivacyPolicyRoutePage() {
     </>
   )
 }
+
+

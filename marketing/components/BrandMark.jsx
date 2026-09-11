@@ -1,4 +1,4 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 
 /**
  * Site logo from /public/logo.png.
@@ -17,3 +17,5 @@ export default function BrandMark({ className = 'h-7 w-7 shrink-0 object-contain
     />
   )
 }
+
+

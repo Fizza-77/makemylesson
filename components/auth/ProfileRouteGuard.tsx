@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -113,3 +113,5 @@ export function ProfileRouteGuard({ children }: { children: React.ReactNode }) {
 
   return children;
 }
+
+

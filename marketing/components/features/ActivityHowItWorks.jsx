@@ -1,4 +1,4 @@
-const STEPS = [
+﻿const STEPS = [
   {
     n: 1,
     title: 'Pick the activity type',
@@ -93,3 +93,5 @@ export default function ActivityHowItWorks() {
     </section>
   )
 }
+
+

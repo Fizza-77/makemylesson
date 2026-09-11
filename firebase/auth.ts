@@ -1,4 +1,4 @@
-import { FirebaseError } from "firebase/app";
+﻿import { FirebaseError } from "firebase/app";
 import {
   browserLocalPersistence,
   GoogleAuthProvider,
@@ -126,3 +126,5 @@ export async function verifyResetCode(oobCode: string): Promise<string> {
 export function getCurrentUser(): User | null {
   return getFirebaseAuth().currentUser;
 }
+
+

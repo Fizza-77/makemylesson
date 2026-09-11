@@ -1,4 +1,4 @@
-import JSZip from "jszip";
+﻿import JSZip from "jszip";
 
 /** Client-side source file parsing for Stages 2–4 (mirrors Flutter Stage2SourceParserService). */
 
@@ -172,3 +172,5 @@ export function pickAndParseStageSource(
     input.click();
   });
 }
+
+

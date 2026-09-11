@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { stage2ThemeById } from "@/data/stage2-themes";
 import { cn } from "@/lib/utils";
@@ -154,3 +154,5 @@ export function Stage2CoverCanvas({
     </div>
   );
 }
+
+

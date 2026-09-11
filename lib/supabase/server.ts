@@ -1,4 +1,4 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+﻿import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
  * Server-side Supabase client (anon key). Use only for public, RLS-protected reads.
@@ -17,3 +17,5 @@ export function createSupabaseServerClient(): SupabaseClient {
     },
   });
 }
+
+

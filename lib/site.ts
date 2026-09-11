@@ -1,4 +1,4 @@
-/** Canonical site URL for metadata, canonical links, and OG fallbacks. */
+﻿/** Canonical site URL for metadata, canonical links, and OG fallbacks. */
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://makemylesson.ai";
 
 /** Path to default OG image (under /public). */
@@ -12,3 +12,5 @@ export function absoluteUrl(path: string): string {
   const p = path.startsWith("/") ? path : `/${path}`;
   return `${base}${p}`;
 }
+
+

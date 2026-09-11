@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 
@@ -168,3 +168,5 @@ export function upgradeReasonForCredits(params: {
   if (params.isPaid) return "paidCreditsExhausted";
   return "freeExhausted";
 }
+
+

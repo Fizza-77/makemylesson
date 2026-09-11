@@ -1,4 +1,4 @@
-import { ClipboardList, Clock, FileCheck, PencilLine, Presentation } from 'lucide-react'
+﻿import { ClipboardList, Clock, FileCheck, PencilLine, Presentation } from 'lucide-react'
 import { Reveal } from '../shared'
 
 const PAIN_ITEMS = [
@@ -74,3 +74,5 @@ export default function ProblemSection() {
     </section>
   )
 }
+
+

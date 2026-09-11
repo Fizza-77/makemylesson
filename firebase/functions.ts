@@ -1,4 +1,4 @@
-import { httpsCallable, type HttpsCallableOptions } from "firebase/functions";
+﻿import { httpsCallable, type HttpsCallableOptions } from "firebase/functions";
 
 import { getFirebaseFunctions } from "./config";
 
@@ -32,3 +32,5 @@ export function callable<TRequest = unknown, TResponse = unknown>(
 ) {
   return httpsCallable<TRequest, TResponse>(getFirebaseFunctions(), name, options);
 }
+
+

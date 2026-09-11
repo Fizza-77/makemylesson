@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { MarkdownContentView } from "@/components/common/MarkdownContentView";
 
@@ -50,3 +50,5 @@ export function LessonPlanContentView({
     />
   );
 }
+
+

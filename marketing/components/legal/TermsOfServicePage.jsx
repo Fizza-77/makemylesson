@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import PolicyPageShell from '@marketing/components/layout/PolicyPageShell'
 
 export default function TermsOfServicePage() {
@@ -9,10 +9,10 @@ export default function TermsOfServicePage() {
           <h1 className="legal-article-title">
             Terms of Service
           </h1>
-          <p className="legal-article-operator">Operated by Qismat Ventures W.L.L</p>
+          <p className="legal-article-operator">Operated by Skyen Systems Pty Ltd</p>
           <p className="legal-article-meta">
-            <span className="block">Effective Date: [To be set]</span>
-            <span className="mt-1 block">Last Updated: [To be set]</span>
+            <span className="block">Effective Date: 7 September 2026</span>
+            <span className="mt-1 block">Last Updated: 7 September 2026</span>
           </p>
         </header>
 
@@ -20,7 +20,7 @@ export default function TermsOfServicePage() {
           <section className="legal-section">
             <h2 className="legal-h2">1. Introduction</h2>
             <p className="mb-3">
-              Welcome to Make My Lesson, an educational technology platform operated by Qismat Ventures W.L.L
+              Welcome to Make My Lesson, an educational technology platform operated by Skyen Systems Pty Ltd
               (&quot;Make My Lesson,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;).
             </p>
             <p className="mb-3">
@@ -142,7 +142,7 @@ export default function TermsOfServicePage() {
           <section className="legal-section">
             <h2 className="legal-h2">7. Intellectual Property</h2>
             <p className="mb-3">
-              All platform content, design, technology, and branding are owned by or licensed to Qismat Ventures W.L.L.
+              All platform content, design, technology, and branding are owned by or licensed to Skyen Systems Pty Ltd.
             </p>
             <p className="mb-3">You may not:</p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
@@ -250,7 +250,7 @@ export default function TermsOfServicePage() {
 
           <section className="legal-section">
             <h2 className="legal-h2">14. Indemnification</h2>
-            <p className="mb-3">You agree to indemnify and hold harmless Qismat Ventures W.L.L from claims arising from:</p>
+            <p className="mb-3">You agree to indemnify and hold harmless Skyen Systems Pty Ltd from claims arising from:</p>
             <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
               <li>Your use of the platform</li>
               <li>Misuse of generated content</li>
@@ -260,7 +260,7 @@ export default function TermsOfServicePage() {
 
           <section className="legal-section">
             <h2 className="legal-h2">15. Governing Law</h2>
-            <p>These Terms are governed by the laws of the Kingdom of Bahrain.</p>
+            <p>These Terms are governed by the laws of the Australia.</p>
           </section>
 
           <section className="legal-section">
@@ -285,9 +285,9 @@ export default function TermsOfServicePage() {
               </li>
             </ul>
             <p className="mt-6 text-sm text-white">
-              Operated by Qismat Ventures W.L.L
+              Operated by Skyen Systems Pty Ltd
               <br />
-              Office 501, Building 1025, Road 3621, Block 436, Al-Seef, Kingdom of Bahrain
+              Unit 18, 285-287 Derrimut Rd, Hoppers Crossing VIC 3029, Australia
             </p>
           </section>
         </div>
@@ -295,3 +295,5 @@ export default function TermsOfServicePage() {
     </PolicyPageShell>
   )
 }
+
+

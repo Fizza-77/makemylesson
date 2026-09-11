@@ -65,3 +65,4 @@ export const toast = {
   error: (message: string) => useToastStore.getState().show(message, "error"),
   dismiss: (id: string) => useToastStore.getState().dismiss(id),
 };
+

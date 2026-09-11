@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Convert thrown errors / raw strings into short messages safe to show teachers.
  * Never surface stack traces, Firebase codes, or exception class names.
  */
@@ -122,3 +122,5 @@ export function toUserMessage(
 
   return fallback;
 }
+
+

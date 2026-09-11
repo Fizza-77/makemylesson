@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+﻿import { cn } from "@/lib/utils";
 
 /** Sticky right column — scrolls independently on desktop; scrollbar hidden. */
 export function AppSidebarColumn({
@@ -38,3 +38,5 @@ export function AppSidebarColumn({
     </aside>
   );
 }
+
+

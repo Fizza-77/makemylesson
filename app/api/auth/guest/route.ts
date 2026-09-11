@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 
 import {
   isGuestAuthServerConfigured,
@@ -73,3 +73,5 @@ export async function POST(request: Request) {
     );
   }
 }
+
+

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -80,3 +80,5 @@ export function MobileNavMegaMenus({ pathname, linkClassName, onNavigate, enable
     </>
   )
 }
+
+

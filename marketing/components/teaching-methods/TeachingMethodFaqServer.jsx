@@ -1,4 +1,4 @@
-function FaqChevron() {
+﻿function FaqChevron() {
   return (
     <svg
       className="pricing-faq-chevron h-4 w-4 shrink-0 text-[#35BEBC]"
@@ -61,3 +61,5 @@ export default function TeachingMethodFaqServer({
     </section>
   )
 }
+
+

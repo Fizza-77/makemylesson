@@ -1,4 +1,4 @@
-import type { jsPDF } from "jspdf";
+﻿import type { jsPDF } from "jspdf";
 
 export const PDF_INK = 26;
 export const PDF_MUTED = 110;
@@ -587,3 +587,5 @@ function splitTableRow(line: string): string[] {
     .split("|")
     .map((cell) => stripInline(cell.trim()));
 }
+
+

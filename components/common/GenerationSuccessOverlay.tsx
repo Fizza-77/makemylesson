@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
@@ -46,3 +46,5 @@ export function GenerationSuccessOverlay({
     </div>
   );
 }
+
+

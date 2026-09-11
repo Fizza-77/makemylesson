@@ -1,4 +1,4 @@
-import { callFunction } from "@/firebase/functions";
+﻿import { callFunction } from "@/firebase/functions";
 
 export async function startEmailSignupVerification(email: string) {
   await callFunction<{ email: string }>("startEmailSignupVerification", {
@@ -46,3 +46,5 @@ export async function verifyEmailOtp(otp: string) {
 export async function sendWelcomeEmail() {
   await callFunction<Record<string, never>>("sendWelcomeEmail", {});
 }
+
+

@@ -1,4 +1,4 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 
 import { Reveal } from '../shared'
 
@@ -98,3 +98,5 @@ export default function CurriculumSection() {
     </section>
   )
 }
+
+

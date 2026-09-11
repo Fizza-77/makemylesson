@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 
 import { ROUTES } from "@/lib/urls";
 
@@ -6,3 +6,5 @@ import { ROUTES } from "@/lib/urls";
 export default function HomePage() {
   redirect(ROUTES.stage1);
 }
+
+

@@ -1,4 +1,4 @@
-import multiavatar from "@multiavatar/multiavatar";
+﻿import multiavatar from "@multiavatar/multiavatar";
 
 /**
  * Same Multiavatar engine + seed pattern as Flutter `random_avatar` /
@@ -22,3 +22,5 @@ export function avatarDataUrlForSeed(seed: string): string {
   const svg = avatarSvgForSeed(seed);
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
+
+

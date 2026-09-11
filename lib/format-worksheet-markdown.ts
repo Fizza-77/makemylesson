@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Normalize AI / library worksheet text so markdown renders with clear structure:
  * bold question stems, one option per line, Answer / Marking guidance on their own lines.
  *
@@ -517,3 +517,5 @@ export function studentActivityMarkdownFromItems(
   }
   return collapseExtraBlankLines(boldQuestionStems(parts.join("\n\n")));
 }
+
+

@@ -1,4 +1,4 @@
-export const SIGN_IN_LOADING_MESSAGES = [
+﻿export const SIGN_IN_LOADING_MESSAGES = [
   "Verifying your details…",
   "Securely signing you in…",
   "Getting your lessons ready…",
@@ -25,3 +25,5 @@ export const OTP_VERIFY_LOADING_MESSAGES = [
   "Setting up your profile…",
   "Almost ready…",
 ] as const;
+
+

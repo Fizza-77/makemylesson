@@ -1,7 +1,9 @@
-"use client";
+﻿"use client";
 
 import { LibraryView } from "@/features/library/LibraryView";
 
 export default function LibraryPage() {
   return <LibraryView />;
 }
+
+

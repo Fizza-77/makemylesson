@@ -1,4 +1,4 @@
-import { cn } from '@marketing/lib/cn'
+﻿import { cn } from '@marketing/lib/cn'
 import { TEACHING_METHOD_CARD_ICONS } from '@marketing/components/teaching-methods/TeachingMethodCardIcons'
 import { getCardDisplayParts } from '@marketing/lib/teachingMethodCard'
 import TeachingMethodSectionImage from '@marketing/components/teaching-methods/TeachingMethodSectionImage'
@@ -192,3 +192,5 @@ export default function TeachingMethodSection({
     </section>
   )
 }
+
+

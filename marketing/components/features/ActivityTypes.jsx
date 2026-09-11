@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { ArrowLeftRight, ArrowUpDown, MessageSquare, Minus, Tag } from 'lucide-react'
@@ -175,3 +175,5 @@ export default function ActivityTypes() {
     </section>
   )
 }
+
+

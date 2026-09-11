@@ -1,4 +1,4 @@
-function splitTrailingWords(text, count = 2) {
+﻿function splitTrailingWords(text, count = 2) {
   const trimmed = text.trim()
   if (!trimmed) return { lead: '', accent: '' }
 
@@ -57,3 +57,5 @@ export default function TeachingMethodTitle({ title }) {
     </h1>
   )
 }
+
+

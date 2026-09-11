@@ -1,4 +1,4 @@
-/** Port of Flutter CurriculumService.getCurriculumIdFromPathway — do not invent routes. */
+﻿/** Port of Flutter CurriculumService.getCurriculumIdFromPathway — do not invent routes. */
 
 export function getCurriculumIdFromPathway(pathwayId: string, gradeId: string): string | null {
     // Map pathway ID and grade to curriculum ID
@@ -423,3 +423,5 @@ export function getCurriculumIdFromPathway(pathwayId: string, gradeId: string): 
     }
     return null;
 }
+
+

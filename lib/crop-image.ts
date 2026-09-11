@@ -1,4 +1,4 @@
-export type PixelCrop = {
+﻿export type PixelCrop = {
   x: number;
   y: number;
   width: number;
@@ -51,3 +51,5 @@ function loadImage(src: string): Promise<HTMLImageElement> {
     img.src = src;
   });
 }
+
+

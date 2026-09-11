@@ -1,4 +1,4 @@
-import { ref, uploadBytes, getDownloadURL, deleteObject, type UploadMetadata } from "firebase/storage";
+﻿import { ref, uploadBytes, getDownloadURL, deleteObject, type UploadMetadata } from "firebase/storage";
 
 import { getFirebaseStorage } from "./config";
 
@@ -22,3 +22,5 @@ export async function deleteUserFile(uid: string, path: string) {
     /* object may not exist */
   }
 }
+
+

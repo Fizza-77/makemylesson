@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { PricingLink } from "@/components/common/PricingLink";
 import { Card } from "@/components/ui/Card";
@@ -37,3 +37,5 @@ export function StageUpgradeCard() {
     </Card>
   );
 }
+
+

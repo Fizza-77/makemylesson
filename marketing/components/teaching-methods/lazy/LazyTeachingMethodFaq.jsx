@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import LazyClientSection from '@marketing/components/LazyClientSection'
 
@@ -11,3 +11,5 @@ export default function LazyTeachingMethodFaq(props) {
     />
   )
 }
+
+

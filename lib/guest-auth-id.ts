@@ -1,4 +1,4 @@
-/** Firebase Auth uid prefix for web guest sessions (custom token fallback). */
+﻿/** Firebase Auth uid prefix for web guest sessions (custom token fallback). */
 export const GUEST_WEB_UID_PREFIX = "guest_web_";
 
 const GUEST_AUTH_UID_KEY = "mml_guest_auth_uid";
@@ -40,3 +40,5 @@ export function newGuestWebUid(): string {
       : `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 10)}`;
   return `${GUEST_WEB_UID_PREFIX}${id}`;
 }
+
+

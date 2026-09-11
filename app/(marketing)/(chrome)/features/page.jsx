@@ -1,4 +1,4 @@
-import { permanentRedirect } from 'next/navigation'
+﻿import { permanentRedirect } from 'next/navigation'
 import {
   FEATURE_STAGE_ITEMS,
   getFeatureBySlug,
@@ -26,3 +26,5 @@ export default async function FeaturesRoutePage({ searchParams }) {
   const target = getFeatureBySlug(stageParam) ? stageParam : DEFAULT_STAGE
   permanentRedirect(getFeaturePath(target))
 }
+
+

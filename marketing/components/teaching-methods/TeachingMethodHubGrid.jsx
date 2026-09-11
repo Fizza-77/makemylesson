@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { useInView } from '@marketing/landing/hooks'
@@ -34,3 +34,5 @@ export default function TeachingMethodHubGrid({ columns }) {
     </div>
   )
 }
+
+

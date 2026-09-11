@@ -1,4 +1,4 @@
-/** Above-the-fold hero + nav rules inlined on the homepage to cut LCP element render delay. */
+﻿/** Above-the-fold hero + nav rules inlined on the homepage to cut LCP element render delay. */
 export const HOME_CRITICAL_CSS = `
 .mml-marketing-page{--mml-navy-deep:#0e294c;--mml-ink:#0e294c;--mml-text-secondary:#4a5a66;--mml-cyan:#159f9b;--mml-white:#fff;--mml-paper:#e6ecee;min-height:100vh;background:var(--mml-paper);color:var(--mml-ink);overflow-x:clip;font-family:var(--font-inter),Inter,system-ui,sans-serif}
 #site-nav.site-nav--home{position:fixed;left:0;right:0;top:0;z-index:1100;background-color:#f8fcfc;background-image:linear-gradient(180deg,#f4fbfc 0%,#f8fcfc 100%)}
@@ -23,3 +23,5 @@ export const HOME_CRITICAL_CSS = `
 .mml-mkt-hero-body{display:flex;flex-direction:column;gap:.85rem;margin-top:1.85rem}
 @media(max-width:1199px){.mml-mkt-hero-split{grid-template-columns:1fr;justify-items:center;gap:1.75rem}.mml-mkt-hero-copy-col{display:flex;flex-direction:column;align-items:stretch;margin-left:0;width:100%;max-width:44rem;text-align:center;padding-top:.5rem;padding-inline:.75rem}.mml-mkt-hero-title{white-space:normal}.mml-mkt-hero-lead{text-align:center}.mml-mkt-hero-ctas{width:100%;max-width:100%;box-sizing:border-box;flex-wrap:wrap}}
 `.replace(/\n/g, "");
+
+

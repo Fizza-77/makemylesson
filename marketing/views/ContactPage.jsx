@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { Suspense } from 'react'
 import {
   ArrowRight,
@@ -181,7 +181,7 @@ export default function ContactPage({ initialSubject = '' }) {
               </div>
               <p className="text-[15px] font-bold text-[#1A1E3A]">Skyen Solutions</p>
               <p className="mt-2 text-[13px] leading-relaxed text-black sm:text-[14px]">
-                A trade name of Qismat Ventures W.L.L. (CR 190698-1), Bahrain.
+                A trade name of Skyen Systems Pty Ltd. (ACN 701 564 730), Bahrain.
                 <br />
                 Office support available Mon–Fri for school and partnership enquiries.
               </p>
@@ -225,3 +225,5 @@ export default function ContactPage({ initialSubject = '' }) {
     </div>
   )
 }
+
+

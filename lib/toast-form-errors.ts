@@ -1,4 +1,4 @@
-import type { FieldErrors, FieldValues } from "react-hook-form";
+﻿import type { FieldErrors, FieldValues } from "react-hook-form";
 
 import { toast } from "@/store/toast-store";
 
@@ -20,3 +20,5 @@ export function toastFirstFormError(errors: FieldErrors<FieldValues>) {
   const message = walk(errors);
   if (message) toast.error(message);
 }
+
+

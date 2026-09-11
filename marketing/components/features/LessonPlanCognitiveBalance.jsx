@@ -1,4 +1,4 @@
-const BLOOM_LEVELS = [
+﻿const BLOOM_LEVELS = [
   { label: 'Remember', pct: 20 },
   { label: 'Understand', pct: 25 },
   { label: 'Apply', pct: 25 },
@@ -56,3 +56,5 @@ export default function LessonPlanCognitiveBalance() {
     </section>
   )
 }
+
+

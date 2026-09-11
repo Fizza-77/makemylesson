@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -193,3 +193,5 @@ export function usePayPalCheckout() {
     loadingPlan,
   };
 }
+
+

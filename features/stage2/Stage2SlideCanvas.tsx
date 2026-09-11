@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { stage2ThemeById, type Stage2SlideTheme } from "@/data/stage2-themes";
 import { plainMarkdown } from "@/services/document-export-core";
@@ -125,3 +125,5 @@ export function Stage2SlideCanvas({
     </div>
   );
 }
+
+

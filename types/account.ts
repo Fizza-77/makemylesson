@@ -1,4 +1,4 @@
-export type AccountPlanTier =
+﻿export type AccountPlanTier =
   | "free"
   | "individualMonthly"
   | "individualAnnual"
@@ -18,3 +18,5 @@ export function ageFromDateOfBirth(dob: Date): number {
   if (!hadBirthday) age -= 1;
   return age;
 }
+
+

@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+﻿import { createHash } from "node:crypto";
 
 export function clientIp(request: Request): string {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -13,3 +13,5 @@ export function hashClientIp(ip: string): string {
     "mml-web-trial";
   return createHash("sha256").update(`${salt}:${ip}`).digest("hex");
 }
+
+

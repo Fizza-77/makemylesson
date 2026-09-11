@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper, { type Area } from "react-easy-crop";
@@ -507,3 +507,5 @@ export function ProfilePhotoControls({ account }: { account: UserAccountView }) 
     </>
   );
 }
+
+

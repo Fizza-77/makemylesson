@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import TeachingMethodJumpNav from '@marketing/components/teaching-methods/TeachingMethodJumpNav'
 import TeachingMethodSectionImage from '@marketing/components/teaching-methods/TeachingMethodSectionImage'
 import TeachingMethodTitle from '@marketing/components/teaching-methods/TeachingMethodTitle'
@@ -34,3 +34,5 @@ export default function TeachingMethodHero({ method, title, intro, eyebrow, sect
     </section>
   )
 }
+
+

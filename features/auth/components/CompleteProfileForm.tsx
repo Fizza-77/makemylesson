@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -199,3 +199,5 @@ export function CompleteProfileForm() {
     </AuthGlassShell>
   );
 }
+
+

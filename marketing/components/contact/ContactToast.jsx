@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -52,3 +52,5 @@ export default function ContactToast({ message, variant = 'info', onDismiss }) {
     </AnimatePresence>
   )
 }
+
+

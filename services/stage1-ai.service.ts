@@ -1,4 +1,4 @@
-import { callFunction } from "@/firebase/functions";
+﻿import { callFunction } from "@/firebase/functions";
 import {
   parseStage1Status,
   type LessonPlanSelection,
@@ -63,3 +63,5 @@ export async function getStage1GenerationStatus(
   );
   return parseStage1Status(data);
 }
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
@@ -25,3 +25,5 @@ export default function DeferredCookieConsent() {
 
   return <CookieConsent />;
 }
+
+

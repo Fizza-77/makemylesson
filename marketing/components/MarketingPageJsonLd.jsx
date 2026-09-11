@@ -1,4 +1,4 @@
-import JsonLd from '@marketing/components/JsonLd'
+﻿import JsonLd from '@marketing/components/JsonLd'
 import { buildCoreOrganizationGraph } from '@marketing/lib/organizationSchema'
 
 /**
@@ -9,3 +9,5 @@ export default function MarketingPageJsonLd({ data }) {
   const pageNodes = !data ? [] : Array.isArray(data) ? data.filter(Boolean) : [data]
   return <JsonLd data={[buildCoreOrganizationGraph(), ...pageNodes]} />
 }
+
+

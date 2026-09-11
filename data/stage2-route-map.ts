@@ -1,4 +1,4 @@
-/** Mirrors Flutter `LessonFlowNotifier._stage2RouteMap`. */
+﻿/** Mirrors Flutter `LessonFlowNotifier._stage2RouteMap`. */
 export const STAGE2_ROUTE_MAP: Record<string, string> = {
   ib_pyp: "pyp",
   ib_myp: "myp",
@@ -80,3 +80,5 @@ export function fallbackStage2RouteId(topLevelId: string): string {
   if (top.includes("us")) return "us-highschool";
   return "uk-ks3";
 }
+
+

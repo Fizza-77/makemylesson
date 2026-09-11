@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { LESSON_PLAN_SECTION_HEADING } from "@/components/common/MarkdownContentView";
 import { buildLessonPlanSupplement } from "@/lib/lesson-plan-supplement";
@@ -146,3 +146,5 @@ function Section({
     </section>
   );
 }
+
+

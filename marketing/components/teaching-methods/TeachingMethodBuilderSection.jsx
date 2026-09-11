@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import dynamic from 'next/dynamic'
 
@@ -10,3 +10,5 @@ const BuilderInteractiveLayout = dynamic(
 export default function TeachingMethodBuilderSection({ section, sectionIndex }) {
   return <BuilderInteractiveLayout section={section} sectionIndex={sectionIndex} />
 }
+
+

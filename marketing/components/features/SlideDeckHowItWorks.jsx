@@ -1,4 +1,4 @@
-const STEPS = [
+﻿const STEPS = [
   {
     n: 1,
     title: 'Start from your plan',
@@ -82,3 +82,5 @@ export default function SlideDeckHowItWorks() {
     </section>
   )
 }
+
+

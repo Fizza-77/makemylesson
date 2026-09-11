@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 
 import {
   clearAllNotifications,
@@ -73,3 +73,5 @@ export function syncNotificationsSubscription(uid: string | null) {
     useNotificationsStore.getState().setUnread(n);
   });
 }
+
+

@@ -1,4 +1,4 @@
-import { toast } from "@/store/toast-store";
+﻿import { toast } from "@/store/toast-store";
 
 type GenerationSaveResult = {
   savedToLibrary?: boolean;
@@ -67,3 +67,5 @@ export function notifyStage4GenerationComplete(
     toast.success("Assessment ready.");
   }
 }
+
+

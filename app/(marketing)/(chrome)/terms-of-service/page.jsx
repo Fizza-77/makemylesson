@@ -1,4 +1,4 @@
-import TermsOfServicePage from '@marketing/components/legal/TermsOfServicePage'
+﻿import TermsOfServicePage from '@marketing/components/legal/TermsOfServicePage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
@@ -28,3 +28,5 @@ export default function TermsOfServiceRoutePage() {
     </>
   )
 }
+
+

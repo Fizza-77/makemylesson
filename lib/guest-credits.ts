@@ -1,4 +1,4 @@
-import {
+﻿import {
   getDeviceTrialUsedCount,
   isDeviceFreeSignupConsumed,
   markDeviceFreeSignupConsumed,
@@ -201,3 +201,5 @@ export function consumeGuestCreditLocal(): number {
   }
   return next;
 }
+
+

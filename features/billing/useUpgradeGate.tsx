@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useState } from "react";
 
@@ -44,3 +44,5 @@ export function useUpgradeGate() {
 
   return { blockIfNoCredits, dialog, credits: remaining };
 }
+
+

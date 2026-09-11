@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import type { ReactNode } from "react";
 
 function ZipIcon() {
@@ -177,3 +177,5 @@ export default function ShelfSection() {
     </section>
   );
 }
+
+

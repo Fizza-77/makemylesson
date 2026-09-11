@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { Leaf, MessageSquare } from 'lucide-react'
@@ -77,3 +77,5 @@ export default function SlideDeckHeroPreview() {
     </div>
   )
 }
+
+

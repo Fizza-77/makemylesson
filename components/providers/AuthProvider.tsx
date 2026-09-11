@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, type ReactNode } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -101,3 +101,5 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return children;
 }
+
+

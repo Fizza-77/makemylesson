@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 /**
  * Module-level PWA install helpers.
@@ -134,3 +134,5 @@ export async function promptPwaInstall(): Promise<
 if (typeof window !== "undefined") {
   wirePwaInstallListeners();
 }
+
+

@@ -1,4 +1,4 @@
-import TeachingMethodsHubPage from '@marketing/views/TeachingMethodsHubPage'
+﻿import TeachingMethodsHubPage from '@marketing/views/TeachingMethodsHubPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import '../../../marketing/marketing-content.css'
 import { TEACHING_METHOD_COLUMNS } from '@marketing/data/teachingMethods'
@@ -38,3 +38,5 @@ export default function TeachingMethodsHubRoutePage() {
     </>
   )
 }
+
+

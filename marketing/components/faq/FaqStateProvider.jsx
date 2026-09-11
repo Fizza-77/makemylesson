@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { createContext, useContext, useMemo, useState } from 'react'
 
@@ -52,3 +52,5 @@ export default function FaqStateProvider({ children }) {
 
   return <FaqStateContext.Provider value={value}>{children}</FaqStateContext.Provider>
 }
+
+

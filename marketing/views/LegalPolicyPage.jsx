@@ -1,4 +1,4 @@
-import PolicyPageShell from '@marketing/components/layout/PolicyPageShell'
+﻿import PolicyPageShell from '@marketing/components/layout/PolicyPageShell'
 
 export default function LegalPolicyPage({ title, lead }) {
   return (
@@ -14,3 +14,5 @@ export default function LegalPolicyPage({ title, lead }) {
     </PolicyPageShell>
   )
 }
+
+

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import '@marketing/styles/legacy-landing-page.css'
 import '@marketing/styles/large-screens.css'
@@ -61,3 +61,4 @@ export default function LandingPage() {
     </div>
   )
 }
+

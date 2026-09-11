@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Standard lesson-plan sections the Flutter app appends to every Stage 1 plan.
  *
  * These are template boilerplate, not AI output — the model never returns them.
@@ -93,3 +93,5 @@ export function buildLessonPlanSupplement(meta: {
     },
   };
 }
+
+

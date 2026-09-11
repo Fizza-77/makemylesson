@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -71,3 +71,5 @@ export function AuthLoadingOverlay({ active, messages, className }: AuthLoadingO
     </div>
   );
 }
+
+

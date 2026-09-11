@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 import { Stage2View } from "@/features/stage2/Stage2View";
 
@@ -10,3 +10,5 @@ export const metadata: Metadata = {
 export default function Stage2Page() {
   return <Stage2View />;
 }
+
+

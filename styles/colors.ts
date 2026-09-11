@@ -1,4 +1,4 @@
-export const colors = {
+﻿export const colors = {
   heroNavy: "#1A2138",
   tealPrimary: "#28C2C0",
   tealBright: "#3DC0BF",
@@ -9,3 +9,5 @@ export const colors = {
   borderSubtle: "#E5E7EB",
   ctaNavy: "#1E2235",
 } as const;
+
+

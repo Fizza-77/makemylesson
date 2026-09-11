@@ -1,4 +1,4 @@
-import { isStandaloneDisplay } from "@/lib/pwa-install";
+﻿import { isStandaloneDisplay } from "@/lib/pwa-install";
 import { AppUrls, MARKETING_ORIGIN, ROUTES } from "@/lib/urls";
 
 function pricingPath(search = ""): string {
@@ -150,3 +150,5 @@ export function openContactPage(
     window.location.assign(url);
   }
 }
+
+

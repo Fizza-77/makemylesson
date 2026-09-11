@@ -1,4 +1,4 @@
-import type { jsPDF } from "jspdf";
+﻿import type { jsPDF } from "jspdf";
 
 import {
   personalizationHasAny,
@@ -242,3 +242,5 @@ export function drawLessonPlanStyleCover(
   w.rule();
   w.gap(16);
 }
+
+

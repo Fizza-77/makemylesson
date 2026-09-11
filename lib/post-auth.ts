@@ -1,4 +1,4 @@
-import { getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+﻿import { getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import type { User } from "firebase/auth";
 
 import { sendWelcomeEmail } from "@/services/auth-email.service";
@@ -111,3 +111,5 @@ export async function resolvePostAuthDestination(user: User): Promise<string> {
   authLog.success("post_auth.ready", { uid: user.uid, dest: ROUTES.stage1 });
   return ROUTES.stage1;
 }
+
+

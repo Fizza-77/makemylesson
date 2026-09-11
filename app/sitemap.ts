@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 
 import { APP_ORIGIN, ROUTES } from "@/lib/urls";
 
@@ -13,3 +13,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "/" ? 1 : path === ROUTES.pricing ? 0.9 : 0.6,
   }));
 }
+
+

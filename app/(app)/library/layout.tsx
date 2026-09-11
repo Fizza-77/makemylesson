@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
@@ -9,3 +9,5 @@ export const metadata: Metadata = {
 export default function LibraryLayout({ children }: { children: ReactNode }) {
   return children;
 }
+
+

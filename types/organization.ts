@@ -1,4 +1,4 @@
-export type OrganizationSummary = {
+﻿export type OrganizationSummary = {
   orgId: string;
   planKey: string;
   seatLimit: number;
@@ -67,3 +67,5 @@ export function organizationDashboardFromJson(
       typeof json.renewed === "boolean" ? json.renewed : null,
   };
 }
+
+

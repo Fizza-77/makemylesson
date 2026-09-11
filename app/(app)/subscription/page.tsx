@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 
 /** Legacy app billing path — purchases live on marketing `/pricing`. */
 export default async function SubscriptionPage({
@@ -15,3 +15,5 @@ export default async function SubscriptionPage({
   const suffix = qs.toString();
   redirect(suffix ? `/pricing?${suffix}` : "/pricing");
 }
+
+

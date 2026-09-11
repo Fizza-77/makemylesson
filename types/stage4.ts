@@ -1,4 +1,4 @@
-/** Stage 4 summative assessment — mirrors Flutter `stage4_assessment.dart`. */
+﻿/** Stage 4 summative assessment — mirrors Flutter `stage4_assessment.dart`. */
 
 export type Stage4SourceMode = "stage3Library" | "upload";
 
@@ -435,3 +435,5 @@ export function parseStage4QuestionsFromRawJson(
   }
   return out;
 }
+
+

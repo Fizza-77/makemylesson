@@ -1,4 +1,4 @@
-const rateLimit = new Map<string, { count: number; resetAt: number }>();
+﻿const rateLimit = new Map<string, { count: number; resetAt: number }>();
 
 export function checkRateLimit(
   key: string,
@@ -15,3 +15,5 @@ export function checkRateLimit(
   entry.count += 1;
   return true;
 }
+
+

@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 import Link from 'next/link'
 import AylaIcon from '@marketing/components/AylaIcon'
 import { Check } from 'lucide-react'
@@ -97,3 +97,5 @@ export default function StageLayout({ children, currentStage }) {
     </div>
   )
 }
+
+

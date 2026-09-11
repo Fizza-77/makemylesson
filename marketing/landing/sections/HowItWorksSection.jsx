@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
@@ -354,3 +354,5 @@ export default function HowItWorksSection() {
     </section>
   )
 }
+
+

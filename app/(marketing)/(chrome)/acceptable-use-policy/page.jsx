@@ -1,4 +1,4 @@
-import AcceptableUsePolicyPage from '@marketing/components/legal/AcceptableUsePolicyPage'
+﻿import AcceptableUsePolicyPage from '@marketing/components/legal/AcceptableUsePolicyPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
@@ -28,3 +28,5 @@ export default function AcceptableUsePolicyRoutePage() {
     </>
   )
 }
+
+

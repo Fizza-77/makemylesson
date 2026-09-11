@@ -1,4 +1,4 @@
-import {
+﻿import {
   doc,
   getDoc,
   runTransaction,
@@ -188,3 +188,5 @@ export async function recordStageGenerated(stage: 1 | 2 | 3 | 4): Promise<void> 
     if (shouldSend) await sendEvent(uid, "complete_pack_first_time");
   }
 }
+
+

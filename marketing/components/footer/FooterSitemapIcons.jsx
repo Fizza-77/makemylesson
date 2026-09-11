@@ -1,4 +1,4 @@
-const ICON_PROPS = {
+﻿const ICON_PROPS = {
   width: 20,
   height: 20,
   viewBox: '0 0 24 24',
@@ -87,3 +87,5 @@ export function FooterSitemapIcon({ name }) {
       return null
   }
 }
+
+

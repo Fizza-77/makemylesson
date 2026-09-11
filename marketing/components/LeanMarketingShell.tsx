@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 
 import DeferredCookieConsent from "@marketing/components/DeferredCookieConsent";
 import StaticSiteFooterServer from "@marketing/components/StaticSiteFooter.server";
@@ -20,3 +20,5 @@ export default function LeanMarketingShell({ children, siteClassName }: LeanMark
     </div>
   );
 }
+
+

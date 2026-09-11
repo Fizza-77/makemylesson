@@ -1,4 +1,4 @@
-/** Stage 2 presentation types — mirrors Flutter `stage2_presentation.dart`. */
+﻿/** Stage 2 presentation types — mirrors Flutter `stage2_presentation.dart`. */
 
 export type Stage2SourceMode = "stage1Library" | "upload";
 
@@ -310,3 +310,5 @@ export function slidesJsonForLibrary(slides: Stage2Slide[]): Record<string, unkn
     return json;
   });
 }
+
+

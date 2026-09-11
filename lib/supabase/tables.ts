@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Shared Supabase schema (same pattern as Studiely / admin dashboard):
  *
  * sites
@@ -23,3 +23,5 @@ export const DEFAULT_SITES_TABLE = "sites";
 export const DEFAULT_BLOG_POSTS_TABLE = "blogs";
 /** Site-scoped blog categories. Filter with `site_id` for public sites. */
 export const DEFAULT_BLOG_CATEGORIES_TABLE = "blog_categories";
+
+

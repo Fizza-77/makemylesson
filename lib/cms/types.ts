@@ -1,4 +1,4 @@
-/**
+﻿/**
  * List/detail shapes align with Supabase `blogs` table (Studiely-compatible).
  */
 
@@ -72,3 +72,5 @@ export type BlogPostDetailResponse = {
   post?: BlogPostDetail;
   data?: BlogPostDetail;
 };
+
+

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Client-only Stage 1 curriculum defaults.
  * Mirrors Flutter `LessonPlanCurriculumPrefs` / SharedPreferences keys.
  * Never writes to Firestore — local browser storage only.
@@ -183,3 +183,5 @@ export function formatSavedTopicLine(
 }
 
 export { emptySnapshot as emptyLessonPlanPrefsSnapshot };
+
+

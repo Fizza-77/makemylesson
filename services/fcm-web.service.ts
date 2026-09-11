@@ -1,4 +1,4 @@
-import {
+﻿import {
   getMessaging,
   getToken,
   isSupported,
@@ -86,3 +86,5 @@ export async function upsertCurrentDeviceToken(uid: string): Promise<void> {
     // Optional path — inbox still works without push.
   }
 }
+
+

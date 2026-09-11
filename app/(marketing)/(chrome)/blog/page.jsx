@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import Container, { PageShell } from '@marketing/components/layout/Container'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { getBlogIndexDataForMakeMyLesson } from '@marketing/lib/blogs'
@@ -266,3 +266,5 @@ export default async function BlogPage({ searchParams }) {
     </>
   )
 }
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -80,3 +80,5 @@ function HeroStat({ value, label }: { value: number; label: string }) {
     </span>
   );
 }
+
+

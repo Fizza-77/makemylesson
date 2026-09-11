@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { PricingLink } from "@/components/common/PricingLink";
 import { ProfileCardShell } from "@/features/profile/ProfileMenuPrimitives";
@@ -120,3 +120,5 @@ export function ProfileSubscriptionCard({
     </ProfileCardShell>
   );
 }
+
+

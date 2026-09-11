@@ -1,4 +1,4 @@
-import { FirebaseError } from "firebase/app";
+﻿import { FirebaseError } from "firebase/app";
 import {
   collection,
   doc,
@@ -210,3 +210,5 @@ export function mapOrgInviteBlockedMessage(error: unknown): string | null {
   }
   return "This teacher email already has a paid subscription or an active school plan seat. Use a different email.";
 }
+
+

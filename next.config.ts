@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 import withPWAInit from "@ducanh2912/next-pwa";
 
 const modernPolyfillStub = "./lib/modern-polyfill.js";
@@ -34,6 +35,8 @@ const nextConfig: NextConfig = {
       ...config.resolve.alias,
       "../build/polyfills/polyfill-module": false,
       "next/dist/build/polyfills/polyfill-module": false,
+      "@": path.resolve(__dirname),
+      "@marketing": path.resolve(__dirname, "marketing"),
     };
     return config;
   },
@@ -100,3 +103,5 @@ const nextConfig: NextConfig = {
 };
 
 export default withPWA(nextConfig);
+
+

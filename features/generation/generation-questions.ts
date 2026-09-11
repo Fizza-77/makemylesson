@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Template MCQs for the pre-generation clarification dialog.
  * Wording and IDs match Flutter `stage_clarification_catalog.dart` so
  * clarificationAnswers sent to Cloud Functions stay consistent with mobile.
@@ -215,3 +215,5 @@ export function toGenerationQuestion(
     choices,
   };
 }
+
+

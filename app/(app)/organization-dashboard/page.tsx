@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 
 import { Spinner } from "@/components/ui/Spinner";
 import { OrganizationDashboardView } from "@/features/organization/OrganizationDashboardView";
@@ -16,3 +16,5 @@ export default function OrganizationDashboardPage() {
     </Suspense>
   );
 }
+
+

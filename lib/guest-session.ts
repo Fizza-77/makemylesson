@@ -1,4 +1,4 @@
-import type { User } from "firebase/auth";
+﻿import type { User } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 import {
@@ -164,3 +164,5 @@ export function isGuestSignInUnavailableError(error: unknown): boolean {
   }
   return false;
 }
+
+

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 
 import { ForgotPasswordForm } from "@/features/auth/components/ForgotPasswordForm";
 import { Spinner } from "@/components/ui/Spinner";
@@ -16,3 +16,5 @@ export default function ForgotPasswordPage() {
     </Suspense>
   );
 }
+
+

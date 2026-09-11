@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { cn } from '@marketing/lib/cn'
@@ -111,3 +111,5 @@ export default function AssessmentCurriculumWording() {
     </section>
   )
 }
+
+

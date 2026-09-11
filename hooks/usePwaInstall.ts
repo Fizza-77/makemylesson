@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useSyncExternalStore } from "react";
+﻿import { useCallback, useEffect, useSyncExternalStore } from "react";
 
 import {
   acquirePwaInstallCapture,
@@ -53,3 +53,5 @@ export function usePwaInstall() {
     hasDeferredPrompt: Boolean(deferred),
   };
 }
+
+

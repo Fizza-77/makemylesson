@@ -1,4 +1,4 @@
-/** Shared helpers for scrolling to the in-page Ayla panel (no hash URLs). */
+﻿/** Shared helpers for scrolling to the in-page Ayla panel (no hash URLs). */
 
 export const AYLA_PANEL_ID = "ayla-chat-panel";
 export const SCROLL_TO_AYLA_KEY = "mml.scrollToAyla";
@@ -28,3 +28,5 @@ export function consumeScrollToAylaRequest(): boolean {
     return false;
   }
 }
+
+

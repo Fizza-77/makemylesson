@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -205,3 +205,5 @@ export function TeachingMethodsMobileMenu({ pathname, linkClassName = NAV_MENU_L
     </div>
   )
 }
+
+

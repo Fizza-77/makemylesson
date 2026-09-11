@@ -1,4 +1,4 @@
-import { ArrowRight, Globe } from 'lucide-react'
+﻿import { ArrowRight, Globe } from 'lucide-react'
 import { cn } from '@marketing/lib/cn'
 
 const STEPS = [
@@ -124,3 +124,5 @@ export default function LessonPlanHowItWorks() {
     </section>
   )
 }
+
+

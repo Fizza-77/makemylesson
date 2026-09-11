@@ -1,4 +1,4 @@
-import { CircleHelp } from 'lucide-react'
+﻿import { CircleHelp } from 'lucide-react'
 
 import FaqControls from '@marketing/components/faq/FaqControls'
 
@@ -39,3 +39,5 @@ export default function FaqHeroSection() {
     </div>
   )
 }
+
+

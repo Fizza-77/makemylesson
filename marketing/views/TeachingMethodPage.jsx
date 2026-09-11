@@ -1,4 +1,4 @@
-import { PageShell } from '@marketing/components/layout/Container'
+﻿import { PageShell } from '@marketing/components/layout/Container'
 import TeachingMethodCta from '@marketing/components/teaching-methods/TeachingMethodCta'
 import TeachingMethodFaqServer from '@marketing/components/teaching-methods/TeachingMethodFaqServer'
 import TeachingMethodHero from '@marketing/components/teaching-methods/TeachingMethodHero'
@@ -87,3 +87,5 @@ export default function TeachingMethodPage({ method, content }) {
 
   return <TeachingMethodPlaceholder method={method} />
 }
+
+

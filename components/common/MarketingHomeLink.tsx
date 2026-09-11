@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { ComponentProps, MouseEvent } from "react";
 import { useRouter } from "next/navigation";
@@ -54,3 +54,5 @@ export function MarketingHomeLink({
     </a>
   );
 }
+
+

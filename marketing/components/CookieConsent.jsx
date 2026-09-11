@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import '@marketing/styles/cookie-consent.css'
 
@@ -190,3 +190,5 @@ export default function CookieConsent() {
     </div>
   )
 }
+
+

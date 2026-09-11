@@ -1,4 +1,4 @@
-import { REVIEWS_1, REVIEWS_2 } from '../data'
+﻿import { REVIEWS_1, REVIEWS_2 } from '../data'
 import { Label, Reveal, ReviewCard } from '../shared'
 
 export default function ReviewsSection() {
@@ -26,3 +26,5 @@ export default function ReviewsSection() {
     </section>
   )
 }
+
+

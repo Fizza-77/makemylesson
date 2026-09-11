@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 
@@ -68,3 +68,5 @@ export function ProfileAvatarDisplay({
 export function accountHasUploadedPhoto(account: UserAccountView): boolean {
   return Boolean(account.profilePhotoUrl?.trim() && account.avatarSource === "photo");
 }
+
+

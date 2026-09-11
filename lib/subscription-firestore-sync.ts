@@ -1,4 +1,4 @@
-import type { AccountPlanTier } from "@/types/account";
+﻿import type { AccountPlanTier } from "@/types/account";
 import { tryParsePlanTier } from "@/types/user-profile";
 
 import { deviceFreeCreditsFallback } from "@/lib/device-free-signup";
@@ -278,3 +278,5 @@ export function freeTierPayloadFromTrialRemaining(
     creditsUsed: cap - clamped,
   };
 }
+
+

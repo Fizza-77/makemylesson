@@ -1,4 +1,4 @@
-import { cache } from "react";
+﻿import { cache } from "react";
 import type {
   BlogCategory,
   BlogCategorySummary,
@@ -360,3 +360,5 @@ export const getBlogIndexPageData = cache(async (): Promise<BlogIndexPageData> =
 
   return { siteId, copy, categories, posts };
 });
+
+

@@ -1,4 +1,4 @@
-import LessonPlanCognitiveBalance from '@marketing/components/features/LessonPlanCognitiveBalance'
+﻿import LessonPlanCognitiveBalance from '@marketing/components/features/LessonPlanCognitiveBalance'
 import LessonPlanCta from '@marketing/components/features/LessonPlanCta'
 import LessonPlanHowItWorks from '@marketing/components/features/LessonPlanHowItWorks'
 import LessonPlanNextStages from '@marketing/components/features/LessonPlanNextStages'
@@ -26,3 +26,5 @@ export default function LessonPlanStage() {
     </>
   )
 }
+
+

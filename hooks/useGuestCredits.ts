@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSyncExternalStore } from "react";
 
@@ -15,3 +15,5 @@ export function useGuestCreditsRemaining(): number {
     () => GUEST_GENERATION_CREDIT_CAP,
   );
 }
+
+

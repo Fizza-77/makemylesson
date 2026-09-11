@@ -1,4 +1,4 @@
-const ICON_PROPS = {
+﻿const ICON_PROPS = {
   width: 18,
   height: 18,
   viewBox: '0 0 24 24',
@@ -86,3 +86,5 @@ export const TEACHING_METHOD_CARD_ICONS = [
   SparklesIcon,
   GraduationCapIcon,
 ]
+
+

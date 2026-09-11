@@ -1,4 +1,4 @@
-import { callFunction } from "@/firebase/functions";
+﻿import { callFunction } from "@/firebase/functions";
 import {
   parseStage2Status,
   type Stage2GenerateRequest,
@@ -79,3 +79,5 @@ export async function retryStage2Image(params: {
     Record<string, unknown>
   >("retryStage2Image", params, { timeout: RETRY_IMAGE_TIMEOUT_MS });
 }
+
+

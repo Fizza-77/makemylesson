@@ -1,4 +1,4 @@
-import { signOutUser } from "@/firebase/auth";
+﻿import { signOutUser } from "@/firebase/auth";
 import { getFirebaseAuth } from "@/firebase/config";
 import { authLog } from "@/lib/auth-logger";
 import { getGuestCreditsRemaining } from "@/lib/guest-credits";
@@ -31,3 +31,5 @@ export async function signOutAndSealTrial(): Promise<void> {
   }
   await signOutUser();
 }
+
+

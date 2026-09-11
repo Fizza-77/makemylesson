@@ -1,4 +1,4 @@
-import { sectionAnchorId, jumpNavLabel } from '@marketing/lib/teachingMethodLayout'
+﻿import { sectionAnchorId, jumpNavLabel } from '@marketing/lib/teachingMethodLayout'
 
 export default function TeachingMethodJumpNav({ sections, pageType = 'teaching-method' }) {
   if (!sections?.length) return null
@@ -16,3 +16,5 @@ export default function TeachingMethodJumpNav({ sections, pageType = 'teaching-m
     </nav>
   )
 }
+
+

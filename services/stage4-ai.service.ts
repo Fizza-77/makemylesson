@@ -1,4 +1,4 @@
-import { callFunction } from "@/firebase/functions";
+﻿import { callFunction } from "@/firebase/functions";
 import {
   parseStage4Status,
   type Stage4GenerateRequest,
@@ -63,3 +63,5 @@ export async function getStage4GenerationStatus(
   );
   return parseStage4Status(data);
 }
+
+

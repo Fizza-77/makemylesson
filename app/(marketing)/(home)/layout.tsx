@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 
 import "../../marketing-home.css";
 import HomeMarketingShell from "@marketing/components/HomeMarketingShell";
@@ -20,3 +20,5 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
     </HomeMarketingShell>
   );
 }
+
+

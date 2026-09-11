@@ -1,4 +1,4 @@
-import { Timestamp, type DocumentData } from "firebase/firestore";
+﻿import { Timestamp, type DocumentData } from "firebase/firestore";
 
 export type LibraryItemKind =
   | "lessonPlan"
@@ -126,3 +126,5 @@ export function libraryItemToFirestore(item: LibraryItem): Record<string, unknow
   if (job) payload.stage2JobId = job;
   return payload;
 }
+
+

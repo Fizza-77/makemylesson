@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { HTMLAttributes, ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
@@ -130,3 +130,5 @@ export function MarkdownContentView({
     </div>
   );
 }
+
+

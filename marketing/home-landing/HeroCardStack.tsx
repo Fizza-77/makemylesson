@@ -1,4 +1,4 @@
-const HERO_CARDS = [
+﻿const HERO_CARDS = [
   {
     id: "slides",
     src: "/svgs/slides.svg",
@@ -54,3 +54,5 @@ export default function HeroCardStack() {
     </div>
   );
 }
+
+

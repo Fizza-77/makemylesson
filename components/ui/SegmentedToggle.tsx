@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { cn } from "@/lib/utils";
 
@@ -51,3 +51,5 @@ export function SegmentedToggle<T extends string>({
     </div>
   );
 }
+
+

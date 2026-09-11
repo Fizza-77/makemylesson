@@ -1,4 +1,4 @@
-import { Reveal } from '../shared'
+﻿import { Reveal } from '../shared'
 
 export default function TrustSection() {
   return (
@@ -66,3 +66,5 @@ export default function TrustSection() {
     </section>
   )
 }
+
+

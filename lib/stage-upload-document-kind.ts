@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Local heuristics for Stage 2–4 upload document kind.
  * Mirrors Flutter `stage_upload_document_kind.dart` so CV/invoice mismatches
  * still warn when the cloud clarifier is unavailable or wrongly says OK.
@@ -198,3 +198,5 @@ export function assessStageUploadDocumentKind(params: {
 export function expectedDocLabel(stage: number): string {
   return stageExpectedDocumentLabel(stage);
 }
+
+

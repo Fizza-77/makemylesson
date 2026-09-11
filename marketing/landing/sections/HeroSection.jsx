@@ -1,4 +1,4 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 import SectionLink from '@marketing/components/SectionLink'
 import { Label, Reveal } from '../shared'
 import { MML_APP } from '@marketing/lib/appUrls'
@@ -89,3 +89,4 @@ export default function HeroSection() {
     </section>
   )
 }
+

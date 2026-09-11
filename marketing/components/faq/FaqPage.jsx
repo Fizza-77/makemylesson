@@ -1,4 +1,4 @@
-import FaqHeroSection from '@marketing/components/faq/FaqHeroSection'
+﻿import FaqHeroSection from '@marketing/components/faq/FaqHeroSection'
 import FaqStateProvider from '@marketing/components/faq/FaqStateProvider'
 import FaqSupportSection from '@marketing/components/faq/FaqSupportSection'
 import LazyFaqTopicsSection from '@marketing/components/faq/LazyFaqTopicsSection'
@@ -14,3 +14,5 @@ export default function FaqPage() {
     </FaqStateProvider>
   )
 }
+
+

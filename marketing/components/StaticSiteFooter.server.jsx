@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 
 import BrandMark from '@marketing/components/BrandMark'
 import { FooterSitemapIcon } from '@marketing/components/footer/FooterSitemapIcons'
@@ -293,8 +293,8 @@ export default function StaticSiteFooterServer() {
 
           <div className="mt-3.5 border-t border-white/15 pt-3.5 sm:mt-4 sm:pt-4">
             <p className="text-center text-[11px] leading-relaxed text-white/70 sm:text-[12px]">
-              Make My Lesson is a product of Skyen Solutions, a trade name of Qismat Ventures W.L.L.
-              (CR 190698-1) — located at Office 501, Building 1025, Road 3621, Block 436, Al Seef,
+              Make My Lesson is a product of Skyen Solutions, a trade name of Skyen Systems Pty Ltd.
+              (ACN 701 564 730) — located at Office 501, Building 1025, Road 3621, Block 436, Al Seef,
               Bahrain — and is a sister product of{' '}
               {FOOTER_SISTER_LINKS.map((item, index) => (
                 <span key={item.href}>
@@ -326,7 +326,7 @@ export default function StaticSiteFooterServer() {
             </p>
             <p className="flex items-center gap-3 text-[12px] text-white/70 sm:text-[13px]">
               <span className="hidden h-4 w-px bg-white/25 sm:block" aria-hidden />
-              <span>© 2026 Qismat Ventures W.L.L. All rights reserved.</span>
+              <span>© 2026 Skyen Systems Pty Ltd. All rights reserved.</span>
             </p>
           </div>
         </Container>
@@ -334,3 +334,5 @@ export default function StaticSiteFooterServer() {
     </>
   )
 }
+
+

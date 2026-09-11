@@ -1,4 +1,4 @@
-import Stage1Page from '@marketing/views/Stage1Page'
+﻿import Stage1Page from '@marketing/views/Stage1Page'
 
 export const metadata = {
   title: 'Lesson plan — Make My Lesson',
@@ -9,3 +9,5 @@ export const metadata = {
 export default function LessonStage1Page() {
   return <Stage1Page />
 }
+
+

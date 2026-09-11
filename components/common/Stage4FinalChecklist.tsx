@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useStage4DraftStore } from "@/store/stage4-draft-store";
 import { cn } from "@/lib/utils";
@@ -154,3 +154,5 @@ export function Stage4FinalChecklist({ className }: { className?: string }) {
     </section>
   );
 }
+
+

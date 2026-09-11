@@ -1,4 +1,4 @@
-import {
+﻿import {
   EmailAuthProvider,
   reauthenticateWithCredential,
   signInWithEmailAndPassword,
@@ -271,3 +271,5 @@ async function isAccountAlreadyDeleted(error: unknown): Promise<boolean> {
 
   return false;
 }
+
+

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import '@marketing/styles/marketing-feature-range.css'
 
@@ -135,3 +135,5 @@ export default function SlideDeckDuration() {
     </section>
   )
 }
+
+

@@ -1,4 +1,4 @@
-import DisclaimerPage from '@marketing/components/legal/DisclaimerPage'
+﻿import DisclaimerPage from '@marketing/components/legal/DisclaimerPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
@@ -28,3 +28,5 @@ export default function DisclaimerRoutePage() {
     </>
   )
 }
+
+

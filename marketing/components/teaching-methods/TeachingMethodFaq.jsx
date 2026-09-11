@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { Minus, Plus } from 'lucide-react'
@@ -96,3 +96,5 @@ export default function TeachingMethodFaq({
     </section>
   )
 }
+
+

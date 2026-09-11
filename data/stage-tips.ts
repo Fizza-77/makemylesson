@@ -1,4 +1,4 @@
-export type StageSidebarContext = "stage1" | "stage2" | "stage3" | "stage4";
+﻿export type StageSidebarContext = "stage1" | "stage2" | "stage3" | "stage4";
 
 export type StageTipSlide = {
   title: string;
@@ -157,3 +157,5 @@ export function stageTipsContext(stage: number): StageSidebarContext {
   if (stage === 4) return "stage4";
   return "stage1";
 }
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   useCallback,
@@ -448,3 +448,5 @@ export function useGenerationConfirm() {
 
   return { confirmGeneration, dialog };
 }
+
+

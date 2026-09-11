@@ -1,4 +1,4 @@
-import { getDoc, serverTimestamp, setDoc, Timestamp } from "firebase/firestore";
+﻿import { getDoc, serverTimestamp, setDoc, Timestamp } from "firebase/firestore";
 
 import { userDocRef, fetchUserProfile } from "@/firebase/firestore";
 import { uploadUserFile } from "@/firebase/storage";
@@ -56,3 +56,5 @@ export async function saveCompletedProfile(params: {
   useAuthStore.getState().setProfile(profile);
   return profile;
 }
+
+

@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore";
+﻿import { Timestamp } from "firebase/firestore";
 
 import type { AccountPlanTier } from "./account";
 
@@ -102,3 +102,5 @@ function normalizePlanTierKey(raw: string | null | undefined): string {
     .replace(/[\s-]+/g, "_")
     .replace(/_+/g, "_");
 }
+
+

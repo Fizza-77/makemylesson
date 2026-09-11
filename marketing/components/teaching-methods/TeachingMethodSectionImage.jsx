@@ -1,4 +1,4 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 import { cn } from '@marketing/lib/cn'
 import {
   getTeachingMethodHeroImagePath,
@@ -48,3 +48,5 @@ export default function TeachingMethodSectionImage({
     </div>
   )
 }
+
+

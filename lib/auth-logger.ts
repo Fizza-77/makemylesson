@@ -1,4 +1,4 @@
-type AuthLogLevel = "info" | "success" | "error" | "warn";
+﻿type AuthLogLevel = "info" | "success" | "error" | "warn";
 
 type AuthLogPayload = Record<string, unknown>;
 
@@ -44,3 +44,5 @@ export const authLog = {
 };
 
 export type { AuthLogLevel };
+
+

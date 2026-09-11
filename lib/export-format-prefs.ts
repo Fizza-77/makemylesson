@@ -1,4 +1,4 @@
-/** Mirrors Flutter `StorageKeys.profileDefaultExport` / `DefaultExportFormat`. */
+﻿/** Mirrors Flutter `StorageKeys.profileDefaultExport` / `DefaultExportFormat`. */
 
 export const EXPORT_FORMAT_STORAGE_KEY = "profile_default_export";
 
@@ -56,3 +56,5 @@ export function sortActionsByExportPreference<T extends { id: string }>(
   };
   return [...actions].sort((a, b) => score(a.id) - score(b.id));
 }
+
+

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { RefreshCw, Gamepad2, Search, Users, PersonStanding } from 'lucide-react'
@@ -142,3 +142,5 @@ export default function ActivityMethodShape() {
     </section>
   )
 }
+
+

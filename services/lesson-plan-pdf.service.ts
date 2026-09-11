@@ -1,4 +1,4 @@
-import { jsPDF } from "jspdf";
+﻿import { jsPDF } from "jspdf";
 
 import { structureQuestionAnswerMarkdown } from "@/lib/format-worksheet-markdown";
 import { buildLessonPlanSupplement } from "@/lib/lesson-plan-supplement";
@@ -164,3 +164,5 @@ export async function shareLessonPlanPdf(input: LessonPlanPdfInput) {
     text: `Lesson plan for ${input.topic}`,
   });
 }
+
+

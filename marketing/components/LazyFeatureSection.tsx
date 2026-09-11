@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import {
   useEffect,
@@ -61,3 +61,5 @@ export default function LazyFeatureSection({
     </div>
   )
 }
+
+

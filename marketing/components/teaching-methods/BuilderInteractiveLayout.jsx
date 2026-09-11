@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
@@ -134,3 +134,5 @@ export default function BuilderInteractiveLayout({ section, sectionIndex = 0 }) 
     </LayoutGroup>
   )
 }
+
+

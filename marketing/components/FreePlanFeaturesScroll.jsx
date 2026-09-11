@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Check, ChevronDown } from 'lucide-react'
@@ -57,3 +57,5 @@ export default function FreePlanFeaturesScroll({ features }) {
     </div>
   )
 }
+
+

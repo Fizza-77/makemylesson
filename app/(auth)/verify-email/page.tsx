@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 
 import { OtpVerificationForm } from "@/features/auth/components/OtpVerificationForm";
 import { Spinner } from "@/components/ui/Spinner";
@@ -16,3 +16,5 @@ export default function VerifyOtpPage() {
     </Suspense>
   );
 }
+
+

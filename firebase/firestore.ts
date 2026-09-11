@@ -1,4 +1,4 @@
-import {
+﻿import {
   collection,
   doc,
   getDoc,
@@ -47,3 +47,5 @@ export async function ensureUserDocument(user: {
   });
   return true;
 }
+
+

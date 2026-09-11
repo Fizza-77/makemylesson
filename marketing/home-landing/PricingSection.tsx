@@ -1,4 +1,4 @@
-import { Info, Lock } from 'lucide-react'
+﻿import { Info, Lock } from 'lucide-react'
 
 import {
   AccessPlanCard,
@@ -63,3 +63,5 @@ export default function PricingSection() {
     </section>
   )
 }
+
+

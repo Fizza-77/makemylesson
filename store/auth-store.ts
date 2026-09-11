@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 import type { User } from "firebase/auth";
 
 import type { UserFirestoreProfile } from "@/types/user-profile";
@@ -22,3 +22,5 @@ export const useAuthStore = create<AuthStore>((set) => ({
   setAuthReady: (authReady) => set({ authReady }),
   reset: () => set({ user: null, profile: null, authReady: true }),
 }));
+
+

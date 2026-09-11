@@ -1,4 +1,4 @@
-export type SubjectInfo = {
+﻿export type SubjectInfo = {
   name: string;
   code: string | null;
   displayName: string;
@@ -155,3 +155,5 @@ export function isSuccessfulTerminalStatus(status: string): boolean {
   const s = status.trim().toLowerCase();
   return s === "completed" || s === "complete";
 }
+
+

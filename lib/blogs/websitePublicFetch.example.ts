@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Connected marketing site — public blog fetch pattern.
  *
  * Each deployment is its own repo with the same Supabase project as the admin.
@@ -31,3 +31,5 @@ export type {
   BlogPostListItem,
   BlogPostDetail,
 } from "@/lib/cms";
+
+

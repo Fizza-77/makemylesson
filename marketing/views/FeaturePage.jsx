@@ -1,4 +1,4 @@
-import { PageShell } from '@marketing/components/layout/Container'
+﻿import { PageShell } from '@marketing/components/layout/Container'
 import FeatureHero from '@marketing/components/features/FeatureHero'
 import TeachingMethodCta from '@marketing/components/teaching-methods/TeachingMethodCta'
 import TeachingMethodFaqServer from '@marketing/components/teaching-methods/TeachingMethodFaqServer'
@@ -76,3 +76,5 @@ export default function FeaturePage({ feature, content }) {
 
   return <FeaturePlaceholder feature={feature} />
 }
+
+

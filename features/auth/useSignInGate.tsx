@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useState } from "react";
 
@@ -44,3 +44,5 @@ export function useSignInGate(nextPath: string) {
 
   return { requireSignIn, requireRegisteredSignIn, dialog };
 }
+
+

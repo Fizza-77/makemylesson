@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { User } from "firebase/auth";
 
@@ -127,3 +127,5 @@ export async function sealWebTrialIpOnServer(user: User): Promise<void> {
   const result = normalizeTrialStatus(payload);
   applyTrialStatus(result);
 }
+
+

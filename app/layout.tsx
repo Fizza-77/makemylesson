@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { ConsentGatedAnalytics } from "@/components/analytics/ConsentGatedAnalytics";
@@ -64,3 +64,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
+

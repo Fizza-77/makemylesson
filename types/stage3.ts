@@ -1,4 +1,4 @@
-/** Stage 3 formative assessment — mirrors Flutter `stage3_assessment.dart`. */
+﻿/** Stage 3 formative assessment — mirrors Flutter `stage3_assessment.dart`. */
 
 export type Stage3SourceMode = "stage2Library" | "upload";
 
@@ -342,3 +342,5 @@ export function stage3ResultFromLibraryJson(
   }
   return base;
 }
+
+

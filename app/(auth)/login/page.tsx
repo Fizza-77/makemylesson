@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { SignInForm } from "@/features/auth/components/SignInForm";
@@ -22,3 +22,5 @@ export default function SignInPage() {
     </Suspense>
   );
 }
+
+

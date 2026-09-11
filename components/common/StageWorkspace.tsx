@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { AppSidebarColumn } from "@/components/common/AppSidebarColumn";
 import { TipsResourcesCard } from "@/components/common/TipsResourcesCard";
@@ -58,3 +58,5 @@ export function StageWorkspace({
     </div>
   );
 }
+
+

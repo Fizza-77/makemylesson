@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Pre-generation clarification shapes — mirrors MakeMyLesson Flutter
  * `stage_clarification.dart` so Cloud Function payloads stay compatible.
  */
@@ -109,3 +109,5 @@ export function parseClarificationQuestion(
     allowOther: json.allowOther !== false,
   };
 }
+
+

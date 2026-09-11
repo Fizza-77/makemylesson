@@ -1,4 +1,4 @@
-import { Printer } from 'lucide-react'
+﻿import { Printer } from 'lucide-react'
 
 const EXPORTS = [
   { id: 'pdf', label: 'PDF (sheet + key)', color: '#E11D48', letter: 'P' },
@@ -57,3 +57,5 @@ export default function ActivityTakeAnywhere() {
     </section>
   )
 }
+
+

@@ -1,4 +1,4 @@
-import ContactPage from '@marketing/views/ContactPage'
+﻿import ContactPage from '@marketing/views/ContactPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
@@ -50,3 +50,5 @@ export default async function ContactRoutePage({ searchParams }) {
     </>
   )
 }
+
+

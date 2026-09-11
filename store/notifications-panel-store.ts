@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 
 type NotificationsPanelState = {
   open: boolean;
@@ -15,3 +15,5 @@ export const useNotificationsPanelStore = create<NotificationsPanelState>(
     togglePanel: () => set((s) => ({ open: !s.open })),
   }),
 );
+
+

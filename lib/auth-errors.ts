@@ -1,4 +1,4 @@
-import { FirebaseError } from "firebase/app";
+﻿import { FirebaseError } from "firebase/app";
 
 import { sanitizeUserMessage, toUserMessage } from "@/lib/user-facing-error";
 
@@ -140,3 +140,5 @@ export function mapSocialAuthError(error: unknown, provider: "google" | "apple")
   }
   return mapped;
 }
+
+

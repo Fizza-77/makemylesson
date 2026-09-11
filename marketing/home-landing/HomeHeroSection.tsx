@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 import SectionLink from "@marketing/components/SectionLink";
@@ -201,3 +201,5 @@ export default function HomeHeroSection() {
     </main>
   );
 }
+
+

@@ -1,4 +1,4 @@
-export type FirebaseServiceAccount = {
+﻿export type FirebaseServiceAccount = {
   projectId: string;
   clientEmail: string;
   privateKey: string;
@@ -42,3 +42,5 @@ export function parseFirebaseServiceAccount(): FirebaseServiceAccount | null {
 export function isFirebaseServiceAccountConfigured(): boolean {
   return parseFirebaseServiceAccount() != null;
 }
+
+

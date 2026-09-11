@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useMemo } from 'react'
 import { Plus } from 'lucide-react'
@@ -129,3 +129,5 @@ export default function FaqTopicsSection() {
     </section>
   )
 }
+
+

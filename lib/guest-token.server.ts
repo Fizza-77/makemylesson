@@ -1,4 +1,4 @@
-import { SignJWT, importPKCS8 } from "jose";
+﻿import { SignJWT, importPKCS8 } from "jose";
 
 import { isValidGuestWebUid, newGuestWebUid } from "@/lib/guest-auth-id";
 import {
@@ -42,3 +42,5 @@ export async function mintGuestCustomToken(
 
   return { guestUid: uid, customToken };
 }
+
+

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter, Manrope } from "next/font/google";
 
@@ -43,3 +43,5 @@ export default function MarketingAppLayout({ children }: { children: ReactNode }
     </MarketingChrome>
   );
 }
+
+

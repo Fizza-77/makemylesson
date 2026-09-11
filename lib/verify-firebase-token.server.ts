@@ -1,4 +1,4 @@
-import { createRemoteJWKSet, jwtVerify, type JWTPayload } from "jose";
+﻿import { createRemoteJWKSet, jwtVerify, type JWTPayload } from "jose";
 
 import { isGuestWebUid } from "@/lib/guest-auth-id";
 import { parseFirebaseServiceAccount } from "@/lib/firebase-service-account.server";
@@ -55,3 +55,5 @@ export function readBearerToken(request: Request): string | null {
   if (!header.toLowerCase().startsWith("bearer ")) return null;
   return header.slice(7).trim() || null;
 }
+
+

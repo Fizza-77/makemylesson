@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Browser-scoped trial / free-signup tracking (localStorage).
  * Persists across sign-out and account switches on the same browser profile.
  * Cross-profile / cross-account limits on the same network use server IP trial.
@@ -67,3 +67,5 @@ export function deviceFreeCreditsFallback(): number {
   if (used > 0) return Math.max(0, FREE_CREDIT_CAP - used);
   return isDeviceFreeSignupConsumed() ? 0 : FREE_CREDIT_CAP;
 }
+
+

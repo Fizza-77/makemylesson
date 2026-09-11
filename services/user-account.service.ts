@@ -1,4 +1,4 @@
-import { updateProfile } from "firebase/auth";
+﻿import { updateProfile } from "firebase/auth";
 import { getDoc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 
 import { getFirebaseAuth } from "@/firebase/config";
@@ -482,3 +482,5 @@ export async function uploadAndSetSchoolLogo(uid: string, file: File) {
   authLog.success("profile.school_logo_updated", { uid });
   return url;
 }
+
+

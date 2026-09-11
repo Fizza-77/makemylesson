@@ -1,4 +1,4 @@
-import '@marketing/styles/legal-prose.css'
+﻿import '@marketing/styles/legal-prose.css'
 
 import Container from '@marketing/components/layout/Container'
 import { sectionYClass } from '@marketing/components/layout/Container'
@@ -14,3 +14,5 @@ export default function PolicyPageShell({ children, className }) {
     </div>
   )
 }
+
+

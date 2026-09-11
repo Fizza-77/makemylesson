@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 
 import "../../marketing-chrome.css";
 import MarketingChrome from "@marketing/components/MarketingChrome";
@@ -13,3 +13,5 @@ export default function MarketingChromeLayout({ children }: { children: ReactNod
     </MarketingChrome>
   );
 }
+
+

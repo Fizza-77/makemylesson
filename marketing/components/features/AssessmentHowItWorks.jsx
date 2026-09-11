@@ -1,4 +1,4 @@
-const STEPS = [
+﻿const STEPS = [
   {
     n: '01',
     label: 'Paper style',
@@ -203,3 +203,5 @@ export default function AssessmentHowItWorks() {
     </section>
   )
 }
+
+

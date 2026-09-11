@@ -1,4 +1,4 @@
-export type AylaFaqEntry = {
+﻿export type AylaFaqEntry = {
   question: string;
   answer: string;
 };
@@ -168,3 +168,5 @@ export function findBestFaqMatch(
   }
   return bestScore >= 0.3 ? best : null;
 }
+
+

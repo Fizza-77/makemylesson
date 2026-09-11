@@ -1,4 +1,4 @@
-import RefundPaymentsPolicyPage from '@marketing/components/legal/RefundPaymentsPolicyPage'
+﻿import RefundPaymentsPolicyPage from '@marketing/components/legal/RefundPaymentsPolicyPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
@@ -28,3 +28,5 @@ export default function RefundPaymentsPolicyRoutePage() {
     </>
   )
 }
+
+

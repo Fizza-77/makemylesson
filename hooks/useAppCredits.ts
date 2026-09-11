@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSyncExternalStore } from "react";
 
@@ -156,3 +156,5 @@ export function useAppCredits(): AppCreditsView {
     isFree: isFree && !isPaidPlan(account.planTier),
   };
 }
+
+

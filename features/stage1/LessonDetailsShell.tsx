@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import type { ReactNode } from "react";
@@ -94,3 +94,5 @@ export function CreateLessonPlanButton({
     </button>
   );
 }
+
+

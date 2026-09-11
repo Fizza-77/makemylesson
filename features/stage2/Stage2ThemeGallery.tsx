@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { STAGE2_THEMES, type Stage2SlideTheme } from "@/data/stage2-themes";
 import { cn } from "@/lib/utils";
@@ -82,3 +82,5 @@ export function Stage2ThemeGallery({
     </section>
   );
 }
+
+

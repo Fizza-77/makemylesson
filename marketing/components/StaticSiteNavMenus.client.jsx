@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { useCallback, useState } from 'react'
@@ -110,3 +110,5 @@ export function StaticSiteNavMobile({
     </details>
   )
 }
+
+

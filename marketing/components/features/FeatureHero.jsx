@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import FeatureSectionImage from '@marketing/components/features/FeatureSectionImage'
 import TeachingMethodJumpNav from '@marketing/components/teaching-methods/TeachingMethodJumpNav'
 import TeachingMethodTitle from '@marketing/components/teaching-methods/TeachingMethodTitle'
@@ -29,3 +29,5 @@ export default function FeatureHero({ feature, title, intro, sections }) {
     </section>
   )
 }
+
+

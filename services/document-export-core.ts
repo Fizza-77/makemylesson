@@ -1,4 +1,4 @@
-import { jsPDF } from "jspdf";
+﻿import { jsPDF } from "jspdf";
 
 import { structureWorksheetMarkdown } from "@/lib/format-worksheet-markdown";
 import type { ExportPersonalization } from "@/services/export-personalization.service";
@@ -120,3 +120,5 @@ export async function shareBlobFile(params: {
     message: "Share not available — file downloaded instead.",
   };
 }
+
+

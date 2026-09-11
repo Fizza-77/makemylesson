@@ -1,4 +1,4 @@
-import { ROUTES } from "@/lib/urls";
+﻿import { ROUTES } from "@/lib/urls";
 
 /** Auth / public flows — no app back chrome. */
 export function isAuthRoute(pathname: string): boolean {
@@ -50,3 +50,5 @@ export function logicalBackPath(pathname: string): string {
   }
   return ROUTES.stage1;
 }
+
+

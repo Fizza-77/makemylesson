@@ -1,4 +1,4 @@
-import type { UserAccountView } from "@/services/user-account.service";
+﻿import type { UserAccountView } from "@/services/user-account.service";
 
 /**
  * Export branding from profile toggles (Use School Name / Logo / OwnPic).
@@ -137,3 +137,5 @@ export async function resolveExportPersonalization(
     ownPictureDataUrl,
   };
 }
+
+

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 import "../globals.css";
 import { AppProviders } from "@/components/providers/AppProviders";
@@ -10,3 +10,5 @@ export const metadata: Metadata = {
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return <AppProviders>{children}</AppProviders>;
 }
+
+

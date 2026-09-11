@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import PolicyPageShell from '@marketing/components/layout/PolicyPageShell'
 
 export default function PrivacyPolicyPage() {
@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="mt-1 text-base font-medium text-slate-300">Make My Lesson</p>
-          <p className="legal-article-operator">Operated by: Qismat Ventures W.L.L</p>
+          <p className="legal-article-operator">Operated by: Skyen Systems Pty Ltd</p>
           <p className="legal-article-meta">
             <span className="block">Effective Date: September 10, 2026</span>
             <span className="mt-1 block">Last Updated: September 10, 2026</span>
@@ -32,7 +32,7 @@ export default function PrivacyPolicyPage() {
           <section className="legal-section">
             <h2 className="legal-h2">Introduction</h2>
             <p className="mb-3">
-              Make My Lesson is an educational technology platform operated by Qismat Ventures W.L.L (&quot;we,&quot;
+              Make My Lesson is an educational technology platform operated by Skyen Systems Pty Ltd (&quot;we,&quot;
               &quot;us,&quot; or &quot;our&quot;).
             </p>
             <p className="mb-3">
@@ -55,11 +55,11 @@ export default function PrivacyPolicyPage() {
             <h2 className="legal-h2">1. Company Information</h2>
             <ul className="mb-4 list-none space-y-2">
               <li>
-                <span className="font-medium text-white">Company Name:</span> Qismat Ventures W.L.L
+                <span className="font-medium text-white">Company Name:</span> Skyen Systems Pty Ltd
               </li>
               <li>
                 <span className="font-medium text-white">Registered Address:</span> Office 501, Building 1025, Road 3621,
-                Block 436, Al-Seef, Kingdom of Bahrain
+                Block 436, Al-Seef, Australia
               </li>
               <li>
                 <span className="font-medium text-white">Registration Number:</span> 190698-1
@@ -203,7 +203,7 @@ export default function PrivacyPolicyPage() {
               <li>Subscription plan and status</li>
               <li>Transaction identifiers</li>
               <li>Subscription start and end dates</li>
-              <li>Payment platform used (e.g., Paddle or equivalent)</li>
+              <li>Payment platform used (e.g., Stripe or equivalent)</li>
             </ul>
             <p className="mb-2 font-medium text-white">Important:</p>
             <ul className="mb-6 list-disc space-y-2 pl-5 marker:text-mml-teal">
@@ -512,7 +512,7 @@ export default function PrivacyPolicyPage() {
               </li>
             </ul>
             <p className="mt-6 text-sm text-slate-300">
-              Operated by Qismat Ventures W.L.L — Kingdom of Bahrain
+              Operated by Skyen Systems Pty Ltd — Australia
             </p>
           </section>
         </div>
@@ -520,3 +520,5 @@ export default function PrivacyPolicyPage() {
     </PolicyPageShell>
   )
 }
+
+

@@ -1,4 +1,4 @@
-import treeJson from "@/data/stage1-curriculum-tree.json";
+﻿import treeJson from "@/data/stage1-curriculum-tree.json";
 import namesJson from "@/data/stage1-curriculum-names.json";
 import { getCurriculumIdFromPathway } from "@/lib/stage1-curriculum-mapping";
 import type {
@@ -347,3 +347,5 @@ export function curriculumNameById(id: string): string {
 }
 
 export { getCurriculumIdFromPathway };
+
+

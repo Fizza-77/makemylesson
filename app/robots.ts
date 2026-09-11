@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 
 import { APP_ORIGIN } from "@/lib/urls";
 
@@ -30,3 +30,5 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: `${APP_ORIGIN}/sitemap.xml`,
   };
 }
+
+

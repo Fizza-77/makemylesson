@@ -1,4 +1,4 @@
-{
+﻿{
   "ib_pyp": "International Baccalaureate (IB) – Primary Years Programme (PYP)",
   "ib_myp": "International Baccalaureate (IB) – Middle Years Programme (MYP)",
   "ib_dp": "International Baccalaureate (IB) – Diploma Programme (DP)",
@@ -69,3 +69,4 @@
   "canadian_territories_secondary": "Canadian Curriculum – Northern Territories Secondary",
   "canadian_territories_diploma": "Canadian Curriculum – Territorial High School Diploma"
 }
+

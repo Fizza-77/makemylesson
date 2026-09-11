@@ -1,4 +1,4 @@
-import { openInSystemBrowser } from "@/lib/open-pricing";
+﻿import { openInSystemBrowser } from "@/lib/open-pricing";
 import { isStandaloneDisplay } from "@/lib/pwa-install";
 import { AppUrls } from "@/lib/urls";
 
@@ -84,3 +84,5 @@ export function openHelpCentreEmail(): void {
 
   openGmailInBrowser(to);
 }
+
+

@@ -1,4 +1,4 @@
-import {
+﻿import {
   collection,
   doc,
   getDocs,
@@ -167,3 +167,5 @@ export async function clearAllNotifications(): Promise<void> {
     await batch.commit();
   }
 }
+
+

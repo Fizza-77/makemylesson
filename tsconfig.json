@@ -18,7 +18,9 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
+
       "@/*": ["./*"],
       "@marketing/*": ["./marketing/*"]
     }
@@ -35,3 +37,5 @@
   ],
   "exclude": ["node_modules", "makemylesson"]
 }
+
+

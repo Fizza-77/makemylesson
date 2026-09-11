@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+﻿import type { LucideIcon } from "lucide-react";
 import {
   Apple,
   Atom,
@@ -66,3 +66,5 @@ export default function HeroBackdrop() {
     </div>
   );
 }
+
+

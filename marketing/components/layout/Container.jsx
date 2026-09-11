@@ -1,4 +1,4 @@
-import { cn } from '@marketing/lib/cn'
+﻿import { cn } from '@marketing/lib/cn'
 
 /** Responsive side gutters — aligned with navbar and landing `.W` */
 export const containerGutter = 'px-4 sm:px-6 md:px-8 xl:px-8 2xl:px-10'
@@ -63,3 +63,5 @@ export function PageShell({ children, className, variant = 'default', contentCla
     </div>
   )
 }
+
+

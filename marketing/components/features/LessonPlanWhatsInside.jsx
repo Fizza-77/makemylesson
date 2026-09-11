@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { FileText, Globe } from 'lucide-react'
@@ -272,3 +272,5 @@ export default function LessonPlanWhatsInside() {
     </section>
   )
 }
+
+

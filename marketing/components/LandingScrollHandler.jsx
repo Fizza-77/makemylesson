@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect } from 'react'
 import { consumePendingScroll, scrollToSection, stripHashFromUrl } from '@marketing/lib/homeScroll'
@@ -21,3 +21,5 @@ export default function LandingScrollHandler() {
 
   return null
 }
+
+

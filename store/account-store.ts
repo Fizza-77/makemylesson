@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { create } from "zustand";
 import type { User } from "firebase/auth";
@@ -124,3 +124,5 @@ export async function refreshAccountFromServer(
   useAccountStore.getState().setAccount(view);
   return view;
 }
+
+

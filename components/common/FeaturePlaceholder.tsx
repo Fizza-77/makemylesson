@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 import { Card } from "@/components/ui/Card";
 import { ROUTES } from "@/lib/urls";
@@ -22,3 +22,5 @@ export function FeaturePlaceholder({
     </Card>
   );
 }
+
+

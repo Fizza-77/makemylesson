@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 
 export const metadata = {
   title: 'Page not found',
@@ -27,3 +27,5 @@ export default function MarketingNotFound() {
     </main>
   )
 }
+
+

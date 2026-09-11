@@ -1,4 +1,4 @@
-import AccountDataDeletionPage from '@marketing/components/legal/AccountDataDeletionPage'
+﻿import AccountDataDeletionPage from '@marketing/components/legal/AccountDataDeletionPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
@@ -28,3 +28,5 @@ export default function AccountDataDeletionRoutePage() {
     </>
   )
 }
+
+

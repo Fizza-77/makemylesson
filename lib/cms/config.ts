@@ -1,4 +1,4 @@
-import {
+﻿import {
   DEFAULT_BLOG_CATEGORIES_TABLE,
   DEFAULT_BLOG_POSTS_TABLE,
   DEFAULT_SITES_TABLE,
@@ -46,3 +46,5 @@ export function isSupabaseConfigured(): boolean {
   const e = getCmsEnv();
   return Boolean(e.supabaseUrl && e.supabaseAnonKey && (e.siteKey || e.siteId?.trim()));
 }
+
+

@@ -1,4 +1,4 @@
-export const COOKIE_CONSENT_STORAGE_KEY = "mml-cookie-consent";
+﻿export const COOKIE_CONSENT_STORAGE_KEY = "mml-cookie-consent";
 export const COOKIE_CONSENT_VERSION = "1";
 
 export type StoredCookieConsent = {
@@ -29,3 +29,5 @@ export function hasAnalyticsConsent(): boolean {
   const stored = readStoredCookieConsent();
   return stored?.analytics === true || stored?.choice === "all";
 }
+
+

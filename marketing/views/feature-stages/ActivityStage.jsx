@@ -1,4 +1,4 @@
-import ActivityCta from '@marketing/components/features/ActivityCta'
+﻿import ActivityCta from '@marketing/components/features/ActivityCta'
 import ActivityHowItWorks from '@marketing/components/features/ActivityHowItWorks'
 import ActivityNextStages from '@marketing/components/features/ActivityNextStages'
 import ActivityStageHero from '@marketing/components/features/ActivityStageHero'
@@ -27,3 +27,5 @@ export default function ActivityStage() {
     </>
   )
 }
+
+

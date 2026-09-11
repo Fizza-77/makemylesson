@@ -1,4 +1,4 @@
-import { callFunction } from "@/firebase/functions";
+﻿import { callFunction } from "@/firebase/functions";
 import { ROUTES } from "@/lib/urls";
 import type { AccountPlanTier } from "@/types/account";
 
@@ -149,3 +149,5 @@ export function priceForPlan(
 export function currencySymbol(quote: MmlWebPricingQuote | null): string {
   return quote?.currencySymbol?.trim() || "$";
 }
+
+

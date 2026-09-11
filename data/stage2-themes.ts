@@ -1,4 +1,4 @@
-/** Mirrors Flutter `Stage2SlideThemes` registry (IDs = backend presentationStyle). */
+﻿/** Mirrors Flutter `Stage2SlideThemes` registry (IDs = backend presentationStyle). */
 
 export type Stage2SlideTheme = {
   id: string;
@@ -121,3 +121,5 @@ export function stage2ThemeById(id: string | null | undefined): Stage2SlideTheme
   const key = (id ?? "").trim();
   return STAGE2_THEMES.find((t) => t.id === key) ?? STAGE2_THEMES[0]!;
 }
+
+

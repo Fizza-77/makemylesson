@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useEffect, useState, type ReactNode } from "react";
@@ -376,3 +376,5 @@ function FeaturePill({ children }: { children: ReactNode }) {
     </span>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { jsPDF } from "jspdf";
+﻿import { jsPDF } from "jspdf";
 import JSZip from "jszip";
 import PptxGenJS from "pptxgenjs";
 
@@ -993,3 +993,5 @@ export async function runStage2DownloadAction(
       throw new Error("Unsupported export action.");
   }
 }
+
+

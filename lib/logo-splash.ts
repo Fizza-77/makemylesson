@@ -1,4 +1,4 @@
-/** Session flag so the logo splash can survive auth → app layout remounts. */
+﻿/** Session flag so the logo splash can survive auth → app layout remounts. */
 const LOGO_SPLASH_KEY = "mml:logo-splash";
 
 /** Queue the MML logo intro for the next app shell mount (sign-in / welcome). */
@@ -37,3 +37,5 @@ export function requestLogoSplashAfterAuth(dest: string): void {
   }
   requestLogoSplash();
 }
+
+

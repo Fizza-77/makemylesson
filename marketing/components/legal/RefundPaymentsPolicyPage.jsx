@@ -8,10 +8,10 @@ export default function RefundPaymentsPolicyPage() {
           <h1 className="legal-article-title">
             Refund &amp; Payments Policy
           </h1>
-          <p className="legal-article-operator">Operated by Qismat Ventures W.L.L</p>
+          <p className="legal-article-operator">Operated by Skyen Systems Pty Ltd</p>
           <p className="legal-article-meta">
-            <span className="block">Effective Date: [To be set]</span>
-            <span className="mt-1 block">Last Updated: [To be set]</span>
+            <span className="block">Effective Date: 7 September 2026</span>
+            <span className="mt-1 block">Last Updated: 7 September 2026</span>
           </p>
         </header>
 
@@ -20,7 +20,7 @@ export default function RefundPaymentsPolicyPage() {
             <h2 className="legal-h2">1. Introduction</h2>
             <p className="mb-3">
               This Refund &amp; Payments Policy governs all payments, subscriptions, and paid features offered on Make My
-              Lesson, operated by Qismat Ventures W.L.L.
+              Lesson, operated by Skyen Systems Pty Ltd.
             </p>
             <p className="mb-3">This policy applies across:</p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
@@ -61,7 +61,7 @@ export default function RefundPaymentsPolicyPage() {
           </section>
 
           <section className="legal-section">
-            <h2 className="legal-h2">3. Direct Purchases (Web – Paddle or Equivalent)</h2>
+            <h2 className="legal-h2">3. Direct Purchases (Web – Stripe or Equivalent)</h2>
             <p className="mb-3">For purchases made directly via Make My Lesson:</p>
             <h3 className="mb-2 mt-4 font-sans text-[15px] font-semibold text-white">Eligibility</h3>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
@@ -79,6 +79,9 @@ export default function RefundPaymentsPolicyPage() {
               <li>Subscriptions can be cancelled anytime to stop future billing</li>
               <li>Current billing cycles are non-refundable</li>
             </ul>
+            <p className="mb-4 text-white">
+              These are launch prices, available for a limited time. If you subscribe during the launch period, your price is locked in for as long as your subscription stays active, even after the launch period ends. New subscriptions after the launch period ends are billed at our standard prices. If we ever change your price for any other reason, we will email you before it affects your renewal.
+            </p>
             <h3 className="legal-h3">Refund Processing</h3>
             <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
               <li>Approved refunds are issued to the original payment method</li>
@@ -230,9 +233,9 @@ export default function RefundPaymentsPolicyPage() {
               </li>
             </ul>
             <p className="mt-6 text-sm text-white">
-              Operated by Qismat Ventures W.L.L
+              Operated by Skyen Systems Pty Ltd
               <br />
-              Office 501, Building 1025, Road 3621, Block 436, Al-Seef, Kingdom of Bahrain
+              Unit 18, 285-287 Derrimut Rd, Hoppers Crossing VIC 3029, Australia
             </p>
           </section>
         </div>
@@ -240,3 +243,5 @@ export default function RefundPaymentsPolicyPage() {
     </PolicyPageShell>
   )
 }
+
+

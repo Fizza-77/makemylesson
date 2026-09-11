@@ -1,4 +1,4 @@
-import FaqPage from '@marketing/components/faq/FaqPage'
+﻿import FaqPage from '@marketing/components/faq/FaqPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { faqItems } from '@marketing/data/faqItems'
 import { FAQ_SCHEMA_IDS } from '@marketing/data/faqMeta'
@@ -30,3 +30,5 @@ export default function FaqRoutePage() {
     </>
   )
 }
+
+

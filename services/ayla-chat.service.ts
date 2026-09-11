@@ -1,4 +1,4 @@
-import {
+﻿import {
   AYLA_FAQ_ENTRIES,
   buildAylaFaqTextFromEntries,
   findBestFaqMatch,
@@ -89,3 +89,5 @@ export async function sendAylaMessage(params: {
   if (fallback) return fallback.answer;
   return AYLA_FAQ_ENTRIES[0]!.answer;
 }
+
+

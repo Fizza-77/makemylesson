@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import PolicyPageShell from '@marketing/components/layout/PolicyPageShell'
 
 export default function WebPrivacyPolicyPage() {
@@ -63,7 +63,7 @@ export default function WebPrivacyPolicyPage() {
             </div>
             <p>
               Our iOS and Android apps are published on the App Store and Google Play by Skyen Solutions, a trade name of
-              Qismat Ventures W.L.L. Regardless of whether you use the website or an app, and regardless of where you bought
+              Skyen Systems Pty Ltd. Regardless of whether you use the website or an app, and regardless of where you bought
               a subscription, Skyen Systems Pty Ltd operates the platform, holds your account and your lesson content, and is
               responsible for your personal information under this policy.
             </p>
@@ -345,7 +345,7 @@ export default function WebPrivacyPolicyPage() {
                     </td>
                   </tr>
                   <tr className="hover:bg-white/[0.02]">
-                    <td className="p-3 sm:p-4 font-medium text-white align-top">Skyen Solutions (Qismat Ventures W.L.L.)</td>
+                    <td className="p-3 sm:p-4 font-medium text-white align-top">Skyen Solutions (Skyen Systems Pty Ltd.)</td>
                     <td className="p-3 sm:p-4 text-slate-300 align-top">
                       Our group companies provide engineering, design and support services. Staff access is limited to what is
                       needed to build, maintain and support the platform.
@@ -669,3 +669,5 @@ export default function WebPrivacyPolicyPage() {
     </PolicyPageShell>
   )
 }
+
+

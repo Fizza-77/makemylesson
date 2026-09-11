@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 
 import { responsiveWebpSrcSet } from "@marketing/home-landing/responsiveWebp";
 
@@ -147,3 +147,5 @@ export default function MeetAylaSection() {
     </section>
   );
 }
+
+

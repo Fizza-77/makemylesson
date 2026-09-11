@@ -1,4 +1,4 @@
-export type AppNotification = {
+﻿export type AppNotification = {
   id: string;
   title: string;
   body: string;
@@ -25,3 +25,5 @@ export function normalizeDeepLink(deepLink: string): string {
   }
   return raw.startsWith("/") ? raw : `/${raw}`;
 }
+
+

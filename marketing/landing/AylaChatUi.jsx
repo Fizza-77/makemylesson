@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import AylaIcon from '@marketing/components/AylaIcon'
 
@@ -35,3 +35,5 @@ export function TypingDots() {
     </div>
   )
 }
+
+

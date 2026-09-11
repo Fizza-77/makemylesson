@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "mml-web-trial-functions",
   "private": true,
   "main": "index.js",
@@ -10,3 +10,5 @@
     "firebase-functions": "^6.6.0"
   }
 }
+
+

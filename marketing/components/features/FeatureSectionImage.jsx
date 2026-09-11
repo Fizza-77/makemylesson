@@ -1,4 +1,4 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 import { cn } from '@marketing/lib/cn'
 import { getFeatureHeroImagePath } from '@marketing/data/features'
 
@@ -27,3 +27,5 @@ export default function FeatureSectionImage({
     </div>
   )
 }
+
+

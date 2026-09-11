@@ -1,4 +1,4 @@
-import PricingPage from '@marketing/views/PricingPage'
+﻿import PricingPage from '@marketing/views/PricingPage'
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 import { buildPricingOffersJsonLd } from '@marketing/lib/pricingJsonLd'
@@ -41,3 +41,5 @@ export default function PricingRoutePage() {
     </>
   )
 }
+
+
