@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -16,8 +16,8 @@ import {
   signInWithApplePopup,
   signInWithEmail,
   signInWithGooglePopup,
-} from "@/firebase/auth";
-import { getFirebaseAuth } from "@/firebase/config";
+} from "@/lib/firebase/auth";
+import { getFirebaseAuth } from "@/lib/firebase/config";
 import {
   isAuthSignInCancelled,
   isExpectedAuthCredentialError,

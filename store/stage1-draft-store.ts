@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { create } from "zustand";
 
@@ -477,7 +477,7 @@ export const useStage1DraftStore = create<Stage1Store>((set, get) => ({
       );
     }
 
-    const { getFirebaseAuth } = await import("@/firebase/config");
+    const { getFirebaseAuth } = await import("@/lib/firebase/config");
     if (shouldSkipLibrarySave()) {
       throw new Error("Sign in to save to your library.");
     }

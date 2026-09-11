@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,8 +19,8 @@ import { PasswordInput } from "@/components/ui/PasswordInput";
 import {
   signInWithApplePopup,
   signInWithGooglePopup,
-} from "@/firebase/auth";
-import { getFirebaseAuth } from "@/firebase/config";
+} from "@/lib/firebase/auth";
+import { getFirebaseAuth } from "@/lib/firebase/config";
 import {
   isAccountAlreadyExistsError,
   isAuthSignInCancelled,

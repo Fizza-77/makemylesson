@@ -1,4 +1,4 @@
-﻿import {
+import {
   AYLA_FAQ_ENTRIES,
   buildAylaFaqTextFromEntries,
   findBestFaqMatch,
@@ -65,7 +65,7 @@ export async function sendAylaMessage(params: {
       text: message.text,
     }));
 
-    const { callFunction } = await import("@/firebase/functions");
+    const { callFunction } = await import("@/lib/firebase/functions");
     const data = await callFunction<
       {
         systemInstruction: string;

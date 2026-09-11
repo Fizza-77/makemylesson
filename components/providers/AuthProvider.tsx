@@ -1,10 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useEffect, type ReactNode } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
-import { getFirebaseAuth } from "@/firebase/config";
-import { fetchUserProfile } from "@/firebase/firestore";
+import { getFirebaseAuth } from "@/lib/firebase/config";
+import { fetchUserProfile } from "@/lib/firebase/firestore";
 import { isGuestUser, syncGuestTrialCredits } from "@/lib/guest-session";
 import { fetchWebTrialStatusFromServer } from "@/lib/trial-api.client";
 import { useAuthStore } from "@/store/auth-store";

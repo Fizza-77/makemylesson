@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -10,7 +10,7 @@ import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Spinner } from "@/components/ui/Spinner";
-import { resetPasswordWithCode, verifyResetCode } from "@/firebase/auth";
+import { resetPasswordWithCode, verifyResetCode } from "@/lib/firebase/auth";
 import { mapFirebaseAuthError } from "@/lib/auth-errors";
 import { authLog } from "@/lib/auth-logger";
 import {

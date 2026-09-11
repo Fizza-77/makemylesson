@@ -1,13 +1,13 @@
-﻿import type { User } from "firebase/auth";
+import type { User } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 import {
   ensureAuthPersistence,
   signInAnonymouslyIfNeeded,
   signInWithCustomAuthToken,
-} from "@/firebase/auth";
-import { ensureUserDocument } from "@/firebase/firestore";
-import { getFirebaseAuth } from "@/firebase/config";
+} from "@/lib/firebase/auth";
+import { ensureUserDocument } from "@/lib/firebase/firestore";
+import { getFirebaseAuth } from "@/lib/firebase/config";
 import { getGuestCreditsRemaining } from "@/lib/guest-credits";
 import {
   isGuestWebUid,

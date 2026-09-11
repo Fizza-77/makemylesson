@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,8 +15,8 @@ import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
 import { AuthLoadingOverlay } from "@/features/auth/components/AuthLoadingOverlay";
 import { OTP_VERIFY_LOADING_MESSAGES } from "@/features/auth/auth-loading-messages";
 import { Button } from "@/components/ui/Button";
-import { signInWithCustomAuthToken } from "@/firebase/auth";
-import { userDocRef } from "@/firebase/firestore";
+import { signInWithCustomAuthToken } from "@/lib/firebase/auth";
+import { userDocRef } from "@/lib/firebase/firestore";
 import { mapFunctionsError } from "@/lib/auth-errors";
 import { authLog } from "@/lib/auth-logger";
 import { requestLogoSplashAfterAuth } from "@/lib/logo-splash";

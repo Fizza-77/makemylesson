@@ -1,4 +1,4 @@
-﻿import { callFunction } from "@/firebase/functions";
+import { callFunction } from "@/lib/firebase/functions";
 import {
   parseStage3Status,
   type Stage3GenerateRequest,

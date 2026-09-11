@@ -1,4 +1,4 @@
-﻿import {
+import {
   getMessaging,
   getToken,
   isSupported,
@@ -6,7 +6,7 @@
 } from "firebase/messaging";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
-import { getFirebaseApp, getFirestoreDb } from "@/firebase/config";
+import { getFirebaseApp, getFirestoreDb } from "@/lib/firebase/config";
 
 /** Same VAPID key as Flutter `kMmlWebVapidKey` (shared FCM web sender). */
 export const MML_WEB_VAPID_KEY =

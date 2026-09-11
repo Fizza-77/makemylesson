@@ -1,6 +1,6 @@
-﻿import { getDownloadURL, ref } from "firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 
-import { getFirebaseAuth, getFirebaseStorage } from "@/firebase/config";
+import { getFirebaseAuth, getFirebaseStorage } from "@/lib/firebase/config";
 import {
   stage2SlideExpectsImage,
   type Stage2Slide,

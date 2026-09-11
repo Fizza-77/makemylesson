@@ -1,11 +1,11 @@
-﻿"use client";
+"use client";
 
 import { create } from "zustand";
 import type { User } from "firebase/auth";
 import { getDoc, getDocFromServer } from "firebase/firestore";
 
-import { userDocRef } from "@/firebase/firestore";
-import { getFirebaseAuth } from "@/firebase/config";
+import { userDocRef } from "@/lib/firebase/firestore";
+import { getFirebaseAuth } from "@/lib/firebase/config";
 import { isGuestUser } from "@/lib/guest-session";
 import { toUserMessage } from "@/lib/user-facing-error";
 import {

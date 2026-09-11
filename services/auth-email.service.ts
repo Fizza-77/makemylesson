@@ -1,4 +1,4 @@
-﻿import { callFunction } from "@/firebase/functions";
+import { callFunction } from "@/lib/firebase/functions";
 
 export async function startEmailSignupVerification(email: string) {
   await callFunction<{ email: string }>("startEmailSignupVerification", {

@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
   output: "standalone",
   reactStrictMode: true,
   turbopack: {
+    // Keep this app as the Turbopack root (parent folder also has a lockfile).
+    root: __dirname,
     // Next.js injects polyfill-module for all browsers; our browserslist is modern-only.
     resolveAlias: {
       "../build/polyfills/polyfill-module": modernPolyfillStub,

@@ -1,7 +1,7 @@
-﻿import { getDoc, serverTimestamp, setDoc, Timestamp } from "firebase/firestore";
+import { getDoc, serverTimestamp, setDoc, Timestamp } from "firebase/firestore";
 
-import { userDocRef, fetchUserProfile } from "@/firebase/firestore";
-import { uploadUserFile } from "@/firebase/storage";
+import { userDocRef, fetchUserProfile } from "@/lib/firebase/firestore";
+import { uploadUserFile } from "@/lib/firebase/storage";
 import { UserFirestoreProfile } from "@/types/user-profile";
 import { useAuthStore } from "@/store/auth-store";
 

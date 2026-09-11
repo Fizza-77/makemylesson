@@ -1,4 +1,4 @@
-﻿import {
+import {
   collection,
   doc,
   getDocs,
@@ -14,8 +14,8 @@
   type Unsubscribe,
 } from "firebase/firestore";
 
-import { getFirebaseAuth, getFirestoreDb } from "@/firebase/config";
-import { callFunction } from "@/firebase/functions";
+import { getFirebaseAuth, getFirestoreDb } from "@/lib/firebase/config";
+import { callFunction } from "@/lib/firebase/functions";
 import type { AppNotification } from "@/types/notification";
 
 function uidOrNull(): string | null {

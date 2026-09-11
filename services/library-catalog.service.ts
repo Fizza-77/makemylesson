@@ -1,4 +1,4 @@
-﻿import {
+import {
   deleteDoc,
   doc,
   getDocs,
@@ -11,8 +11,8 @@
   type Unsubscribe,
 } from "firebase/firestore";
 
-import { libraryItemsRef } from "@/firebase/firestore";
-import { getFirebaseAuth } from "@/firebase/config";
+import { libraryItemsRef } from "@/lib/firebase/firestore";
+import { getFirebaseAuth } from "@/lib/firebase/config";
 import {
   libraryItemFromFirestore,
   libraryItemToFirestore,

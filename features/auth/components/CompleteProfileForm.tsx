@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -7,8 +7,8 @@ import { AuthGlassShell } from "@/features/auth/components/AuthGlassShell";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Spinner } from "@/components/ui/Spinner";
-import { getFirebaseAuth } from "@/firebase/config";
-import { fetchUserProfile } from "@/firebase/firestore";
+import { getFirebaseAuth } from "@/lib/firebase/config";
+import { fetchUserProfile } from "@/lib/firebase/firestore";
 import { signOutAndSealTrial } from "@/lib/sign-out-session";
 import { authLog } from "@/lib/auth-logger";
 import { AuthUiCopy } from "@/lib/auth-validation";

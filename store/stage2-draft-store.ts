@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { create } from "zustand";
 
@@ -231,7 +231,7 @@ function effectiveFamily(topLevelId: string): string {
  */
 async function syncThemeToLibrary(itemId: string, themeId: string) {
   try {
-    const { getFirebaseAuth } = await import("@/firebase/config");
+    const { getFirebaseAuth } = await import("@/lib/firebase/config");
     if (!getFirebaseAuth().currentUser) return;
     await updatePresentationStyle({ id: itemId, presentationStyle: themeId });
     const { useLibraryCatalogStore } = await import(
@@ -265,7 +265,7 @@ async function persistDeckToLibrary(
     };
   }
 
-  const { getFirebaseAuth } = await import("@/firebase/config");
+  const { getFirebaseAuth } = await import("@/lib/firebase/config");
   if (shouldSkipLibrarySave()) {
     return { saved: false };
   }

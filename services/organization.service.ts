@@ -1,4 +1,4 @@
-﻿import { FirebaseError } from "firebase/app";
+import { FirebaseError } from "firebase/app";
 import {
   collection,
   doc,
@@ -10,8 +10,8 @@ import {
   where,
 } from "firebase/firestore";
 
-import { getFirebaseAuth, getFirestoreDb } from "@/firebase/config";
-import { callFunction } from "@/firebase/functions";
+import { getFirebaseAuth, getFirestoreDb } from "@/lib/firebase/config";
+import { callFunction } from "@/lib/firebase/functions";
 import { ANNUAL_CREDITS_PER_SEAT } from "@/services/paypal-checkout.service";
 import {
   organizationDashboardFromJson,

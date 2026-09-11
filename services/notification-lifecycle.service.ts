@@ -1,4 +1,4 @@
-﻿import {
+import {
   doc,
   getDoc,
   runTransaction,
@@ -6,8 +6,8 @@
   setDoc,
 } from "firebase/firestore";
 
-import { getFirebaseAuth, getFirestoreDb } from "@/firebase/config";
-import { callFunction } from "@/firebase/functions";
+import { getFirebaseAuth, getFirestoreDb } from "@/lib/firebase/config";
+import { callFunction } from "@/lib/firebase/functions";
 
 function userRef(uid: string) {
   return doc(getFirestoreDb(), "users", uid);

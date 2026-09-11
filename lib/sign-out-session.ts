@@ -1,5 +1,5 @@
-﻿import { signOutUser } from "@/firebase/auth";
-import { getFirebaseAuth } from "@/firebase/config";
+import { signOutUser } from "@/lib/firebase/auth";
+import { getFirebaseAuth } from "@/lib/firebase/config";
 import { authLog } from "@/lib/auth-logger";
 import { getGuestCreditsRemaining } from "@/lib/guest-credits";
 import { isGuestUser } from "@/lib/guest-session";

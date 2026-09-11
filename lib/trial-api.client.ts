@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import type { User } from "firebase/auth";
 
-import { callFunction } from "@/firebase/functions";
+import { callFunction } from "@/lib/firebase/functions";
 import {
   GUEST_GENERATION_CREDIT_CAP,
   getGuestCreditsRemaining,

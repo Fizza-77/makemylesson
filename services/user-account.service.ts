@@ -1,9 +1,9 @@
-﻿import { updateProfile } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { getDoc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 
-import { getFirebaseAuth } from "@/firebase/config";
-import { userDocRef } from "@/firebase/firestore";
-import { uploadUserFile, deleteUserFile } from "@/firebase/storage";
+import { getFirebaseAuth } from "@/lib/firebase/config";
+import { userDocRef } from "@/lib/firebase/firestore";
+import { uploadUserFile, deleteUserFile } from "@/lib/firebase/storage";
 import { authLog } from "@/lib/auth-logger";
 import { isGuestWebUid } from "@/lib/guest-auth-id";
 import {

@@ -1,4 +1,4 @@
-﻿import { getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import type { User } from "firebase/auth";
 
 import { sendWelcomeEmail } from "@/services/auth-email.service";
@@ -6,9 +6,9 @@ import {
   ensureUserDocument,
   fetchUserProfile,
   userDocRef,
-} from "@/firebase/firestore";
+} from "@/lib/firebase/firestore";
 import { signOutAndSealTrial } from "@/lib/sign-out-session";
-import { callFunction } from "@/firebase/functions";
+import { callFunction } from "@/lib/firebase/functions";
 import { authLog } from "@/lib/auth-logger";
 import { ROUTES } from "@/lib/urls";
 import {

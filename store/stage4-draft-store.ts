@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { create } from "zustand";
 
@@ -261,7 +261,7 @@ async function persistToLibrary(
     return { saved: false, saveError: "No assessment content to save." };
   }
 
-  const { getFirebaseAuth } = await import("@/firebase/config");
+  const { getFirebaseAuth } = await import("@/lib/firebase/config");
   if (shouldSkipLibrarySave()) {
     return { saved: false };
   }

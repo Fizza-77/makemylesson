@@ -1,4 +1,4 @@
-﻿import {
+import {
   EmailAuthProvider,
   reauthenticateWithCredential,
   signInWithEmailAndPassword,
@@ -9,9 +9,9 @@
 import { FirebaseError } from "firebase/app";
 import { getDoc } from "firebase/firestore";
 
-import { getFirebaseAuth } from "@/firebase/config";
-import { userDocRef } from "@/firebase/firestore";
-import { callFunction } from "@/firebase/functions";
+import { getFirebaseAuth } from "@/lib/firebase/config";
+import { userDocRef } from "@/lib/firebase/firestore";
+import { callFunction } from "@/lib/firebase/functions";
 import { authLog } from "@/lib/auth-logger";
 
 const DELETE_MY_ACCOUNT_ATTEMPTS = 3;
