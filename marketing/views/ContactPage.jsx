@@ -15,7 +15,7 @@ import {
 
 import ContactIntentPicker from '@marketing/components/contact/ContactIntentPicker'
 import LazyContactForm from '@marketing/components/contact/LazyContactForm'
-import { SUPPORT_EMAIL } from '@marketing/lib/contact/constants'
+import { HELLO_EMAIL, SUPPORT_EMAIL } from '@marketing/lib/contact/constants'
 import { MML_APP } from '@marketing/lib/appUrls'
 
 const FAST_LINKS = [
@@ -148,11 +148,27 @@ export default function ContactPage({ initialSubject = '' }) {
                 <h3 className="text-[16px] font-bold text-[#1A1E3A] xl:text-[17px]">Direct channels</h3>
               </div>
               <ul className="space-y-3 text-[13px] font-medium text-[#1A1E3A] sm:text-[14px]">
-                <li className="flex items-center gap-2.5">
-                  <Mail className="h-4 w-4 shrink-0" aria-hidden strokeWidth={2.25} />
-                  <a href="mailto:hello@makemylesson.ai" className="no-underline hover:underline">
-                    hello@makemylesson.ai
-                  </a>
+                <li className="flex items-start gap-2.5">
+                  <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden strokeWidth={2.25} />
+                  <span>
+                    <a href={`mailto:${HELLO_EMAIL}`} className="no-underline hover:underline">
+                      {HELLO_EMAIL}
+                    </a>
+                    <span className="mt-0.5 block text-[12px] font-normal text-[#1A1E3A]/80">
+                      General enquiries, sales, school and department quotes
+                    </span>
+                  </span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden strokeWidth={2.25} />
+                  <span>
+                    <a href={`mailto:${SUPPORT_EMAIL}`} className="no-underline hover:underline">
+                      {SUPPORT_EMAIL}
+                    </a>
+                    <span className="mt-0.5 block text-[12px] font-normal text-[#1A1E3A]/80">
+                      Billing, subscriptions, refunds, account and data requests, bugs
+                    </span>
+                  </span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Smartphone className="mt-0.5 h-4 w-4 shrink-0" aria-hidden strokeWidth={2.25} />
@@ -179,17 +195,15 @@ export default function ContactPage({ initialSubject = '' }) {
                 </span>
                 <h3 className="text-[16px] font-bold text-[#1A1E3A] xl:text-[17px]">The company</h3>
               </div>
-              <p className="text-[15px] font-bold text-[#1A1E3A]">Skyen Solutions</p>
+              <p className="text-[15px] font-bold text-[#1A1E3A]">Skyen Systems Pty Ltd</p>
               <p className="mt-2 text-[13px] leading-relaxed text-black sm:text-[14px]">
-                A trade name of Skyen Systems Pty Ltd. (ACN 701 564 730), Bahrain.
+                ACN 701 564 730 · Unit 18, 285–287 Derrimut Rd, Hoppers Crossing VIC 3029, Australia.
                 <br />
-                Office support available Mon–Fri for school and partnership enquiries.
-              </p>
-              <p className="mt-4 text-[12px] font-medium text-black">
-                Sister platforms: Studiely · Linguatude
+                Web subscriptions are sold by Skyen Systems Pty Ltd. Office support available Mon–Fri
+                for school and partnership enquiries.
               </p>
               <p className="mt-2 text-[12px] text-black">
-                Support email:{' '}
+                Billing and account support:{' '}
                 <a href={`mailto:${SUPPORT_EMAIL}`} className="text-[#1E9A98] hover:underline">
                   {SUPPORT_EMAIL}
                 </a>

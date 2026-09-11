@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer'
 
-import { SUPPORT_EMAIL } from '@marketing/lib/contact/constants'
+import { contactInboxForSubject, SUPPORT_EMAIL } from '@marketing/lib/contact/constants'
 import { escapeHtml } from '@marketing/lib/contact/sanitize'
 
 function getSmtpConfig() {
@@ -94,18 +94,19 @@ function buildPlainText({ name, email, company, subjectLabel, message, submitted
 }
 
 /**
- * @param {{ name: string, email: string, company: string | null, subjectLabel: string, message: string }} data
+ * @param {{ name: string, email: string, company: string | null, subject: string, subjectLabel: string, message: string }} data
  */
 export async function sendContactEmail(data) {
   const { from } = getSmtpConfig()
   const transporter = createTransporter()
   const submittedAt = new Date().toUTCString()
+  const to = contactInboxForSubject(data.subjectKey)
 
   const payload = { ...data, submittedAt }
 
   await transporter.sendMail({
     from,
-    to: SUPPORT_EMAIL,
+    to,
     replyTo: data.email,
     subject: `[Make My Lesson] ${data.subjectLabel} — ${data.name}`,
     text: buildPlainText(payload),

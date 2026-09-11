@@ -22,7 +22,7 @@ export default function WebPrivacyPolicyPage() {
           <p className="mt-1 text-base font-medium text-slate-300">Make My Lesson</p>
           <p className="legal-article-operator">Operated by Skyen Systems Pty Ltd</p>
           <p className="legal-article-meta">
-            <span className="block">Effective: 10 September 2026 · Last updated: 10 September 2026</span>
+            <span className="block">Effective: 10 September 2026 · Last updated: 11 September 2026</span>
           </p>
         </header>
 
@@ -396,16 +396,16 @@ export default function WebPrivacyPolicyPage() {
             </p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
               <li>
-                <strong className="font-medium text-white">United States</strong> — Google Firebase, AI model providers,
-                Google Classroom, Microsoft Teams, Apple, Google
+                <strong className="font-medium text-white">United States</strong> — Google Firebase, Google AdMob, AI model
+                providers, Google Classroom, Microsoft Teams, Apple, Google
               </li>
               <li>
                 <strong className="font-medium text-white">Ireland and the European Union</strong> — certain Stripe and
                 hosting operations
               </li>
               <li>
-                <strong className="font-medium text-white">Pakistan and Bahrain</strong> — our group engineering, design and
-                support teams
+                <strong className="font-medium text-white">Other group locations</strong> — our group engineering, design and
+                support teams under access controls
               </li>
             </ul>
             <p>

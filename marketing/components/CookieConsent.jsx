@@ -47,7 +47,20 @@ export default function CookieConsent() {
 
   useEffect(() => {
     setMounted(true)
-    if (!readStoredConsent()) setVisible(true)
+    const stored = readStoredConsent()
+    if (!stored) setVisible(true)
+    else setAnalyticsOn(Boolean(stored.analytics))
+  }, [])
+
+  useEffect(() => {
+    const openSettings = () => {
+      const stored = readStoredConsent()
+      setAnalyticsOn(Boolean(stored?.analytics))
+      setShowPrefs(true)
+      setVisible(true)
+    }
+    window.addEventListener('mml-open-cookie-settings', openSettings)
+    return () => window.removeEventListener('mml-open-cookie-settings', openSettings)
   }, [])
 
   const dismiss = useCallback((choice) => {

@@ -81,8 +81,8 @@ const CARDS: CurriculumCard[] = [
     title: "International Baccalaureate",
     range: "Primary to Diploma Programme",
     tone: "white",
-    flag: "/Flags/us-flag.webp",
-    flagAlt: "United States flag",
+    flag: "/IB.svg",
+    flagAlt: "International Baccalaureate logo",
     structure: "/svgs/IB.webp",
     structureClass: "mml-cc-structure--ib",
     items: [
@@ -236,7 +236,9 @@ export default function CurriculumCoverageSection() {
                   <img
                     src={card.flag}
                     alt={card.flagAlt}
-                    className="mml-cc-flag"
+                    className={
+                      card.id === "ib" ? "mml-cc-flag mml-cc-flag--ib" : "mml-cc-flag"
+                    }
                     width={48}
                     height={32}
                     loading="lazy"

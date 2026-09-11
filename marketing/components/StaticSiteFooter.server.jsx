@@ -1,12 +1,12 @@
 ﻿import Link from 'next/link'
 
 import BrandMark from '@marketing/components/BrandMark'
+import CookieSettingsButton from '@marketing/components/CookieSettingsButton'
 import { FooterSitemapIcon } from '@marketing/components/footer/FooterSitemapIcons'
 import Container from '@marketing/components/layout/Container'
 import {
   APP_STORE_URL,
   FOOTER_LEGAL_DOCS,
-  FOOTER_SISTER_LINKS,
   FOOTER_SITEMAP_LINKS,
   FOOTER_SOCIAL_LINKS,
   FOOTER_TEAL,
@@ -94,12 +94,10 @@ function GooglePlayBadgeIcon() {
   )
 }
 
-function ExternalTextLink({ href, children }) {
+function MailTextLink({ href, children }) {
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
       className="font-semibold text-[#159F9B] underline underline-offset-2 transition-opacity hover:opacity-90"
     >
       {children}
@@ -288,23 +286,28 @@ export default function StaticSiteFooterServer() {
                   </Link>
                 </li>
               ))}
+              <li className="inline-flex items-center">
+                <span className="mx-2.5 text-[11px] sm:mx-3" style={{ color: FOOTER_TEAL }} aria-hidden>
+                  •
+                </span>
+                <CookieSettingsButton className="cursor-pointer border-0 bg-transparent p-0 text-[12px] font-medium text-white/85 no-underline transition-colors hover:text-[#159F9B] sm:text-[13px]" />
+              </li>
             </ul>
           </nav>
 
           <div className="mt-3.5 border-t border-white/15 pt-3.5 sm:mt-4 sm:pt-4">
             <p className="text-center text-[11px] leading-relaxed text-white/70 sm:text-[12px]">
-              Make My Lesson is a product of Skyen Solutions, a trade name of Skyen Systems Pty Ltd.
-              (ACN 701 564 730) — located at Office 501, Building 1025, Road 3621, Block 436, Al Seef,
-              Bahrain — and is a sister product of{' '}
-              {FOOTER_SISTER_LINKS.map((item, index) => (
-                <span key={item.href}>
-                  {index > 0 ? (index === FOOTER_SISTER_LINKS.length - 1 ? ', and ' : ', ') : null}
-                  <ExternalTextLink href={item.href}>{item.label}</ExternalTextLink>
-                </span>
-              ))}
-              . For educational technology platforms, please contact{' '}
-              <ExternalTextLink href="https://skyensolutions.com">Skyen Solutions</ExternalTextLink>
-              .
+              Make My Lesson is operated by Skyen Systems Pty Ltd (ACN 701 564 730), Unit 18, 285–287
+              Derrimut Rd, Hoppers Crossing VIC 3029, Australia. Subscriptions purchased on this
+              website are sold by Skyen Systems Pty Ltd. Subscriptions purchased in our iOS or Android
+              apps are sold through the App Store or Google Play.
+            </p>
+            <p className="mt-2 text-center text-[11px] leading-relaxed text-white/70 sm:text-[12px]">
+              <MailTextLink href="mailto:hello@makemylesson.ai">hello@makemylesson.ai</MailTextLink>
+              <span className="text-white/55"> (enquiries &amp; schools)</span>
+              {' · '}
+              <MailTextLink href="mailto:support@makemylesson.ai">support@makemylesson.ai</MailTextLink>
+              <span className="text-white/55"> (billing &amp; account)</span>
             </p>
           </div>
 
@@ -322,7 +325,7 @@ export default function StaticSiteFooterServer() {
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
-              <span>Built by educator. Designed for teachers. Made for every classroom.</span>
+              <span>Built by an educator. Designed for teachers. Made for every classroom.</span>
             </p>
             <p className="flex items-center gap-3 text-[12px] text-white/70 sm:text-[13px]">
               <span className="hidden h-4 w-px bg-white/25 sm:block" aria-hidden />

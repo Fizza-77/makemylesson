@@ -11,7 +11,7 @@ const faqCanonical = `${SITE_URL.replace(/\/$/, '')}/faq`
 export const metadata = {
   title: { absolute: 'Make My Lesson FAQs: Features, Pricing and Support' },
   description:
-    'Find answers about Make My Lesson, its four teaching stages, curriculum coverage, Ayla, credits, exports, school plans, privacy and classroom use.',
+    'Find answers about Make My Lesson credits, plans, curricula, Ayla, exports, schools, privacy and support.',
   alternates: { canonical: faqCanonical },
   robots: { index: true, follow: true },
 }

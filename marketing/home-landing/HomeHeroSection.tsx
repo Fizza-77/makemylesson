@@ -27,8 +27,8 @@ const CURRICULUMS = [
   {
     id: "ib",
     label: "IB",
-    flag: "/Flags/us-flag.webp",
-    alt: "United States flag",
+    flag: "/IB.svg",
+    alt: "International Baccalaureate logo",
   },
   {
     id: "us",
@@ -159,13 +159,24 @@ export default function HomeHeroSection() {
                       href="/"
                       className="mml-mkt-hero-flag"
                     >
-                    <Image
-                      src={item.flag}
-                      alt={item.alt}
-                      width={28}
-                      height={20}
-                      className="mml-mkt-hero-flag-img"
-                    />
+                    {item.id === "ib" ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={item.flag}
+                        alt={item.alt}
+                        width={28}
+                        height={20}
+                        className="mml-mkt-hero-flag-img mml-mkt-hero-flag-img--ib"
+                      />
+                    ) : (
+                      <Image
+                        src={item.flag}
+                        alt={item.alt}
+                        width={28}
+                        height={20}
+                        className="mml-mkt-hero-flag-img"
+                      />
+                    )}
                       <span>{item.label}</span>
                     </SectionLink>
                   ))}

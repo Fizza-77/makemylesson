@@ -11,6 +11,9 @@ const PAID_PLAN_POINTS = [
   'Nothing else changes.',
 ]
 
+const CREDIT_EXPIRY_NOTE =
+  'Credits are available throughout your plan period and do not carry over. Any unused credits expire when the period ends.'
+
 const FREE_PLAN_FEATURES = [
   'Stage 1 — AI Lesson Plans',
   'Stage 2 — AI Presentations + Speaker Notes',
@@ -60,7 +63,10 @@ export const ACCESS_PLANS = [
     priceUsd: 9.99,
     discountLabel: '37% OFF',
     features: PAID_PLAN_POINTS,
+    spreadNote: 'Use your generations any time within the month.',
+    creditExpiryNote: CREDIT_EXPIRY_NOTE,
     cta: 'Choose Monthly',
+    href: '/pricing#pricing-plans',
     planKey: 'individual_monthly',
   },
   {
@@ -72,8 +78,10 @@ export const ACCESS_PLANS = [
     priceUsd: 27,
     discountLabel: '44% OFF',
     features: PAID_PLAN_POINTS,
-    spreadNote: 'Use your generations in one month or spread them across 3 months.',
+    spreadNote: 'Use your generations any time within the 3 months.',
+    creditExpiryNote: CREDIT_EXPIRY_NOTE,
     cta: 'Choose 3 Months',
+    href: '/pricing#pricing-plans',
     planKey: 'individual_monthly',
   },
   {
@@ -86,8 +94,10 @@ export const ACCESS_PLANS = [
     priceUsd: 50,
     discountLabel: '48% OFF',
     features: PAID_PLAN_POINTS,
-    spreadNote: 'Use your generations in one month or spread them across 6 months.',
+    spreadNote: 'Use your generations any time within the 6 months.',
+    creditExpiryNote: CREDIT_EXPIRY_NOTE,
     cta: 'Choose 6 Months',
+    href: '/pricing#pricing-plans',
     planKey: 'individual_monthly',
   },
   {
@@ -95,12 +105,14 @@ export const ACCESS_PLANS = [
     name: 'Annual',
     generations: 360,
     tone: 'navy',
-    wasPriceUsd: 191.98,
+    wasPriceUsd: 191.88,
     priceUsd: 90,
     discountLabel: '53% OFF',
     features: PAID_PLAN_POINTS,
-    spreadNote: 'Use your generations in one month or spread them across 12 months.',
+    spreadNote: 'Use your generations any time within the 12 months.',
+    creditExpiryNote: CREDIT_EXPIRY_NOTE,
     cta: 'Choose Annual',
+    href: '/pricing#pricing-plans',
     planKey: 'individual_annual',
   },
 ]
@@ -215,6 +227,12 @@ export function AccessPlanCard({
               <p className="mml-pr-spread">
                 <CalendarDays size={15} strokeWidth={2.2} aria-hidden />
                 <span>{plan.spreadNote}</span>
+              </p>
+            ) : null}
+
+            {plan.creditExpiryNote ? (
+              <p className="mml-pr-spread">
+                <span>{plan.creditExpiryNote}</span>
               </p>
             ) : null}
           </>

@@ -16,15 +16,13 @@ export default function PrivacyPolicyPage() {
               Switch to Web Platform Policy &rarr;
             </Link>
           </div>
-          <h1 className="legal-article-title">
-            Privacy Policy
-          </h1>
+          <h1 className="legal-article-title">Privacy Policy</h1>
           <p className="mt-1 text-base font-medium text-slate-300">Make My Lesson</p>
           <p className="legal-article-operator">Operated by: Skyen Systems Pty Ltd</p>
           <p className="legal-article-meta">
-            <span className="block">Effective Date: September 10, 2026</span>
-            <span className="mt-1 block">Last Updated: September 10, 2026</span>
-            <span className="mt-1 block">Version: 1.1</span>
+            <span className="block">Effective Date: September 11, 2026</span>
+            <span className="mt-1 block">Last Updated: September 11, 2026</span>
+            <span className="mt-1 block">Version: 1.2</span>
           </p>
         </header>
 
@@ -32,18 +30,25 @@ export default function PrivacyPolicyPage() {
           <section className="legal-section">
             <h2 className="legal-h2">Introduction</h2>
             <p className="mb-3">
-              Make My Lesson is an educational technology platform operated by Skyen Systems Pty Ltd (&quot;we,&quot;
-              &quot;us,&quot; or &quot;our&quot;).
+              Make My Lesson is an educational technology platform operated by Skyen Systems Pty Ltd (ACN 701 564 730)
+              (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), a company registered in Victoria, Australia.
             </p>
             <p className="mb-3">
-              We are committed to protecting the privacy, safety, and rights of all users, including teachers, educators,
-              institutions, and administrators.
+              Skyen Systems Pty Ltd is responsible for personal information for all users — whether you subscribed on the
+              website or in our iOS or Android apps. Our apps are published on the App Store and Google Play by Skyen
+              Solutions, a trade name of Qismat Ventures W.L.L.; that does not change who controls your account and lesson
+              data.
+            </p>
+            <p className="mb-3">
+              We handle personal information in accordance with the <em>Privacy Act 1988</em> (Cth) and the Australian
+              Privacy Principles. We also comply with the General Data Protection Regulation (GDPR &amp; UK GDPR) and other
+              applicable international data protection laws where they apply to you.
             </p>
             <p className="mb-3">
               This Privacy Policy explains what information we collect, how we use it, how it is shared, how long it is
               retained, and the rights you have regarding your personal data. It covers Make My Lesson accessed through our
-              website and web-based services, and it also covers the advertising practices that apply in our mobile
-              applications, as described in Section 14.
+              website and web-based services, and the advertising practices that apply in our mobile applications, as
+              described in Section 14.
             </p>
             <p>
               Make My Lesson is designed for professional educational use and is not intended for children or student
@@ -58,11 +63,14 @@ export default function PrivacyPolicyPage() {
                 <span className="font-medium text-white">Company Name:</span> Skyen Systems Pty Ltd
               </li>
               <li>
-                <span className="font-medium text-white">Registered Address:</span> Office 501, Building 1025, Road 3621,
-                Block 436, Al-Seef, Australia
+                <span className="font-medium text-white">ACN:</span> 701 564 730
               </li>
               <li>
-                <span className="font-medium text-white">Registration Number:</span> 190698-1
+                <span className="font-medium text-white">ABN:</span> 19 701 564 730
+              </li>
+              <li>
+                <span className="font-medium text-white">Registered Address:</span> Unit 18, 285–287 Derrimut Rd, Hoppers
+                Crossing VIC 3029, Australia
               </li>
             </ul>
             <p className="mb-2 font-medium text-white">Contact:</p>
@@ -72,12 +80,16 @@ export default function PrivacyPolicyPage() {
                 <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
                   hello@makemylesson.ai
                 </a>
+                {' '}
+                — general enquiries, sales, school quotes
               </li>
               <li>
                 •{' '}
                 <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
                   support@makemylesson.ai
                 </a>
+                {' '}
+                — billing, subscriptions, account and data requests, bugs
               </li>
             </ul>
           </section>
@@ -86,6 +98,9 @@ export default function PrivacyPolicyPage() {
             <h2 className="legal-h2">2. Scope &amp; Compliance</h2>
             <p className="mb-3">This Privacy Policy complies with:</p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
+              <li>
+                The <em>Privacy Act 1988</em> (Cth) and the Australian Privacy Principles
+              </li>
               <li>General Data Protection Regulation (GDPR &amp; UK GDPR)</li>
               <li>UK Age-Appropriate Design Code (where applicable)</li>
               <li>FERPA-aligned principles (where applicable)</li>
@@ -106,12 +121,16 @@ export default function PrivacyPolicyPage() {
               <li>Google AdMob (third-party advertising in our mobile applications)</li>
             </ul>
             <p className="mb-3">
-              Firebase acts as a data processor, and Make My Lesson acts as the data controller.
+              Firebase acts as a data processor, and Skyen Systems Pty Ltd acts as the data controller.
             </p>
             <p className="mb-3">
               Google AdMob is a separate advertising service provided by Google LLC. In relation to advertising data, Google
               acts as an independent controller and processes that data under its own privacy policy. AdMob is described
               in full in Section 14 (Advertising).
+            </p>
+            <p className="mb-3">
+              Subscriptions purchased in our apps are processed by Apple or Google under their own privacy policies. We do
+              not receive your full payment card details from them.
             </p>
             <p className="mb-2">
               Firebase Privacy Policy:{' '}
@@ -203,12 +222,15 @@ export default function PrivacyPolicyPage() {
               <li>Subscription plan and status</li>
               <li>Transaction identifiers</li>
               <li>Subscription start and end dates</li>
-              <li>Payment platform used (e.g., Stripe or equivalent)</li>
+              <li>Payment platform used (Stripe Payments Australia Pty Ltd)</li>
             </ul>
             <p className="mb-2 font-medium text-white">Important:</p>
             <ul className="mb-6 list-disc space-y-2 pl-5 marker:text-mml-teal">
               <li>Make My Lesson does not store payment card details.</li>
-              <li>Payments are processed securely by third-party providers.</li>
+              <li>Payments on the website are processed securely by Stripe.</li>
+              <li>
+                App Store and Google Play purchases are processed by Apple or Google under their own policies.
+              </li>
             </ul>
 
             <h3 className="legal-h3">4.6 Advertising Data (via Google AdMob)</h3>
@@ -274,11 +296,10 @@ export default function PrivacyPolicyPage() {
               settings.
             </p>
             <p>
-              For full details, please refer to our{' '}
+              For full details, please refer to our Cookie Policy:{' '}
               <Link href="/cookie-policy" className="text-mml-teal underline-offset-2 hover:underline">
-                Cookie Policy
+                https://makemylesson.ai/cookie-policy
               </Link>
-              .
             </p>
           </section>
 
@@ -295,7 +316,10 @@ export default function PrivacyPolicyPage() {
               <li>Detect and resolve technical issues</li>
               <li>Comply with legal obligations</li>
             </ul>
-            <p>We do not use your lesson plans, presentations, assessments, or other generated teaching content for advertising or marketing.</p>
+            <p>
+              We do not use your lesson plans, presentations, assessments, or other generated teaching content for
+              advertising or marketing.
+            </p>
           </section>
 
           <section className="legal-section">
@@ -303,24 +327,39 @@ export default function PrivacyPolicyPage() {
             <p className="mb-3">We do not sell personal data.</p>
             <p className="mb-3">Data is shared only:</p>
             <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>With service providers (e.g., Firebase, payment processors)</li>
+              <li>With service providers (e.g., Firebase, Stripe, payment processors)</li>
               <li>With Google AdMob and its ad partners, limited to the advertising data described in Section 4.6</li>
+              <li>With Apple or Google for app-store subscription management, under their own policies</li>
               <li>When legally required</li>
               <li>During business restructuring (with safeguards)</li>
             </ul>
           </section>
 
           <section className="legal-section">
-            <h2 className="legal-h2">9. International Transfers &amp; Data Storage</h2>
+            <h2 className="legal-h2">9. International Transfers &amp; Data Storage (APP 8)</h2>
             <p className="mb-3">
-              Data may be stored on servers outside your country, including the United States. Advertising data is processed
-              by Google on its global infrastructure.
+              Australian Privacy Principle 8 requires us to tell you where personal information may go. Data may be stored
+              on servers outside Australia, including in:
             </p>
-            <p className="mb-3">We use:</p>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Standard Contractual Clauses (SCCs)</li>
-              <li>Industry-standard security practices</li>
+            <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
+              <li>
+                <strong className="font-medium text-white">United States</strong> — Google Firebase, Google AdMob, AI
+                generation providers, Google Classroom, Microsoft Teams, Apple, Google (app stores), hosting providers
+              </li>
+              <li>
+                <strong className="font-medium text-white">Australia / United States / EU</strong> — Stripe Payments Australia
+                Pty Ltd and related Stripe operations
+              </li>
+              <li>
+                <strong className="font-medium text-white">Other locations</strong> — email and hosting providers used to
+                operate the website and send transactional email; group engineering and support teams as needed under access
+                controls
+              </li>
             </ul>
+            <p className="mb-3">
+              Advertising data is processed by Google on its global infrastructure. We use Standard Contractual Clauses
+              (SCCs) and industry-standard security practices where appropriate.
+            </p>
           </section>
 
           <section className="legal-section">
@@ -353,20 +392,28 @@ export default function PrivacyPolicyPage() {
               <li>Withdrawal of consent to personalised advertising at any time</li>
             </ul>
             <p className="mb-2 font-medium text-white">Requests can be made via:</p>
-            <ul className="list-none space-y-1">
-              <li>
-                •{' '}
-                <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
-                  hello@makemylesson.ai
-                </a>
-              </li>
+            <ul className="mb-4 list-none space-y-1">
               <li>
                 •{' '}
                 <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
                   support@makemylesson.ai
                 </a>
+                {' '}
+                — account and data requests
+              </li>
+              <li>
+                •{' '}
+                <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
+                  hello@makemylesson.ai
+                </a>
+                {' '}
+                — general enquiries
               </li>
             </ul>
+            <p>
+              Postal address for data access and deletion requests: Skyen Systems Pty Ltd, Unit 18, 285–287 Derrimut Rd,
+              Hoppers Crossing VIC 3029, Australia.
+            </p>
           </section>
 
           <section className="legal-section">
@@ -400,15 +447,6 @@ export default function PrivacyPolicyPage() {
               Make My Lesson displays third-party advertisements through Google AdMob, a service provided by Google LLC.
               Advertising allows us to keep the free tier of Make My Lesson available at no cost. Advertising is not shown
               to paid subscribers where their plan removes ads.
-            </p>
-
-            <h3 className="legal-h3">Advertising and rewarded ads</h3>
-            <p className="mb-4">
-              On our Free plan, you may choose to watch a short video advertisement, served by{' '}
-              <strong className="font-semibold text-white">Google AdMob</strong>, to unlock one additional generation credit.
-              This is optional — declining never restricts access to credits already earned or purchased. Standard AdMob ad
-              serving applies, which may include personalised advertising based on your device&apos;s advertising identifier.
-              You can reset or limit ad personalisation through your device&apos;s settings.
             </p>
 
             <h3 className="legal-h3">14.1 Who Serves the Ads</h3>
@@ -504,24 +542,61 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section className="legal-section">
-            <h2 className="legal-h2">16. Contact</h2>
+            <h2 className="legal-h2">16. Complaints</h2>
+            <p className="mb-3">
+              If you have a privacy concern, contact us first at{' '}
+              <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
+                support@makemylesson.ai
+              </a>{' '}
+              or{' '}
+              <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
+                hello@makemylesson.ai
+              </a>
+              . We will investigate and respond.
+            </p>
+            <p className="mb-3">
+              If you are not satisfied with our response, you may complain to the Office of the Australian Information
+              Commissioner (OAIC):{' '}
+              <a
+                href="https://www.oaic.gov.au"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-mml-teal underline-offset-2 hover:underline"
+              >
+                oaic.gov.au
+              </a>
+              .
+            </p>
+            <p>
+              If you are in the UK or EEA, you may also contact your local supervisory authority under the UK GDPR or EU
+              GDPR.
+            </p>
+          </section>
+
+          <section className="legal-section">
+            <h2 className="legal-h2">17. Contact</h2>
             <p className="mb-3">For privacy-related questions or requests:</p>
             <ul className="list-none space-y-1">
-              <li>
-                •{' '}
-                <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
-                  hello@makemylesson.ai
-                </a>
-              </li>
               <li>
                 •{' '}
                 <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
                   support@makemylesson.ai
                 </a>
+                {' '}
+                — account and data requests
+              </li>
+              <li>
+                •{' '}
+                <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
+                  hello@makemylesson.ai
+                </a>
+                {' '}
+                — general enquiries
               </li>
             </ul>
             <p className="mt-6 text-sm text-slate-300">
-              Operated by Skyen Systems Pty Ltd — Australia
+              Operated by Skyen Systems Pty Ltd (ACN 701 564 730) — Unit 18, 285–287 Derrimut Rd, Hoppers Crossing VIC 3029,
+              Australia
             </p>
           </section>
         </div>
@@ -529,5 +604,3 @@ export default function PrivacyPolicyPage() {
     </PolicyPageShell>
   )
 }
-
-

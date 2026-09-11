@@ -11,15 +11,8 @@ const TRUST_INDICATORS = [
     title: "Curriculum Aligned",
     tone: "purple" as const,
     icon: "book" as const,
-    description: (
-      <>
-        Aligned with{" "}
-        <span className="mml-trust-pill mml-trust-pill--purple">
-          71+ curricula
-        </span>{" "}
-        worldwide. All grade levels.
-      </>
-    ),
+    description:
+      "Five systems, 71 dedicated routes, matched to your exam board and progression.",
   },
   {
     key: "customizable",

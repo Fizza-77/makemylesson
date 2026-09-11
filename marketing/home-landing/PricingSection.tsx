@@ -57,7 +57,16 @@ export default function PricingSection() {
 
         <p className="mml-pr-note">
           <Lock size={13} strokeWidth={2.4} aria-hidden />
-          All prices are in USD. Cancel anytime.
+          All prices are in USD and exclude any applicable taxes, which are shown at checkout. Your
+          bank may apply a currency conversion fee. Subscriptions bought on this website are sold by
+          Skyen Systems Pty Ltd (ACN 701 564 730). Cancel anytime from your account.
+        </p>
+
+        <p className="mml-pr-note mml-pr-note--school">
+          Schools and departments. We offer plans for teaching teams, with individual accounts and
+          separate credits for each teacher. Email{' '}
+          <a href="mailto:hello@makemylesson.ai">hello@makemylesson.ai</a> and we will put a quote
+          together.
         </p>
       </div>
     </section>

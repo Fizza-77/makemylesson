@@ -15,7 +15,7 @@ export default function FaqSupportSection() {
               Didn&apos;t find your answer?
             </h2>
             <p className="mt-1.5 text-[14px] leading-relaxed text-black sm:text-[15px]">
-              Real humans reply — usually within one school day.
+              Real humans reply — usually within one business day.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">

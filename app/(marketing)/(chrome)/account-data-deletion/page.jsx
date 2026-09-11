@@ -2,13 +2,13 @@
 import MarketingPageJsonLd from '@marketing/components/MarketingPageJsonLd'
 import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
-const PAGE_NAME = 'Delete Your Account and Data'
+const PAGE_NAME = 'Account & Data Deletion'
 const PAGE_DESCRIPTION =
-  'Learn how to request deletion of your Make My Lesson account and personal data, what information is removed, and what may be retained for legal reasons.'
+  'How to delete your Make My Lesson account, what personal information is removed within 30 days, and what billing records we retain under Australian law.'
 const PAGE_PATH = '/account-data-deletion'
 
 export const metadata = {
-  title: { absolute: 'Delete Your Account and Data | Make My Lesson' },
+  title: { absolute: 'Account & Data Deletion | Make My Lesson' },
   description: PAGE_DESCRIPTION,
   alternates: { canonical: PAGE_PATH },
   robots: { index: true, follow: true },

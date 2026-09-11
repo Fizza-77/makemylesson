@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import PolicyPageShell from '@marketing/components/layout/PolicyPageShell'
 
 export default function AccountDataDeletionPage() {
@@ -6,129 +6,180 @@ export default function AccountDataDeletionPage() {
     <PolicyPageShell>
       <article className="legal-article">
         <header className="legal-article-header">
-          <h1 className="legal-article-title">Account & Data Deletion Request</h1>
+          <h1 className="legal-article-title">Account &amp; Data Deletion</h1>
           <p className="legal-article-operator">Operated by Skyen Systems Pty Ltd</p>
           <p className="legal-article-meta">
             <span className="block">Effective: 10 September 2026</span>
             <span className="mt-1 block">Last Updated: 10 September 2026</span>
           </p>
         </header>
+
         <div className="legal-article-body">
-          <p>
-            This document explains how users of Make My Lesson can request the deletion of their account and associated personal data from our platform.
-          </p>
           <section className="legal-section">
-            <h2 className="legal-h2">How to Request Deletion of Your Account & Data</h2>
-            <p className="mb-4">
-              To permanently delete your Make My Lesson account and all associated data, please follow these steps:
+            <h2 className="legal-h2">1. How to delete your account</h2>
+            <p className="mb-3">
+              You can request deletion of your Make My Lesson account and the personal information associated with it at
+              any time, in either of these ways:
             </p>
-            <h3 className="legal-h3">Step 1: Send an Email Request</h3>
-            <ul className="mb-6 list-none space-y-1">
-              <li><a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">support@makemylesson.ai</a></li>
-              <li><a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">hello@makemylesson.ai</a></li>
-            </ul>
-            <h3 className="legal-h3">Step 2: Use the Subject Line</h3>
-            <p className="mb-3 font-medium text-white">Account Deletion Request</p>
-            <h3 className="legal-h3">Step 3: Include the Following Information</h3>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Your registered email address</li>
-              <li>Your full name (if provided in the platform)</li>
-              <li>A clear statement requesting deletion of your account and all associated data</li>
-            </ul>
-          </section>
-          <section className="legal-section">
-            <h2 className="legal-h2">Verification Process</h2>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>We will verify your identity using your registered email address</li>
-              <li>Additional verification may be required for security purposes</li>
-            </ul>
-          </section>
-          <section className="legal-section">
-            <h2 className="legal-h2">Processing Timeline</h2>
-            <p className="mb-3">Once verified:</p>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>We will confirm receipt of your request within 48 hours</li>
-              <li>Full account and data deletion will be completed within 30 days</li>
-            </ul>
-          </section>
-          <section className="legal-section">
-            <h2 className="legal-h2">What Data Will Be Deleted</h2>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Account information (email, UID, role)</li>
-              <li>Generated and stored content (lesson plans, presentations, activities, assessments, saved library, curriculum selections, user settings)</li>
-              <li>Usage and analytics data linked to the account</li>
-              <li>Any additional personal identifiers associated with your account</li>
-            </ul>
-          </section>
-          <section className="legal-section">
-            <h2 className="legal-h2">Data Retention for Legal & Operational Reasons</h2>
-            <p className="mb-4">
-              In certain cases, we may retain limited data even after deletion, as required by law or legitimate business purposes. This retained data will not be linked to your identity.
-            </p>
-            <h3 className="legal-h3">Aggregated / Anonymised Data</h3>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Retained indefinitely for platform improvement</li>
-              <li>Not personally identifiable</li>
-            </ul>
-            <h3 className="legal-h3">Legal, Security & Compliance Records</h3>
-            <p className="mb-2">Retained up to 7 years (or as required by law) for:</p>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Legal obligations</li>
-              <li>Fraud prevention</li>
-              <li>Dispute resolution</li>
-            </ul>
-            <h3 className="legal-h3">Subscription & Financial Records</h3>
-            <p className="mb-2">Retained for 5–7 years for accounting, tax compliance, and financial auditing.</p>
-          </section>
-          <section className="legal-section">
-            <h2 className="legal-h2">Important Notes</h2>
-            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>Once deletion is completed, your account cannot be restored.</li>
-              <li>All generated content and data will be permanently removed.</li>
-              <li>Active subscriptions should be cancelled separately through:
-                <ul className="ml-6 list-disc space-y-1">
-                  <li>Apple App Store</li>
-                  <li>Google Play Store</li>
-                  <li>Web payment provider (if applicable)</li>
-                </ul>
+            <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
+              <li>
+                <span className="font-medium text-white">In the app or website</span> — go to Account Settings → Delete
+                Account, and confirm
+              </li>
+              <li>
+                <span className="font-medium text-white">By email</span> — send a request from the email address on your
+                account to{' '}
+                <a
+                  href="mailto:support@makemylesson.ai?subject=Delete%20my%20account"
+                  className="text-mml-teal underline-offset-2 hover:underline"
+                >
+                  support@makemylesson.ai
+                </a>{' '}
+                with the subject line &quot;Delete my account&quot;
               </li>
             </ul>
-          </section>
-          <section className="legal-section">
-            <h2 className="legal-h2">Additional Information</h2>
             <p>
-              For full details on how we collect, use, and protect your data, please refer to our{' '}
-              <Link href="/privacy-policy-web" className="text-mml-teal underline-offset-2 hover:underline">Privacy Policy</Link>.
+              We may ask you to verify your identity before processing an email request, to protect against someone else
+              deleting your account without your permission.
             </p>
           </section>
+
           <section className="legal-section">
-            <h2 className="legal-h2">Need Help?</h2>
-            <p className="mb-3">If you have any questions or need assistance with your request, contact:</p>
-            <ul className="list-none space-y-1">
-              <li><a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">support@makemylesson.ai</a></li>
-              <li><a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">hello@makemylesson.ai</a></li>
+            <h2 className="legal-h2">2. What is deleted</h2>
+            <p className="mb-3">
+              When your account is deleted, the following are permanently removed within 30 days:
+            </p>
+            <ul className="list-disc space-y-2 pl-5 marker:text-mml-teal">
+              <li>Your name, email address and password</li>
+              <li>Your teaching profile and saved preferences</li>
+              <li>Your generation history, favourites and saved teaching packs</li>
+              <li>Your Ayla refinement history</li>
+              <li>Your credit balance and usage history</li>
             </ul>
           </section>
+
           <section className="legal-section">
-            <h2 className="legal-h2">Company Information</h2>
-            <p className="text-sm text-white">
-              Skyen Systems Pty Ltd<br />
-              Unit 18, 285–287 Derrumat Rd, Hoppers Crossing VIC 3029, Australia<br />
-              ACN 701 564 730
+            <h2 className="legal-h2">3. What is retained, and why</h2>
+            <p className="mb-3">
+              We are required by Australian tax and corporate law to keep certain records even after account deletion. We
+              retain only what the law requires:
+            </p>
+            <div className="my-4 overflow-x-auto rounded-xl border border-white/10 bg-white/[0.02]">
+              <table className="w-full border-collapse text-left text-sm text-slate-200">
+                <thead>
+                  <tr className="border-b border-white/10 bg-white/[0.04]">
+                    <th className="p-3 sm:p-4 font-semibold text-white">Retained</th>
+                    <th className="p-3 sm:p-4 font-semibold text-white">Reason</th>
+                    <th className="p-3 sm:p-4 font-semibold text-white">Period</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  <tr className="hover:bg-white/[0.02]">
+                    <td className="p-3 sm:p-4 font-medium text-white align-top">Billing and transaction records</td>
+                    <td className="p-3 sm:p-4 text-slate-300 align-top">Australian tax and accounting law</td>
+                    <td className="p-3 sm:p-4 text-slate-300 align-top">7 years</td>
+                  </tr>
+                  <tr className="hover:bg-white/[0.02]">
+                    <td className="p-3 sm:p-4 font-medium text-white align-top">
+                      Consent records for a web subscription
+                    </td>
+                    <td className="p-3 sm:p-4 text-slate-300 align-top">
+                      Evidence in the event of a payment dispute
+                    </td>
+                    <td className="p-3 sm:p-4 text-slate-300 align-top">7 years</td>
+                  </tr>
+                  <tr className="hover:bg-white/[0.02]">
+                    <td className="p-3 sm:p-4 font-medium text-white align-top">
+                      Records needed to investigate a reported breach of our Acceptable Use Policy
+                    </td>
+                    <td className="p-3 sm:p-4 text-slate-300 align-top">Security and legal protection</td>
+                    <td className="p-3 sm:p-4 text-slate-300 align-top">
+                      Until the matter is resolved, then deleted
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              These retained records are kept securely, used only for the stated purpose, and are not used to re-identify
+              you for any other purpose.
             </p>
           </section>
+
           <section className="legal-section">
-            <h2 className="legal-h2">Contact</h2>
-            <p className="mb-3">For questions regarding this page:</p>
-            <ul className="list-none space-y-1">
-              <li><a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">hello@makemylesson.ai</a></li>
-              <li><a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">support@makemylesson.ai</a></li>
+            <h2 className="legal-h2">4. Subscriptions are not automatically cancelled</h2>
+            <p className="mb-3">
+              Deleting your account does not cancel an active subscription. Cancel separately, before or after deleting
+              your account:
+            </p>
+            <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
+              <li>
+                <span className="font-medium text-white">Web subscription</span> — cancel from your account page, or email{' '}
+                <a
+                  href="mailto:support@makemylesson.ai"
+                  className="text-mml-teal underline-offset-2 hover:underline"
+                >
+                  support@makemylesson.ai
+                </a>
+              </li>
+              <li>
+                <span className="font-medium text-white">App Store subscription</span> — cancel in your Apple ID account
+                settings under Subscriptions
+              </li>
+              <li>
+                <span className="font-medium text-white">Google Play subscription</span> — cancel in the Google Play app
+                under Payments &amp; subscriptions
+              </li>
             </ul>
+            <p>
+              If you delete your account with an active subscription still running, we will not be able to provide you the
+              service you continue to be billed for. Cancel the subscription first, or at the same time as your deletion
+              request.
+            </p>
+          </section>
+
+          <section className="legal-section">
+            <h2 className="legal-h2">5. Institutional and school accounts</h2>
+            <p>
+              If your account was created as part of a school or department plan, your school or department administrator
+              may also be able to remove your seat. Deleting your personal account does not delete records the institution
+              is separately required to keep under its own agreement with us.
+            </p>
+          </section>
+
+          <section className="legal-section">
+            <h2 className="legal-h2">6. Confirmation</h2>
+            <p>
+              We will email you to confirm once your account and associated personal information have been deleted.
+            </p>
+          </section>
+
+          <section className="legal-section">
+            <h2 className="legal-h2">7. Questions</h2>
+            <p className="mb-1">Skyen Systems Pty Ltd · ACN 701 564 730</p>
+            <p className="mb-3">Unit 18, 285–287 Derrimut Rd, Hoppers Crossing VIC 3029, Australia</p>
+            <p className="mb-3">
+              <a
+                href="mailto:support@makemylesson.ai"
+                className="text-mml-teal underline-offset-2 hover:underline"
+              >
+                support@makemylesson.ai
+              </a>
+            </p>
+            <p className="text-sm text-slate-300">
+              See also our{' '}
+              <Link href="/privacy-policy-web" className="text-mml-teal underline-offset-2 hover:underline">
+                Privacy Policy
+              </Link>{' '}
+              and{' '}
+              <Link href="/acceptable-use-policy" className="text-mml-teal underline-offset-2 hover:underline">
+                Acceptable Use Policy
+              </Link>
+              .
+            </p>
           </section>
         </div>
       </article>
     </PolicyPageShell>
   )
 }
-
-

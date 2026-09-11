@@ -16,6 +16,7 @@ import {
   Tag,
 } from 'lucide-react'
 import BrandMark from '@marketing/components/BrandMark'
+import CookieSettingsButton from '@marketing/components/CookieSettingsButton'
 import Container from '@marketing/components/layout/Container'
 import { getFeaturePath } from '@marketing/data/features'
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from '@marketing/lib/appUrls'
@@ -69,12 +70,6 @@ const SOCIAL_LINKS = [
     label: 'Facebook',
     Icon: FacebookIcon,
   },
-]
-
-const SISTER_LINKS = [
-  { href: 'https://studiely.com', label: 'Studiely' },
-  { href: 'https://linguatude.com', label: 'Linguatude' },
-  { href: 'https://worksheeta.com', label: 'Worksheeta' },
 ]
 
 function SocialIcon({ children }) {
@@ -148,19 +143,6 @@ function GooglePlayBadgeIcon() {
       <path fill="#4285F4" d="M20.4 10.1c.5.3.8.8.8 1.4s-.3 1.1-.8 1.4l-3.4 2-2.8-2.7 2.8-2.8 3.4 1.7z" />
       <path fill="#34A853" d="M13.7 12 6.7 4.9l9.5 5.5L13.7 12z" />
     </svg>
-  )
-}
-
-function ExternalTextLink({ href, children }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="font-semibold text-[#159F9B] underline underline-offset-2 transition-opacity hover:opacity-90"
-    >
-      {children}
-    </a>
   )
 }
 
@@ -350,24 +332,39 @@ function SiteFooter() {
                   </Link>
                 </li>
               ))}
+              <li className="inline-flex items-center">
+                <span className="mx-2.5 text-[11px] sm:mx-3" style={{ color: TEAL }} aria-hidden>
+                  •
+                </span>
+                <CookieSettingsButton className="cursor-pointer border-0 bg-transparent p-0 text-[12px] font-medium text-white/85 no-underline transition-colors hover:text-[#159F9B] sm:text-[13px]" />
+              </li>
             </ul>
           </nav>
 
           {/* Company blurb */}
           <div className="mt-3.5 border-t border-white/15 pt-3.5 sm:mt-4 sm:pt-4">
             <p className="text-center text-[11px] leading-relaxed text-white/70 sm:text-[12px]">
-              Make My Lesson is a product of Skyen Solutions, a trade name of Skyen Systems Pty Ltd.
-              (ACN 701 564 730) — located at Office 501, Building 1025, Road 3621, Block 436, Al Seef,
-              Bahrain — and is a sister product of{' '}
-              {SISTER_LINKS.map((item, index) => (
-                <span key={item.href}>
-                  {index > 0 ? (index === SISTER_LINKS.length - 1 ? ', and ' : ', ') : null}
-                  <ExternalTextLink href={item.href}>{item.label}</ExternalTextLink>
-                </span>
-              ))}
-              . For educational technology platforms, please contact{' '}
-              <ExternalTextLink href="https://skyensolutions.com">Skyen Solutions</ExternalTextLink>
-              .
+              Make My Lesson is operated by Skyen Systems Pty Ltd (ACN 701 564 730), Unit 18, 285–287
+              Derrimut Rd, Hoppers Crossing VIC 3029, Australia. Subscriptions purchased on this
+              website are sold by Skyen Systems Pty Ltd. Subscriptions purchased in our iOS or Android
+              apps are sold through the App Store or Google Play.
+            </p>
+            <p className="mt-2 text-center text-[11px] leading-relaxed text-white/70 sm:text-[12px]">
+              <a
+                href="mailto:hello@makemylesson.ai"
+                className="font-semibold text-[#159F9B] underline underline-offset-2 transition-opacity hover:opacity-90"
+              >
+                hello@makemylesson.ai
+              </a>
+              <span className="text-white/55"> (enquiries &amp; schools)</span>
+              {' · '}
+              <a
+                href="mailto:support@makemylesson.ai"
+                className="font-semibold text-[#159F9B] underline underline-offset-2 transition-opacity hover:opacity-90"
+              >
+                support@makemylesson.ai
+              </a>
+              <span className="text-white/55"> (billing &amp; account)</span>
             </p>
           </div>
 
@@ -382,7 +379,7 @@ function SiteFooter() {
                 fill="none"
                 aria-hidden
               />
-              <span>Built by educator. Designed for teachers. Made for every classroom.</span>
+              <span>Built by an educator. Designed for teachers. Made for every classroom.</span>
             </p>
             <p className="flex items-center gap-3 text-[12px] text-white/70 sm:text-[13px]">
               <span className="hidden h-4 w-px bg-white/25 sm:block" aria-hidden />

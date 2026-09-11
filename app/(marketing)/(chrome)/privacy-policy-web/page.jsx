@@ -4,7 +4,7 @@ import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 
 const PAGE_NAME = 'Privacy Policy | Make My Lesson'
 const PAGE_DESCRIPTION =
-  'Read how Make My Lesson, operated by Skyen Systems Pty Ltd, collects, uses, stores and protects your personal data, teaching materials, and privacy rights.'
+  'Read how Make My Lesson collects, uses and protects your data, including Free-plan Google AdMob rewarded ads and your privacy rights.'
 const PAGE_PATH = '/privacy-policy-web'
 
 export const metadata = {

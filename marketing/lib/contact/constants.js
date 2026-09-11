@@ -1,4 +1,5 @@
 export const SUPPORT_EMAIL = 'support@makemylesson.ai'
+export const HELLO_EMAIL = 'hello@makemylesson.ai'
 
 export const CONTACT_RESPONSE_TIME = 'We typically reply within 1–2 business days.'
 
@@ -10,3 +11,10 @@ export const CONTACT_SUBJECTS = [
   { value: 'partnership', label: 'Partnerships' },
   { value: 'feedback', label: 'Feedback & Ideas' },
 ]
+
+/** Billing, account, bugs → support@; sales, schools, general enquiries → hello@ */
+const SUPPORT_SUBJECTS = new Set(['billing', 'feedback'])
+
+export function contactInboxForSubject(subject) {
+  return SUPPORT_SUBJECTS.has(subject) ? SUPPORT_EMAIL : HELLO_EMAIL
+}

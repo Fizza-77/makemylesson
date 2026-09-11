@@ -2,7 +2,7 @@
 
 import { Suspense, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { Check, ChevronDown, Minus, Plus } from 'lucide-react'
+import { Check, ChevronDown, Lock, Minus, Plus } from 'lucide-react'
 import { PageShell } from '@marketing/components/layout/Container'
 import { AccessPlanCard, localizeAccessPlans } from '@marketing/components/AccessPlanCards'
 import { MML_APP } from '@marketing/lib/appUrls'
@@ -18,6 +18,8 @@ const CURRENCIES = [
   { code: 'EUR', symbol: '€', rate: 0.92 },
 ]
 
+const USD = CURRENCIES[0]
+
 function formatMoney(usdAmount, currency) {
   const value = usdAmount * currency.rate
   const rounded = value >= 10 ? Math.round(value) : Math.round(value * 100) / 100
@@ -26,17 +28,60 @@ function formatMoney(usdAmount, currency) {
   return `${currency.symbol} ${display}`
 }
 
+function PricingPlansStaticFallback() {
+  const plans = localizeAccessPlans(USD)
+  return (
+    <PageShell
+      variant="content"
+      className="pricing-page-shell !bg-white border-t-transparent"
+      contentClassName="pricing-page-inner !max-w-none !px-0 !py-0 !pt-2 pb-0"
+    >
+      <section
+        id="pricing-plans"
+        className="pricing-plans relative z-[1] px-2 pb-[1cm] pt-8 sm:px-3 md:px-4"
+        aria-label="Pricing plans"
+      >
+        <div className="mml-pr-grid pricing-hero-plans !mt-0">
+          {plans.map((plan) => (
+            <AccessPlanCard key={plan.key} plan={plan} />
+          ))}
+        </div>
+        <PricingLegalNotes />
+      </section>
+    </PageShell>
+  )
+}
+
+function PricingLegalNotes() {
+  return (
+    <div className="mx-auto mt-6 max-w-[1100px] space-y-3 px-2 text-center text-[13px] leading-relaxed text-[#1a2438]/85 sm:px-3">
+      <p className="inline-flex flex-wrap items-center justify-center gap-2">
+        <Lock size={13} strokeWidth={2.4} aria-hidden className="shrink-0" />
+        <span>
+          All prices are in USD and exclude any applicable taxes, which are shown at checkout. Your bank may apply a
+          currency conversion fee. Subscriptions bought on this website are sold by Skyen Systems Pty Ltd (ACN 701 564
+          730). Cancel anytime from your account.
+        </span>
+      </p>
+      <p>
+        Schools and departments. We offer plans for teaching teams, with individual accounts and separate credits for each
+        teacher. Email{' '}
+        <a href="mailto:hello@makemylesson.ai" className="font-semibold text-[#1E9A98] underline-offset-2 hover:underline">
+          hello@makemylesson.ai
+        </a>{' '}
+        and we will put a quote together.
+      </p>
+      <p>
+        Credits are available throughout your plan period and do not carry over. Any unused credits expire when the period
+        ends.
+      </p>
+    </div>
+  )
+}
+
 export default function PricingPage() {
   return (
-    <Suspense
-      fallback={
-        <PageShell variant="content" className="pricing-page-shell !bg-white border-t-transparent">
-          <div className="flex min-h-[40vh] items-center justify-center text-[#1A1E3A]">
-            Loading pricing…
-          </div>
-        </PageShell>
-      }
-    >
+    <Suspense fallback={<PricingPlansStaticFallback />}>
       <PricingPageInner />
     </Suspense>
   )
@@ -153,6 +198,8 @@ function PricingPageInner() {
               />
             ))}
           </div>
+
+          <PricingLegalNotes />
 
           <div className="mt-4 grid gap-4 sm:mt-5 sm:gap-5 lg:grid-cols-2 xl:gap-6">
             <article className="flex flex-col justify-between rounded-[28px] bg-[#1A1E3A] px-7 py-6 text-white sm:px-8 sm:py-7 xl:rounded-[32px] xl:px-10 xl:py-8">

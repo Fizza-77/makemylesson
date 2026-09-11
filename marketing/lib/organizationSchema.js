@@ -27,15 +27,15 @@ const LOGO_URL = `${SITE_ORIGIN}/logo.png`
 const SOFTWARE_DESCRIPTION =
   'AI-powered lesson planning platform that creates curriculum-aligned lesson plans, presentations, classroom activities and assessments for teachers.'
 
-/** Legal publisher: Qismat Ventures W.L.L.; trade name: Skyen Solutions. */
+/** Legal publisher: Skyen Systems Pty Ltd (operator of Make My Lesson). */
 export function buildOrganizationNode() {
   return {
     '@type': 'Organization',
     '@id': SCHEMA_IDS.organization,
-    name: 'Qismat Ventures W.L.L.',
-    alternateName: 'Skyen Solutions',
+    name: 'Skyen Systems Pty Ltd',
+    alternateName: 'Make My Lesson',
     url: `${SITE_ORIGIN}/`,
-    email: 'support@makemylesson.ai',
+    email: 'hello@makemylesson.ai',
     logo: {
       '@type': 'ImageObject',
       '@id': SCHEMA_IDS.logo,
@@ -46,20 +46,37 @@ export function buildOrganizationNode() {
     },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Office 501, Building 1025, Road 3621, Block 436',
-      addressLocality: 'Al Seef',
-      addressCountry: 'BH',
+      streetAddress: 'Unit 18, 285–287 Derrimut Rd',
+      addressLocality: 'Hoppers Crossing',
+      addressRegion: 'VIC',
+      postalCode: '3029',
+      addressCountry: 'AU',
     },
-    identifier: {
-      '@type': 'PropertyValue',
-      propertyID: 'Bahrain Commercial Registration',
-      value: '190698-1',
-    },
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'customer support',
-      email: 'support@makemylesson.ai',
-    },
+    identifier: [
+      {
+        '@type': 'PropertyValue',
+        propertyID: 'ACN',
+        value: '701 564 730',
+      },
+      {
+        '@type': 'PropertyValue',
+        propertyID: 'ABN',
+        value: '19 701 564 730',
+      },
+    ],
+    taxID: '19 701 564 730',
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: 'hello@makemylesson.ai',
+      },
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        email: 'support@makemylesson.ai',
+      },
+    ],
     brand: brandRef(),
   }
 }

@@ -382,6 +382,12 @@
   border-radius: 2px;
 }
 
+.mml-mkt-hero-flag-img--ib {
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+}
+
 .mml-mkt-hero-flag-ib {
   display: inline-flex;
   align-items: center;
@@ -3776,6 +3782,11 @@
   object-position: center;
 }
 
+.mml-cc-flag--ib {
+  object-fit: contain;
+  object-position: center;
+}
+
 .mml-cc-card-body {
   position: relative;
   z-index: 1;
@@ -5435,11 +5446,33 @@
 .mml-pr-note {
   margin: 1.4rem 0 0;
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.4rem;
+  max-width: 42rem;
   font-size: 0.8rem;
   font-weight: 600;
+  line-height: 1.45;
   color: rgba(26, 30, 58, 0.72);
+}
+
+.mml-pr-note svg {
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.mml-pr-note--school {
+  display: block;
+  max-width: 42rem;
+}
+
+.mml-pr-note--school a {
+  color: #159f9b;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.mml-pr-note--school a:hover {
+  opacity: 0.9;
 }
 
 @media (min-width: 720px) {

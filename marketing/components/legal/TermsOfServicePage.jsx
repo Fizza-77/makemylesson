@@ -11,8 +11,8 @@ export default function TermsOfServicePage() {
           </h1>
           <p className="legal-article-operator">Operated by Skyen Systems Pty Ltd</p>
           <p className="legal-article-meta">
-            <span className="block">Effective Date: 7 September 2026</span>
-            <span className="mt-1 block">Last Updated: 7 September 2026</span>
+            <span className="block">Effective Date: 11 September 2026</span>
+            <span className="mt-1 block">Last Updated: 11 September 2026</span>
           </p>
         </header>
 
@@ -20,17 +20,33 @@ export default function TermsOfServicePage() {
           <section className="legal-section">
             <h2 className="legal-h2">1. Introduction</h2>
             <p className="mb-3">
-              Welcome to Make My Lesson, an educational technology platform operated by Skyen Systems Pty Ltd
-              (&quot;Make My Lesson,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;).
+              Make My Lesson is an educational technology platform operated by Skyen Systems Pty Ltd (ACN 701 564 730), a
+              company registered in Victoria, Australia (&quot;Skyen Systems&quot;, &quot;we&quot;, &quot;us&quot;,
+              &quot;our&quot;).
             </p>
             <p className="mb-3">
               These Terms of Service (&quot;Terms&quot;) govern your access to and use of Make My Lesson across all
-              platforms, including web applications, mobile applications, and any future services.
+              platforms, including our website, mobile applications, and any future services.
             </p>
-            <p className="mb-3">By accessing or using Make My Lesson, you agree to be bound by these Terms.</p>
             <p className="mb-3">
-              If you are using Make My Lesson on behalf of a school, institution, or organisation, you confirm that you
-              have the authority to bind that entity to these Terms.
+              Who you are contracting with for a paid subscription depends on where you buy it:
+            </p>
+            <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
+              <li>Subscriptions purchased on makemylesson.ai are sold by Skyen Systems Pty Ltd.</li>
+              <li>
+                Subscriptions purchased inside our iOS or Android apps are sold through the Apple App Store or Google Play
+                and are subject to those platforms&apos; terms. Our apps are published by Skyen Solutions, a trade name of
+                Qismat Ventures W.L.L.
+              </li>
+            </ul>
+            <p className="mb-3">
+              In both cases, Skyen Systems Pty Ltd operates the platform, holds your account and lesson data, and provides
+              support.
+            </p>
+            <p className="mb-3">
+              By accessing or using Make My Lesson, you agree to be bound by these Terms. If you are using Make My Lesson
+              on behalf of a school, institution or organisation, you confirm that you have the authority to bind that
+              entity to these Terms.
             </p>
             <p className="mb-3">Contact:</p>
             <ul className="list-none space-y-1">
@@ -38,11 +54,15 @@ export default function TermsOfServicePage() {
                 <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
                   hello@makemylesson.ai
                 </a>
+                {' '}
+                — general enquiries, sales, school quotes
               </li>
               <li>
                 <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
                   support@makemylesson.ai
                 </a>
+                {' '}
+                — billing, subscriptions, account and data requests, bugs
               </li>
             </ul>
           </section>
@@ -142,7 +162,7 @@ export default function TermsOfServicePage() {
           <section className="legal-section">
             <h2 className="legal-h2">7. Intellectual Property</h2>
             <p className="mb-3">
-              All platform content, design, technology, and branding are owned by or licensed to Skyen Systems Pty Ltd.
+              All platform content, design, technology and branding are owned by or licensed to Skyen Systems Pty Ltd.
             </p>
             <p className="mb-3">You may not:</p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
@@ -158,40 +178,44 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="legal-section">
-            <h2 className="legal-h2">8. Credits, Payments &amp; Subscriptions</h2>
-            <p className="mb-3">Make My Lesson operates on a credit-based system:</p>
+            <h2 className="legal-h2">8. Credits, payments and subscriptions</h2>
+            <p className="mb-3">Make My Lesson operates on a credit system:</p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
               <li>Each AI generation consumes 1 credit</li>
               <li>A full 4-stage teaching pack consumes 4 credits</li>
               <li>Manual editing does not consume credits</li>
+              <li>Refinements with Ayla do not consume credits</li>
               <li>Regeneration counts as a new generation</li>
+              <li>Credits are deducted only after a successful generation and save</li>
             </ul>
-            <p className="mb-3">New users receive:</p>
+            <p className="mb-3">New accounts receive 5 free credits on signup. No payment method is required.</p>
+            <p className="mb-3">
+              Paid plans include the following credit allowances, available throughout the plan period:
+            </p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>5 free credits (no payment required)</li>
+              <li>Monthly — 30 credits</li>
+              <li>3 Months — 90 credits</li>
+              <li>6 Months — 180 credits</li>
+              <li>Annual — 360 credits</li>
             </ul>
-            <p className="mb-3">Paid subscriptions include:</p>
-            <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>30 credits per month</li>
-              <li>Credits are deducted only after successful generation and save.</li>
-            </ul>
-            <p className="mb-3">At 0 credits, generation is restricted until credits are renewed or purchased.</p>
+            <p className="mb-3">
+              Credits are pooled for the period rather than released monthly. You may use them at any time within your plan
+              period. Credits do not carry over — any unused credits expire when the period ends. At 0 credits, generation
+              is restricted until your plan renews or you purchase a new plan.
+            </p>
             <p className="mb-3">
               On the Free plan, you may optionally watch a short video advertisement, served by Google AdMob, to unlock one
               additional generation credit. This feature is provided at our discretion; we do not guarantee ad availability at
               all times, and may modify or discontinue it.
             </p>
-            <p className="mb-3">Payments and subscriptions:</p>
-            <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
-              <li>May be billed monthly or annually</li>
-              <li>May be processed via third-party platforms (e.g., app stores or payment providers)</li>
-              <li>
-                Are subject to our{' '}
-                <Link href="/refund-payments-policy" className="text-mml-teal underline-offset-2 hover:underline">
-                  Refund &amp; Payments Policy
-                </Link>
-              </li>
-            </ul>
+            <p className="mb-3">
+              Subscriptions renew automatically at the end of each billing cycle unless cancelled before renewal. Payment
+              is taken in advance. Full billing, cancellation and refund terms are set out in our{' '}
+              <Link href="/refund-payments-policy" className="text-mml-teal underline-offset-2 hover:underline">
+                Refund &amp; Payments Policy
+              </Link>
+              , which forms part of these Terms.
+            </p>
           </section>
 
           <section className="legal-section">
@@ -237,12 +261,25 @@ export default function TermsOfServicePage() {
               <li>Accuracy of AI-generated content</li>
               <li>Specific teaching or learning outcomes</li>
             </ul>
-            <p>Use of the platform is at your own risk, to the extent permitted by law.</p>
+            <p className="mb-3">Use of the platform is at your own risk, to the extent permitted by law.</p>
+            <p>
+              Nothing in this section excludes, restricts or modifies any guarantee, condition, warranty, right or remedy
+              that you have under the Australian Consumer Law or any other law that cannot lawfully be excluded,
+              restricted or modified.
+            </p>
           </section>
 
           <section className="legal-section">
             <h2 className="legal-h2">13. Limitation of Liability</h2>
-            <p className="mb-3">To the maximum extent permitted by law:</p>
+            <p className="mb-3">
+              Our services come with guarantees that cannot be excluded under the Australian Consumer Law. For major
+              failures with the service, you are entitled to cancel your service contract with us and to a refund for the
+              unused portion, or to compensation for its reduced value. You are also entitled to be compensated for any
+              other reasonably foreseeable loss or damage. If the failure does not amount to a major failure, you are
+              entitled to have problems with the service rectified in a reasonable time and, if this is not done, to cancel
+              your contract and obtain a refund for the unused portion.
+            </p>
+            <p className="mb-3">Subject to the paragraph above and to the maximum extent permitted by law:</p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
               <li>We are not liable for indirect, incidental, or consequential damages</li>
               <li>We are not responsible for classroom or assessment outcomes</li>
@@ -264,8 +301,19 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="legal-section">
-            <h2 className="legal-h2">15. Governing Law</h2>
-            <p>These Terms are governed by the laws of the Australia.</p>
+            <h2 className="legal-h2">15. Governing law and disputes</h2>
+            <p className="mb-3">
+              These Terms are governed by the laws of the State of Victoria, Australia, without regard to conflict-of-law
+              principles. Any dispute arising from these Terms or the Service is subject to the non-exclusive jurisdiction
+              of the courts of Victoria, Australia, except where mandatory consumer-protection law in your country of
+              residence entitles you to bring a claim in your local courts, in which case that right is not affected by
+              this clause.
+            </p>
+            <p>
+              This clause addresses contract disputes only. It does not override the Australian Privacy Act 1988 (Cth) as
+              it applies to us, nor any mandatory rights available to you under the law of your own country, including the
+              UK GDPR and EU GDPR where those apply to you.
+            </p>
           </section>
 
           <section className="legal-section">
@@ -276,24 +324,25 @@ export default function TermsOfServicePage() {
 
           <section className="legal-section">
             <h2 className="legal-h2">17. Contact Information</h2>
-            <p className="mb-3">For any questions or concerns:</p>
+            <p className="mb-3">
+              Skyen Systems Pty Ltd (ACN 701 564 730), Unit 18, 285–287 Derrimut Rd, Hoppers Crossing VIC 3029, Australia.
+            </p>
             <ul className="list-none space-y-1">
               <li>
                 <a href="mailto:hello@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
                   hello@makemylesson.ai
                 </a>
+                {' '}
+                — general enquiries, sales, school quotes
               </li>
               <li>
                 <a href="mailto:support@makemylesson.ai" className="text-mml-teal underline-offset-2 hover:underline">
                   support@makemylesson.ai
                 </a>
+                {' '}
+                — billing, subscriptions, account and data requests, bugs
               </li>
             </ul>
-            <p className="mt-6 text-sm text-white">
-              Operated by Skyen Systems Pty Ltd
-              <br />
-              Unit 18, 285-287 Derrimut Rd, Hoppers Crossing VIC 3029, Australia
-            </p>
           </section>
         </div>
       </article>
