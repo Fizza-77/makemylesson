@@ -50,7 +50,7 @@ export default function CookiePolicyPage() {
 
           <section className="legal-section">
             <h2 className="legal-h2">5. What we do not use</h2>
-            <p>We do not use advertising cookies, retargeting pixels, or third‑party advertising trackers. We do not sell or share cookie data with advertisers.</p>
+            <p>We use Google AdMob to serve optional rewarded video ads on the Free plan, which may use its own identifiers to serve and measure ads. We do not permit any other third-party advertising network, social media platform, or data broker to place cookies or trackers on our website.</p>
           </section>
 
           <section className="legal-section">

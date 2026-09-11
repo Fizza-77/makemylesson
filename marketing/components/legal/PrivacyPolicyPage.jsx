@@ -402,6 +402,15 @@ export default function PrivacyPolicyPage() {
               to paid subscribers where their plan removes ads.
             </p>
 
+            <h3 className="legal-h3">Advertising and rewarded ads</h3>
+            <p className="mb-4">
+              On our Free plan, you may choose to watch a short video advertisement, served by{' '}
+              <strong className="font-semibold text-white">Google AdMob</strong>, to unlock one additional generation credit.
+              This is optional — declining never restricts access to credits already earned or purchased. Standard AdMob ad
+              serving applies, which may include personalised advertising based on your device&apos;s advertising identifier.
+              You can reset or limit ad personalisation through your device&apos;s settings.
+            </p>
+
             <h3 className="legal-h3">14.1 Who Serves the Ads</h3>
             <p className="mb-4">
               Ads are served by Google AdMob and its authorised ad partners. In relation to advertising, Google acts as an

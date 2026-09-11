@@ -364,9 +364,23 @@ export default function WebPrivacyPolicyPage() {
                       the integrity of the platform.
                     </td>
                   </tr>
+                  <tr className="hover:bg-white/[0.02]">
+                    <td className="p-3 sm:p-4 font-medium text-white align-top">Google AdMob</td>
+                    <td className="p-3 sm:p-4 text-slate-300 align-top">
+                      Serves rewarded video ads on the Free plan.
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
+            <h3 className="legal-h3">Advertising and rewarded ads</h3>
+            <p className="mb-3">
+              On our Free plan, you may choose to watch a short video advertisement, served by{' '}
+              <strong className="font-semibold text-white">Google AdMob</strong>, to unlock one additional generation credit.
+              This is optional — declining never restricts access to credits already earned or purchased. Standard AdMob ad
+              serving applies, which may include personalised advertising based on your device&apos;s advertising identifier.
+              You can reset or limit ad personalisation through your device&apos;s settings.
+            </p>
             <p>
               If Skyen Systems Pty Ltd is ever sold, merged, or transfers this business to another entity, personal information
               may be transferred as part of that transaction. We will notify you by email before any such transfer takes
@@ -410,7 +424,9 @@ export default function WebPrivacyPolicyPage() {
             <p className="mb-3">
               We also use analytics tools, including Firebase Analytics, to understand how the platform is used and where it can
               be improved. This tells us which features are used and where errors occur. It is not used to build advertising
-              profiles, and we do not run advertising cookies or third-party advertising trackers.
+              profiles. Where you choose to watch a Free-plan rewarded video, Google AdMob may use its own identifiers to serve
+              and measure ads, as described under Advertising and rewarded ads above. We do not permit any other third-party
+              advertising network, social media platform, or data broker to place cookies or trackers on our website.
             </p>
             <p>
               You can control cookies through your browser settings. Blocking necessary cookies will prevent you from signing

@@ -333,6 +333,13 @@ Ayla does not generate a new stage — she helps you refine what has already bee
     a: `Every new account receives 10 free generation credits with no credit card required. Each stage generation costs 1 credit. A complete four-stage teaching pack costs 4 credits. Subscribers receive 30 credits per month.`,
   },
   {
+    id: 51,
+    cat: 'cat5',
+    catTitle: 'Category 5 — Credits, Pricing & Plans',
+    q: 'Can I get more credits without paying?',
+    a: `Yes. On the Free plan, you can watch a short video ad to unlock one additional generation credit, any time you need one.`,
+  },
+  {
     id: 31,
     cat: 'cat5',
     catTitle: 'Category 5 — Credits, Pricing & Plans',

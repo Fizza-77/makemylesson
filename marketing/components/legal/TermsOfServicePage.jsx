@@ -176,6 +176,11 @@ export default function TermsOfServicePage() {
               <li>Credits are deducted only after successful generation and save.</li>
             </ul>
             <p className="mb-3">At 0 credits, generation is restricted until credits are renewed or purchased.</p>
+            <p className="mb-3">
+              On the Free plan, you may optionally watch a short video advertisement, served by Google AdMob, to unlock one
+              additional generation credit. This feature is provided at our discretion; we do not guarantee ad availability at
+              all times, and may modify or discontinue it.
+            </p>
             <p className="mb-3">Payments and subscriptions:</p>
             <ul className="mb-4 list-disc space-y-2 pl-5 marker:text-mml-teal">
               <li>May be billed monthly or annually</li>
