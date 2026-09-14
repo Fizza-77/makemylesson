@@ -90,6 +90,9 @@ export function profileCreditsRemainingLine(account: UserAccountView): string {
   ) {
     return `${generationCredits} of ${generationCreditCap} generation credits this year · ${creditsUsed} used`;
   }
+  if (planTier === "individual3Month" || planTier === "individual6Month") {
+    return `${generationCredits} of ${generationCreditCap} generation credits this period · ${creditsUsed} used`;
+  }
   return `${generationCredits} of ${generationCreditCap} generation credits this month · ${creditsUsed} used`;
 }
 
@@ -108,7 +111,11 @@ export function profileSubscriptionFootnote(
     month: "short",
     year: "numeric",
   });
-  if (account.planTier === "individualMonthly") {
+  if (
+    account.planTier === "individualMonthly" ||
+    account.planTier === "individual3Month" ||
+    account.planTier === "individual6Month"
+  ) {
     return `Credits reset on ${formatted}`;
   }
   if (
@@ -172,6 +179,8 @@ export function mapUserDoc(
 export const PLAN_LABELS: Record<AccountPlanTier, string> = {
   free: "Free",
   individualMonthly: "Individual Monthly",
+  individual3Month: "Individual 3 Months",
+  individual6Month: "Individual 6 Months",
   individualAnnual: "Individual Annual",
   creditTopUp50: "One-Time Credit Top-Up",
   department: "Department",

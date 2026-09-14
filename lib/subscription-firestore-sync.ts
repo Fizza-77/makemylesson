@@ -8,6 +8,8 @@ export const ANNUAL_CREDITS_PER_SEAT = 360;
 export const CREDIT_TOP_UP_POOL = 50;
 export const FREE_GENERATION_CREDIT_CAP = 5;
 export const MONTHLY_GENERATION_CREDIT_CAP = 30;
+export const THREE_MONTH_GENERATION_CREDIT_CAP = 90;
+export const SIX_MONTH_GENERATION_CREDIT_CAP = 180;
 
 /** Coerce Firestore number / numeric string — parity with Dart `num?.toInt()`. */
 export function toInt(value: unknown): number | null {
@@ -35,6 +37,10 @@ export function expectedCapForTier(tier: AccountPlanTier): number {
       return ANNUAL_CREDITS_PER_SEAT;
     case "creditTopUp50":
       return CREDIT_TOP_UP_POOL;
+    case "individual6Month":
+      return SIX_MONTH_GENERATION_CREDIT_CAP;
+    case "individual3Month":
+      return THREE_MONTH_GENERATION_CREDIT_CAP;
     case "individualMonthly":
       return MONTHLY_GENERATION_CREDIT_CAP;
     case "free":
@@ -72,6 +78,12 @@ export function inferPaidPlanTierFromBalance(params: {
 
   if (firestoreCap != null) {
     if (firestoreCap >= ANNUAL_CREDITS_PER_SEAT) return "individualAnnual";
+    if (firestoreCap === SIX_MONTH_GENERATION_CREDIT_CAP) {
+      return "individual6Month";
+    }
+    if (firestoreCap === THREE_MONTH_GENERATION_CREDIT_CAP) {
+      return "individual3Month";
+    }
     if (firestoreCap === CREDIT_TOP_UP_POOL) return "creditTopUp50";
     if (firestoreCap >= MONTHLY_GENERATION_CREDIT_CAP) {
       return "individualMonthly";
@@ -80,6 +92,12 @@ export function inferPaidPlanTierFromBalance(params: {
 
   if (generationCredits != null && generationCredits > FREE_GENERATION_CREDIT_CAP) {
     if (generationCredits >= ANNUAL_CREDITS_PER_SEAT) return "individualAnnual";
+    if (generationCredits === SIX_MONTH_GENERATION_CREDIT_CAP) {
+      return "individual6Month";
+    }
+    if (generationCredits === THREE_MONTH_GENERATION_CREDIT_CAP) {
+      return "individual3Month";
+    }
     if (generationCredits > MONTHLY_GENERATION_CREDIT_CAP) {
       return "creditTopUp50";
     }

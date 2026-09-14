@@ -7,7 +7,7 @@ import { PageShell } from '@marketing/components/layout/Container'
 import { AccessPlanCard, localizeAccessPlans } from '@marketing/components/AccessPlanCards'
 import { MML_APP } from '@marketing/lib/appUrls'
 import { cn } from '@marketing/lib/cn'
-import { usePayPalCheckout } from '@/features/billing/usePayPalCheckout'
+import { useStripeCheckout } from '@/features/billing/useStripeCheckout'
 import { priceForPlan } from '@/services/paypal-checkout.service'
 
 const CURRENCIES = [
@@ -96,7 +96,7 @@ function PricingPageInner() {
     finalizing,
     startCheckout,
     loadingPlan,
-  } = usePayPalCheckout()
+  } = useStripeCheckout()
 
   const currency = useMemo(
     () => CURRENCIES.find((c) => c.code === currencyCode) ?? CURRENCIES[0],
@@ -121,7 +121,7 @@ function PricingPageInner() {
       {finalizing ? (
         <div className="pricing-section-inner mb-4">
           <div className="rounded-2xl border border-[#35BEBC]/40 bg-[#EAF5F6] px-4 py-3 text-center text-[14px] font-medium text-[#1A1E3A]">
-            Confirming your PayPal payment…
+            Confirming your payment…
           </div>
         </div>
       ) : null}
@@ -424,7 +424,7 @@ function PlanFitCalculator({ startCheckout, loadingPlan, billing }) {
                 className="mt-8 inline-flex w-full max-w-[260px] items-center justify-center rounded-full bg-[#35BEBC] px-8 py-3.5 text-center text-[15px] font-bold text-white transition hover:bg-[#4ec9c7] disabled:opacity-60 xl:max-w-[300px] xl:px-10 xl:py-4 xl:text-[16px]"
               >
                 {recommendation.planKey && loadingPlan(recommendation.planKey)
-                  ? 'Redirecting to PayPal…'
+                  ? 'Redirecting…'
                   : recommendation.cta}
               </button>
             )}

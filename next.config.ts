@@ -23,6 +23,7 @@ const appOrigin =
 const nextConfig: NextConfig = {
   output: "standalone",
   reactStrictMode: true,
+  serverExternalPackages: ["firebase-admin", "stripe"],
   turbopack: {
     // Keep this app as the Turbopack root (parent folder also has a lockfile).
     root: __dirname,

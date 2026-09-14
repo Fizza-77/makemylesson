@@ -97,6 +97,13 @@ export function mapFunctionsError(error: unknown): string {
         return "Make My Lesson is currently undergoing maintenance. We'll be back shortly.";
       case "unauthenticated":
         return "Please sign in again to continue.";
+      case "failed-precondition":
+        return (
+          sanitizeUserMessage(
+            error.message,
+            "This isn’t available right now. Please try again later.",
+          ) || "This isn’t available right now. Please try again later."
+        );
       case "permission-denied":
         return "You don’t have permission to do that.";
       case "not-found":

@@ -1,6 +1,8 @@
 ﻿export type AccountPlanTier =
   | "free"
   | "individualMonthly"
+  | "individual3Month"
+  | "individual6Month"
   | "individualAnnual"
   | "creditTopUp50"
   | "department"
