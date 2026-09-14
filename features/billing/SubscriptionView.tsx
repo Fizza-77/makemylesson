@@ -8,19 +8,23 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Spinner } from "@/components/ui/Spinner";
 import { mapFunctionsError } from "@/lib/auth-errors";
+import { isRegisteredUser } from "@/lib/guest-session";
 import { ROUTES } from "@/lib/urls";
 import {
   ANNUAL_CREDITS_PER_SEAT,
-  createPayPalAccessOrder,
   currencySymbol,
-  finalizePayPalAccessOrder,
   formatUsdPrice,
   getMmlWebPricingQuote,
   priceForPlan,
-  successMessageForPlanKey,
   type MmlWebPricingQuote,
-  type PayPalPlanKey,
 } from "@/services/paypal-checkout.service";
+import {
+  createStripeCheckoutSession,
+  isStripePlanKey,
+  successMessageForPlanKey,
+  waitForStripeEntitlement,
+  type StripePlanKey,
+} from "@/services/stripe-checkout.service";
 import { getMyAdminOrganizations } from "@/services/organization.service";
 import { isPaidPlan, PLAN_LABELS } from "@/services/user-account.service";
 import {
@@ -159,7 +163,7 @@ function OrgPlanCard({
   );
 }
 
-function stripPayPalQuery(router: ReturnType<typeof useRouter>) {
+function stripCheckoutQuery(router: ReturnType<typeof useRouter>) {
   router.replace(ROUTES.subscription);
 }
 
@@ -172,10 +176,10 @@ export function SubscriptionView() {
 
   const [quote, setQuote] = useState<MmlWebPricingQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(true);
-  const [checkoutPlan, setCheckoutPlan] = useState<PayPalPlanKey | null>(null);
+  const [checkoutPlan, setCheckoutPlan] = useState<StripePlanKey | null>(null);
   const [finalizing, setFinalizing] = useState(false);
   const [ownedOrgs, setOwnedOrgs] = useState<OrganizationSummary[]>([]);
-  const paypalHandledRef = useRef(false);
+  const checkoutHandledRef = useRef(false);
 
   const tier: AccountPlanTier = account?.planTier ?? "free";
   const paid = isPaidPlan(tier);
@@ -185,17 +189,16 @@ export function SubscriptionView() {
     if (!authReady) return;
     syncAccountSubscriptionForUser(user);
     if (!user?.uid) {
-      setOwnedOrgs([]);
+      queueMicrotask(() => setOwnedOrgs([]));
       return;
     }
     void getMyAdminOrganizations()
       .then(setOwnedOrgs)
       .catch(() => setOwnedOrgs([]));
-  }, [authReady, user?.uid]);
+  }, [authReady, user]);
 
   useEffect(() => {
     let cancelled = false;
-    setQuoteLoading(true);
     void getMmlWebPricingQuote()
       .then((q) => {
         if (!cancelled) setQuote(q);
@@ -212,7 +215,7 @@ export function SubscriptionView() {
   }, []);
 
   const requireSignIn = useCallback(() => {
-    if (user) return true;
+    if (isRegisteredUser(user)) return true;
     router.push(
       `${ROUTES.signIn}?reason=${encodeURIComponent("Sign in to subscribe or buy credits.")}&next=${encodeURIComponent(ROUTES.subscription)}`,
     );
@@ -220,42 +223,46 @@ export function SubscriptionView() {
   }, [router, user]);
 
   const startCheckout = useCallback(
-    async (planKey: PayPalPlanKey) => {
+    async (planKey: StripePlanKey) => {
       if (!requireSignIn()) return;
+      if (!isStripePlanKey(planKey)) {
+        toast.error("That plan is not available.");
+        return;
+      }
       setCheckoutPlan(planKey);
       try {
-        const order = await createPayPalAccessOrder(planKey);
-        window.location.assign(order.approvalUrl);
+        const session = await createStripeCheckoutSession(planKey);
+        window.location.assign(session.url);
       } catch (e) {
         setCheckoutPlan(null);
-        toast.error(mapFunctionsError(e) || "PayPal checkout failed.");
+        toast.error(mapFunctionsError(e) || "Checkout failed.");
       }
     },
     [requireSignIn],
   );
 
   useEffect(() => {
-    if (!authReady || paypalHandledRef.current) return;
+    if (!authReady || checkoutHandledRef.current) return;
 
-    const cancelled = searchParams.get("stripe_cancel") === "1";
-    const done = searchParams.get("stripe_success") === "1";
-    const token = (searchParams.get("session_id") ?? "").trim();
+    const cancelled = searchParams.get("stripe_checkout") === "cancel";
+    const done = searchParams.get("stripe_checkout") === "success";
+    const sessionId = (searchParams.get("session_id") ?? "").trim();
     const planKey = (searchParams.get("plan") ?? "").trim();
 
     if (cancelled) {
-      paypalHandledRef.current = true;
-      stripPayPalQuery(router);
+      checkoutHandledRef.current = true;
+      stripCheckoutQuery(router);
       toast.info("Checkout cancelled.");
       return;
     }
 
-    if (!done || !token) return;
+    if (!done) return;
 
-    paypalHandledRef.current = true;
-    setFinalizing(true);
-    stripPayPalQuery(router);
+    checkoutHandledRef.current = true;
+    stripCheckoutQuery(router);
 
     void (async () => {
+      setFinalizing(true);
       try {
         if (!user) {
           toast.info("Sign in to confirm your payment.");
@@ -264,16 +271,32 @@ export function SubscriptionView() {
           );
           return;
         }
-        const result = await finalizePayPalAccessOrder(token);
+        const result = sessionId
+          ? await waitForStripeEntitlement({
+              sessionId,
+              uid: user.uid,
+              refreshAccount: refreshAccountFromServer,
+            })
+          : null;
         if (user.uid) {
           await refreshAccountFromServer(user.uid).catch(() => null);
         }
-        toast.success(
-          planKey
-            ? successMessageForPlanKey(planKey)
-            : "Purchase completed.",
-        );
-        const orgId = result.orgId?.trim();
+        if (result?.entitlementApplied) {
+          toast.success(
+            planKey
+              ? successMessageForPlanKey(planKey)
+              : "Purchase completed.",
+          );
+        } else if (result?.paid) {
+          toast.info(
+            "Payment received. Your credits will appear in a moment — refresh if they are not updated yet.",
+          );
+        } else {
+          toast.info(
+            "We're confirming your payment. Refresh this page if your credits are not updated yet.",
+          );
+        }
+        const orgId = result?.orgId?.trim();
         if (orgId) {
           router.push(
             `${ROUTES.organizationDashboard}?orgId=${encodeURIComponent(orgId)}`,
@@ -291,7 +314,7 @@ export function SubscriptionView() {
     })();
   }, [authReady, router, searchParams, user]);
 
-  const loadingPlan = (key: PayPalPlanKey) =>
+  const loadingPlan = (key: StripePlanKey) =>
     checkoutPlan === key || finalizing;
 
   const departmentOrg = ownedOrgs.find((o) => o.planKey === "department");
@@ -322,7 +345,7 @@ export function SubscriptionView() {
         <Card className="flex items-center gap-3 border-[#28C2C0]/40 bg-[#F5FBFB]">
           <Spinner className="size-5" />
           <p className="text-sm font-medium text-[#1A1C30]">
-            Confirming your PayPal payment…
+            Confirming your payment…
           </p>
         </Card>
       ) : null}
@@ -355,7 +378,7 @@ export function SubscriptionView() {
       {!user ? (
         <Card className="bg-[#F5FBFB]">
           <p className="text-sm text-[#1A1C30]">
-            Sign in to subscribe with PayPal or buy a credit top-up.
+            Sign in to subscribe or buy a credit top-up.
           </p>
           <Link href={ROUTES.signIn} className="mt-3 inline-block">
             <Button type="button">Sign in</Button>
@@ -472,7 +495,7 @@ export function SubscriptionView() {
       />
 
       <p className="text-center text-xs text-[#999999]">
-        Secure checkout via PayPal. Credits update automatically after payment.
+        Secure checkout. Credits update automatically after payment.
       </p>
     </div>
   );

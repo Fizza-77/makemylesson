@@ -82,7 +82,7 @@ export const ACCESS_PLANS = [
     creditExpiryNote: CREDIT_EXPIRY_NOTE,
     cta: 'Choose 3 Months',
     href: '/pricing#pricing-plans',
-    planKey: 'individual_monthly',
+    planKey: 'individual_3_month',
   },
   {
     key: '6mo',
@@ -98,7 +98,7 @@ export const ACCESS_PLANS = [
     creditExpiryNote: CREDIT_EXPIRY_NOTE,
     cta: 'Choose 6 Months',
     href: '/pricing#pricing-plans',
-    planKey: 'individual_monthly',
+    planKey: 'individual_6_month',
   },
   {
     key: 'annual',
