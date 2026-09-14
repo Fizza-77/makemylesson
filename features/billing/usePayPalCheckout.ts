@@ -105,13 +105,13 @@ export function usePayPalCheckout() {
     [requireSignIn],
   );
 
-  // PayPal return / cancel
+  // Stripe return / cancel
   useEffect(() => {
     if (!authReady || paypalHandledRef.current) return;
 
-    const cancelled = searchParams.get("paypal_cancel") === "1";
-    const done = searchParams.get("paypal_sub_done") === "1";
-    const token = (searchParams.get("token") ?? "").trim();
+    const cancelled = searchParams.get("stripe_cancel") === "1";
+    const done = searchParams.get("stripe_success") === "1";
+    const token = (searchParams.get("session_id") ?? "").trim();
     const planKey = (searchParams.get("plan") ?? "").trim();
 
     if (cancelled) {
@@ -133,7 +133,7 @@ export function usePayPalCheckout() {
           toast.info("Sign in to confirm your payment.");
           router.replace(
             `${ROUTES.signIn}?next=${encodeURIComponent(
-              `${ROUTES.pricing}?paypal_sub_done=1&token=${encodeURIComponent(token)}${
+              `${ROUTES.pricing}?stripe_success=1&session_id=${encodeURIComponent(token)}${
                 planKey ? `&plan=${encodeURIComponent(planKey)}` : ""
               }`,
             )}`,
@@ -168,8 +168,8 @@ export function usePayPalCheckout() {
   // After login with ?plan=… resume checkout once
   useEffect(() => {
     if (!authReady || !user || pendingPlanStartedRef.current) return;
-    if (searchParams.get("paypal_sub_done") === "1") return;
-    if (searchParams.get("paypal_cancel") === "1") return;
+    if (searchParams.get("stripe_success") === "1") return;
+    if (searchParams.get("stripe_cancel") === "1") return;
 
     const pending = (searchParams.get("plan") ?? "").trim();
     if (!isPlanKey(pending)) return;

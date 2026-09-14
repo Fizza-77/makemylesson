@@ -237,9 +237,9 @@ export function SubscriptionView() {
   useEffect(() => {
     if (!authReady || paypalHandledRef.current) return;
 
-    const cancelled = searchParams.get("paypal_cancel") === "1";
-    const done = searchParams.get("paypal_sub_done") === "1";
-    const token = (searchParams.get("token") ?? "").trim();
+    const cancelled = searchParams.get("stripe_cancel") === "1";
+    const done = searchParams.get("stripe_success") === "1";
+    const token = (searchParams.get("session_id") ?? "").trim();
     const planKey = (searchParams.get("plan") ?? "").trim();
 
     if (cancelled) {

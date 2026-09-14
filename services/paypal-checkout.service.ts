@@ -65,11 +65,11 @@ function checkoutBaseUrl(): string {
 }
 
 export function returnUrlForPlan(planKey: PayPalPlanKey): string {
-  return `${checkoutBaseUrl()}?paypal_sub_done=1&plan=${encodeURIComponent(planKey)}`;
+  return `${checkoutBaseUrl()}?stripe_success=1&plan=${encodeURIComponent(planKey)}`;
 }
 
 export function cancelUrl(): string {
-  return `${checkoutBaseUrl()}?paypal_cancel=1`;
+  return `${checkoutBaseUrl()}?stripe_cancel=1`;
 }
 
 export async function getMmlWebPricingQuote(): Promise<MmlWebPricingQuote> {
@@ -85,7 +85,7 @@ export async function createPayPalAccessOrder(
   const data = await callFunction<
     { planKey: PayPalPlanKey; returnUrl: string; cancelUrl: string },
     CreatePayPalOrderResult
-  >("createPayPalAccessOrder", {
+  >("createStripeCheckoutSession", {
     planKey,
     returnUrl: returnUrlForPlan(planKey),
     cancelUrl: cancelUrl(),
@@ -93,7 +93,7 @@ export async function createPayPalAccessOrder(
   const approvalUrl = (data.approvalUrl ?? "").trim();
   const orderId = (data.orderId ?? "").trim();
   if (!approvalUrl || !orderId) {
-    throw new Error("PayPal did not return an approval link.");
+    throw new Error("Stripe did not return a checkout link.");
   }
   return { ...data, approvalUrl, orderId };
 }
@@ -102,9 +102,9 @@ export async function finalizePayPalAccessOrder(
   orderId: string,
 ): Promise<FinalizePayPalOrderResult> {
   const data = await callFunction<
-    { orderId: string },
+    { sessionId: string },
     FinalizePayPalOrderResult
-  >("finalizePayPalAccessOrder", { orderId });
+  >("finalizeStripeCheckoutSession", { sessionId: orderId });
   const orgId = (data.orgId ?? "").toString().trim();
   return {
     success: data.success === true,
