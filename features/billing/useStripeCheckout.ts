@@ -24,8 +24,7 @@ import { toast } from "@/store/toast-store";
 
 /**
  * Web Stripe checkout for marketing `/pricing`.
- * Next.js API: /api/stripe/checkout → /api/stripe/webhook (authoritative) →
- * /api/stripe/status / refreshAccountFromServer.
+ * Shared Firebase callable checkout plus webhook-authoritative Firestore state.
  */
 export function useStripeCheckout() {
   const router = useRouter();
@@ -104,7 +103,7 @@ export function useStripeCheckout() {
 
     const cancelled = searchParams.get("stripe_checkout") === "cancel";
     const done = searchParams.get("stripe_checkout") === "success";
-    const sessionId = (searchParams.get("session_id") ?? "").trim();
+    const sessionId = (searchParams.get("stripe_session_id") ?? "").trim();
     const planKey = (searchParams.get("plan") ?? "").trim();
 
     if (cancelled) {
@@ -125,7 +124,7 @@ export function useStripeCheckout() {
         if (!isRegisteredUser(user) || !user?.uid) {
           toast.info("Sign in to confirm your payment.");
           const resume = sessionId
-            ? `${ROUTES.pricing}?stripe_checkout=success&session_id=${encodeURIComponent(sessionId)}${
+            ? `${ROUTES.pricing}?stripe_checkout=success&stripe_session_id=${encodeURIComponent(sessionId)}${
                 planKey ? `&plan=${encodeURIComponent(planKey)}` : ""
               }`
             : ROUTES.pricing;

@@ -54,4 +54,4 @@ In Firebase Console → Firestore → `webTrialIpUsage` collection should appear
 
 ---
 
-**Mobile app:** no update required. **Cloud Functions:** no change required for v1.
+**Cloud Functions:** web-trial functions were retired. Shared Firebase functions are owned by `MakeMyLesson-app/`.

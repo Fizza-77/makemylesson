@@ -1,4 +1,4 @@
-import { getFirebaseAuth } from "@/lib/firebase/config";
+import { callFunction } from "@/lib/firebase/functions";
 import type { AccountPlanTier } from "@/types/account";
 
 /** Server-approved web plan keys. The client cannot send a Stripe Price ID. */
@@ -53,46 +53,20 @@ export function isStripePlanKey(value: string): value is StripePlanKey {
   return (STRIPE_PLAN_KEYS as string[]).includes(value);
 }
 
-async function stripeApi<T>(
-  path: string,
-  body: Record<string, unknown>,
-): Promise<T> {
-  const user = getFirebaseAuth().currentUser;
-  if (!user) {
-    throw new Error("Please sign in to continue.");
-  }
-  const token = await user.getIdToken();
-  const response = await fetch(path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(body),
-  });
-  const data = (await response.json().catch(() => ({}))) as {
-    error?: string;
-  } & T;
-  if (!response.ok) {
-    throw new Error(
-      typeof data.error === "string" && data.error.trim()
-        ? data.error
-        : "Checkout failed.",
-    );
-  }
-  return data;
-}
-
 export async function createStripeCheckoutSession(
   planKey: StripePlanKey,
 ): Promise<CreateStripeCheckoutResult> {
-  const origin =
-    typeof window !== "undefined" ? window.location.origin : undefined;
-  const data = await stripeApi<CreateStripeCheckoutResult>(
-    "/api/stripe/checkout",
-    { planKey, origin },
-  );
-  const url = (data.url ?? "").trim();
+  if (typeof window === "undefined") {
+    throw new Error("Checkout is only available in a browser.");
+  }
+  const origin = window.location.origin;
+  const returnUrl = `${origin}/pricing?stripe_checkout=success&plan=${encodeURIComponent(planKey)}`;
+  const cancelUrl = `${origin}/pricing?stripe_checkout=cancel`;
+  const data = await callFunction<
+    { planKey: StripePlanKey; returnUrl: string; cancelUrl: string },
+    { checkoutUrl?: string; sessionId?: string; planKey: StripePlanKey }
+  >("createStripeCheckoutSession", { planKey, returnUrl, cancelUrl });
+  const url = (data.checkoutUrl ?? "").trim();
   const sessionId = (data.sessionId ?? "").trim();
   if (!url || !sessionId) {
     throw new Error("Checkout did not return a payment link.");
@@ -103,16 +77,21 @@ export async function createStripeCheckoutSession(
 export async function getStripeCheckoutStatus(
   sessionId: string,
 ): Promise<StripeCheckoutStatusResult> {
-  const data = await stripeApi<StripeCheckoutStatusResult>(
-    "/api/stripe/status",
-    { sessionId },
-  );
-  const orgId = (data.orgId ?? "").toString().trim();
+  const data = await callFunction<
+    { sessionId: string },
+    {
+      success?: boolean;
+      paymentStatus?: string;
+      entitlementApplied?: boolean;
+      orgId?: string | null;
+    }
+  >("finalizeStripeCheckoutSession", { sessionId });
   return {
-    ...data,
-    paid: data.paid === true,
+    sessionId,
+    paymentStatus: data.paymentStatus,
+    paid: data.success === true,
     entitlementApplied: data.entitlementApplied === true,
-    orgId: orgId || null,
+    orgId: data.orgId?.trim() || null,
   };
 }
 

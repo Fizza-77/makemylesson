@@ -107,11 +107,9 @@ Add new indexes only if new queries are introduced (avoid unless required).
 
 ## Cloud Functions
 
-- Source: `MakeMyLesson/functions/`
-- Entry: `index.js` + `paypal_pay.js`, `paypal_web.js`
-- Deploy: `firebase deploy --only functions` from `MakeMyLesson/`
-
-Next.js only **invokes** callables; no duplicate function code in `nextjs/` unless explicitly adding web-only endpoints later.
+- Shared Cloud Functions are owned and deployed from `MakeMyLesson-app/`.
+- This Next.js repository contains no Firebase Cloud Functions source or deployment configuration.
+- Stripe payment functions are deployed only from the shared mobile/backend repository.
 
 ## Production hosting — Hostinger VPS (decided)
 

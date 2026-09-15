@@ -246,7 +246,7 @@ export function SubscriptionView() {
 
     const cancelled = searchParams.get("stripe_checkout") === "cancel";
     const done = searchParams.get("stripe_checkout") === "success";
-    const sessionId = (searchParams.get("session_id") ?? "").trim();
+    const sessionId = (searchParams.get("stripe_session_id") ?? "").trim();
     const planKey = (searchParams.get("plan") ?? "").trim();
 
     if (cancelled) {
