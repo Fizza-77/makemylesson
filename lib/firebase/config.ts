@@ -5,7 +5,9 @@ import { getStorage, type FirebaseStorage } from "firebase/storage";
 import { getFunctions, type Functions } from "firebase/functions";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? "",
+  apiKey:
+    process.env.NEXT_PUBLIC_FIREBASE_API_KEY ??
+    "AIzaSyAnwaaqwdPH3GafMQf5RI0D8LW6DyJ6jJE",
   authDomain:
     process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? "makemylesson-44088.firebaseapp.com",
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? "makemylesson-44088",
@@ -14,7 +16,9 @@ const firebaseConfig = {
     "makemylesson-44088.firebasestorage.app",
   messagingSenderId:
     process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? "232688835781",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ?? "",
+  appId:
+    process.env.NEXT_PUBLIC_FIREBASE_APP_ID ??
+    "1:232688835781:web:ad7ecd0221c2bac88224ac",
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 

@@ -35,6 +35,8 @@ export type CreateStripeCheckoutResult = {
   url: string;
   sessionId: string;
   planKey: StripePlanKey;
+  subscriptionCancellationScheduled?: boolean;
+  subscriptionEndsAtMs?: number;
 };
 
 export type StripeCheckoutStatusResult = {
@@ -64,8 +66,22 @@ export async function createStripeCheckoutSession(
   const cancelUrl = `${origin}/pricing?stripe_checkout=cancel`;
   const data = await callFunction<
     { planKey: StripePlanKey; returnUrl: string; cancelUrl: string },
-    { checkoutUrl?: string; sessionId?: string; planKey: StripePlanKey }
+    {
+      checkoutUrl?: string;
+      sessionId?: string;
+      planKey: StripePlanKey;
+      subscriptionCancellationScheduled?: boolean;
+      subscriptionEndsAtMs?: number;
+    }
   >("createStripeCheckoutSession", { planKey, returnUrl, cancelUrl });
+  if (data.subscriptionCancellationScheduled) {
+    return {
+      ...data,
+      url: "",
+      sessionId: "",
+      subscriptionCancellationScheduled: true,
+    };
+  }
   const url = (data.checkoutUrl ?? "").trim();
   const sessionId = (data.sessionId ?? "").trim();
   if (!url || !sessionId) {

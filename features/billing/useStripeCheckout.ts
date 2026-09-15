@@ -89,6 +89,17 @@ export function useStripeCheckout() {
       setCheckoutPlan(planKey);
       try {
         const session = await createStripeCheckoutSession(planKey);
+        if (session.subscriptionCancellationScheduled) {
+          await refreshAccountFromServer(user?.uid ?? "").catch(() => null);
+          const endDate = session.subscriptionEndsAtMs
+            ? new Date(session.subscriptionEndsAtMs).toLocaleDateString()
+            : "the end of your current billing period";
+          toast.info(
+            `Your current subscription remains active until ${endDate} and will then cancel. Choose ${successMessageForPlanKey(planKey).replace(" is active.", "")} after it ends.`,
+          );
+          setCheckoutPlan(null);
+          return;
+        }
         window.location.assign(session.url);
       } catch (e) {
         setCheckoutPlan(null);

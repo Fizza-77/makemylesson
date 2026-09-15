@@ -4,6 +4,7 @@ import { buildPageJsonLd } from '@marketing/lib/pageSchema'
 import { buildPricingOffersJsonLd } from '@marketing/lib/pricingJsonLd'
 
 import '@marketing/styles/marketing-pricing.css'
+import '@marketing/home-landing/marketing-page.css'
 
 const PAGE_NAME = 'AI Lesson Planner Pricing and Plans'
 const PAGE_DESCRIPTION =
