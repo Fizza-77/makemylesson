@@ -117,7 +117,10 @@ export default function HomeHeroSection() {
                 </p>
 
                 <h1 className="mml-mkt-hero-title">
-                  Plan, <span className="mml-mkt-hero-title-mark">Teach</span>, Assess.
+                  <span className="mml-mkt-hero-title-line">
+                    Plan, <span className="mml-mkt-hero-title-mark">Present</span>,
+                  </span>{" "}
+                  <span className="mml-mkt-hero-title-line">Practise, Assess.</span>
                 </h1>
               </div>
 

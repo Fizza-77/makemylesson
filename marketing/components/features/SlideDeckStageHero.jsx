@@ -2,6 +2,7 @@
 import { Globe } from 'lucide-react'
 import { MML_APP } from '@marketing/lib/appUrls'
 import SlideDeckHeroPreview from '@marketing/components/features/SlideDeckHeroPreview'
+import { CURRICULUM_ROUTE_COUNT } from '@/data/curriculum-route-count'
 
 export default function SlideDeckStageHero() {
   return (
@@ -67,7 +68,7 @@ export default function SlideDeckStageHero() {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Globe className="h-3.5 w-3.5 text-[#35BEBC]" aria-hidden strokeWidth={2} />
-              71 curriculum routes
+              {CURRICULUM_ROUTE_COUNT} curriculum routes
             </span>
             <span className="text-black" aria-hidden>
               ·

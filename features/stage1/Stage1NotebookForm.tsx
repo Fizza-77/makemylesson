@@ -962,7 +962,7 @@ export function Stage1NotebookForm(props: Stage1NotebookFormProps) {
         style={slotStyle(FIELD.tabAssess)}
         className="pointer-events-none absolute z-10 flex items-center justify-center text-[8px] font-bold tracking-wide text-white uppercase sm:text-[9px]"
       >
-        access
+        assess
       </span>
 
       <span

@@ -72,7 +72,7 @@ Q17. Are outputs generic or curriculum-specific?
 Outputs are route-specific by curriculum family, board/authority conventions, year level, and subject framing.
 
 Q18. Which curricula are supported?
-71 routes across Australia, UK, Canada, IB (PYP/MYP/DP), and US pathways including AP.
+69 routes across Australia, UK, Canada, IB (PYP/MYP/DP), and US pathways including AP.
 
 Q19. Is it designed for Australian teachers?
 Yes. It supports all states/territories and senior certificates with authority-specific framing.

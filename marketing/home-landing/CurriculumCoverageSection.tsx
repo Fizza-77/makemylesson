@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { responsiveWebpSrcSet } from "@marketing/home-landing/responsiveWebp";
+import { CURRICULUM_ROUTE_COUNT } from "@/data/curriculum-route-count";
 
 function RoutesUnderline() {
   return (
@@ -190,7 +191,7 @@ export default function CurriculumCoverageSection() {
         <h2 id="mml-cc-heading" className="mml-cc-title">
           Five systems.{" "}
           <span className="mml-cc-title-accent">
-            71 routes.
+            {CURRICULUM_ROUTE_COUNT} routes.
             <RoutesUnderline />
           </span>{" "}
           Yours is here.

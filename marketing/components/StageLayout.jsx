@@ -8,8 +8,8 @@ import { containerClass } from '@marketing/components/layout/Container'
 const STAGES = [
   { num: 1, label: 'Plan', path: '/lesson/stage1' },
   { num: 2, label: 'Present', path: '/lesson/stage2' },
-  { num: 3, label: 'Assess', path: '/lesson/stage3' },
-  { num: 4, label: 'Quiz', path: '/lesson/stage4' },
+  { num: 3, label: 'Practise', path: '/lesson/stage3' },
+  { num: 4, label: 'Assess', path: '/lesson/stage4' },
 ]
 
 export default function StageLayout({ children, currentStage }) {

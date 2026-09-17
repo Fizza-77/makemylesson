@@ -2,10 +2,10 @@
 
 import { cn } from '@marketing/lib/cn'
 
-const AYLA_SRC = '/ayla.svg'
+const AYLA_SRC = '/Group 7.svg'
 
 /**
- * Ayla mark from `/public/ayla.svg` (circular artwork — shown as-is).
+ * Ayla face from `/public/Group 7.svg` (adult teaching-assistant crop).
  * Default `alt` is “Ayla”. Pass a custom string when needed.
  */
 export default function AylaIcon({ className = '', width = 28, height = 28, alt = 'Ayla', priority = false }) {

@@ -1,7 +1,5 @@
 ﻿import Image from "next/image";
 
-import { responsiveWebpSrcSet } from "@marketing/home-landing/responsiveWebp";
-
 const BULLETS = [
   "Knows your curriculum, grade and lesson context",
   "Suggests activities, materials and differentiation",
@@ -38,7 +36,7 @@ const MESSAGES = [
   },
 ] as const;
 
-const AYLA_IMAGE = "/svgs/ayla.webp";
+const AYLA_IMAGE = "/ayla-character.webp";
 const AYLA_AVATAR = "/Group 7.svg";
 
 function TypingDots() {
@@ -78,11 +76,9 @@ export default function MeetAylaSection() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={AYLA_IMAGE}
-              srcSet={responsiveWebpSrcSet(AYLA_IMAGE, 200, 420)}
               alt="Ayla, teaching assistant"
               width={420}
-              height={630}
-              sizes="(max-width: 767px) 52vw, 30vw"
+              height={420}
               className="mml-ayla-character-img"
               loading="lazy"
               decoding="async"

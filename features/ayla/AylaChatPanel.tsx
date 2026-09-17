@@ -158,11 +158,11 @@ function AylaAvatar({ size = 40 }: { size?: number }) {
       aria-hidden
     >
       <Image
-        src="/ayla.svg"
+        src="/Group 7.svg"
         alt=""
         width={size}
         height={size}
-        className="absolute left-1/2 top-[42%] h-[210%] w-[210%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain"
+        className="size-full object-cover"
         unoptimized
       />
     </span>

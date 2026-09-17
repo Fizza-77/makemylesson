@@ -1,6 +1,7 @@
 ﻿import Link from 'next/link'
 import { Check, FileText, Globe } from 'lucide-react'
 import { MML_APP } from '@marketing/lib/appUrls'
+import { CURRICULUM_ROUTE_COUNT } from '@/data/curriculum-route-count'
 
 export default function AssessmentStageHero() {
   return (
@@ -59,7 +60,7 @@ export default function AssessmentStageHero() {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Globe className="h-3.5 w-3.5" aria-hidden strokeWidth={2} />
-              71 curriculum routes
+              {CURRICULUM_ROUTE_COUNT} curriculum routes
             </span>
             <span className="text-black" aria-hidden>
               ·

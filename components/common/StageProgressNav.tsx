@@ -9,8 +9,8 @@ import { ROUTES } from "@/lib/urls";
 const STAGES = [
   { n: 1, label: "Plan", href: ROUTES.stage1 },
   { n: 2, label: "Present", href: ROUTES.stage2 },
-  { n: 3, label: "Assess", href: ROUTES.stage3 },
-  { n: 4, label: "Create", href: ROUTES.stage4 },
+  { n: 3, label: "Practise", href: ROUTES.stage3 },
+  { n: 4, label: "Assess", href: ROUTES.stage4 },
 ] as const;
 
 function stageFromPath(pathname: string | null): number {

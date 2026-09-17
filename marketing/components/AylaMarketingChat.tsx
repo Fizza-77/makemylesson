@@ -107,7 +107,7 @@ export default function AylaMarketingChat() {
           <header className="mml-ayla-widget-head">
             <div className="mml-ayla-widget-identity">
               <Image
-                src="/ayla.svg"
+                src="/Group 7.svg"
                 alt="Ayla"
                 width={40}
                 height={40}

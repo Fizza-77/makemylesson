@@ -1,4 +1,6 @@
-﻿export type AylaFaqEntry = {
+﻿import { CURRICULUM_ROUTE_COUNT } from "@/data/curriculum-route-count";
+
+export type AylaFaqEntry = {
   question: string;
   answer: string;
 };
@@ -43,7 +45,7 @@ export const AYLA_FAQ_ENTRIES: AylaFaqEntry[] = [
   {
     question: "Which curricula are supported?",
     answer:
-      "Make My Lesson supports 71 curriculum routes across Australia, United Kingdom, Canada, International Baccalaureate (PYP, MYP, DP), and United States pathways including AP.",
+      `Make My Lesson supports ${CURRICULUM_ROUTE_COUNT} curriculum routes across Australia, United Kingdom, Canada, International Baccalaureate (PYP, MYP, DP), and United States pathways including AP.`,
   },
   {
     question: "Who is Ayla?",

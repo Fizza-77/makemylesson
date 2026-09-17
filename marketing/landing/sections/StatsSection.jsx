@@ -1,5 +1,6 @@
 ﻿import { useCounter } from '../hooks'
 import { Reveal } from '../shared'
+import { CURRICULUM_ROUTE_COUNT } from '@/data/curriculum-route-count'
 
 const STATS = [
   {
@@ -15,7 +16,7 @@ const STATS = [
     label: 'saved per complete teaching pack vs. building across 5 separate tools',
   },
   {
-    end: 71,
+    end: CURRICULUM_ROUTE_COUNT,
     suffix: '',
     label: 'curriculum routes across Australia, UK, Canada, IB and US. Every route dedicated, never generic.',
   },

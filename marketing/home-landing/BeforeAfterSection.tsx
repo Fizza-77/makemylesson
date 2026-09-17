@@ -49,7 +49,7 @@ const AFTER_DOCS = [
   { title: "Mark Scheme", sub: "Answers + marks" },
 ] as const;
 
-const STAGE_PILLS = ["Plan", "Present", "Practice", "Assess"] as const;
+const STAGE_PILLS = ["Plan", "Present", "Practise", "Assess"] as const;
 
 function DocIcon() {
   return (

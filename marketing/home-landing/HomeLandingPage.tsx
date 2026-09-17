@@ -4,6 +4,7 @@ import CurriculumCoverageSection from "@marketing/home-landing/CurriculumCoverag
 import ReviewsSection from "@marketing/home-landing/ReviewsSection";
 import SisterPlatformsSection from "@marketing/home-landing/SisterPlatformsSection";
 import PricingSection from "@marketing/home-landing/PricingSection";
+import { CURRICULUM_ROUTE_COUNT } from "@/data/curriculum-route-count";
 
 const TRUST_INDICATORS = [
   {
@@ -12,7 +13,7 @@ const TRUST_INDICATORS = [
     tone: "purple" as const,
     icon: "book" as const,
     description:
-      "Five systems, 71 dedicated routes, matched to your exam board and progression.",
+      `Five systems, ${CURRICULUM_ROUTE_COUNT} dedicated routes, matched to your exam board and progression.`,
   },
   {
     key: "customizable",

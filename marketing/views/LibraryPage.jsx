@@ -14,13 +14,13 @@ const LESSONS = [
   { id: 4, title: "Earth's Changing Surface", subject: 'Geology', grade: 'Grade 7', stages: [true, true, true, true], edited: '3 weeks ago', emoji: '🌍', hue: '#38bdf8' },
 ]
 
-const STAGE_NAMES = ['Plan', 'Present', 'Assess', 'Quiz']
+const STAGE_NAMES = ['Plan', 'Present', 'Practise', 'Assess']
 
 const STAGE_DETAILS = [
   { icon: '📋', title: 'Lesson Plan', desc: 'Full structured plan · 45 min' },
-  { icon: '🖥', title: 'Slide Deck', desc: '8 slides generated' },
-  { icon: '📝', title: 'Formative Assessment', desc: 'Quick Check · 5 questions' },
-  { icon: '✅', title: 'Quiz', desc: '10 questions · answer key' },
+  { icon: '🖥', title: 'Slides', desc: '8 slides generated' },
+  { icon: '📝', title: 'Classroom Activity', desc: 'Student sheet + teacher key' },
+  { icon: '✅', title: 'Summative Assessment', desc: 'Paper + mark scheme' },
 ]
 
 const EXPORT_TYPES = [

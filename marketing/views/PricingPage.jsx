@@ -8,6 +8,7 @@ import { AccessPlanCard, localizeAccessPlans } from '@marketing/components/Acces
 import { MML_APP } from '@marketing/lib/appUrls'
 import { cn } from '@marketing/lib/cn'
 import { useStripeCheckout } from '@/features/billing/useStripeCheckout'
+import { CURRICULUM_ROUTE_COUNT } from '@/data/curriculum-route-count'
 import { priceForPlan } from '@/services/paypal-checkout.service'
 
 const CURRENCIES = [
@@ -582,7 +583,7 @@ const COMPARE_ROWS = [
     school: { type: 'text', value: 'Pooled' },
   },
   {
-    feature: '71 Curriculums',
+    feature: `${CURRICULUM_ROUTE_COUNT} curriculum routes`,
     free: { type: 'yes' },
     individual: { type: 'yes' },
     school: { type: 'yes' },

@@ -1,3 +1,5 @@
+import { CURRICULUM_ROUTE_COUNT } from '@/data/curriculum-route-count'
+
 /**
  * Master FAQ items — must stay aligned with Terms of Service and Refund & Payments Policy.
  * `a` uses \\n\\n between paragraphs.
@@ -23,7 +25,7 @@ export const faqItems = [
     cat: 'getting-started',
     catTitle: 'Getting started',
     q: 'Which curricula do you support?',
-    a: `Five curriculum families, with 71 dedicated routes reflecting each system's own language, exam structure and progression: United Kingdom (National Curriculum, Cambridge IGCSE, Edexcel IGCSE, AS and A Level), United States (Common Core, Advanced Placement, Digital SAT), International Baccalaureate (PYP, MYP, DP), Australia (all state and territory certificates plus NAPLAN), and Canada (all provincial and territorial diplomas).`,
+    a: `Five curriculum families, with ${CURRICULUM_ROUTE_COUNT} dedicated routes reflecting each system's own language, exam structure and progression: United Kingdom (National Curriculum, Cambridge IGCSE, Edexcel IGCSE, AS and A Level), United States (Common Core, Advanced Placement), International Baccalaureate (PYP, MYP, DP), Australia (all state and territory certificates), and Canada (all provincial and territorial diplomas).`,
   },
   {
     id: 4,

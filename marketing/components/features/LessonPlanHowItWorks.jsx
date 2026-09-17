@@ -1,11 +1,12 @@
 ﻿import { ArrowRight, Globe } from 'lucide-react'
 import { cn } from '@marketing/lib/cn'
+import { CURRICULUM_ROUTE_COUNT } from '@/data/curriculum-route-count'
 
 const STEPS = [
   {
     n: 1,
     title: 'Pick your route',
-    body: 'Curriculum, grade, and subject — from 71 dedicated routes across five systems.',
+    body: `Curriculum, grade, and subject — from ${CURRICULUM_ROUTE_COUNT} dedicated routes across five systems.`,
     tone: 'teal',
     sample: (
       <>

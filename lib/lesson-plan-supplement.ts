@@ -26,13 +26,31 @@ export type LessonPlanSupplement = {
   };
 };
 
-const LEARNING_RESOURCES = [
+const LEARNING_RESOURCES_US = [
   "Whiteboard / projector or display screen",
   "Printed copies of this lesson plan and any worksheets",
   "Student notebooks or exercise books",
   "Topic-relevant visual aids (images, diagrams, or maps as applicable)",
   "Basic stationery (pencils, colored markers, paper)",
 ] as const;
+
+const LEARNING_RESOURCES_GB = [
+  "Whiteboard / projector or display screen",
+  "Printed copies of this lesson plan and any worksheets",
+  "Student notebooks or exercise books",
+  "Topic-relevant visual aids (images, diagrams, or maps as applicable)",
+  "Basic stationery (pencils, coloured markers, paper)",
+] as const;
+
+function usesBritishSpelling(curriculumRoute: string): boolean {
+  const route = curriculumRoute.toLowerCase();
+  return (
+    route.startsWith("uk ") ||
+    route.startsWith("cambridge ") ||
+    route.startsWith("pearson ") ||
+    route.includes("british curriculum")
+  );
+}
 
 const SUCCESS_CRITERIA = [
   "Students can: engage actively with the lesson content",
@@ -83,7 +101,9 @@ export function buildLessonPlanSupplement(meta: {
     },
     learningResources: {
       heading: "Learning Resources",
-      items: LEARNING_RESOURCES,
+      items: usesBritishSpelling(curriculum)
+        ? LEARNING_RESOURCES_GB
+        : LEARNING_RESOURCES_US,
     },
     rubric: RUBRIC,
     teacherReflection: {
