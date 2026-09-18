@@ -30,12 +30,18 @@ const TRIAL_UNAVAILABLE_MESSAGE =
 /**
  * Web-only trial: 5 credits per public IP (server), silent Firebase session for Cloud Functions,
  * no library auto-save. Mobile app still requires sign-in before generating.
+ *
+ * Signed-in users go through Flutter-parity engagement gates (soft nudge / hard block).
  */
-export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
+export function useGuestGeneration(nextPath: string, stageNumber?: number) {
   const user = useAuthStore((s) => s.user);
   const isGuest = !isRegisteredUser(user);
-  const { blockIfNoCredits, dialog: upgradeDialog, credits } =
-    useUpgradeGate();
+  const {
+    ensureCanGenerate,
+    maybeShowUpgradeAfterSuccess,
+    dialog: upgradeDialog,
+    credits,
+  } = useUpgradeGate();
   const { requireRegisteredSignIn, dialog: signInDialog } =
     useSignInGate(nextPath);
 
@@ -70,9 +76,9 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
       return false;
     }
 
-    if (blockIfNoCredits()) return false;
+    if (!(await ensureCanGenerate())) return false;
     return true;
-  }, [blockIfNoCredits, isGuest, requireRegisteredSignIn]);
+  }, [ensureCanGenerate, isGuest, requireRegisteredSignIn]);
 
   const completeGeneration = useCallback(async () => {
     await afterGuestGenerationSuccess();
@@ -80,7 +86,10 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
     if (isRegisteredUser(current) && current?.uid) {
       await refreshAccountFromServer(current.uid).catch(() => null);
     }
-  }, []);
+    if (typeof stageNumber === "number") {
+      maybeShowUpgradeAfterSuccess(stageNumber);
+    }
+  }, [maybeShowUpgradeAfterSuccess, stageNumber]);
 
   const consumeTrialCreditBeforeGenerate = useCallback(async (): Promise<boolean> => {
     if (!isGuest) return true;
@@ -111,5 +120,3 @@ export function useGuestGeneration(nextPath: string, _stageNumber?: number) {
     upgradeDialog,
   };
 }
-
-

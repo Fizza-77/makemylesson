@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { Spinner } from "@/components/ui/Spinner";
+import { useAylaCreditGate } from "@/features/ayla/useAylaCreditGate";
 import {
   AYLA_PANEL_ID,
   consumeScrollToAylaRequest,
@@ -12,7 +13,13 @@ import {
 } from "@/lib/ayla-scroll";
 import type { StageSidebarContext } from "@/data/stage-tips";
 import { cn } from "@/lib/utils";
+import { ROUTES } from "@/lib/urls";
+import {
+  isAylaResourceExhaustedError,
+  isAylaUnauthenticatedError,
+} from "@/services/ayla-chat.service";
 import { useAylaChatStore } from "@/store/ayla-chat-store";
+import { toast } from "@/store/toast-store";
 
 type AylaIntent = { label: string; prompt: string };
 
@@ -217,6 +224,20 @@ export function AylaChatPanel({
   const isSending = useAylaChatStore((s) => s.isSending);
   const send = useAylaChatStore((s) => s.send);
   const clear = useAylaChatStore((s) => s.clear);
+  const nextPath =
+    context === "library"
+      ? ROUTES.library
+      : context === "ayla"
+        ? ROUTES.stage1
+        : context === "stage2"
+          ? ROUTES.stage2
+          : context === "stage3"
+            ? ROUTES.stage3
+            : context === "stage4"
+              ? ROUTES.stage4
+              : ROUTES.stage1;
+  const { ensureCanSend, dialogs: aylaGateDialogs } =
+    useAylaCreditGate(nextPath);
   const [draft, setDraft] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<HTMLDivElement>(null);
@@ -248,8 +269,20 @@ export function AylaChatPanel({
   async function onSend(text?: string) {
     const prompt = (text ?? draft).trim();
     if (!prompt) return;
+    if (!(await ensureCanSend())) return;
     if (!text) setDraft("");
-    await send(prompt);
+    try {
+      await send(prompt);
+    } catch (e) {
+      if (
+        isAylaResourceExhaustedError(e) ||
+        isAylaUnauthenticatedError(e)
+      ) {
+        await ensureCanSend();
+        return;
+      }
+      toast.error("Ayla could not reply right now. Please try again.");
+    }
   }
 
   /** Scroll Ayla messages first; pass overflow to the sticky sidebar column. */
@@ -496,6 +529,7 @@ export function AylaChatPanel({
           </button>
         </form>
       </div>
+      {aylaGateDialogs}
     </div>
   );
 }

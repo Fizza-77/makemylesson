@@ -7,7 +7,14 @@ import { FormEvent, useEffect, useId, useRef, useState } from 'react'
 import { MessageCircle, Minus, Send, X } from 'lucide-react'
 
 import { findBestFaqMatch } from '@/data/ayla-faq'
-import { sendAylaMessage, type AylaChatMessage } from '@/services/ayla-chat.service'
+import { useAylaCreditGate } from '@/features/ayla/useAylaCreditGate'
+import {
+  isAylaResourceExhaustedError,
+  isAylaUnauthenticatedError,
+  sendAylaMessage,
+  type AylaChatMessage,
+} from '@/services/ayla-chat.service'
+import { applyAylaQuotaFromReply } from '@/store/account-store'
 import { cn } from '@marketing/lib/cn'
 
 const WELCOME =
@@ -27,6 +34,7 @@ function makeId() {
 
 export default function AylaMarketingChat() {
   const panelId = useId()
+  const { ensureCanSend, dialogs: aylaGateDialogs } = useAylaCreditGate('/')
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
@@ -63,6 +71,8 @@ export default function AylaMarketingChat() {
     const trimmed = prompt.trim()
     if (!trimmed || sending) return
 
+    if (!(await ensureCanSend())) return
+
     const userMsg: UiMessage = { id: makeId(), role: 'user', text: trimmed }
     const history = [...messages, userMsg].map(({ role, text }) => ({ role, text }))
     setMessages((prev) => [...prev, userMsg])
@@ -72,12 +82,30 @@ export default function AylaMarketingChat() {
     try {
       let answer = ''
       try {
-        answer = await sendAylaMessage({
+        const reply = await sendAylaMessage({
           history: history.slice(0, -1),
           userMessage: trimmed,
           context: { surface: 'marketing' },
         })
-      } catch {
+        applyAylaQuotaFromReply({
+          aylaCredits: reply.aylaCredits,
+          aylaPaidCredits: reply.aylaPaidCredits,
+          aylaFairUsageResumeAtMs: reply.aylaFairUsageResumeAtMs,
+          aylaPeriodMonth: reply.aylaPeriodMonth,
+          clearFairUsageResume:
+            reply.aylaFairUsageResumeAtMs == null &&
+            reply.aylaPaidCredits != null,
+        })
+        answer = reply.text
+      } catch (e) {
+        if (
+          isAylaResourceExhaustedError(e) ||
+          isAylaUnauthenticatedError(e)
+        ) {
+          setMessages((prev) => prev.slice(0, -1))
+          await ensureCanSend()
+          return
+        }
         const faq = findBestFaqMatch(trimmed)
         answer =
           faq?.answer ??
@@ -235,6 +263,7 @@ export default function AylaMarketingChat() {
           </>
         )}
       </button>
+      {aylaGateDialogs}
     </div>
   )
 }

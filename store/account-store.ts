@@ -9,7 +9,12 @@ import { getFirebaseAuth } from "@/lib/firebase/config";
 import { isGuestUser } from "@/lib/guest-session";
 import { toUserMessage } from "@/lib/user-facing-error";
 import {
+  bindEngagementPrefsToUser,
+  markEverPurchased,
+} from "@/lib/engagement-prompt-prefs";
+import {
   ensureFreeGenerationCreditsForUser,
+  isPaidPlan,
   mapUserDoc,
   subscribeUserAccount,
   type UserAccountView,
@@ -26,13 +31,23 @@ type AccountStore = {
 
 let unsubscribe: (() => void) | null = null;
 
+function applyAccountSideEffects(account: UserAccountView | null) {
+  if (!account) return;
+  bindEngagementPrefsToUser(account.uid);
+  if (isPaidPlan(account.planTier)) {
+    markEverPurchased();
+  }
+}
+
 export const useAccountStore = create<AccountStore>((set) => ({
   account: null,
   loading: false,
   error: null,
   subscribedUid: null,
-  setAccount: (account) =>
-    set({ account, loading: false, error: null }),
+  setAccount: (account) => {
+    applyAccountSideEffects(account);
+    set({ account, loading: false, error: null });
+  },
   clear: () =>
     set({
       account: null,
@@ -123,6 +138,39 @@ export async function refreshAccountFromServer(
   );
   useAccountStore.getState().setAccount(view);
   return view;
+}
+
+/** Apply Ayla quota fields returned by `callAylaSupport` (optimistic local sync). */
+export function applyAylaQuotaFromReply(fields: {
+  aylaCredits?: number | null;
+  aylaPaidCredits?: number | null;
+  aylaFairUsageResumeAtMs?: number | null;
+  aylaPeriodMonth?: string | null;
+  clearFairUsageResume?: boolean;
+}): void {
+  const current = useAccountStore.getState().account;
+  if (!current) return;
+  const next: UserAccountView = {
+    ...current,
+    aylaCredits:
+      typeof fields.aylaCredits === "number"
+        ? Math.max(0, Math.trunc(fields.aylaCredits))
+        : current.aylaCredits,
+    aylaPaidCredits:
+      typeof fields.aylaPaidCredits === "number"
+        ? Math.max(0, Math.trunc(fields.aylaPaidCredits))
+        : current.aylaPaidCredits,
+    aylaPeriodMonth:
+      typeof fields.aylaPeriodMonth === "string" && fields.aylaPeriodMonth.trim()
+        ? fields.aylaPeriodMonth.trim()
+        : current.aylaPeriodMonth,
+    aylaFairUsageResumeAtMs: fields.clearFairUsageResume
+      ? null
+      : typeof fields.aylaFairUsageResumeAtMs === "number"
+        ? fields.aylaFairUsageResumeAtMs
+        : current.aylaFairUsageResumeAtMs,
+  };
+  useAccountStore.getState().setAccount(next);
 }
 
 

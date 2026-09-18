@@ -589,10 +589,10 @@ const COMPARE_ROWS = [
     school: { type: 'yes' },
   },
   {
-    feature: 'Ayla AI co-pilot',
-    free: { type: 'no' },
-    individual: { type: 'yes' },
-    school: { type: 'yes' },
+    feature: 'Ayla AI messages',
+    free: { type: 'text', value: '100 / month' },
+    individual: { type: 'text', value: '300 fair usage' },
+    school: { type: 'text', value: '300 fair usage' },
   },
   {
     feature: 'Export Options',
@@ -835,7 +835,11 @@ const PRICING_FAQS = [
   },
   {
     q: 'What counts as one credit?',
-    a: 'One credit generates one stage — lesson plan, slides, activity pack, or assessment. A full four-stage teaching pack uses four credits.',
+    a: 'One credit generates one stage — lesson plan, slides, activity pack, or assessment. A full four-stage teaching pack uses four credits. Ayla messages use a separate allowance and do not consume generation credits.',
+  },
+  {
+    q: 'How does Ayla fair usage work?',
+    a: 'Sign-in is required to chat with Ayla. Free accounts get 100 Ayla messages per calendar month. Paid plans include a rolling pool of 300 messages; when that pool is empty, Ayla pauses for about 6 hours and then resets. On mobile, free users can also earn +3 Ayla messages per rewarded ad.',
   },
   {
     q: 'Do you support school purchase orders?',

@@ -1,3 +1,5 @@
+import { FirebaseError } from "firebase/app";
+
 import {
   AYLA_FAQ_ENTRIES,
   buildAylaFaqTextFromEntries,
@@ -8,6 +10,14 @@ import { AYLA_FAQ_PROMPT_TEXT } from "@/data/ayla-faq-prompt";
 export type AylaChatMessage = {
   role: "user" | "model";
   text: string;
+};
+
+export type AylaChatReply = {
+  text: string;
+  aylaCredits?: number | null;
+  aylaPaidCredits?: number | null;
+  aylaFairUsageResumeAtMs?: number | null;
+  aylaPeriodMonth?: string | null;
 };
 
 const SYSTEM_PROMPT = `You are Ayla, the Make My Lesson teaching assistant.
@@ -30,18 +40,39 @@ function faqTextForPrompt(): string {
   return fromAsset || buildAylaFaqTextFromEntries();
 }
 
+function toOptionalInt(value: unknown): number | null {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return Math.trunc(value);
+  }
+  return null;
+}
+
+export function isAylaResourceExhaustedError(error: unknown): boolean {
+  if (!(error instanceof FirebaseError)) return false;
+  const code = error.code.replace(/^functions\//, "");
+  return code === "resource-exhausted";
+}
+
+export function isAylaUnauthenticatedError(error: unknown): boolean {
+  if (!(error instanceof FirebaseError)) return false;
+  const code = error.code.replace(/^functions\//, "");
+  return code === "unauthenticated";
+}
+
 /**
  * Mirrors Flutter `AylaChatService.sendMessage` → `callAylaSupport`,
- * with FAQ token-match fallback when the callable fails or returns empty.
+ * with FAQ token-match fallback when the callable fails (except quota/auth).
  */
 export async function sendAylaMessage(params: {
   history: AylaChatMessage[];
   userMessage: string;
   context?: Record<string, string>;
-}): Promise<string> {
+}): Promise<AylaChatReply> {
   const trimmed = params.userMessage.trim();
   if (!trimmed) {
-    return "Please type your question and I will help using Make My Lesson FAQ guidance.";
+    return {
+      text: "Please type your question and I will help using Make My Lesson FAQ guidance.",
+    };
   }
 
   try {
@@ -80,14 +111,31 @@ export async function sendAylaMessage(params: {
     });
 
     const text = String(data.text ?? "").trim();
-    if (text) return text;
+    if (text) {
+      const period =
+        typeof data.aylaPeriodMonth === "string"
+          ? data.aylaPeriodMonth.trim()
+          : "";
+      return {
+        text,
+        aylaCredits: toOptionalInt(data.aylaCredits),
+        aylaPaidCredits: toOptionalInt(data.aylaPaidCredits),
+        aylaFairUsageResumeAtMs: toOptionalInt(data.aylaFairUsageResumeAtMs),
+        aylaPeriodMonth: period || null,
+      };
+    }
   } catch (error) {
+    if (
+      isAylaResourceExhaustedError(error) ||
+      isAylaUnauthenticatedError(error)
+    ) {
+      throw error;
+    }
     console.warn("[Ayla] callAylaSupport failed, using FAQ fallback", error);
   }
 
   const fallback = findBestFaqMatch(trimmed, AYLA_FAQ_ENTRIES);
-  if (fallback) return fallback.answer;
-  return AYLA_FAQ_ENTRIES[0]!.answer;
+  return {
+    text: fallback?.answer ?? AYLA_FAQ_ENTRIES[0]!.answer,
+  };
 }
-
-

@@ -33,6 +33,11 @@ import {
 } from "@/lib/subscription-firestore-sync";
 import type { AccountPlanTier } from "@/types/account";
 
+/** Mirrors Flutter `AccountSettings` Ayla fair-usage constants. */
+export const AYLA_FREE_MONTHLY = 100;
+export const AYLA_PAID_CAP = 300;
+export const AYLA_FAIR_USAGE_HOURS = 6;
+
 /** Read model for Profile — mirrors users/{uid} fields Flutter already uses. */
 export type UserAccountView = {
   uid: string;
@@ -54,12 +59,25 @@ export type UserAccountView = {
   creditsUsed: number;
   /** From Firestore `creditsResetEpochMs` or `subscriptionEndsAtMs`. */
   creditsResetUtc: Date | null;
+  /** Free-tier Ayla messages remaining this UTC month. */
+  aylaCredits: number;
+  /** Paid rolling Ayla fair-usage pool. */
+  aylaPaidCredits: number;
+  aylaFairUsageResumeAtMs: number | null;
+  aylaPeriodMonth: string | null;
   profileComplete: boolean;
   banned: boolean;
 };
 
 export function isPaidPlan(tier: AccountPlanTier): boolean {
   return isPaidPlanTier(tier);
+}
+
+/** True when a paid plan's end/reset date is in the past (not lifetime top-up). */
+export function isSubscriptionExpired(account: UserAccountView): boolean {
+  if (isLifetimeTopUpTier(account.planTier)) return false;
+  if (!isPaidPlan(account.planTier) || !account.creditsResetUtc) return false;
+  return !(account.creditsResetUtc.getTime() > Date.now());
 }
 
 /** Shared free-tier credit summary for guests and signed-in free users. */
@@ -171,6 +189,13 @@ export function mapUserDoc(
     generationCreditCap: credits.generationCreditCap,
     creditsUsed: credits.creditsUsed,
     creditsResetUtc: parseCreditsResetUtc(data),
+    aylaCredits: toInt(data.aylaCredits) ?? AYLA_FREE_MONTHLY,
+    aylaPaidCredits: toInt(data.aylaPaidCredits) ?? AYLA_PAID_CAP,
+    aylaFairUsageResumeAtMs: toInt(data.aylaFairUsageResumeAtMs),
+    aylaPeriodMonth:
+      typeof data.aylaPeriodMonth === "string" && data.aylaPeriodMonth.trim()
+        ? data.aylaPeriodMonth.trim()
+        : null,
     profileComplete: data.profileComplete === true,
     banned: data.banned === true,
   };

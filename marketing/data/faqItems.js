@@ -18,7 +18,7 @@ export const faqItems = [
     cat: 'getting-started',
     catTitle: 'Getting started',
     q: 'What is a credit?',
-    a: `1 credit equals 1 stage generation — a lesson plan, a presentation, a classroom activity, or an assessment. A complete 4-stage teaching pack costs 4 credits. Manual editing and refining your content with Ayla are always free and never use a credit.`,
+    a: `1 credit equals 1 stage generation — a lesson plan, a presentation, a classroom activity, or an assessment. A complete 4-stage teaching pack costs 4 credits. Manual editing never uses a credit. Ayla uses a separate message allowance (not generation credits).`,
   },
   {
     id: 3,
@@ -46,7 +46,7 @@ export const faqItems = [
     cat: 'plans',
     catTitle: 'Plans and pricing',
     q: 'What happens if I run out of credits before my plan renews?',
-    a: `Generation is paused until your plan renews, or you can purchase a new plan. Manual editing and Ayla refinements remain free and available even at 0 credits.`,
+    a: `Generation is paused until your plan renews, or you can purchase a new plan. Manual editing remains available. Ayla uses its own message allowance (free: 100/month; paid: 300 then a 6-hour fair-usage cooldown) and is separate from generation credits.`,
   },
   {
     id: 7,
@@ -102,7 +102,7 @@ export const faqItems = [
     cat: 'using',
     catTitle: 'Using the platform',
     q: 'Who is Ayla?',
-    a: `Ayla is our built-in teaching assistant. She understands your curriculum, year level and lesson context, and can suggest activities, adjust difficulty, or adapt material for ELL, SEN or gifted learners. Refining your content with Ayla does not use a credit.`,
+    a: `Ayla is our built-in teaching assistant. She understands your curriculum, year level and lesson context, and can suggest activities, adjust difficulty, or adapt material for ELL, SEN or gifted learners. Sign-in is required. Free accounts get 100 Ayla messages per month; paid plans include a fair-usage pool of 300 messages with a 6-hour cooldown when exhausted. Ayla does not use Stage 1–4 generation credits.`,
   },
   {
     id: 15,

@@ -55,7 +55,7 @@ export const AYLA_FAQ_ENTRIES: AylaFaqEntry[] = [
   {
     question: "Does using Ayla consume credits?",
     answer:
-      "No. Ayla refinements are free. Credits are used only for full stage generation or regeneration.",
+      "Ayla uses separate message allowances, not Stage 1–4 generation credits. You must be signed in to use Ayla. Free users get 100 Ayla messages per calendar month; when those run out on mobile, watching one rewarded ad adds 3 more (on web, subscribe to continue). Paid subscribers get a rolling fair-usage pool of 300 Ayla messages; after that, Ayla pauses for about 6 hours and then resets. Generation credits are unchanged by chatting with Ayla.",
   },
   {
     question: "What is a credit?",

@@ -41,14 +41,21 @@ export function UpgradePlanDialog({
   reason,
   creditsRemaining,
   onClose,
+  onViewPlans,
 }: {
   open: boolean;
   reason: UpgradeDialogReason;
   creditsRemaining: number;
+  /** Soft dismiss (Later / backdrop when allowed). */
   onClose: () => void;
+  /** User chose View plans / Manage subscription — navigate to pricing. */
+  onViewPlans?: () => void;
 }) {
   const router = useRouter();
   if (!open) return null;
+
+  const isHardStop =
+    reason !== "freeExhausted" || creditsRemaining <= 0;
 
   const title =
     reason === "freeExhausted"
@@ -82,19 +89,25 @@ export function UpgradePlanDialog({
         ? "Manage subscription"
         : "View plans";
 
+  function goToPlans() {
+    onViewPlans?.();
+    openPricingPage((href) => router.push(href));
+  }
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-[#151B35]/45 p-4 sm:items-center"
       role="dialog"
       aria-modal="true"
       aria-labelledby="upgrade-dialog-title"
-      onClick={onClose}
+      onClick={() => {
+        if (!isHardStop) onClose();
+      }}
     >
       <div
         className="max-h-[90vh] w-full max-w-md overflow-auto rounded-2xl border border-slate-200 bg-white shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header — Stage 1 teal wash */}
         <div
           className="px-5 py-5"
           style={{
@@ -140,10 +153,7 @@ export function UpgradePlanDialog({
           <button
             type="button"
             className="mt-1 w-full rounded-full bg-[#28C2C0] px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#22B0AE]"
-            onClick={() => {
-              onClose();
-              openPricingPage((href) => router.push(href));
-            }}
+            onClick={goToPlans}
           >
             {primaryLabel}
           </button>
@@ -164,9 +174,9 @@ export function UpgradePlanDialog({
 export function upgradeReasonForCredits(params: {
   credits: number;
   isPaid: boolean;
+  subscriptionExpired?: boolean;
 }): UpgradeDialogReason {
+  if (params.subscriptionExpired) return "subscriptionExpired";
   if (params.isPaid) return "paidCreditsExhausted";
   return "freeExhausted";
 }
-
-

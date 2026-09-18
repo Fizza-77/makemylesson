@@ -99,7 +99,7 @@ Q26. What can Ayla help with?
 Simplification, difficulty adjustments, rewrites by method, homework changes, slide prompt additions, mark scheme refinements, board-language reframing, and context localization.
 
 Q27. Does Ayla use credits?
-No. Ayla refinements are free. Full stage regeneration consumes credits.
+Ayla uses separate message allowances, not Stage 1–4 generation credits. Sign-in is required. Free users get 100 Ayla messages per UTC calendar month; on mobile, a rewarded ad adds 3 more when empty (web: upgrade/subscribe). Paid users get a rolling fair-usage pool of 300 messages, then a 6-hour cooldown before the pool resets. Generation credits are not used by Ayla.
 
 Q28. How do I access Ayla?
 From generated documents in the library through the Ayla entry point.
