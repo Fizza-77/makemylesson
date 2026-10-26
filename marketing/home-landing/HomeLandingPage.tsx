@@ -1,4 +1,4 @@
-import HomeHeroSection from "@marketing/home-landing/HomeHeroSection";
+﻿import HomeHeroSection from "@marketing/home-landing/HomeHeroSection";
 import MeetAylaSection from "@marketing/home-landing/MeetAylaSection";
 import CurriculumCoverageSection from "@marketing/home-landing/CurriculumCoverageSection";
 import ReviewsSection from "@marketing/home-landing/ReviewsSection";
@@ -48,7 +48,7 @@ const TRUST_INDICATORS = [
     title: "30K+ Teachers",
     tone: "green" as const,
     icon: "people" as const,
-    description: "Trusted by 30K+ Teachers worldwide.",
+    description: "Trusted by 30K+ teachers worldwide.",
   },
   {
     key: "rating",
@@ -151,7 +151,7 @@ export default function HomeLandingPage() {
             </ul>
             <p className="mml-trust-note">
               These numbers are live, real, and updated every week. We&apos;re a
-              new platform � we&apos;d rather show you where we actually are than
+              new platform  we&apos;d rather show you where we actually are than
               pretend to be somewhere we&apos;re not. Join us early and help us
               build something genuine.
             </p>
